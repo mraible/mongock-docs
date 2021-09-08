@@ -1,5 +1,5 @@
 ---
-title: Getting started
+title: Mongock documentation home page
 date: Last Modified 
 permalink: /
 eleventyNavigation:
