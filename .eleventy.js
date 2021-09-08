@@ -65,7 +65,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     "./node_modules/alpinejs/dist/alpine.js": "./js/alpine.js",
   });
-
+  eleventyConfig.addPassthroughCopy('CNAME');
   // Eleventy Navigation https://www.11ty.dev/docs/plugins/navigation/
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
