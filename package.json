@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/cloudyrock/eleventy-poc.git"
   },
-  "author": "Tim Broeker <broeker@gmail.com> (https://www.electriccitizen.com/)",
+  "author": "Mongock tema <dev@mongock.io> (https://www.mongock.io/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cloudyrock/eleventy-poc/issues"
