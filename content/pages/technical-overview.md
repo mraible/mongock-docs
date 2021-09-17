@@ -10,7 +10,6 @@ eleventyNavigation:
 
 This section explains all the essential concepts required to understand how Mongock works and its usage. 
 
-
 ## Mongock structure 
 Mongock requires 3 components to work: ChangeLogs, Driver and Runner:
 
@@ -20,9 +19,9 @@ Changelogs are your migration classes, where you implement your database changes
 #### Migration
 A Migration is the operation of taking ChangeLogs and applying them safely in order to perform the desired changes in the target system (usually a database). As we'll see in coming sections, there are other operations, but the migration is the main one. The other operations help the management of migrations, such as **undo** or **list**.
 
-
 #### Change entry
 Mongock persists the ChangeLogs in the database. A change entry is the representation of a change in the database. This allows tracking the status of the ChangeLog executions - identifying which have been executed and which are pending to be applied.  
+
 
 ### Driver
 This component represents the persistence layer connection type to the database. Everything that needs to be persisted(distributed lock, change entries, etc.) are passed by the driver. In a nutshell, the driver connects to the target Database type.

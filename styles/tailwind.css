@@ -2,6 +2,284 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* CUSTOM STYLE */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+.tabs {
+	clear: both;
+	position: relative;   
+   max-width: 650px;
+   margin: 0 auto;
+   /* you can either manually set a min-height here or do it via JS ---> */
+}
+
+.tab {
+	float: left;
+}
+
+.tab label {
+	margin-right: 20px;
+	position: relative;
+	top: 0;
+	cursor: pointer;
+	color: #333;
+   text-transform: uppercase;
+}
+
+.tab [type=radio] {
+	display: none;   
+}
+
+
+.tab__content {
+   position: relative;
+	top: 40px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	transition: opacity .2s cubic-bezier(.42,0,.34,1.01);
+	opacity: 0;
+}
+
+[type=radio]:checked ~ label {
+	border-bottom: 2px solid #1d1d1d;
+	color: #1d1d1d;
+	z-index: 2;
+}
+
+[type=radio]:checked ~ label ~ .tab__content {
+	z-index: 1;
+	opacity: 1;
+}
+p
+{
+	margin-bottom: 8px;
+	margin-top: 8px;
+}
+
+p.note
+{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #f0f7fb;
+	background-image: url(/content/images/icons/Pencil-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border: solid 1px #3498db;
+	border-radius: 6px;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+p.warning
+{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #f9e7e5;
+	background-image: url(/content/images/icons/Warning-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border: solid 1px #c0392b;
+	border-radius: 6px;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+p.success
+{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #e7f6f0;
+	background-image: url(/content/images/icons/Check-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border: solid 1px #27ae60;
+	border-radius: 6px;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+p.tip
+{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #fffbea;
+	background-image: url('/content/images/icons/Bulb-48.png');
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border: solid 1px #f1c40f;
+	border-radius: 6px;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+p.noteAlt
+{
+	background-color: #f0f7fb;
+	background-image: url(/content/images/icons/Pencil-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border-left: solid 4px #3498db;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+p.warningAlt
+{
+	background-color: #fcf7f2;
+	background-image: url(/content/images/icons/Warning-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border-left: solid 4px #e74c3c;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+p.successAlt
+{
+	background-color: #e7f6f0;
+	background-image: url(/content/images/icons/Check-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border-left: solid 4px #2ecc71;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+p.tipAlt
+{
+	background-color: #fffbea;
+	background-image: url('/content/images/icons/Bulb-48.png');
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border-left: solid 4px #f1c40f;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+
+/*Div styles*/
+
+div.note
+{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #f0f7fb;
+	background-image: url(/content/images/icons/Pencil-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border: solid 1px #3498db;
+	border-radius: 6px;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+div.warning
+{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #f9e7e5;
+	background-image: url(/content/images/icons/Warning-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border: solid 1px #c0392b;
+	border-radius: 6px;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+div.example
+{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #e7f6f0;
+	background-image: url(/content/images/icons/Check-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border: solid 1px #27ae60;
+	border-radius: 6px;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+div.tip
+{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	background-color: #fffbea;
+	background-image: url('/content/images/icons/Bulb-48.png');
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border: solid 1px #f1c40f;
+	border-radius: 6px;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+div.noteAlt
+{
+	background-color: #f0f7fb;
+	background-image: url(/content/images/icons/Pencil-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border-left: solid 4px #3498db;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+div.warningAlt
+{
+	background-color: #fcf7f2;
+	background-image: url(/content/images/icons/Warning-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border-left: solid 4px #e74c3c;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+div.exampleAlt
+{
+	background-color: #e7f6f0;
+	background-image: url(/content/images/icons/Check-48.png);
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border-left: solid 4px #2ecc71;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+div.tipAlt
+{
+	background-color: #fffbea;
+	background-image: url('/content/images/icons/Bulb-48.png');
+	background-position: 9px 0px;
+	background-repeat: no-repeat;
+	border-left: solid 4px #f1c40f;
+	line-height: 18px;
+	overflow: hidden;
+	padding: 15px 60px;
+}
+
+
+/* END CUSTOM STYLE */
+
 @layer base {
   
   /* Set up some default image behavior for nicer images */

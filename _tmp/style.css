@@ -547,6 +547,7 @@ video {
       [type='password'],
       [type='search'],
       [type='time'],
+      [multiple],
       textarea,
       select
      {
@@ -565,7 +566,7 @@ video {
   line-height: 1.5rem;
 }
 
-[type='text']:focus, [type='password']:focus, [type='search']:focus, [type='time']:focus, textarea:focus, select:focus {
+[type='text']:focus, [type='password']:focus, [type='search']:focus, [type='time']:focus, [multiple]:focus, textarea:focus, select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
@@ -601,6 +602,30 @@ select {
   padding-right: 2.5rem;
   -webkit-print-color-adjust: exact;
           color-adjust: exact;
+}
+
+[multiple] {
+  background-image: initial;
+  background-position: initial;
+  background-repeat: unset;
+  background-size: initial;
+  padding-right: 0.75rem;
+  -webkit-print-color-adjust: unset;
+          color-adjust: unset;
+}
+
+[type='file'] {
+  background: unset;
+  border-color: inherit;
+  border-width: 0;
+  border-radius: 0;
+  padding: 0;
+  font-size: unset;
+  line-height: inherit;
+}
+
+[type='file']:focus {
+  outline: 1px auto -webkit-focus-ring-color;
 }
 
 /* Set up some default image behavior for nicer images */
@@ -1105,6 +1130,10 @@ nav ul li a.active {
 
 .visible {
   visibility: visible !important;
+}
+
+.static {
+  position: static !important;
 }
 
 .fixed {
@@ -1769,6 +1798,282 @@ nav ul li a.active {
 .duration-200 {
   transition-duration: 200ms !important;
 }
+
+/* CUSTOM STYLE */
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+.tabs {
+  clear: both;
+  position: relative;
+  max-width: 650px;
+  margin: 0 auto;
+  /* you can either manually set a min-height here or do it via JS ---> */
+}
+
+.tab {
+  float: left;
+}
+
+.tab label {
+  margin-right: 20px;
+  position: relative;
+  top: 0;
+  cursor: pointer;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.tab [type=radio] {
+  display: none;
+}
+
+.tab__content {
+  position: relative;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity .2s cubic-bezier(.42,0,.34,1.01);
+  opacity: 0;
+}
+
+[type=radio]:checked ~ label {
+  border-bottom: 2px solid #1d1d1d;
+  color: #1d1d1d;
+  z-index: 2;
+}
+
+[type=radio]:checked ~ label ~ .tab__content {
+  z-index: 1;
+  opacity: 1;
+}
+
+p
+{
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+p.note
+{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  background-color: #f0f7fb;
+  background-image: url(/content/images/icons/Pencil-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border: solid 1px #3498db;
+  border-radius: 6px;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+p.warning
+{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  background-color: #f9e7e5;
+  background-image: url(/content/images/icons/Warning-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border: solid 1px #c0392b;
+  border-radius: 6px;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+p.success
+{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  background-color: #e7f6f0;
+  background-image: url(/content/images/icons/Check-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border: solid 1px #27ae60;
+  border-radius: 6px;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+p.tip
+{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  background-color: #fffbea;
+  background-image: url('/content/images/icons/Bulb-48.png');
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border: solid 1px #f1c40f;
+  border-radius: 6px;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+p.noteAlt
+{
+  background-color: #f0f7fb;
+  background-image: url(/content/images/icons/Pencil-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border-left: solid 4px #3498db;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+p.warningAlt
+{
+  background-color: #fcf7f2;
+  background-image: url(/content/images/icons/Warning-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border-left: solid 4px #e74c3c;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+p.successAlt
+{
+  background-color: #e7f6f0;
+  background-image: url(/content/images/icons/Check-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border-left: solid 4px #2ecc71;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+p.tipAlt
+{
+  background-color: #fffbea;
+  background-image: url('/content/images/icons/Bulb-48.png');
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border-left: solid 4px #f1c40f;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+/*Div styles*/
+
+div.note
+{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  background-color: #f0f7fb;
+  background-image: url(/content/images/icons/Pencil-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border: solid 1px #3498db;
+  border-radius: 6px;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+div.warning
+{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  background-color: #f9e7e5;
+  background-image: url(/content/images/icons/Warning-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border: solid 1px #c0392b;
+  border-radius: 6px;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+div.example
+{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  background-color: #e7f6f0;
+  background-image: url(/content/images/icons/Check-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border: solid 1px #27ae60;
+  border-radius: 6px;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+div.tip
+{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  background-color: #fffbea;
+  background-image: url('/content/images/icons/Bulb-48.png');
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border: solid 1px #f1c40f;
+  border-radius: 6px;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+div.noteAlt
+{
+  background-color: #f0f7fb;
+  background-image: url(/content/images/icons/Pencil-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border-left: solid 4px #3498db;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+div.warningAlt
+{
+  background-color: #fcf7f2;
+  background-image: url(/content/images/icons/Warning-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border-left: solid 4px #e74c3c;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+div.exampleAlt
+{
+  background-color: #e7f6f0;
+  background-image: url(/content/images/icons/Check-48.png);
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border-left: solid 4px #2ecc71;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+div.tipAlt
+{
+  background-color: #fffbea;
+  background-image: url('/content/images/icons/Bulb-48.png');
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border-left: solid 4px #f1c40f;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+}
+
+/* END CUSTOM STYLE */
 
 @media (min-width: 640px) {
   .sm\:prose {
