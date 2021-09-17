@@ -54,7 +54,7 @@ In this section we'll explain how to get started with Mongock and Springboot wit
 
 
 ### 2. Create our changeLog
-```Java
+```java
 package io.mongock.examples.changelogs;
 
 public class ClientInitializerChangeLog  implements BasicChangeLog {

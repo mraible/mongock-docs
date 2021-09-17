@@ -49,7 +49,7 @@ Please, visit the [runner section](/runner/) for more information.
 
 Great, we have the migration done, rtested, deployed and working nicely. Great! But now we got another user story to add a new field. Well, we already have Mongock setup, we only need to another changelog to address this change in the same way we did previously. Don't worry, Mongock will take care of running only the changelog that haven't been executed yet.
 
-<p class="noteAlt"> Please note that a <b>changelog represents an unit of migration</b>, which means that <b>each changelog is wrapped in a transaction</b>. As soon as it's finished, it's commited.</p>
+<p class="noteAlt"> Note that a <b>changelog represents an unit of migration</b>, which means that <b>each changelog is wrapped in a transaction</b>. As soon as it's finished, it's commited.</p>
 
 
 ### ... other ways of running Mongock
