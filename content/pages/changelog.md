@@ -35,8 +35,9 @@ BasicChangeLogs is the basic interface we need to implement and provides the mai
 This interface extens `BasicChangeLog`, providing two more mandatory methods
 
 | Method            | Description                                  | Mandatory?  | Default value |
+| ----------------- |:---------------------------------------------| :-----------:|:-------------:|
 | before()        | This method will be executed before the changeSet and it won't take part of the changeLog's transaction, if available. Useful to perform DDL operations on database engines where this kind of operation cannot be part of a transaction  | YES | n/a |
-| rollbackBefore()        | It's the method in charge to revert the changes made by the method `before`. It's executed during the `undos` operation as well as in the rollbacks. During rollbacks it's always executed, even when transactions are available and active, as the method `before` runs always out of the transaction. It's implementation is highly recommended. However if the developer doesn't want to implement, can be left empty | YES | n/a |
+| rollbackBefore()| It's the method in charge to revert the changes made by the method `before`. It's executed during the `undos` operation as well as in the rollbacks. During rollbacks it's always executed, even when transactions are available and active, as the method `before` runs always out of the transaction. It's implementation is highly recommended. However if the developer doesn't want to implement, can be left empty | YES | n/a |
 
 
 <p class="successAlt"> Not that the methods don't allow parameters, the dependency <b>injections in changelogs are performed at constructor level</b></p>
