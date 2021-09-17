@@ -15,7 +15,7 @@ In this section we'll explains all the essential concepts you will need to know 
 Although Mongock requieres 3 components to work: ChangeLogs, driver and runner. We'll speak about some other components and concepts
 that key to understand how Mongock works.
 
-<a href="#changelog"><h3 id="changelog">Changelog</h3></a>
+### Changelog
 In simple words changelogs are your migration classes, where you implement your database changes. They represent a unit of a migration execution.
 
 ### Migration
