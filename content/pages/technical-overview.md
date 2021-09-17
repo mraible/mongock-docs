@@ -10,7 +10,6 @@ eleventyNavigation:
 
 In this section we'll explains all the essential concepts you will need to know to understand what Mongock is and how it works. 
 
-
 ## Mongock structure 
 Although Mongock requieres 3 components to work: ChangeLogs, driver and runner. We'll speak about some other components and concepts
 that key to understand how Mongock works.
@@ -20,7 +19,6 @@ In simple words changelogs are your migration classes, where you implement your 
 
 ### Migration
 Migration is not really a component itself. It's the operation of taking the user's changeLogs and apply them safely in order to perform the desired changes in the target system, normally a database. As we'll see in coming sections, there are other operations, but the migration is the main one. The other operations are just complementary to a migration, such as **undo** or **list**.
-
 
 ### Change entry
 Mongock tracks the executed changes(in changeLogs) in the database, so it can deduce which changes are pending to be applied and execute them. A change entry is the representation of a change in the database.
