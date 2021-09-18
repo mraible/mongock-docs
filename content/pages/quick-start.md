@@ -50,7 +50,7 @@ In this section we'll explain how to get started with Mongock and Springboot wit
 ```
 
 
-<p class="tipAlt">This assumes we have already added the relevant Spring and Springdata libraries.</p>
+<p class="successAlt">This assumes we have already added the relevant Spring and Springdata libraries.</p>
 
 
 ### 2. Create our changeLog
@@ -105,7 +105,7 @@ public class ClientInitializerChangeLog  implements BasicChangeLog {
 ### 3. Tell Spring to use Mongock 
 Although there are manual ways to setup Mongock like using the builder, etc.(visit the [runner section](/runner/) for more information), we are going to show the easiest one, which just requires an annotation in you springboot class and some entries in your properties file.
 
-```Java
+```java
 @EnableMongock
 @SpringBootApplication
 public class App {
@@ -128,3 +128,8 @@ Our basic Mongock setup is done. We just need to run our application and we shou
 ```
 2021-09-17 17:27:42.157  INFO 12878 --- [main] i.m.r.c.e.o.c.MigrationExecutorBase      : APPLIED - ChangeEntry{"id"="client-initializer", "author"="mongock", "class"="ClientInitializerChangeLog", "method"="changeSet"}
 ```
+
+
+### Examples
+
+You can checkout this [github repository](https://github.com/cloudyrock/mongock-examples) for more examples.
