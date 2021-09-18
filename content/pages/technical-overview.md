@@ -32,3 +32,9 @@ This component orchestrates the changelogs from the framework executed and injec
 
 #### Builder
 This component is used to build the Runner component by applying the relevant configuration and driver to the runner. It is tightly coupled with the runner.
+
+## Mongock Architecture
+The next diagram shows how Mongock works with the three main type of objects: ChangeLogs, driver and runner - and how these can be used by injecting different configurations in your Java Application:
+
+![Architecture](http://localhost:8080/content/images/Architecture.jpg)
+
