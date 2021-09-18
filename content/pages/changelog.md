@@ -26,7 +26,11 @@ In simple words a migration is constituted by a ordered list of changelogs, each
 </div>
 
 From version 5, we have added two new interfaces, `BasicChangeLog`, which provides the minimum methods required to execute a changelog, and `ChangeLog`, which extends the first interface to add two methods, `before` and `rollback`, which is explained in the next sections.
-In order to create your changelog you need to implement one of these two interfeces, dependeding on your needs.
+
+In order to create your changelog you need to implement one of these two interfeces, dependeding on your needs. 
+
+For more information about the reason we have adopted this change, please visit our [faq section](/faq/)
+
 
 ### BasicChangeLog interface
 BasicChangeLogs is the basic interface we need to implement and provides the main required methods, `changeSet`, `rollback`, `getId` and `getOrder`, but also some optional ones like `getAuthor`, `isFailFast` and `getSystemVersion` 
@@ -50,11 +54,10 @@ This interface extens `BasicChangeLog`, providing two more mandatory methods
 | rollbackBefore()| It's the method in charge to revert the changes made by the method `before`. It's executed during the `undos` operation as well as in the rollbacks. During rollbacks it's always executed, even when transactions are available and active, as the method `before` runs always out of the transaction. It's implementation is highly recommended. However if the developer doesn't want to implement, can be left empty | YES | n/a |
 
 
+### Example
+
 <p class="successAlt"> Note that any method accepts parameters. The dependency <b>injections in changelogs are performed at constructor level</b></p>
 
-
-
-### Example
 ```java
 public class ClientInitializerChangeLog  implements ChangeLog {
 
