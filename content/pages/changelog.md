@@ -16,9 +16,19 @@ In simple words a migration is constituted by a ordered list of changelogs, each
 - A changelog has only one migration method, the **changeset**. The other methods are complementary and are only executed when required. We'll explain later in this section.
 
 
-From version 5, a changelog is built by implementing one of these two interfaces, BasicChangeLog and Changelog(this extends the first one).
+## Implementation
 
-## BasicChangeLog interface
+<div class="warningAlt">
+<p style="margin-left:2em">From Mongock version 5, <b>changeLog annotation is deprecated</b> and shouldn't be used, <b>but won't be removed</b> from the code for backwards compatibility.</p>
+<p style="margin-left:2em">Please follow one of the recommended approaches depending on your use case:</p>
+<p style="margin-left:4em"><b>- For existing changeLogs/changeSets created prior version 5: </b> leave them untouched (use with the deprecated annotation) </p>
+<p style="margin-left:4em"><b>- For new changeLogs/changeSets created from version 5:</b> ChangeLogs/changeSets implement your changelogs by implementing the interfaces ChangeLog or BasicChangeLog</p>
+</div>
+
+From version 5, we have added two new interfaces, `BasicChangeLog`, which provides the minimum methods required to execute a changelog, and `ChangeLog`, which extends the first interface to add two methods, `before` and `rollback`, which is explained in the next sections.
+In order to create your changelog you need to implement one of these two interfeces, dependeding on your needs.
+
+### BasicChangeLog interface
 BasicChangeLogs is the basic interface we need to implement and provides the main required methods, `changeSet`, `rollback`, `getId` and `getOrder`, but also some optional ones like `getAuthor`, `isFailFast` and `getSystemVersion` 
 
 | Method            | Description                                  | Mandatory?  | Default value |
@@ -31,7 +41,7 @@ BasicChangeLogs is the basic interface we need to implement and provides the mai
 | isFailFast()      | Returns whether the changelog is runAlways or not. For more information, visit the [runner configuration section](/runner/common-configuration/)  | NO | `false` |
 | getSystemVersion()| Returns the changelog's system version. For more information, visit the [runner configuration section](/runner/common-configuration/)| NO | `0` |
 
-## ChangeLog
+### ChangeLog
 This interface extens `BasicChangeLog`, providing two more mandatory methods
 
 | Method            | Description                                  | Mandatory?  | Default value |
@@ -40,11 +50,11 @@ This interface extens `BasicChangeLog`, providing two more mandatory methods
 | rollbackBefore()| It's the method in charge to revert the changes made by the method `before`. It's executed during the `undos` operation as well as in the rollbacks. During rollbacks it's always executed, even when transactions are available and active, as the method `before` runs always out of the transaction. It's implementation is highly recommended. However if the developer doesn't want to implement, can be left empty | YES | n/a |
 
 
-<p class="successAlt"> Not that the methods don't allow parameters, the dependency <b>injections in changelogs are performed at constructor level</b></p>
+<p class="successAlt"> Note that any method accepts parameters. The dependency <b>injections in changelogs are performed at constructor level</b></p>
 
 
 
-## Example
+### Example
 ```java
 public class ClientInitializerChangeLog  implements ChangeLog {
 
