@@ -5,7 +5,7 @@ permalink: /faq/index.html
 eleventyNavigation:
   key: faq 
   title: FAQ
-  order: 200
+  order: 1200
 ---
 ## List of questions to add
 
