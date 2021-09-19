@@ -53,7 +53,7 @@ When comes to build the runner, we can separate the setup in two areas: configur
 
 | Property                            | Description                                                                                  | Type                | Default value |
 | ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
-| **changeLogScanPackage**            | Instructs Mongock where to find the changeLog classes                                        | List< String >      |Mandatory |  
+| **changeLogScanPackage**            | The list of changelog classes and/or packages where the changelogs are stored                | List< String >      |Mandatory |  
 | **metadata**                        | Custom data attached to the migration. It will added to all changes in changeLog collection  | Map<String, Object> | null |  
 | **startSystemVersion**              | System version to start with                                                                 | String              | `0` |  
 | **endSystemVersions**               | System version to end with                                                                   | String              | MAX_VALUE |  
