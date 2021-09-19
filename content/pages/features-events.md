@@ -4,7 +4,7 @@ date: Last Modified
 permalink: /features/events/index.html
 toc: true
 eleventyNavigation:
-  order: 120 
+  order: 1120 
   parent: features
   key: features events
   title: 'Events'

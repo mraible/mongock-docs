@@ -4,7 +4,7 @@ date: Last Modified
 permalink: /features/before-transaction/index.html
 toc: true
 eleventyNavigation:
-  order: 130 
+  order: 1130 
   parent: features
   key: features before transaction
   title: 'Before transaction'

@@ -4,7 +4,7 @@ date: Last Modified
 permalink: /features/legacy-migration/index.html
 toc: true
 eleventyNavigation:
-  order: 125 
+  order: 1125 
   parent: features
   key: features legacy migration
   title: 'Legacy migration'

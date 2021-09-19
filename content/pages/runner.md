@@ -50,9 +50,32 @@ For more information, visit the [standalone runner section](/runner/standalone/)
 When comes to build the runner, we can separate the setup in two areas: configuration, which means providing plain configuration properties, and components injection, which are some required or optional components that the runner will use.
 
 ### Building time: configuration
-TABLE WITH ALL THE COMMON configuration
 
-CODE EXAMPLE for properties and builder
+| Property                            | Description                                                                                  | Type                | Default value |
+| ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
+| **changeLogScanPackage**            | Instructs Mongock where to find the changeLog classes                                        | List< String >      |Mandatory |  
+| **metadata**                        | Custom data attached to the migration. It will added to all changes in changeLog collection  | Map<String, Object> | null |  
+| **startSystemVersion**              | System version to start with                                                                 | String              | `0` |  
+| **endSystemVersions**               | System version to end with                                                                   | String              | MAX_VALUE |  
+| **trackIgnored**                    | Specifies if ignored changeSets(already executed, etc.) should be track in the changeLog collection with IGNORED status| boolean | `false` |  
+| **enabled**                         | If false, will disable Mongock execution| boolean |NO          | `true` |  
+| **changeLogRepositoryName**         | Repository name where the change entries are persisted in database | String | `mongockChangeLog`|
+| **lockRepositoryName**              | Repository name where the lock is persisted in database | String | `mongockLock`| 
+| **indexCreation**                   | If false, Mongock won't create the necessary index. However it will check that they are already created, failing otherwise. Default true | String |`true`|
+| **serviceIdentifier**               | Application/service instance's indentifier | String | null|
+| **defaultChangeLogAuthor**          | From version 5, the author is not a mandatory field, however for backward compatibility is still required. If the changeLog implements the method `getAuthor`, this value is taken. If not, Mongock will look at this property. If not provided, the default value is provided| String | `default_author` |
+| **lockAcquiredForMillis**           | The period the lock will be reserved once acquired. If the migration finishes before, the lock will be released. If the process takes longer thant this period, it will automatically extended. Minimum value is 3 seconds| long | 1 minute|
+| **lockQuitTryingAfterMillis**       | The time after what Mongock will quit trying to acquire the lock, in case it's acquired by another process. Minimum value is 0, which means won't wait whatsoever | long |  3 minutes|
+| **lockTryFrequencyMillis**          | In case the lock is held by another process, it indicates the frequency trying to acquire it. Regardless of this value, the longest Mongock will wait is until the current lock's expiration. Minimum 500 milliseconds| long | 1 second|
+| **throwExceptionIfCannotObtainLock**| ngock will throw MongockException if lock can not be obtained. Builder method setLockConfig| boolean | long | `true` |  
+| **transactionEnabled**              | Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is `true` or not provided. If it's `false`, transactions are disabled and will throw an exception if this field is `true` and the driver is not transactionable. To understand what _transactionable_ means in the context of the driver and how to make a driver transactionable, visit the section [driver](/driver/)      | boolean | null |  
+| **transactionStrategy**             | Dictates the strategy to execute the transaction(automatic or manual). `CHANGELOG` means each changelog is an independent transaction. Migration means that Mongock will wrap all the changelogs in a single transaction. Note that Mongock higly recomend the default value, `CHANGELOG`, as the `MIGRATION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGELOG` |  
+
+
+
+
+
+**CODE EXAMPLE for properties and builder**
  
 
  <p class="tipAlt">Note that each specific runner may add their own properties.</p>
@@ -60,10 +83,10 @@ CODE EXAMPLE for properties and builder
 
 
 ### Building time: component injection
-Explain that each runner has their own components, like ApplicatioContext, EventListener, etc.
+**Explain that each runner has their own components, like ApplicatioContext, EventListener, etc.**
 
-Explain the driver injection
+**Explain the driver injection**
 
-CODE EXAMPLE
+**code example**
 
 <p class="tipAlt">Note that each specific runner may add their own component injections.</p>
