@@ -4,8 +4,8 @@ date: Last Modified
 permalink: /changelog/index.html
 eleventyNavigation:
   key: changelog 
-  title: Changelog
-  order: 40
+  title: Changelog - Deprecated from Release 5
+  order: 120
 ---
 
 As we have already mentioned, changelogs are the core of Mongock, they are the main reason for the rest of the components. Here is where you implement the migration.
