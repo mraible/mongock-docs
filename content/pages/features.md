@@ -5,7 +5,7 @@ permalink: /features/index.html
 eleventyNavigation:
   key: features 
   title: Features
-  order: 110
+  order: 1110
 ---
 This page explains all the essential concepts you will need to know to understand what Mongock is and how it works. 
 Mongock structure
