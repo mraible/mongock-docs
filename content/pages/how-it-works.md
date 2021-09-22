@@ -21,10 +21,26 @@ As part of the development, we have a new user story which requires your applica
 
 Another aspect to take into account is that the **client-service** can be potentially scalled horizontally.
 
-### 2. Your migration changes ([changelog](/changelog/))
-We first need is to code the migration to retrieve the data from the third party system and persist it in the database. For this we have the changelog, where we write the code. 
+### 2. Your migration changes ([ChangeUnit](/changeUnit/))
+We first need is to code the migration to retrieve the data from the third party system and persist it in the database. For this we have the changeUnit, where we write the code. 
 
-Please, visit the [changelog section](/changelog/) for more information.
+
+Please, visit the [changeUnit section](/changeUnit/) for more information.
+
+
+<div class="successAlt">
+From version 5, <b>ChangeUnit</b> has replaced <b>ChangeLogt</b>
+<p> From version 5, <b>ChangeUnit</b> has replaced <b>ChangeLogt</b></p>
+<p style="margin-left:2em">From Mongock version 5, <b>changeLog annotation is deprecated</b> and shouldn't be used, <b>but won't be removed</b> from the code for backwards compatibility.</p>
+<p style="margin-left:2em">Please follow one of the recommended approaches depending on your use case:</p>
+<p style="margin-left:4em"><b>- For existing changeLogs/changeSets created prior version 5: </b> leave them untouched (use with the deprecated annotation) </p>
+<p style="margin-left:4em"><b>- For new changeLogs/changeSets created from version 5:</b> ChangeLogs/changeSets implement your changelogs by implementing the interfaces ChangeLog or BasicChangeLog</p>
+</div>
+
+
+
+
+
 
 ### 3. The persistent layer ([driver](/driver/))
 Obviously we need to access the database for multiple reasons:

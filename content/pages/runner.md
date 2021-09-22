@@ -51,9 +51,11 @@ When comes to build the runner, we can separate the setup in two areas: configur
 
 ### Building time: configuration
 
+> Note when using properties faile, you need to add the prefix **mongock**
+
 | Property                            | Description                                                                                  | Type                | Default value |
 | ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
-| **changeLogScanPackage**            | The list of changelog classes and/or packages where the changelogs are stored                | List< String >      |Mandatory |  
+| **changeLogScanPackage**            | The list of changelog and changeUnit classes and/or packages where the changelogs are stored                | List< String >      |Mandatory |  
 | **metadata**                        | Custom data attached to the migration. It will added to all changes in changeLog collection  | Map<String, Object> | null |  
 | **startSystemVersion**              | System version to start with                                                                 | String              | `0` |  
 | **endSystemVersions**               | System version to end with                                                                   | String              | MAX_VALUE |  
@@ -69,13 +71,35 @@ When comes to build the runner, we can separate the setup in two areas: configur
 | **lockTryFrequencyMillis**          | In case the lock is held by another process, it indicates the frequency trying to acquire it. Regardless of this value, the longest Mongock will wait is until the current lock's expiration. Minimum 500 milliseconds| long | 1 second|
 | **throwExceptionIfCannotObtainLock**| ngock will throw MongockException if lock can not be obtained. Builder method setLockConfig| boolean | long | `true` |  
 | **transactionEnabled**              | Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is `true` or not provided. If it's `false`, transactions are disabled and will throw an exception if this field is `true` and the driver is not transactionable. To understand what _transactionable_ means in the context of the driver and how to make a driver transactionable, visit the section [driver](/driver/)      | boolean | null |  
-| **transactionStrategy**             | Dictates the strategy to execute the transaction(automatic or manual). `CHANGELOG` means each changelog is an independent transaction. Migration means that Mongock will wrap all the changelogs in a single transaction. Note that Mongock higly recomend the default value, `CHANGELOG`, as the `MIGRATION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGELOG` |  
+| **transactionStrategy**             | Dictates the strategy to execute the transaction(automatic or manual). `CHANGE_UNIT` means each changelog is an independent transaction. Migration means that Mongock will wrap all the changelogs in a single transaction. Note that Mongock higly recomend the default value, `CHANGE_UNIT`, as the `MIGRATION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGELOG` |  
 
 
+```yaml
+mongock:
+  change-logs-scan-package:
+    - io.mongock...changelogs.client.initializer
+    - io.mongock...changelogs.client.updater
+  metadata:
+    change-motivation: Missing field in collection
+    decided-by: Tom Waugh
+  start-system-version: 1.3
+  end-system-version: 6.4
+  lock-acquired-for-minutes: 10
+  max-waiting-for-lock-minutes: 4
+  max-tries: 5
+  throw-exception-if-cannot-obtain-lock: true
+  legacy-migration:
+    origin: mongobeeChangeLogCollection
+    mapping-fields:
+      change-id: legacyChangeIdField
+      author: legacyAuthorField
+      timestamp: legacyTimestampField
+      change-log-class: legacyChangeLogClassField
+      change-set-method: legacyChangeSetMethodField
+  track-ignored: true
+  enabled: true
+```
 
-
-
-**CODE EXAMPLE for properties and builder**
  
 
  <p class="tipAlt">Note that each specific runner may add their own properties.</p>

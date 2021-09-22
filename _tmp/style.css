@@ -419,7 +419,8 @@ textarea::placeholder {
   color: #9ca3af;
 }
 
-button {
+button,
+[role="button"] {
   cursor: pointer;
 }
 
@@ -1947,7 +1948,7 @@ div.warning
   padding: 15px 60px;
 }
 
-div.example
+div.success
 {
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -2001,7 +2002,7 @@ div.warningAlt
   padding: 15px 60px;
 }
 
-div.exampleAlt
+div.successAlt
 {
   background-color: #e7f6f0;
   background-image: url(/content/images/icons/Check-48.png);
