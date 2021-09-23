@@ -31,9 +31,7 @@ Please, visit the [changeUnit section](/changeUnit/) for more information.
 <div class="successAlt">
 <b>From version 5, ChangeLog annotation is deprecated. It's been replaced by ChangeUnit</b>
 <p style="margin-left:2em">Old ChangeLog annotation won't be removed from the code for backward comptability, although its use is not recommended from now on</p>
-
 <p style="margin-left:2em">We rcommended the following approach:</p>
-
 <p style="margin-left:2em">- For existing migrations created prior version 5: Leave them untouched (use with the deprecated annotation)</p>
 <p style="margin-left:2em">- <b>For new migrations: Use @ChangeUnit annotation.</b></p>
 </div>

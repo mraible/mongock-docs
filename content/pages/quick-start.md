@@ -53,37 +53,35 @@ In this section we'll explain how to get started with Mongock and Springboot wit
 <p class="successAlt">This assumes we have already added the relevant Spring and Springdata libraries.</p>
 
 
-### 2. Create our changeLog
-```java
-package io.mongock.examples.changelogs;
+### 2. Create our ChangeUnit
 
-public class ClientInitializerChangeLog  implements BasicChangeLog {
+As we have already epxlained, a migration is composed by multiples changeUnits, each one has the logic for a specific change.
+
+For example, in this case, we are creating a changeUnit to insert some initialization data. 
+
+Note that by default, a changeUnit is wrapped in a transaction, native, by using the database support or manually, when the database doesn't provide transaction support.
+Visit the [transaxction section](/features/transactions-and-manual-rollbacks/) for more information. 
+
+```java
+package io.mongock.examples.migration;
+
+import io.mongock.api.annotations.Execution;
+import io.mongock.api.annotations.ChangeUnit;
+import io.mongock.api.annotations.RollbackExecution;
+
+@ChangeUnit(id="client-initializer", order = "1", author = "mongock")
+public class ClientInitializerChange {
 
   private final MongoTemplate mongoTemplate;
   private final ThirPartyService thirdPartyService;
-  public ClientInitializerChangeLog(MongoTemplate mongoTemplate,
-                                    ThirPartyService thirdPartyService) {
+  public ClientInitializerChange(MongoTemplate mongoTemplate,
+                                 ThirPartyService thirdPartyService) {
     this.mongoTemplate = mongoTemplate;
     this.thirdPartyService = thirdPartyService;
   }
 
-  /** This returns the changelog id and must be unique **/
-  @Override
-  public String geId() {
-    return "client-updater";
-  }
-
-  /** 
-  This returns the order and should be unique among all your changelogs, 
-  so the changelogs execution's order is how it's expected to be.
-  **/
-  @Override
-  public String getOrder() {
-    return "1";
-  }
- 
   /** This is the method with the migration code **/
-  @Override
+  @Execution
   public void changeSet() {
     thirdPartyService.getData()
       .stream()
@@ -91,11 +89,11 @@ public class ClientInitializerChangeLog  implements BasicChangeLog {
   }
 
   /**
-  This meethod is mandatory even transactions are active.
-  They are used in the undo operations and any other scenario where transactions are not an option.
-  However, note that when transactions are avialble and Mongock need to rollback a changeLog, this method is ignored.
+  This meethod is mandatory even when transactions are enabled.
+  They are used in the undo operation and any other scenario where transactions are not an option.
+  However, note that when transactions are avialble and Mongock need to rollback, this method is ignored.
   **/
-  @Override
+  @RollbackExecution
   public void rollback() {
     mongoTemplate.deleteMany(new Document());
   }
@@ -115,18 +113,18 @@ public class App {
 }
 ```
 
-### 4. Tell Mongock where to find your changelogs
+### 4. Tell Mongock where to find your migration packages and classes
 As mentioned in the previous point, we are providing the configuration via properties file, but this can be done manually with the builder as well.
 ```yaml
 mongock:
-  change-logs-scan-package:
-    - io.mongock.examples.changelogs
+  migration-scan-package:
+    - io.mongock.examples.migration
 ```
 
 ### 5. Run your Spring application
 Our basic Mongock setup is done. We just need to run our application and we should see something like this in our log.
 ```
-2021-09-17 17:27:42.157  INFO 12878 --- [main] i.m.r.c.e.o.c.MigrationExecutorBase      : APPLIED - ChangeEntry{"id"="client-initializer", "author"="mongock", "class"="ClientInitializerChangeLog", "method"="changeSet"}
+2021-09-17 17:27:42.157  INFO 12878 --- [main] i.m.r.c.e.o.c.MigrationExecutorBase      : APPLIED - ChangeEntry{"id"="client-initializer", "author"="mongock", "class"="ClientInitializer", "method"="changeSet"}
 ```
 
 
