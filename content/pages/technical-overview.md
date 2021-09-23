@@ -18,6 +18,9 @@ Mongock requires 3 components to work: ChangeUnits, Driver and Runner:
 
 ### ChangeUnit
 ChangeUnits are your migration classes. In a nutshell, where you implement your database changes. They represent a unit of a migration execution.
+<div class="tipAlt">From version 5, ChangeUnits have replaced ChangeLogs.
+<p>Visit <a href="/changeunit/">changeUnit</a> and <a href="/changelog/">changelog</a> sections for more information</p>
+</div>
 
 #### Migration
 A Migration is the operation of taking ChangeUnits and applying them safely in order to perform the desired changes in the target system (usually a database). As we'll see in coming sections, there are other operations, but the migration is the main one. The other operations help the management of migrations, such as **undo** or **list**.
