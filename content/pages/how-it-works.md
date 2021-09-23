@@ -29,17 +29,14 @@ Please, visit the [changeUnit section](/changeUnit/) for more information.
 
 
 <div class="successAlt">
-From version 5, <b>ChangeUnit</b> has replaced <b>ChangeLogt</b>
-<p> From version 5, <b>ChangeUnit</b> has replaced <b>ChangeLogt</b></p>
-<p style="margin-left:2em">From Mongock version 5, <b>changeLog annotation is deprecated</b> and shouldn't be used, <b>but won't be removed</b> from the code for backwards compatibility.</p>
-<p style="margin-left:2em">Please follow one of the recommended approaches depending on your use case:</p>
-<p style="margin-left:4em"><b>- For existing changeLogs/changeSets created prior version 5: </b> leave them untouched (use with the deprecated annotation) </p>
-<p style="margin-left:4em"><b>- For new changeLogs/changeSets created from version 5:</b> ChangeLogs/changeSets implement your changelogs by implementing the interfaces ChangeLog or BasicChangeLog</p>
+<b>From version 5, ChangeLog annotation is deprecated. It's been replaced by ChangeUnit</b>
+<p style="margin-left:2em">Old ChangeLog annotation won't be removed from the code for backward comptability, although its use is not recommended from now on</p>
+
+<p style="margin-left:2em">We rcommended the following approach:</p>
+
+<p style="margin-left:2em">- For existing migrations created prior version 5: Leave them untouched (use with the deprecated annotation)</p>
+<p style="margin-left:2em">- <b>For new migrations: Use @ChangeUnit annotation.</b></p>
 </div>
-
-
-
-
 
 
 ### 3. The persistent layer ([driver](/driver/))
