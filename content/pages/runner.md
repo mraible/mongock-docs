@@ -12,7 +12,7 @@ We have already explained briefly the role of the **Mongock runner** in the sect
 
 
 ## Building the Runner
-In order to use the Mongock runner, we need to set it up by passing the configuration(changelogs package, etc.), any required component, like the driver, and any framework dependency such as the ApplicationContext, etc.
+In order to use the Mongock runner, we need to set it up by passing the configuration(migration package, etc.), any required component, like the driver, and any framework dependency such as the ApplicationContext, etc.
 
 Mongock provides two ways to setup the runner:
 - **Traditional approach** which requires the user to set it up manually with a builder. While, at first this approach looks less convenient, provides a bit more control.
@@ -55,30 +55,30 @@ When comes to build the runner, we can separate the setup in two areas: configur
 
 | Property                            | Description                                                                                  | Type                | Default value |
 | ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
-| **changeLogScanPackage**            | The list of changelog and changeUnit classes and/or packages where the changelogs are stored                | List< String >      |Mandatory |  
-| **metadata**                        | Custom data attached to the migration. It will added to all changes in changeLog collection  | Map<String, Object> | null |  
+| **migrationScanPackage**            | The list of migration(changeUnits and changeLogs) classes and/or packages where they are stored | List< String >      |Mandatory |  
+| **metadata**                        | Custom data attached to the migration. It will be added to change entry in the mongock table/collection  | Map<String, Object> | null |  
 | **startSystemVersion**              | System version to start with                                                                 | String              | `0` |  
 | **endSystemVersions**               | System version to end with                                                                   | String              | MAX_VALUE |  
-| **trackIgnored**                    | Specifies if ignored changeSets(already executed, etc.) should be track in the changeLog collection with IGNORED status| boolean | `false` |  
+| **trackIgnored**                    | Specifies if an ignored changeUnit(already executed for example) should be track in the Mongock table/collection with status IGNORED | boolean | `false` |  
 | **enabled**                         | If false, will disable Mongock execution| boolean |NO          | `true` |  
-| **changeLogRepositoryName**         | Repository name where the change entries are persisted in database | String | `mongockChangeLog`|
+| **migrationRepositoryName**         | Repository name where the change entries are persisted in database | String | `mongockChangeLog`|
 | **lockRepositoryName**              | Repository name where the lock is persisted in database | String | `mongockLock`| 
 | **indexCreation**                   | If false, Mongock won't create the necessary index. However it will check that they are already created, failing otherwise. Default true | String |`true`|
 | **serviceIdentifier**               | Application/service instance's indentifier | String | null|
-| **defaultChangeLogAuthor**          | From version 5, the author is not a mandatory field, however for backward compatibility is still required. If the changeLog implements the method `getAuthor`, this value is taken. If not, Mongock will look at this property. If not provided, the default value is provided| String | `default_author` |
+| **defaultMigrationAuthor**          | Author field is not mandatory in ChangeUnit. The field `author` in this annoation is optional. However for backward compatibility it's still required. If it's provided in the ChangeUnit annotation, this value is taken. If not, Mongock will look at this property. If not provided, the default value is provided| String | `default_author` |
 | **lockAcquiredForMillis**           | The period the lock will be reserved once acquired. If the migration finishes before, the lock will be released. If the process takes longer thant this period, it will automatically extended. Minimum value is 3 seconds| long | 1 minute|
 | **lockQuitTryingAfterMillis**       | The time after what Mongock will quit trying to acquire the lock, in case it's acquired by another process. Minimum value is 0, which means won't wait whatsoever | long |  3 minutes|
 | **lockTryFrequencyMillis**          | In case the lock is held by another process, it indicates the frequency trying to acquire it. Regardless of this value, the longest Mongock will wait is until the current lock's expiration. Minimum 500 milliseconds| long | 1 second|
 | **throwExceptionIfCannotObtainLock**| ngock will throw MongockException if lock can not be obtained. Builder method setLockConfig| boolean | long | `true` |  
 | **transactionEnabled**              | Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is `true` or not provided. If it's `false`, transactions are disabled and will throw an exception if this field is `true` and the driver is not transactionable. To understand what _transactionable_ means in the context of the driver and how to make a driver transactionable, visit the section [driver](/driver/)      | boolean | null |  
-| **transactionStrategy**             | Dictates the strategy to execute the transaction(automatic or manual). `CHANGE_UNIT` means each changelog is an independent transaction. Migration means that Mongock will wrap all the changelogs in a single transaction. Note that Mongock higly recomend the default value, `CHANGE_UNIT`, as the `MIGRATION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGELOG` |  
+| **transactionStrategy**             | Dictates the transaction strategy. `CHANGE_UNIT` means each changeUnit(applied to deprecated changeLog as well) is wrapped in an independent transaction.`EXECUTION` strategy means that Mongock will wrap all the changeUnits in a single transaction. Note that Mongock higly recomend the default value, `CHANGE_UNIT`, as the `EXECUTION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGE_UNIT` |  
 
 
 ```yaml
 mongock:
   change-logs-scan-package:
-    - io.mongock...changelogs.client.initializer
-    - io.mongock...changelogs.client.updater
+    - io.mongock...migrtion.client.initializer
+    - io.mongock...migration.client.updater
   metadata:
     change-motivation: Missing field in collection
     decided-by: Tom Waugh
@@ -94,14 +94,13 @@ mongock:
       change-id: legacyChangeIdField
       author: legacyAuthorField
       timestamp: legacyTimestampField
-      change-log-class: legacyChangeLogClassField
+      change-log-class: legacyMigrationClassField
       change-set-method: legacyChangeSetMethodField
   track-ignored: true
   enabled: true
 ```
 
  
-
  <p class="tipAlt">Note that each specific runner may add their own properties.</p>
 
 
