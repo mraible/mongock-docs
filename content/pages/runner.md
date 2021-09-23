@@ -83,6 +83,7 @@ When using the **builder approach** you need to instanstiate the required driver
 
 With the **properties approach** all this is hidden and managed by Mongock and you don't really need to do much, just making sure the driver has somehow(we explain in the driver section) access to the database connection. All this explain in the [driver section](/driver/). However, 
 
+
 ## Examples
 
 ### Example with properties
