@@ -8,6 +8,8 @@ eleventyNavigation:
   order: 70
 ---
 
+The **driver** is the component in charge to deal with the database. It has two main responsabilities: persist the change history and store the distributed lock.
+
 | Property                            | Description                                                                                  | Type                | Default value |
 | ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
 | **migrationRepositoryName**         | Repository name where the change entries are persisted in database | String | `mongockChangeLog`|

@@ -1,16 +1,19 @@
 ---
-title: ChangeUnit
+title: Migration
 date: Last Modified 
-permalink: /changeunit/index.html
+permalink: /migration/index.html
 eleventyNavigation:
   key: changeunit 
-  title: ChangeUnit
-  order: 10
+  title: Migration
+  order: 20
 ---
 
-*** WIP ***
 
-ChangeUnits are the core of Mongock. These are the classes which developers will implement the required Migration logic / scripts.
+**For Doc authors: There is threee main elements in Mongock: runner, driver and migration(changeUnit, ChangeLog and in the future we can have something more)**
+
+**This section is to explain the migration concept, which covers ChangeUnit and ChangeLog**
+
+ChangeUnits are the unit of migration. It's here where the developer writes the migration logic/scripts.
 
 Classes with the `@ChangeUnit` annotation will be scanned by Mongock to execute the migration.
 

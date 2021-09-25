@@ -11,7 +11,9 @@ Mongock is a Java based Migration tool as part of your Application code. It allo
 
 It was originally designed for MongoDB Data migrations and the product is evolving to provide a wider suite of NoSQL / SQL Database compatibility and cover other feautures for transactional execution use cases that require state management in Distributed systems. 
 
-# Why Mongock?
+------------------------------------------------
+
+## Why Mongock?
 Our mission is to enable Developers to deploy and manage stateful Data migrations in Distributed Systems in a safe and reliable manner. If you are looking for migrating data for your Java Application Services in a safe and reliable manner via Code, Mongock is your best bet.
 
 There are several features Mongock enables you in your project:
@@ -31,12 +33,16 @@ There are several features Mongock enables you in your project:
 
 Get more information about our support model at dev@cloudyrock.io​ and we can help you walking you to production. 
 
+------------------------------------------------
+
 ## History
 Mongock began its journey as a fork from the unmantained MongoBee repository, providing a more reliable locking mechanism during migrations. We considered this enhancement to be critical given the importance of this core feature in Distributed Systems to provide a production-ready solution. 
 
 We have then invested our time in supporting it's adoption and enhancing features since. We are now shaping the Mongock product to expand further its capabilities and features, enabling us to Migrate safely across any Database or REST APIs using our distributed locking mechanism.
 
 If you'd like to help us during this journey, please don't hesitate to [contact us](mailto:dev@mongock.io). For more information of what our thoughts are, pleaes follow our [Roadmap](/roadmap/index.html)
+
+------------------------------------------------
 
 ## Who uses Mongock?
 (_Creds_)

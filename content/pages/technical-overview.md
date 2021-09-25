@@ -5,7 +5,7 @@ permalink: /technical-overview/index.html
 eleventyNavigation:
   key: technical overview 
   title: Technical overview
-  order: 10
+  order: 15
 ---
 
 This section explains all the essential concepts required to understand how Mongock works and its usage. 
@@ -19,7 +19,7 @@ Mongock requires 3 components to work: ChangeUnits, Driver and Runner:
 ### ChangeUnit
 ChangeUnits are your migration classes. In a nutshell, where you implement your database changes. They represent a unit of a migration execution.
 <div class="tipAlt">From version 5, ChangeUnits have replaced ChangeLogs.
-<p>Visit <a href="/changeunit/">changeUnit</a> and <a href="/changelog/">changelog</a> sections for more information</p>
+<p>Visit <a href="/migration/">changeUnit</a> and <a href="/changelog/">changelog</a> sections for more information</p>
 </div>
 
 #### Migration

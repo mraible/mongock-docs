@@ -5,7 +5,7 @@ permalink: /how-it-works/index.html
 eleventyNavigation:
   key: how-it-works 
   title: How it works
-  order: 1
+  order: 10
 ---
 
 Mongock is essentially a migration tool. It offers many operations and ways of using it, but the main and traditional approach is to use it as part of the application's startup in a distributed environment, where more than one agent can potentially execute the migration. 
@@ -21,11 +21,11 @@ As part of the development, we have a new user story which requires your applica
 
 Another aspect to take into account is that the **client-service** can be potentially scalled horizontally.
 
-### 2. Your migration changes ([ChangeUnit](/changeUnit/))
+### 2. Your migration changes ([ChangeUnit](/migration/))
 We first need is to code the migration to retrieve the data from the third party system and persist it in the database. For this we have the changeUnit, where we write the code. 
 
 
-Please, visit the [changeUnit section](/changeUnit/) for more information.
+Please, visit the [changeUnit section](/migration/) for more information.
 
 
 <div class="successAlt">
