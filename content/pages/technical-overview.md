@@ -20,31 +20,64 @@ eleventyNavigation:
 
 This section explains all the essential concepts required to understand how Mongock works and its usage. 
 
-## Mongock structure 
-Mongock requires 3 components to work: ChangeUnits, Driver and Runner:
+## Main components
+
+### Migration
+A migration is the actual changes and operations you want to perform in your database. We said the target system is a  _database_, but in reallity it doesn't need to be. It could be another target system where you want to apply distributed changes in a synchronosed way.
+
+Regarding of how to shape your migration, Mongock use the concept of **ChangeUnit**(old changeLog), which a single migration file. 
+
+As we already mentioned in [what it Mongock?](/what-is-mongock/), it promotes a code-first approach for migrations, this means that a changeUnit is materialize as a Java class. However, we are working to provide other formats, like database scripts.
+
+<p class="warningAlt">Note that the <b>@ChangeLog</b> annotation is deprecated and has been replaced by the new annotation <b>@ChangeUnit</b></p>
+
+_For more information, visit the [migration page](/migration/)_
+
+### Driver
+It represents the persistence layer. Everything that needs to be persisted is passed to the driver. It's basically used by the runner to persist and check the migration history and work with the distributed lock.
+
+Mongock splits the drivers in _driver families_, grouped by databases. Then, within a _driver family_, it may provide multiple drivers for different connection library and versions.
+
+For example, in the case of MongoDB, Mongock provides 4 drivers for:
+- org.mongodb » mongodb-driver-sync
+- org.mongodb » mongo-java-driver
+- org.springframework.data » spring-data-mongodb(v 3.x)
+- org.springframework.data » spring-data-mongodb(v 2.x)
+
+The Mongock architecture is designed in such a way that allows you to combine any driver with any runner. For example, you may want to use a Mongock driver for SQL springdata with the standalone runner(no framework).
+
+_For more information, visit the [driver page](/driver/)_
+
+
+<div class="successAlt">Mongock started as a tool only for MongoDB. But it's moving to become a multidatabase tool.
+<p>We are working to provide support for SQL and Elasticsearh</p>
+</div>
+
+
+### Runner
+
+The runner is the orchestartor component dealing with the process logic, configuration, dependencies, framework and any environmental aspect. It’s the glue that puts together all the components as well as the decision maker. It takes the migration, driver and framework, and run the process.
+
+Mongock provides different runner for multiple frameworks(standalone, Springboot, Micronaut...) and it can be combined with any driver
+
+_For more information, visit the [runner page](/runner/)_
+
+-----------------------------------------
+
+## Mongock process
+
+### Process steps
+Mongock process follows the next steps:
+
+1. The runner loads the migration files(changeUnits)
+2. The runner checks if there is pending change to execute
+3. The runner acquires the distributed lock through the driver
+4. The runner loops over the migration files(changeUnits)
+4. Per each changeUnit, the runner executes the change
+5. If it's successfully executed, it write an entry in the Mongock change history table/collection
+6. If the changeUnit fails, the execution is rolled back. 
+
+### Architecture
 
 ![Architecture](../content/images/Architecture-User-HLD.jpg)
 
-
-### ChangeUnit
-ChangeUnits are your migration classes. In a nutshell, where you implement your database changes. They represent a unit of a migration execution.
-<div class="tipAlt">From version 5, ChangeUnits have replaced ChangeLogs.
-<p>Visit <a href="/migration/">changeUnit</a> and <a href="/changelog/">changelog</a> sections for more information</p>
-</div>
-
-#### Migration
-A Migration is the operation of taking ChangeUnits and applying them safely in order to perform the desired changes in the target system (usually a database). As we'll see in coming sections, there are other operations, but the migration is the main one. The other operations help the management of migrations, such as **undo** or **list**.
-
-#### Change entry
-Mongock persists the ChangeUnits in the database. A change entry is the representation of a change in the database. This allows tracking the status of the ChangeUnit executions - identifying which have been executed and which are pending to be applied.  
-
-
-### Driver
-This component represents the persistence layer connection type to the database. Everything that needs to be persisted(distributed lock, change entries, etc.) are passed by the driver. The driver connects to the target Database type.
-Although Mongock was initially conceived only for MongoDB, it has grown and now provides drivers for other NoSQL as well SQL.   
-
-### Runner
-This component orchestrates the ChangeUnits from the framework executed and injects them to the Runner. It is the glue that puts everything together and makes it work. It’s responsible for the environment aspect(framework, etc.), takes the ChangeUnits and, with the help of the driver and other smaller components, loops and executes all ChangeUnits.
-
-#### Builder
-This component is used to build the Runner component by applying the relevant configuration and driver to the runner. It is tightly coupled with the runner.
