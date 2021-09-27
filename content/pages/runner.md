@@ -11,7 +11,7 @@ eleventyNavigation:
 <b>This page should cover: </b>
 <ul>
   <li>Explain how it works(steps): Configuration(properties and components like driver, applicationContext, etc.), build and execute runner </li>
-  <li>Explin builder</li>
+  <li>Explain builder and both approach: Builder and properties approach</li>
   <li>list options with link to page: standalone and springboot</li>
   <li>Properties table(missing driver)</li>
 </ul>

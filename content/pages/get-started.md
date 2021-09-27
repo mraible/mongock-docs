@@ -8,27 +8,24 @@ eleventyNavigation:
   order: 15
 ---
 
-<div class="tip">
-<b>This page should cover: </b>
-<ul>
-  <li>Explain development steps and a link to the section </li>
-  <li>Example with builder. Following the steps</li>
-  <li>Example with properties. Following steps</li>
-  <li><b>Different building approaches: Properties VS builder??? This may be better in the runner(builder section)</b></li>
-</ul>
-</div>
+## Steps to run Mongock
 
+1. Add Mongock bom to your Pom file. Visit [import Mongock BOM](/get-started#add-mongock-bom-to-your-pom-file)
+2. Add the maven dependency for the runner. Visit [runner options](/runner/#runner-options)
+3. Add the maven dependency for the driver. Visit [driver options](driver/#driver-options)
+4. Create your migration script/class. Visit [migration](/migration/)
+5. Build the runner. Visit [runner builder](/runner#builder)
+6. Execute the runner. Visit [execute runner](/runner#execute-runner)
 
-Carryng on with our **client-service** example, lets see how to start working with Mongock.
+--------------------------------------------------
 
-Mongock provides different runners, from the standalone runner(vanila version) to Springboot and other frameworks. Even as we have said in previous sections, with the CLI.
+## Example
 
-Even with Springboot, Mongock provides two approaches: via annotation/properties and manually with a builder.
+Mongock provides different runners, from the standalone runner(vanila version) to Springboot, and other frameworks. In this section will show how to use Mongock with Springboot.
 
-In this section we'll explain how to get started with Mongock and Springboot with annotation/properties approach, which is the most convenient way.
+Carryng on with our **client-service** example in [what is Mongock?](/what-is-mongock), lets start working with Mongock!
 
-### 1. Add the maven dependencies to our pom
-- **We first need to import the Mongock's bom to our pom. This is to forget about managing the different component's versions**
+### Add Mongock bom to your Pom file 
 ```xml
 <dependencyManagement>
     <dependencies>
@@ -42,8 +39,7 @@ In this section we'll explain how to get started with Mongock and Springboot wit
     </dependencies>
 </dependencyManagement>
 ```
-- **...the runner**
-    To see the different runners Mongock provides, visit visit the [runner section](/runner/)
+### Add the maven dependency for the runner
 ```xml
 <dependency>
   <groupId>io.mongock</groupId>
@@ -51,8 +47,7 @@ In this section we'll explain how to get started with Mongock and Springboot wit
 </dependency>
 ```
 
-- **...and finally the driver**
-    To see the different drivers Mongock provides, please visit the [driver section](/driver/)
+### Add the maven dependency for the driver
 ```xml
 <dependency>
   <groupId>io.mongock</groupId>
@@ -60,17 +55,12 @@ In this section we'll explain how to get started with Mongock and Springboot wit
 </dependency>
 ```
 
-
 <p class="successAlt">This assumes we have already added the relevant Spring and Springdata libraries.</p>
 
 
-### 2. Create our ChangeUnit
+### Create your migration script/class
 
-As we have already epxlained, a migration is composed by multiples changeUnits, each one has the logic for a specific change.
-
-For example, in this case, we are creating a changeUnit to insert some initialization data. 
-
-Note that by default, a changeUnit is wrapped in a transaction, native, by using the database support or manually, when the database doesn't provide transaction support.
+Note that by default, a changeUnit is wrapped in a transaction(natively or by using the database support or manually, when transactions are not supported).
 Visit the [transaxction section](/features/transactions-and-manual-rollbacks/) for more information. 
 
 ```java
@@ -111,8 +101,19 @@ public class ClientInitializerChange {
 ```
 
 
-### 3. Tell Spring to use Mongock 
-Although there are manual ways to setup Mongock like using the builder, etc.(visit the [runner section](/runner/) for more information), we are going to show the easiest one, which just requires an annotation in you springboot class and some entries in your properties file.
+### Build the runner
+As mentioned in the [runner section](/runner#builder), there are two approaches when comes to build the Mongock runner.
+
+For this example, we show the simplest one, the properties approach.
+
+#### Properties
+```yaml
+mongock:
+  migration-scan-package:
+    - io.mongock.examples.migration
+```
+#### Indicate spring to use Mongock
+This approach lies on the underlying framework to provide a smoothly experience. In this case, we take advantage of the Springboot annotations to tell Spring how to run Mongock. However, this approach requires the Spring ApplicationContext, MongoTemplate and MongoTransactionManager to be injected in the Spring context.
 
 ```java
 @EnableMongock
@@ -124,16 +125,14 @@ public class App {
 }
 ```
 
-### 4. Tell Mongock where to find your migration packages and classes
-As mentioned in the previous point, we are providing the configuration via properties file, but this can be done manually with the builder as well.
-```yaml
-mongock:
-  migration-scan-package:
-    - io.mongock.examples.migration
-```
 
-### 5. Run your Spring application
-Our basic Mongock setup is done. We just need to run our application and we should see something like this in our log.
+
+### Execute the runner
+
+When using the Springboot runner, you don't need to worry about the execution.  Mongock takes care of it :wink:
+
+
+Congratulations! Our basic Mongock setup is done. We just need to run our application and we should see something like this in our log.
 ```
 2021-09-17 17:27:42.157  INFO 12878 --- [main] i.m.r.c.e.o.c.MigrationExecutorBase      : APPLIED - ChangeEntry{"id"="client-initializer", "author"="mongock", "class"="ClientInitializer", "method"="changeSet"}
 ```
