@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloudyrock/eleventy-poc.git"
+    "url": "git+https://github.com/cloudyrock/mongock-docs.git"
   },
   "author": "Mongock tema <dev@mongock.io> (https://www.mongock.io/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cloudyrock/eleventy-poc/issues"
+    "url": "https://github.com/cloudyrock/mongock-docs/issues"
   },
-  "homepage": "https://github.com/cloudyrock/eleventy-poc",
+  "homepage": "https://github.com/cloudyrock/mongock-docs",
   "devDependencies": {
     "@11ty/eleventy": "^0.11.1",
     "alpinejs": "^2.7.3",
