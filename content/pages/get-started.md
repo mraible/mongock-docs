@@ -14,6 +14,7 @@ eleventyNavigation:
   <li>Explain development steps and a link to the section </li>
   <li>Example with builder. Following the steps</li>
   <li>Example with properties. Following steps</li>
+  <li><b>Different building approaches: Properties VS builder??? This may be better in the runner(builder section)</b></li>
 </ul>
 </div>
 
