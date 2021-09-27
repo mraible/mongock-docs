@@ -8,6 +8,17 @@ eleventyNavigation:
   order: 15
 ---
 
+
+1. [Steps to run Mongock](#steps-to-run-mongock)
+2. [Example](#example)
+    2.1. [Add Mongock bom to your Pom file](#add-mongock-bom-to-your-pom-file)
+    2.2. [Add the maven dependency for the runner](#add-the-maven-dependency-for-the-runner)
+    2.3. [Add the maven dependency for the driver](#add-the-maven-dependency-for-the-driver)
+    2.4. [Create your migration script/class](#create-your-migration-script%2Fclass)
+    2.5. [Build the runner](#build-the-runner)
+    2.6. [Execute the runner](#execute-the-runner)
+3. [Resources](#resources)
+
 ## Steps to run Mongock
 
 1. Add Mongock bom to your Pom file. Visit [import Mongock BOM](/get-started#add-mongock-bom-to-your-pom-file)
@@ -137,7 +148,8 @@ Congratulations! Our basic Mongock setup is done. We just need to run our applic
 2021-09-17 17:27:42.157  INFO 12878 --- [main] i.m.r.c.e.o.c.MigrationExecutorBase      : APPLIED - ChangeEntry{"id"="client-initializer", "author"="mongock", "class"="ClientInitializer", "method"="changeSet"}
 ```
 
+--------------------------------------------------
 
-### Examples
+## Resources
 
 You can checkout this [github repository](https://github.com/cloudyrock/mongock-examples) for more examples.
