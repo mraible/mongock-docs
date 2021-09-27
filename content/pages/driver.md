@@ -7,6 +7,16 @@ eleventyNavigation:
   title: Driver
   order: 70
 ---
+<div class="tip">
+<b>This page should cover: </b>
+<ul>
+  <li>Introduction: The concept is already explained. Maybe how the driver is </li>
+  <li>Explain how it works(steps): Configuration, injection to runner </li>
+  <li>list options with link to page: MongoDB etc.</li>
+  <li>Properties table(missing driver)</li>
+</ul>
+</div>
+
 ## Introduction
 
 The **driver** is the component in charge to deal with the database. It has two main responsabilities
