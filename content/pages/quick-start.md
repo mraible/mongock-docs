@@ -1,12 +1,22 @@
 ---
-title: Quick start
+title: Get started
 date: Last Modified 
-permalink: /quick-start/index.html
+permalink: /get-started/index.html
 eleventyNavigation:
-  key: quick start 
-  title: Quick start
-  order: 5
+  key: get started 
+  title: Get started
+  order: 15
 ---
+
+<div class="tip">
+<b>This page should cover: </b>
+<ul>
+  <li>Explain development steps and a link to the section </li>
+  <li>Example with builder. Following the steps</li>
+  <li>Example with properties. Following steps</li>
+</ul>
+</div>
+
 
 Carryng on with our **client-service** example, lets see how to start working with Mongock.
 

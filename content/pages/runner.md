@@ -7,6 +7,16 @@ eleventyNavigation:
   title: Runner
   order: 45
 ---
+<div class="tip">
+<b>This page should cover: </b>
+<ul>
+  <li>Explain how it works(steps): Configuration(properties and components like driver, applicationContext, etc.), build and execute runner </li>
+  <li>Explin builder</li>
+  <li>list options with link to page: standalone and springboot</li>
+  <li>Properties table(missing driver)</li>
+</ul>
+</div>
+
 
 We have already explained briefly the role of the **runner**  within the Mongock architectur and how it interacts with the rest of the components in the section [how it works](/how-it-works/). 
 
@@ -14,7 +24,7 @@ In a nutshell the runner is the orchestartor dealing with the process logic, con
 
 ------------------------------------------------
 
-## How it's built
+## Build
 In order to use the Mongock runner, we need to set it up by passing the configuration(migration package, etc.), any required component, like the driver, and any framework dependency such as the ApplicationContext, etc.
 
 ### Configuration
@@ -54,7 +64,7 @@ With the **properties approach** all this is hidden and managed by Mongock and y
 Mongock provides two ways to setup the runner:
 - **Builder approach** which requires the user to set it up manually with a builder. While, at first this approach looks less convenient, provides a bit more control. For each runner type(standalone, spring, micronaut, etc.) Mongocks provides a specific class with a static method `builder()`. We get into more detail in each runner section.
 
-- **Properties approach:** This depends on the specific runner we are using and the underlying framework, but basically means that with a few entries in the properties file and using the mechanism provided by the framework, you have Mongock running smoothly. To ilustrate it, for example for Springboot, we use the annotation approach, so basically with the Springboot properties file and annotating the Springboot application class(or any configuration class), we have Mongock running.
+- **Properties approach:** This depends on the specific runner and the underlying framework, but basically means that with a few entries in the properties file and using the mechanisms provided by the framework, we have Mongock running smoothly. To ilustrate it, for example for Springboot, the developer only needs to add the Mongock configuration in the Springboot properties file and annotate the Springboot application class(or any configuration class) with `@EnableMongock`.
 
 <p class="tipAlt">Note that, regardless of the approach, <b>the runner is always built with a builder</b>. Sometimes manually by the user and sometimes, hidden by Mongock.</p>
 

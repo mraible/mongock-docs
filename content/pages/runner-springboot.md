@@ -10,6 +10,17 @@ eleventyNavigation:
   title: 'Springboot'
 ---
 
+
+<div class="tip">
+<b>This page should cover: </b>
+<ul>
+  <li>introduction: Explain what is, when should be used and pros/cons</li>
+  <li>Get started: MongockStandalone.builder()</li>
+  <li>Features: custom dependencies, events, etc.</li>
+  <li>Examples with all the properties: builder</li>
+  <li>Examples with all the properties: properties</li>
+</ul>
+</div>
 Mongock Sprinboot runner is the extension for Springboot framework, providing a smoothly experience and taking advantage of framework's features. 
 
 

@@ -10,6 +10,16 @@ eleventyNavigation:
   title: 'Standalone'
 ---
 
+<div class="tip">
+<b>This page should cover: </b>
+<ul>
+  <li>introduction: Explain what is, when should be used and pros/cons</li>
+  <li>Get started: MongockStandalone.builder()</li>
+  <li>Features: custom dependencies, events, etc.</li>
+  <li>Examples with all the properties: builder</li>
+  <li>Examples with all the properties: properties</li>
+</ul>
+</div>
 
 
 The standalone runner is the vanilla version of the Mongock runner. It's a good option when no framework is used. As there is no framework managing the dependency injection, properties, events, etc. these features have to be handled manually.

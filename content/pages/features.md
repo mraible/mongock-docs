@@ -7,8 +7,9 @@ eleventyNavigation:
   title: Features
   order: 1110
 ---
-This page explains all the essential concepts you will need to know to understand what Mongock is and how it works. 
-Mongock structure
-Mongock consists in 3 main type of objects: ChangeLogs, driver and runner. Builders are simply used to configure and build these 3 components.
-
-**NEEDS TO BE CHANGED**
+<div class="tip">
+<b>This page should cover: </b>
+<ul>
+  <li>A simple list with a link to each feature is enough</li>
+</ul>
+</div>

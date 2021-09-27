@@ -5,8 +5,18 @@ permalink: /technical-overview/index.html
 eleventyNavigation:
   key: technical overview 
   title: Technical overview
-  order: 15
+  order: 5
 ---
+
+<div class="tip">
+<b>This page should cover: </b>
+<ul>
+  <li>Explain main concepts: migration, runner and driver</li>
+  <li>Explain process(step by step) and how they interact with each other</li>
+  <li>Communicate the idea that there are runner specializations(springboot, micronaut,e tc) and multiple family of driver(MongoDB, Sql...) with multiple drivers each(versions, connction libraries...)</li>
+  <li>Different building approaches: Properties VS builder??? This may be better in the runner(builder section)</li>
+</ul>
+</div>
 
 This section explains all the essential concepts required to understand how Mongock works and its usage. 
 
