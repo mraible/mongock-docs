@@ -7,6 +7,17 @@ eleventyNavigation:
   title: Technical overview
   order: 5
 ---
+
+
+1. [Main components](#main-components)
+    1.1. [Migration](#migration)
+    1.2. [Driver](#driver)
+    1.3. [Runner](#runner)
+2. [Mongock process](#mongock-process)
+    2.1. [Process steps](#process-steps)
+    2.2. [Architecture](#architecture)
+
+
 ## Main components
 
 ### Migration
