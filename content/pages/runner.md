@@ -11,28 +11,35 @@ eleventyNavigation:
 <b>This page should cover: </b>
 <ul>
   <li>Explain how it works(steps): Configuration(properties and components like driver, applicationContext, etc.), build and execute runner </li>
-  <li>Explain builder and both approach: Builder and properties approach</li>
   <li>list options with link to page: standalone and springboot</li>
   <li>Properties table(missing driver)</li>
 </ul>
 </div>
 
+ 
 
-We have already explained briefly the role of the **runner**  within the Mongock architectur and how it interacts with the rest of the components in the section [how it works](/how-it-works/). 
+## How it works
 
-In a nutshell the runner is the orchestartor dealing with the process logic, configuration, dependencies, framework and any environmental aspect. It's the glue that puts together all the components as well as the decision maker.
+To work with a runner you need to
+- Use the builder to configure the runner
+- Builder the runner
+- Execute the runner
 
-------------------------------------------------
 
-## Build
-In order to use the Mongock runner, we need to set it up by passing the configuration(migration package, etc.), any required component, like the driver, and any framework dependency such as the ApplicationContext, etc.
+## Builder
 
-### Configuration
+Mongock offers two approaches to build the runner:
+- **Builder approach:** The user manually configures and executes the runner by using the runner builder
+- **Automatic approach:** Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.
 
-> Note when using properties faile, you need to add the prefix **mongock**
+## Configuration
+
+<p class="tipAlt">Note when using properties file, you need to add the prefix <b>`mongock.`</b></p>
+<p class="success">Note that each specific runner may add their own properties.</p>
 
 | Property                            | Description                                                                                  | Type                | Default value |
 | ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
+| **driver**            | The Mongock driver. This parameter can only be passed programatically. When opting for the `automatic approach`, Mongock builds the driver and injects it to the runner | ConnectionDriver | Mandatory |  
 | **migrationScanPackage**            | The list of migration(changeUnits and changeLogs) classes and/or packages where they are stored | List< String >      |Mandatory |  
 | **metadata**                        | Custom data attached to the migration. It will be added to change entry in the mongock table/collection  | Map<String, Object> | null |  
 | **startSystemVersion**              | System version to start with                                                                 | String              | `0` |  
@@ -45,28 +52,7 @@ In order to use the Mongock runner, we need to set it up by passing the configur
 | **transactionEnabled**              | Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is `true` or not provided. If it's `false`, transactions are disabled and will throw an exception if this field is `true` and the driver is not transactionable. To understand what _transactionable_ means in the context of the driver and how to make a driver transactionable, visit the section [driver](/driver/)      | boolean | null |  
 | **transactionStrategy**             | Dictates the transaction strategy. `CHANGE_UNIT` means each changeUnit(applied to deprecated changeLog as well) is wrapped in an independent transaction.`EXECUTION` strategy means that Mongock will wrap all the changeUnits in a single transaction. Note that Mongock higly recomend the default value, `CHANGE_UNIT`, as the `EXECUTION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGE_UNIT` |  
 
- <p class="tipAlt">Note that each specific runner may add their own properties.</p>
 
-
-### Injecting components
-The previous section explains how to inject the configuration(properties), which are just data. However, we also need to inject some components to the runner.
-
-Depending on the runner, you have different components to inject(ApplicationContext, EventListener, etc.), but there is one that is always required: the [driver](/driver/).
-
-In a nutshell the driver is the component dealing with the persistent layer. Some of its responsabilities are: persist the migration history and the distributed lock. 
-
-When using the **builder approach** you need to instanstiate the required driver and add it with the builder method `setDriver`.
-
-With the **properties approach** all this is hidden and managed by Mongock and you don't really need to do much, just making sure the driver has somehow(we explain in the driver section) access to the database connection. All this explain in the [driver section](/driver/). However, 
-
-### Approaches
-
-Mongock provides two ways to setup the runner:
-- **Builder approach** which requires the user to set it up manually with a builder. While, at first this approach looks less convenient, provides a bit more control. For each runner type(standalone, spring, micronaut, etc.) Mongocks provides a specific class with a static method `builder()`. We get into more detail in each runner section.
-
-- **Properties approach:** This depends on the specific runner and the underlying framework, but basically means that with a few entries in the properties file and using the mechanisms provided by the framework, we have Mongock running smoothly. To ilustrate it, for example for Springboot, the developer only needs to add the Mongock configuration in the Springboot properties file and annotate the Springboot application class(or any configuration class) with `@EnableMongock`.
-
-<p class="tipAlt">Note that, regardless of the approach, <b>the runner is always built with a builder</b>. Sometimes manually by the user and sometimes, hidden by Mongock.</p>
 
 ------------------------------------------------
 
@@ -77,7 +63,7 @@ Although each builder can provide more ways to build the runner, all of them pro
 
 The use can always run it manually, by executing the method`execute()`, but Mongock tries to take advantage of the underalying framework to make it as smoothly as possible , so normally, using the mechanism provided by the framework,  you just need to expose the runner bean and Mongock takes care of running it. 
  
-In some cases, like when using the  **properties approach**, you don't even need to expose the bean, just providing the properties and telling the framework(via annotation or whatever mechanism the framework provides) that you are using Mongock, is enough :wink:
+In some cases, like when using the  **automatic approach**, you don't even need to expose the bean, just providing the properties and telling the framework(via annotation or whatever mechanism the framework provides) that you are using Mongock, is enough :wink:
 
 ------------------------------------------------
 

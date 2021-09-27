@@ -113,9 +113,9 @@ public class ClientInitializerChange {
 
 
 ### Build the runner
-As mentioned in the [runner section](/runner#builder), there are two approaches when comes to build the Mongock runner.
+As mentioned in the [runner section](/runner#builder), there are two approaches when comes to build the Mongock runner, the builder and the automatic approach.
 
-For this example, we show the simplest one, the properties approach.
+For this example, we show the simplest one, the automatic approach.
 
 #### Properties
 ```yaml
