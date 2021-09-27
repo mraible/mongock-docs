@@ -21,6 +21,14 @@ eleventyNavigation:
   <li>Examples with all the properties: properties</li>
 </ul>
 </div>
+
+
+## What was in the runner root page
+This is the specialization for Springboot framework. It takes advantage of all the Springboot features, such as profiles, events, environment, dependency injections, ApplicationRunner, InitializingBean, etc. This runner provides both approaches(traditional and properties) and you can learn more about it by visiting the [springboot runner section](/runner/springboot/)
+
+
+
+
 Mongock Sprinboot runner is the extension for Springboot framework, providing a smoothly experience and taking advantage of framework's features. 
 
 
