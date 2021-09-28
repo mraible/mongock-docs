@@ -7,38 +7,46 @@ eleventyNavigation:
   title: Runner
   order: 45
 ---
-<div class="tip">
-<b>This page should cover: </b>
-<ul>
-  <li>Explain how it works(steps): Configuration(properties and components like driver, applicationContext, etc.), build and execute runner </li>
-  <li>list options with link to page: standalone and springboot</li>
-  <li>Properties table(missing driver)</li>
-</ul>
-</div>
 
- 
-
-## How it works
-
-To work with a runner you need to
-- Use the builder to configure the runner
-- Builder the runner
-- Execute the runner
+1. [Introduction](#introduction)
+2. [Runner options](#runner-options)
+3. [Build](#build)
+3. [Configuration](#configuration)
+4. [Execution](#execution)
 
 
-## Builder
 
+## Introduction
+This page explains the process of using the runner, configuration properties, etc. You can find a more proactical guid in each runner page.
+
+As mentioned in the [technical overview](/technical-overview#runner), the runner is the orchestator that handles the environment and it's responsaible of the process.
+
+
+The natural steps you should follow are:
+- Decide the right runner for your project from the [available options](#runner-options)
+- Import the maven dependencies(which can be found in each runner page)
+- [Build the runner](#build)
+- [Execute it](#execution).
+
+## Runner options
+There are specific runners for certain environments, like frameworks, etc.
+
+Currently Mongock provides: 
+- [Mongock standalone runner](/runner/standalone/) 
+- [Mongock springboot runner](/runner/springboot/) 
+<!--- [Mongock micronaut runner](/runner/micronaut/) -->
+
+## Build
 Mongock offers two approaches to build the runner:
-- **Builder approach:** The user manually configures and executes the runner by using the runner builder
-- **Automatic approach:** Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.
 
-## Execution 
-Once the runner is built, you can run the 
+- **Builder approach:** The user manually configures and executes the runner by using the runner builder.
+
+- **Automatic approach:** Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.
 
 ## Configuration
 
-<p class="tipAlt">Note when using properties file, you need to add the prefix <b>`mongock.`</b></p>
-<p class="success">Note that each specific runner may add their own properties.</p>
+<p class="tipAlt">When using properties file, you need to add the prefix <b>`mongock.`</b></p>
+<p class="success">You can find more additional properties in the runner page</p>
 
 | Property                    | type | Description                                                                                  | Type                | Default value |
 | ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
@@ -55,82 +63,7 @@ Once the runner is built, you can run the
 | **transactionEnabled**              | property | Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is `true` or not provided. If it's `false`, transactions are disabled and will throw an exception if this field is `true` and the driver is not transactionable. To understand what _transactionable_ means in the context of the driver and how to make a driver transactionable, visit the section [driver](/driver/)      | boolean | null |  
 | **transactionStrategy**   | property | Dictates the transaction strategy. `CHANGE_UNIT` means each changeUnit(applied to deprecated changeLog as well) is wrapped in an independent transaction.`EXECUTION` strategy means that Mongock will wrap all the changeUnits in a single transaction. Note that Mongock higly recomend the default value, `CHANGE_UNIT`, as the `EXECUTION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGE_UNIT` |  
 
-------------------------------------------------
+## Execution
+Although each builder may provide additional options to build the runner, all of them share the basic method `buildRunner()`, which returns a `MongockRunner` instance. This interface provides multiple methods, one of them is the method `execute()`, which starts the migration process. This is the natural way to run Mongock when using the standalone runner. 
 
-## How it's executed
-Once we have our runner properly configured, we need to build and execute it. 
-
-Although each builder can provide more ways to build the runner, all of them provide the basic method `buildRunner()`, which returns a `MongockRunner` instance. This interface provides multiple methods, but the most important and the one relevant in this section is the method `execute()`.
-
-The use can always run it manually, by executing the method`execute()`, but Mongock tries to take advantage of the underalying framework to make it as smoothly as possible , so normally, using the mechanism provided by the framework,  you just need to expose the runner bean and Mongock takes care of running it. 
- 
-In some cases, like when using the  **automatic approach**, you don't even need to expose the bean, just providing the properties and telling the framework(via annotation or whatever mechanism the framework provides) that you are using Mongock, is enough :wink:
-
-------------------------------------------------
-
-## Runner options
-There are specific runners for certain environments, like frameworks, etc.
-
-Currently you can use the following runners: 
-- [Mongock standalone runner](/runner/standalone/) 
-- [Mongock springboot runner](/runner/springboot/) 
-<!--- [Mongock micronaut runner](/runner/micronaut/) -->
-
-------------------------------------------------
-
-## Examples
-
-### Example with properties
-```yaml
-mongock:
-  change-unit-scan-package:
-    - io.mongock...migrtion.client.initializer
-    - io.mongock...migration.client.updater
-  metadata:
-    change-motivation: Missing field in collection
-    decided-by: Tom Waugh
-  start-system-version: 1.3
-  end-system-version: 6.4
-  throw-exception-if-cannot-obtain-lock: true
-  legacy-migration:
-    origin: mongobeeChangeLogCollection
-    mapping-fields:
-      change-id: legacyChangeIdField
-      author: legacyAuthorField
-      timestamp: legacyTimestampField
-      change-log-class: legacyMigrationClassField
-      change-set-method: legacyChangeSetMethodField
-  track-ignored: true
-  enabled: true
-```
-
-### Example with builder
-```java 
-
-builder
-    .setDriver(driver)
-    .addMigrationScanPackage("com.your.migration.package")
-    .adMigrationScanPackage("com.your.migration.package")
-    .withMetadata(
-        new HashMap(){{
-          put("change-motivation", "Missing field in collection");
-          put("decided-by", "Tom Waugh");
-      }})
-    .setStartSystemVersion("1.3")
-    .setEndSystemVersion("6.4")
-    .setLegacyMigration(new MongockLegacyMigration(
-        "mongobeeChangeLogCollection", 
-        true, 
-        "legacyChangeIdField", 
-        "legacyAuthorField", 
-        "legacyTimestampField", 
-        "legacyChangeLogClassField", 
-        "legacyChangeSetMethodField"))
-    .setTrackIgnored(true)
-    .setTransactionEnabled(true)
-    .setEnabled(true)
-
-```
-
-
-
+On the other hand, when opting for the automatic approach, the user doesn't need to worry about the execution, Mongock with the help of the framework, takes care of it.

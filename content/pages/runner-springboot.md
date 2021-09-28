@@ -142,3 +142,63 @@ public class MongockFailEventListener implements ApplicationListener<SpringMigra
 
 
 
+
+
+
+
+
+------------------------------------------------
+
+## Examples
+
+### Example with properties
+```yaml
+mongock:
+  change-unit-scan-package:
+    - io.mongock...migrtion.client.initializer
+    - io.mongock...migration.client.updater
+  metadata:
+    change-motivation: Missing field in collection
+    decided-by: Tom Waugh
+  start-system-version: 1.3
+  end-system-version: 6.4
+  throw-exception-if-cannot-obtain-lock: true
+  legacy-migration:
+    origin: mongobeeChangeLogCollection
+    mapping-fields:
+      change-id: legacyChangeIdField
+      author: legacyAuthorField
+      timestamp: legacyTimestampField
+      change-log-class: legacyMigrationClassField
+      change-set-method: legacyChangeSetMethodField
+  track-ignored: true
+  enabled: true
+```
+
+### Example with builder
+```java 
+
+builder
+    .setDriver(driver)
+    .addMigrationScanPackage("com.your.migration.package")
+    .adMigrationScanPackage("com.your.migration.package")
+    .withMetadata(
+        new HashMap(){{
+          put("change-motivation", "Missing field in collection");
+          put("decided-by", "Tom Waugh");
+      }})
+    .setStartSystemVersion("1.3")
+    .setEndSystemVersion("6.4")
+    .setLegacyMigration(new MongockLegacyMigration(
+        "mongobeeChangeLogCollection", 
+        true, 
+        "legacyChangeIdField", 
+        "legacyAuthorField", 
+        "legacyTimestampField", 
+        "legacyChangeLogClassField", 
+        "legacyChangeSetMethodField"))
+    .setTrackIgnored(true)
+    .setTransactionEnabled(true)
+    .setEnabled(true)
+
+```

@@ -25,8 +25,8 @@ eleventyNavigation:
 2. Add the maven dependency for the runner. Visit [runner options](/runner/#runner-options)
 3. Add the maven dependency for the driver. Visit [driver options](driver/#driver-options)
 4. Create your migration script/class. Visit [migration](/migration/)
-5. Build the runner. Visit [runner builder](/runner#builder)
-6. Execute the runner. Visit [execute runner](/runner#execute-runner)
+5. Build the runner. Visit [runner builder](/runner#build)
+6. Execute the runner. Visit [execute runner](/runner#build)
 
 --------------------------------------------------
 
