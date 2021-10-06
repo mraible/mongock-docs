@@ -25,8 +25,8 @@ eleventyNavigation:
 2. Add the maven dependency for the runner. Visit [runner options](/runner/#runner-options)
 3. Add the maven dependency for the driver. Visit [driver options](driver/#driver-options)
 4. Create your migration script/class. Visit [migration](/migration/)
-5. Build the runner. Visit [runner builder](/runner#builder)
-6. Execute the runner. Visit [execute runner](/runner#execute-runner)
+5. Build the runner. Visit [runner builder](/runner#build)
+6. Execute the runner. Visit [execute runner](/runner#build)
 
 --------------------------------------------------
 
@@ -113,9 +113,9 @@ public class ClientInitializerChange {
 
 
 ### Build the runner
-As mentioned in the [runner section](/runner#builder), there are two approaches when comes to build the Mongock runner.
+As mentioned in the [runner section](/runner#builder), there are two approaches when comes to build the Mongock runner, the builder and the automatic approach.
 
-For this example, we show the simplest one, the properties approach.
+For this example, we show the simplest one, the automatic approach.
 
 #### Properties
 ```yaml

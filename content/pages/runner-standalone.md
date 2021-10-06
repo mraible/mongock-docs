@@ -22,6 +22,11 @@ eleventyNavigation:
 </div>
 
 
+## What was in the runner root page
+The vanila version of the runners. It's mainly used when no framework is setup. It's provides mostly all the features the others do, but it obviously requires more involvement from the user to specify how to do it. For example, while most of frameworks provides an event mechanism out of the box, in this case the user needs to provide the listener manually, as well as inject the dependencies, as no application context is setup. As the reader can guess, this runner only allows the traditional approach.
+For more information, visit the [standalone runner section](/runner/standalone/)
+
+
 The standalone runner is the vanilla version of the Mongock runner. It's a good option when no framework is used. As there is no framework managing the dependency injection, properties, events, etc. these features have to be handled manually.
 Currently standalone runner only supports the builder approach(visit the [runner section](/runner/) for more information)
 
