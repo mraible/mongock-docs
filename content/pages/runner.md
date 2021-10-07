@@ -17,9 +17,9 @@ eleventyNavigation:
 
 
 ## Introduction
-This page explains the process of using the runner, configuration properties, etc. You can find a more proactical guid in each runner page.
+This page explains the process of using the runner, configuration properties, etc. You can find a more practical guide in each runner page.
 
-As mentioned in the [technical overview](/technical-overview#runner), the runner is the orchestator that handles the environment and it's responsaible of the process.
+As mentioned in the [technical overview](/technical-overview#runner), the runner is the orchestator that handles the environment and it's responsible of the process.
 
 
 The natural steps you should follow are:
@@ -37,7 +37,7 @@ Currently Mongock provides:
 <!--- [Mongock micronaut runner](/runner/micronaut/) -->
 
 ## Build
-Mongock offers two approaches to build the runner:
+Mongock offers two build approaches:
 
 - **Builder approach:** The user manually configures and executes the runner by using the runner builder.
 
@@ -46,7 +46,7 @@ Mongock offers two approaches to build the runner:
 ## Configuration
 
 <p class="tipAlt">When using properties file, you need to add the prefix <b>`mongock.`</b></p>
-<p class="success">You can find more additional properties in the runner page</p>
+<p class="success">You can find more additional properties in each runner page</p>
 
 | Property                    | type | Description                                                                                  | Type                | Default value |
 | ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
@@ -64,6 +64,6 @@ Mongock offers two approaches to build the runner:
 | **transactionStrategy**   | property | Dictates the transaction strategy. `CHANGE_UNIT` means each changeUnit(applied to deprecated changeLog as well) is wrapped in an independent transaction.`EXECUTION` strategy means that Mongock will wrap all the changeUnits in a single transaction. Note that Mongock higly recomend the default value, `CHANGE_UNIT`, as the `EXECUTION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGE_UNIT` |  
 
 ## Execution
-Although each builder may provide additional options to build the runner, all of them share the basic method `buildRunner()`, which returns a `MongockRunner` instance. This interface provides multiple methods, one of them is the method `execute()`, which starts the migration process. This is the natural way to run Mongock when using the standalone runner. 
+Although each builder may provide additional options to build the runner, all of them share the basic method `buildRunner()`, which returns a `MongockRunner` instance. This interface provides multiple methods, one of them is `execute()`, which starts the migration process. This is the natural way to run Mongock when using the standalone runner. 
 
-On the other hand, when opting for the automatic approach, the user doesn't need to worry about the execution, Mongock with the help of the framework, takes care of it.
+On the other hand, when opting for the automatic approach, the user doesn't need to worry about the execution, Mongock, with the help of the framework, takes care of it.
