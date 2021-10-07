@@ -9,17 +9,12 @@ eleventyNavigation:
   key: runner standalone
   title: 'Standalone'
 ---
-
-<div class="tip">
-<b>This page should cover: </b>
-<ul>
-  <li>introduction: Explain what is, when should be used and pros/cons</li>
-  <li>Get started: MongockStandalone.builder()</li>
-  <li>Features: custom dependencies, events, etc.</li>
-  <li>Examples with all the properties: builder</li>
-  <li>Examples with all the properties: properties</li>
-</ul>
-</div>
+1. [Introduction](#introduction)
+2. [Get started](#get-started)
+3. [Features](#features)
+   3.1 [Dependency injection](#dependency-injection)
+   3.2 [Events](#events)
+4. [Example](#example)
 
 ## Introduction
 The vanila version of the runners. It's mainly used when no framework is setup. It's provides mostly all the features the others do, but it obviously requires more involvement from the user to specify how to do it. For example, while most of frameworks provides an event mechanism out of the box, in this case the user needs to provide the listener manually, as well as inject the dependencies, as no application context is setup. As the reader can guess, this runner only allows the traditional approach.
@@ -43,7 +38,7 @@ MongockStandalone.builder();
  - **addDependency(Class<?> type, Object instance):** Manually adds a dependency to be used in the  changeUnits, which can be retrieved by a type. This is useful when you have multiple dependencies for the same super type, the way to force to finde by its super type is this method.
  - **addDependency(String name, Class<?> type, Object instance):** Manually adds a dependency to be used in the  changeUnits, which can be retrieved by a type or name
 
-The [example section](/runner/standalone#example) shows how to use it in the builder.
+The [example section](#example) shows how to use it in the builder.
 
 ### Events
 This section explains how to configure the Mongock events handler witht the standalone runner. For more information about events, go to the [event page](/features/events/).
@@ -91,7 +86,7 @@ MongockRunner MongockRunner = MongockStandalone.builder()
 //mandatory methods
     .setDriver(MongoSync4Driver.withDefaultLock(mongoClient, MONGODB_DB_NAME))
     .addMigrationScanPackages("io.mongock.examples.migrationPackage")
-//mandatory methods
+//optional methods
     .addMigrationScanPackages("io.mongock.examples.anotherMigrationPackage")
     .setMigrationStartedListener(MongockEventListener::onStart)
     .setMigrationSuccessListener(MongockEventListener::onSuccess)
