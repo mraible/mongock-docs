@@ -9,100 +9,91 @@ eleventyNavigation:
   key: runner springboot
   title: 'Springboot'
 ---
+1. [Introduction](#introduction)
+2. [Get started](#get-started)
+3. [Features](#features)
+   3.1 [Runner type: Applicationrunner vs Initializingbean](#runner-type%3A-applicationrunner-vs-initializingbean)
+   3.2 [Dependency injection](#dependeny-injection)
+   3.3 [Profiles](#Profiles)
+   3.2 [Events](#events)
+4. [Examples](#examples)
 
 
-<div class="tip">
-<b>This page should cover: </b>
-<ul>
-  <li>introduction: Explain what is, when should be used and pros/cons</li>
-  <li>Get started: MongockStandalone.builder()</li>
-  <li>Features: custom dependencies, events, etc.</li>
-  <li>Examples with all the properties: builder</li>
-  <li>Examples with all the properties: properties</li>
-</ul>
-</div>
+## Introduction
+As its name suggests, this runner is the one to use with Springboot. It leverages the Springboot features, like the ApplicationContext, profiles and EnventPublisher, to provides a smooth user experience
 
+It supports both building approaches, builder and automatic.
+______________________________________
 
-## What was in the runner root page
-This is the specialization for Springboot framework. It takes advantage of all the Springboot features, such as profiles, events, environment, dependency injections, ApplicationRunner, InitializingBean, etc. This runner provides both approaches(traditional and properties) and you can learn more about it by visiting the [springboot runner section](/runner/springboot/)
+## Get started
+Like the rest of the runners, the springboot runner is built from a builder. Each runner provides a class with an static method `builder()`.
 
+As we already know, there are two mandatory parameters for all kind of runner: the `driver` and at least one migration package or class. Springboot adds an extra mandatory field, the **Spring ApplicationContext**, from which all the dependencies injected to your migration classes are taken.
 
-
-
-Mongock Sprinboot runner is the extension for Springboot framework, providing a smoothly experience and taking advantage of framework's features. 
-
-
-
-## Get started with standalone runner
-
-Like the rest of runners, the **springboot runner** is built from builder. Each runner provides a class with an static method `builder` which returns the required builder.
+When using the builder approach, you need to provide the driver and ApplicationContext manually to the builder. On the other hand, when using the automatic approach, Mongock will take the ApplicationContext from Springboot directly and will build the driver, which probably requires you to inject to the context the required parameters. For example the database, MongoTemplate, etc. This depends on the type of Driver you are using. Find more information in the [driver section](/driver).
 
 ```java
 MongockSpringboot.builder()
+    .setDriver(driver)
+    .addMigrationScanPackage("com.your.migration.package")
+    .setSpringContext(springContext);
+```
+______________________________________
+
+## Features
+
+### Runner type: ApplicationRunner vs InitializingBean
+
+Springboot provides two options to delegate an execution, in this case the migration:
+- **ApplicationRunner:** Declaring a bean implementing this interface lets you to execute the code after the Springboot application is started. 
+- **InitializingBean:** However, when implementing this interface, the execution is performed before the application is started, but after all the properties and beans are setallows to execute the code after all the beans are set, but before the Springboot application is started.
+
+
+Mongock takes advantage of this aspects and, on top of the method `buildRunner()`, provides two other options to suport the ApplicationRunner and InitializingBean.
+
+When using the automatic approach, ou can set the runner type by configuration with
+```yaml
+mongock:
+  runner-type: [applicationrunner | initializingbean]
 ```
 
-## Springboot builder: specific methods
-### Setting the ApplicationContext
-The application context is one of the key aspects of the Springboot runner. With it, Mongock retrieves the dependencies that are injected to the changeUnits, spring profiles, etc. 
-```java 
- MongockSpringboot.builder()
-  //...
-    .setSpringContext(springContext)
-``` 
-### Setting the event publisher
-As we have already mentioned in some previous section, Mongock provides three events: started, success and failure. We explain in a section below how to create the event listener for this events, but first we need to provide the event publisher.
-```java 
- MongockSpringboot.builder()
-  //...
-    .setEventPublisher(eventPublisher)
-``` 
+Or with builder, with the methods:
+- **buildApplicationRunner()**, which returns a MongockApplicationRunner implementation of the Springboot ApplicationRunner.
 
-### Building the runner
+- **buildInitializingBeanRunner()**, returning a MongockInitializingBeanRunner, implementation of the Springboot InitializingBean. 
 
-We have mentioned that all the Mongock runners provide the basic method `buildRunner()`, but each one can also provide other complementary methods. In this aspect, when using Springboot, it;s not likely you use this method directly. The proper way is to use one of the following methods that wrap the execution and adds some extra functionallity.
-
-- **buildApplicationRunner():** It returns a Spring ApplicationRunner instance, that handles the runner's execution. In a nutshell, the Spring ApplicationRunner interface lets you to execute the code after the Springboot application is started. 
-- **buildInitializingBeanRunner():** It returns a Spring InitializingBean instace, that handles the runner's execution. Basically Springboot allows to execute the code after all the beans are set, but before the Springboot application is started.
-
-
-### Builder example
+Bear in mind that the runner, represented by a MongockApplicationRunner or a MongockInitializingBeanRunner, needs to be register as a bean, as follow:
 ```java
-  MongockRunner MongockRunner = MongockStandalone.builder()
-    .setDriver(MongoSync4Driver.withDefaultLock(mongoClient, MONGODB_DB_NAME))
-    .addChangeLogsScanPackage("com.github.cloudyrock.mongock.examples.migration")
-    .setMigrationStartedListener(MongockEventListener::onStart)
-    .setMigrationSuccessListener(MongockEventListener::onSuccess)
-    .setMigrationFailureListener(MongockEventListener::onFail)
-    .addDependency("my-bean", myBean)
-    .buildRunner();
-  //...
-  mongockRunner.execute();
+@Bean
+public MongockInitializingBeanRunner mongockRunner(ConnectionDriver driver, ApplicationContext applicationContext) {
+    return MongockSpringboot.builder()
+           .setDriver()
+           .setSpringContext(applicationContext)
+//...
+           .buildInitializingBeanRunner();
+}
 ```
 
-## Springboot features
+### Dependency injection
+As mentioned in the [get started section](#get-started), the springboot runner takes the dependency injected to the migration classes(`@ChangeUnit` and the deprecated @ChangeLog), from the Springboot ApplicationContext
+```java
+MongockSpringboot.builder()
+    .setSpringContext(springContext);
+```
+### Profiles 
+Mongock supports the Spring `@Profile` annoation.
 
-### Profiles
+When a changeUnit is annotated with `@Profile`, it will only executed if any of the profiles present in the annotation is contained in the Spring activeProfiles array.
 
-Mongock supports the Spring @Profile annoation. 
+### Events
+As explained in the [events page](/events), Mongock provides three Events: StartedEvent, SuccessEvent and FailureEvent. In the Springboot world, these are represented by:
+- SpringMigrationStartedEvent
+- SpringMigrationSuccessEvent
+- SpringMigrationFailureEvent
 
-When a changeUnit is annotated with @Profile, it will only executed if any of the profiles present in the annotation is contained in the Spring activeProfiles array.
-
-
-### Event listener
-
-As we have already mentioned, Mongock provides three events, started, success and failure events.
-
-
-
-| Event                           | Description                                  | 
-| :------------------------------ |:---------------------------------------------|
-| **SpringMigrationStartedEvent** | Triggered just before starting the migration.|
-| **SpringMigrationSuccessEvent** | Triggered at the end of the migration, if the process successfully finished. It provides the method `getMigrationResult()` to retrieve the migration result. Currently it doesn't provide any value, but it will be extended in the future to provide the execution's result.|
-| **SpringMigrationFailureEvent** | Triggered at the end of the migration, if the process failed. With the method `getMigrationResult()`, the object `MigrationFailedResult` is returned, from which we can extract the exception that produced the error, with the method `getException()` |
-
-
-#### Creating the event listener
-This task is as easy as Spring makes it. The developer only needs to implement the interface `org.springframework.context.ApplicationListener` for any event he wants to register to and inject the bean to the Spring context.
+To listen to these events you need to:
+- Provide the event publisher to the Mongock builder with the method `setEventPublisher(springApplicationEventPublisher)`
+- Implement the Springboot ApplicationListener interface for the type of event you want to listen.
 
 ```java
 import io.mongock.runner.spring.base.events.SpringMigrationSuccessEvent;
@@ -116,38 +107,11 @@ public class MongockSuccessEventListener implements ApplicationListener<SpringMi
     public void onApplicationEvent(SpringMigrationSuccessEvent event) {
         System.out.println("[EVENT LISTENER] - Mongock finished successfully");
     }
-
 }
 ```
 
-```java 
-
-import io.mongock.runner.spring.base.events.SpringMigrationFailureEvent;
-import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Component;
-
-@Component
-public class MongockFailEventListener implements ApplicationListener<SpringMigrationFailureEvent> {
-
-    @Override
-    public void onApplicationEvent(SpringMigrationFailureEvent event) {
-        System.out.println("[EVENT LISTENER] - Mongock finished with failures: " 
-                + event.getMigrationResult().getException().getMessage());
-    }
-
-}
-
-```
-
-
-
-
-
-
-
-
-
-------------------------------------------------
+The [example section](/runner/standalone#example) shows how to use it in the builder.
+______________________________________
 
 ## Examples
 
@@ -162,7 +126,7 @@ mongock:
     decided-by: Tom Waugh
   start-system-version: 1.3
   end-system-version: 6.4
-  throw-exception-if-cannot-obtain-lock: true
+  throw-exception-if-cannot-obtain-lock: true #Default true
   legacy-migration:
     origin: mongobeeChangeLogCollection
     mapping-fields:
@@ -171,8 +135,9 @@ mongock:
       timestamp: legacyTimestampField
       change-log-class: legacyMigrationClassField
       change-set-method: legacyChangeSetMethodField
-  track-ignored: true
-  enabled: true
+  track-ignored: false #Default true
+  runner-type: applicationrunner
+  enabled: true #Default true
 ```
 
 ### Example with builder
@@ -180,8 +145,10 @@ mongock:
 
 builder
     .setDriver(driver)
+    .setSpringContext(springApplicationContext)
     .addMigrationScanPackage("com.your.migration.package")
     .adMigrationScanPackage("com.your.migration.package")
+    .setEventPublisher(springApplicationEventPublisher)
     .withMetadata(
         new HashMap(){{
           put("change-motivation", "Missing field in collection");
@@ -199,6 +166,5 @@ builder
         "legacyChangeSetMethodField"))
     .setTrackIgnored(true)
     .setTransactionEnabled(true)
-    .setEnabled(true)
-
-```
+    .buildInitializingBeanRunner();
+```    

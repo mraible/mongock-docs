@@ -27,6 +27,7 @@ The natural steps you should follow are:
 - Import the maven dependencies(which can be found in each runner page)
 - [Build the runner](#build)
 - [Execute it](#execution).
+______________________________________
 
 ## Runner options
 There are specific runners for certain environments, like frameworks, etc.
@@ -35,6 +36,7 @@ Currently Mongock provides:
 - [Mongock standalone runner](/runner/standalone/) 
 - [Mongock springboot runner](/runner/springboot/) 
 <!--- [Mongock micronaut runner](/runner/micronaut/) -->
+______________________________________
 
 ## Build
 Mongock offers two build approaches:
@@ -42,6 +44,7 @@ Mongock offers two build approaches:
 - **Builder approach:** The user manually configures and executes the runner by using the runner builder. Normally by setter methods. Regardless the type of runner, all of them provides an static method `builder()` which returns the builder.
 
 - **Automatic approach:** Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.
+______________________________________
 
 ## Configuration
 
@@ -62,6 +65,7 @@ Mongock offers two build approaches:
 | **throwExceptionIfCannotObtainLock**| property | Mongock will throw MongockException if lock can not be obtained. Builder method `dontFailIfCannotAcquireLock` to turn it to false| boolean | long | `true` |  
 | **transactionEnabled**              | property | Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is `true` or not provided. If it's `false`, transactions are disabled and will throw an exception if this field is `true` and the driver is not transactionable. To understand what _transactionable_ means in the context of the driver and how to make a driver transactionable, visit the section [driver](/driver/)      | boolean | null |  
 | **transactionStrategy**   | property | Dictates the transaction strategy. `CHANGE_UNIT` means each changeUnit(applied to deprecated changeLog as well) is wrapped in an independent transaction.`EXECUTION` strategy means that Mongock will wrap all the changeUnits in a single transaction. Note that Mongock higly recomend the default value, `CHANGE_UNIT`, as the `EXECUTION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGE_UNIT` |  
+______________________________________
 
 ## Execution
 Although each builder may provide additional options to build the runner, all of them share the basic method `buildRunner()`, which returns a `MongockRunner` instance. This interface provides multiple methods, one of them is `execute()`, which starts the migration process. This is the natural way to run Mongock when using the standalone runner. 
