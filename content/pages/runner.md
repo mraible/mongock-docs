@@ -39,7 +39,7 @@ Currently Mongock provides:
 ## Build
 Mongock offers two build approaches:
 
-- **Builder approach:** The user manually configures and executes the runner by using the runner builder.
+- **Builder approach:** The user manually configures and executes the runner by using the runner builder. Normally by setter methods. Regardless the type of runner, all of them provides an static method `builder()` which returns the builder.
 
 - **Automatic approach:** Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.
 
@@ -59,7 +59,7 @@ Mongock offers two build approaches:
 | **enabled**               | property | If false, will disable Mongock execution| boolean |NO          | `true` |  
 | **serviceIdentifier**     | property | Application/service instance's indentifier | String | null|
 | **defaultMigrationAuthor**| property | Author field is not mandatory in ChangeUnit. The field `author` in this annoation is optional. However for backward compatibility it's still required. If it's provided in the ChangeUnit annotation, this value is taken. If not, Mongock will look at this property. If not provided, the default value is provided| String | `default_author` |
-| **throwExceptionIfCannotObtainLock**| property | ngock will throw MongockException if lock can not be obtained. Builder method setLockConfig| boolean | long | `true` |  
+| **throwExceptionIfCannotObtainLock**| property | Mongock will throw MongockException if lock can not be obtained. Builder method `dontFailIfCannotAcquireLock` to turn it to false| boolean | long | `true` |  
 | **transactionEnabled**              | property | Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is `true` or not provided. If it's `false`, transactions are disabled and will throw an exception if this field is `true` and the driver is not transactionable. To understand what _transactionable_ means in the context of the driver and how to make a driver transactionable, visit the section [driver](/driver/)      | boolean | null |  
 | **transactionStrategy**   | property | Dictates the transaction strategy. `CHANGE_UNIT` means each changeUnit(applied to deprecated changeLog as well) is wrapped in an independent transaction.`EXECUTION` strategy means that Mongock will wrap all the changeUnits in a single transaction. Note that Mongock higly recomend the default value, `CHANGE_UNIT`, as the `EXECUTION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way | String | `CHANGE_UNIT` |  
 
