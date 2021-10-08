@@ -7,43 +7,40 @@ eleventyNavigation:
   title: Driver
   order: 70
 ---
-<div class="tip">
-<b>This page should cover: </b>
-<ul>
-  <li>Introduction: The concept is already explained. Maybe how the driver is </li>
-  <li>Explain how it works(steps): Configuration, injection to runner </li>
-  <li>list options with link to page: MongoDB etc.</li>
-  <li>Properties table(missing driver)</li>
-</ul>
-</div>
+
+1. [Introduction](#introduction)
+<!--2. [Driver options](#driver-options)-->
+2. [Configuration](#configuration)
+3. [How it works](#how-it-works)
+
 
 ## Introduction
 
-The **driver** is the component in charge to deal with the database. It has two main responsabilities
-- Persist the change history.
-- Persist the distributed lock.
+To understand the concept of the driver within the Mongock architecture, visit the [technical overview page](/technical-overview#main/components). There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.
 
-The driver represents a connection to the database. Therefore each database needs a differente Mongock driver. Even further, for the same database, Mongock may offer multiple drivers, one per connection library. 
+Thw two main responsabilities of the driver are:
+- Persisting the change history.
+- Persisting the distributed lock.
 
-For example, in the case of MongoDB, Mongock provides 4 drivers for:
-- org.mongodb » mongodb-driver-sync
-- org.mongodb » mongo-java-driver
-- org.springframework.data » spring-data-mongodb(v 3.x)
-- org.springframework.data » spring-data-mongodb(v 2.x)
-
-<p class="successAlt">In this documentation there is a section per database, where you can find the different drivers and how to configure/use them.</p>
+<!---------------------------------------------
+## Driver options
+Currently, we only 
+- [MongoDB](/driver/mongodb)
+- [Elasticsearch](/driver/elasticsearch)
+- [SQL](/driver/sql)
+- [CosmosDB](/driver/cosmosdb)
+- [DocumentDB](/driver/documentdb)-->
 
 -------------------------------------------
 
 ## Configuration
 
-Although each group of driver(per database) may provide some specific configuration(for example in MongoDB, you can configure the writeConcern, readConcern, etc.), all of them share the following properties:
+Although each family of driver may provide some additional configuration that you can see inthe specific driver page(for example in MongoDB, you can configure the writeConcern, readConcern, etc.), all of drivers share the following properties:
 
 | Property                            | Description                                                                                  | Type                | Default value |
 | ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
-| **migrationRepositoryName**         | Repository name where the change entries are persisted in database | String | `mongockChangeLog`|
-| **changeLogRepositoryName**         | **deprecated** Replaced by migrationRepositoryName | String | `mongockChangeLog`|
-| **lockRepositoryName**              | Repository name where the lock is persisted in database | String | `mongockLock`| 
+| **migrationRepositoryName**         | Repository name where the change entries are persisted in database. It replaces the deprecated property **changeLogRepositoryName**.<br /> If you need to migrate from another changeLogCollection or from another legacy migration framework, visit the [legacy migration page](/legacy-migration) for more information.  | String | `mongockChangeLog`|
+| **lockRepositoryName**              | Repository name where the lock is persisted in database. It's important that all the Mongock executions that need to be synchronised(different services or instances using the same MongoDB database) use the same lockCollection | String | `mongockLock`| 
 | **lockAcquiredForMillis**           | The period the lock will be reserved once acquired. If the migration finishes before, the lock will be released. If the process takes longer thant this period, it will automatically extended. When using the builder approach, this is applied in the driver. Minimum value is 3 seconds| long | 1 minute|
 | **lockQuitTryingAfterMillis**       | The time after what Mongock will quit trying to acquire the lock, in case it's acquired by another process. When using the builder approach, this is applied in the driver. Minimum value is 0, which means won't wait whatsoever | long |  3 minutes|
 | **lockTryFrequencyMillis**          | In case the lock is held by another process, it indicates the frequency trying to acquire it. Regardless of this value, the longest Mongock will wait is until the current lock's expiration. When using the builder approach, this is applied in the driver. Minimum 500 milliseconds| long | 1 second|
@@ -53,29 +50,19 @@ Although each group of driver(per database) may provide some specific configurat
 
 ## How it works
 
-The driver is a mandatory component that needs to be injected to the runner. If the user opts for the annotation approach, he only needs to provide the required database connectionm that can be found in the given driver section.
-On the other hand, if the user choose the builder approach, this needs to be done manually. It's explained below.
+The driver is a mandatory parameter that must be injected to the builder. As explained in the [runner page](#runner#build), this can be done manually with the builder or automatically with annotations(if using a framework like Springboot that supports this kind of mechanisms).
 
- <p class="tipAlt">For more information about <b>building approach</b>, visit the the <a href="/runner/">runner page</a> </p>
+When using the builder approach, you need to create the driver(by fllowing the instructions in the specific driver page, under the driver section) and use the `setDriver(driver)` in the builder to inject it.
 
-### Annotation approach: example
-```yaml
-mongock:
-  lock-acquired-for-millis: 60000
-  lock-quit-trying-after-millis: 180000
-  lock-try-frequency-millis: 1000
-  migration-repository-name: newMigrationRepositoryName
-  lock-repository-name: newLockRepositoryName
-```
+Similarly to the runners, all the drivers provide a class with two static methods
+- **withDefaultLock** which takes as parameters just what's required for the driver to work(database url, template, etc.)
+- **withLockConfiguration**, which takes the same parameters as the `withDefaultLock` method, plus the three basic parameters to configure the lock(`lockAcquiredForMillis`, `lockQuitTryingAfterMillis` and `lockTryFrequencyMillis`)
 
 
-### Builder approach: example
+<p class="tipAlt">Visit the specific driver's page to see what paramters are required.</p>
 
-```java
-SpringDataMongo3Driver driver = SpringDataMongo3Driver
-.withDefaultLock(mongoTemplate);
-//or .withLockSetting(mongoTemplate, acquiredForMinutes, maxWaitingFor, maxTries);
-driver.setChangeLogRepositoryName("newMigrationCollectionName");
-driver.setLockRepositoryName("newLockCollectionName");
-driver.setIndexCreation(false);
-```
+
+On the other hand, although this job is automatically done by Mongock, it will probably need some basic parameters, like the database, etc. Once again, please visit the concrete driver page to see what's required.
+
+
+-------------------------------------------

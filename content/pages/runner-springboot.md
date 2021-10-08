@@ -40,6 +40,10 @@ MongockSpringboot.builder()
 ```
 ______________________________________
 
+## Configuration
+Visit the [configuration section](/runner#configuration) in the runner page to see the list of the basic runner's properties.
+______________________________________
+
 ## Features
 
 ### Runner type: ApplicationRunner vs InitializingBean

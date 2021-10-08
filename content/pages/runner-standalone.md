@@ -17,10 +17,11 @@ eleventyNavigation:
 4. [Example](#example)
 
 ## Introduction
-The standalone runner is the vanila runner, totally clean, with no framework. It's mainly used when no framework is configured, although it can be used with any framework, it just doesn't take advantage of the features it provides. The difference from other runners that are built to take the moest of the underlying framework, it requires more involvement from the user. For example, while most of frameworks provides an event mechanism out of the box, in this case the user needs to provide the listener manually, as well as inject the dependencies, as no application context is setup. As the reader can guess, this runner only allows the traditional approach.
+The standalone runner is the vanila runner, totally clean, with no framework. It's mainly used when no framework is configured, although it can be used with any framework, it just doesn't take advantage of the features it provides. The difference from other runners that are built to take the moest of the underlying framework, it requires more involvement from the user. 
 
-Currently it only supports the builder approach, with the setter methods. However we are working on providing an option to use a properties file. It would still use the builder, 
-but instead with setter methods, passing a configuration file.
+For example, while most of frameworks provides an event mechanism out of the box, in this case the user needs to provide the listener manually, as well as inject the dependencies, as no application context is setup. As the reader can guess, this runner only allows the traditional approach.
+
+Currently it only supports the builder approach, with the setter methods. However we are working on providing an option to use a properties file. It would still use the builder, but instead with setter methods, passing a configuration file.
 ______________________________________
 
 ## Get started
@@ -33,6 +34,10 @@ MongockStandalone
   .addMigrationScanPackage("com.your.migration.package")
   .setDriver(driver);
 ```
+______________________________________
+
+## Configuration
+Visit the [configuration section](/runner#configuration) in the runner page to see the list of the basic runner's properties.
 ______________________________________
 
 ## Features
