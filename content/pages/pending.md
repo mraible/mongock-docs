@@ -1,7 +1,7 @@
 ---
 title: PENDING
 date: Last Modified 
-permalink: /faq/index.html
+permalink: /pending/index.html
 eleventyNavigation:
   key: faq 
   title: FAQ
