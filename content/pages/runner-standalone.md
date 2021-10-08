@@ -9,52 +9,48 @@ eleventyNavigation:
   key: runner standalone
   title: 'Standalone'
 ---
+1. [Introduction](#introduction)
+2. [Get started](#get-started)
+3. [Features](#features)
+   3.1 [Dependency injection](#dependency-injection)
+   3.2 [Events](#events)
+4. [Example](#example)
 
-<div class="tip">
-<b>This page should cover: </b>
-<ul>
-  <li>introduction: Explain what is, when should be used and pros/cons</li>
-  <li>Get started: MongockStandalone.builder()</li>
-  <li>Features: custom dependencies, events, etc.</li>
-  <li>Examples with all the properties: builder</li>
-  <li>Examples with all the properties: properties</li>
-</ul>
-</div>
+## Introduction
+The standalone runner is the vanila runner, totally clean, with no framework. It's mainly used when no framework is configured, although it can be used with any framework, it just doesn't take advantage of the features it provides. The difference from other runners that are built to take the moest of the underlying framework, it requires more involvement from the user. For example, while most of frameworks provides an event mechanism out of the box, in this case the user needs to provide the listener manually, as well as inject the dependencies, as no application context is setup. As the reader can guess, this runner only allows the traditional approach.
 
+Currently it only supports the builder approach, with the setter methods. However we are working on providing an option to use a properties file. It would still use the builder, 
+but instead with setter methods, passing a configuration file.
+______________________________________
 
-## What was in the runner root page
-The vanila version of the runners. It's mainly used when no framework is setup. It's provides mostly all the features the others do, but it obviously requires more involvement from the user to specify how to do it. For example, while most of frameworks provides an event mechanism out of the box, in this case the user needs to provide the listener manually, as well as inject the dependencies, as no application context is setup. As the reader can guess, this runner only allows the traditional approach.
-For more information, visit the [standalone runner section](/runner/standalone/)
+## Get started
+Like the rest of the runners, the standalone runner is built from a builder. Each runner provides a class with an static method `builder()`.
 
-
-The standalone runner is the vanilla version of the Mongock runner. It's a good option when no framework is used. As there is no framework managing the dependency injection, properties, events, etc. these features have to be handled manually.
-Currently standalone runner only supports the builder approach(visit the [runner section](/runner/) for more information)
-
-## Get started with standalone runner
-Like the rest of runners, the **standalone runner** is built from builder. Each runner provides a class with an static method `builder` which returns the required builder.
+Bear in mind that there are two mandatory parameters for all kind of runner: the `driver` and at least one migration package or class
 ```java
-MongockStandalone.builder()
+MongockStandalone
+  .builder()
+  .addMigrationScanPackage("com.your.migration.package")
+  .setDriver(driver);
 ```
+______________________________________
 
-## Standalone builder: specific methods
-### Injecting your own dependencies
- This fearure allows you to inject your own dependencies to you changeUnit classes, in the methods directly or at constructor level. Mongock is intelligent enough to handle it. However you need to somehow provide these dependencies. The standalone builder provides the following methods:
+## Features
+### Dependency injection
+ This fearure allows you to inject your own dependencies to you migration classes in the methods directly or at constructor level. Mongock is intelligent enough to handle it. However you need to somehow provide these dependencies. The standalone builder provides the following methods:
 
  - **addDependency(Object instance):** Manually adds a dependency to be used in your changeUnits, which can be retrieved by its own type.
  - **addDependency(String name, Object instance):** Manually adds a dependency to be used in the  changeUnits, which can be retrieved by a name
  - **addDependency(Class<?> type, Object instance):** Manually adds a dependency to be used in the  changeUnits, which can be retrieved by a type. This is useful when you have multiple dependencies for the same super type, the way to force to finde by its super type is this method.
  - **addDependency(String name, Class<?> type, Object instance):** Manually adds a dependency to be used in the  changeUnits, which can be retrieved by a type or name
 
-### Setting the event listener
-As we have already mentioned in some previous section, Mongock provides three events: started, success and failure. 
+The [example section](#example) shows how to use it in the builder.
 
-| Event                           | Description                                  | 
-| :------------------------------ |:---------------------------------------------|
-| **MigrationStartedEvent** | Triggered just before starting the migration.|
-| **MigrationSuccessEvent** | Triggered at the end of the migration, if the process successfully finished. It provides the method `getMigrationResult()` to retrieve the migration result. Currently it doesn't provide any value, but it will be extended in the future to provide the execution's result.|
-| **MigrationFailureEvent** | Triggered at the end of the migration, if the process failed. With the method `getMigrationResult()`, the object `MigrationFailedResult` is returned, from which we can extract the exception that produced the error, with the method `getException()` |
-
-
+### Events
+As explained in the [events page](/events), Mongock provides three Events: StartedEvent, SuccessEvent and FailureEvent. In the standalone context are represented by:
+- MigrationStartedEvent
+- MigrationSuccessEvent
+- MigrationFailureEvent
 
 As there is no framwework managing the dependencies, we need to manually inject the listner for each event type, which are basically Java consumers.
 - **setMigrationStartedListener(Consumer< MigrationStartedEvent >  listener)**
@@ -83,17 +79,41 @@ public class MongockEventListener {
 }
 ```
 
+The [example section](/runner/standalone#example) shows how to use it in the builder.
+______________________________________
 
-## Ecample: Everything together
+## Example
 ```java
-  MongockRunner MongockRunner = MongockStandalone.builder()
+MongockRunner MongockRunner = MongockStandalone.builder()
+//mandatory methods
     .setDriver(MongoSync4Driver.withDefaultLock(mongoClient, MONGODB_DB_NAME))
-    .addChangeLogsScanPackage("com.github.cloudyrock.mongock.examples.migration")
+    .addMigrationScanPackages("io.mongock.examples.migrationPackage")
+//optional methods
+    .addMigrationScanPackages("io.mongock.examples.anotherMigrationPackage")
     .setMigrationStartedListener(MongockEventListener::onStart)
     .setMigrationSuccessListener(MongockEventListener::onSuccess)
     .setMigrationFailureListener(MongockEventListener::onFail)
     .addDependency("my-bean", myBean)
+    .withMetadata(
+        new HashMap(){{
+          put("change-motivation", "Missing field in collection");
+          put("decided-by", "Tom Waugh");
+      }})
+    .setStartSystemVersion("1.3")
+    .setEndSystemVersion("6.4")    
+    .setLegacyMigration(new MongockLegacyMigration(
+        "mongobeeChangeLogCollection", 
+        true, 
+        "legacyChangeIdField", 
+        "legacyAuthorField", 
+        "legacyTimestampField", 
+        "legacyChangeLogClassField", 
+        "legacyChangeSetMethodField"))
+    .setTrackIgnored(false)//default false
+    .setEnabled(true)//default true
+    .dontFailIfCannotAcquireLock()//by default, it does throw a MongockException
     .buildRunner();
   //...
   mongockRunner.execute();
+
 ```
