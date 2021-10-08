@@ -64,27 +64,24 @@ _For more information, visit the [runner page](/runner/)_
 
 ## Mongock process
 
-In a nutshell, the mongock migration process takes all the pending migration changes and execute them in order.
+In a nutshell, the mongock migration process takes all the pending migration changes and executes them in order.
 
-The main use of Mongock migration consists in placing the migration process in the application's startup, so when the application is deployed the code and data are alligned.
+Mongock is designed to run successfully the entire migration or fail. And the next time is executed, it will continue from where the migration was left(the failed changeUnit).
 
-This job is initially easy, but, as always, things can go wrong. What happens if a in automated environment like Kubernetes a changeUnit fails? Let's imagine we have an clien-service that has done some change in the database. The kuberentes tries to dpeloy the service, but the application one of the changeUnits fails. What happens? Well, Mongock is designed to prevent the application to start until the entire migration process is done. This means all the changeUnits are succesfully executed. When a changeUnit fails, Mongock throws an exception and the application's staartup will abort. 
-
-This obviously can be tricked. The [changeUnit](/migration#changeUnit) annotation actually provides a field `failFast`, which when turned to `false` tells Mongock to not throw an exceptioj when that specific changeUnit fails. This is not recommended and shouldonly be use in exceptional scenarios. Also, be ware that, although the application startup is not aborted, the change is tracked as failed in the database, so the next time Mongock is executed will try to execute it.
-
-<p class="warningAlt">`failFast` flag in ChangeUnit annotation is not recommended</p>
-
+Normaly the Mongock process is placed in the application startup, so it ensures the application is deployed only once the migration has been successfully finished in order to gurantee the consistency between the code and the data.
 
 ### Process steps
 Mongock process follows the next steps:
 
-1. The runner loads the migration files(changeUnits)
-2. The runner checks if there is pending change to execute
-3. The runner acquires the distributed lock through the driver
-4. The runner loops over the migration files(changeUnits)
-5. Per each changeUnit, the runner executes the change
-6. If it's successfully executed, it write an entry in the Mongock change history table/collection
-7. If the changeUnit fails, the execution is rolled back. 
+1. The runner loads the migration files(changeUnits).
+2. The runner checks if there is pending change to execute.
+3. The runner acquires the distributed lock through the driver.
+4. The runner loops over the migration files(changeUnits) in order.
+5. Takes the next changeUnit and executes it.
+    - If the changeUnit is successfully executed, Mongock persists an entry in the Mongock change history with the state SUCCESS and start the step 5 again.
+    - If the changeUnit fails, the runner rolls back the change(natively in a transactional environments or manually with the method [@RollbackExecution](/migration#implementation) in non-transactional environments), persists the changeUnit as processed with state FAILED and aborts the migration.
+6. If the runner acomplished to execute the entire migration with no failures, it's considered successful. It relases the lock and finishes the migration.
+7. On the other hand, if any changeUnit fails, the runner stops the migration at that point and throws an exception. When Mongock is executed again, it will continue from the failure changeUnit(included)
 
 ### Architecture
 

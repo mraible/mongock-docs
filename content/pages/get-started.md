@@ -72,7 +72,7 @@ Carryng on with our **client-service** example in [what is Mongock?](/what-is-mo
 ### Create your migration script/class
 
 Note that by default, a changeUnit is wrapped in a transaction(natively or by using the database support or manually, when transactions are not supported).
-Visit the [transaxction section](/features/transactions-and-manual-rollbacks/) for more information. 
+Visit the [transaxction section](/features/transactions/) for more information. 
 
 ```java
 package io.mongock.examples.migration;
