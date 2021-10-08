@@ -9,4 +9,5 @@ eleventyNavigation:
 ---
 ## List of questions to add
 
-- Why we have added the BasicChangeLog and ChangeLog interface
+- Why we have added the ChangeUnit annotation and deprecated ChangeLog
+- What happens if a changeUnit fails - loop

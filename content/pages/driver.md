@@ -9,7 +9,6 @@ eleventyNavigation:
 ---
 
 1. [Introduction](#introduction)
-<!--2. [Driver options](#driver-options)-->
 2. [Configuration](#configuration)
 3. [How it works](#how-it-works)
 

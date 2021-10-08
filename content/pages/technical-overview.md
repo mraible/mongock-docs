@@ -64,6 +64,17 @@ _For more information, visit the [runner page](/runner/)_
 
 ## Mongock process
 
+In a nutshell, the mongock migration process takes all the pending migration changes and execute them in order.
+
+The main use of Mongock migration consists in placing the migration process in the application's startup, so when the application is deployed the code and data are alligned.
+
+This job is initially easy, but, as always, things can go wrong. What happens if a in automated environment like Kubernetes a changeUnit fails? Let's imagine we have an clien-service that has done some change in the database. The kuberentes tries to dpeloy the service, but the application one of the changeUnits fails. What happens? Well, Mongock is designed to prevent the application to start until the entire migration process is done. This means all the changeUnits are succesfully executed. When a changeUnit fails, Mongock throws an exception and the application's staartup will abort. 
+
+This obviously can be tricked. The [changeUnit](/migration#changeUnit) annotation actually provides a field `failFast`, which when turned to `false` tells Mongock to not throw an exceptioj when that specific changeUnit fails. This is not recommended and shouldonly be use in exceptional scenarios. Also, be ware that, although the application startup is not aborted, the change is tracked as failed in the database, so the next time Mongock is executed will try to execute it.
+
+<p class="warningAlt">`failFast` flag in ChangeUnit annotation is not recommended</p>
+
+
 ### Process steps
 Mongock process follows the next steps:
 
