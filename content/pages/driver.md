@@ -11,6 +11,7 @@ eleventyNavigation:
 1. [Introduction](#introduction)
 2. [Configuration](#configuration)
 3. [How it works](#how-it-works)
+4. [Disabling the index creation](#Disabling-the-index-creation)
 
 
 ## Introduction
@@ -65,3 +66,73 @@ On the other hand, although this job is automatically done by Mongock, it will p
 
 
 -------------------------------------------
+
+## Disabling the index creation
+Sometimes, for some reasons, you don't want Mongock to perform administration tasks such as index creations. However they are mandatory and must be created. 
+
+In this scenarios Mongock allows you to create the indexes yourself manually by setting `index-creatio`n to false.
+
+
+However, bear in mind that in this case, although Mongock won't create the indexes, will still check they are correctly created, so the indexes must be created prior to Mongock initialisation. Otherwise will throw an exception.
+
+As said, to achieve this you need two things. First telling Mongock to not create the indexes by:
+
+Properties
+```yaml
+mongock:
+  #...
+  index-creation: false
+```
+Builder
+```java
+driver.setIndexCreation(false);
+```
+
+And creating the indexes manually. The mongockChangeLog indexes should look similar to the following
+
+```javascript
+[
+    {
+        "v" : 2,
+        "key" : {
+            "_id" : 1
+        },
+        "name" : "_id_",
+        "ns" : "my-database.mongockChangeLog"
+    },
+    {
+        "v" : 2,
+        "unique" : true,
+        "key" : {
+            "executionId" : 1,
+            "author" : 1,
+            "changeId" : 1
+        },
+        "name" : "executionId_1_author_1_changeId_1",
+        "ns" : "my-database.mongockChangeLog"
+    }
+]
+```
+
+and the mongockLock indexes:
+```javascript
+[
+    {
+        "v" : 2,
+        "key" : {
+            "_id" : 1
+        },
+        "name" : "_id_",
+        "ns" : "my-database.mongockLock"
+    },
+    {
+        "v" : 2,
+        "unique" : true,
+        "key" : {
+            "key" : 1
+        },
+        "name" : "key_1",
+        "ns" : "my-database.mongockLock"
+    }
+]
+```

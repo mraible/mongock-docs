@@ -46,3 +46,7 @@ As explained in the [runner properties table](/runner#Configuration), the Mongoc
 The easist way to understand how Mongock handles the transactions is by looking at [this section](/technical-overview#process-steps).
 
 
+## Best practices
+
+- Always set explicitly the `mongock.transactionEnable` property to true/false
+- DDL operations placed in the @BeforeExecution method of the changeUnit
