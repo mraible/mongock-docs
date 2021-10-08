@@ -10,6 +10,11 @@ eleventyNavigation:
   title: 'Legacy migration'
 ---
 
+1. [Introduction](#introduction)
+2. [Get started](#get-started)
+3. [Legacy migration properties table](#legacy-migration-properties-table)
+4. [Mongobee scenario](#mongobee-scenario)
+
 
 ## Introduction
 Sometimes you want to migrate to Mongock from another framework you have been using, for example Mongobee. This is what we mean by legacy migration.

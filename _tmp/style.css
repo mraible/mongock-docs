@@ -419,7 +419,8 @@ textarea::placeholder {
   color: #9ca3af;
 }
 
-button {
+button,
+[role="button"] {
   cursor: pointer;
 }
 
@@ -545,6 +546,7 @@ video {
 
       [type='text'],
       [type='password'],
+      [type='number'],
       [type='search'],
       [type='time'],
       [multiple],
@@ -566,7 +568,7 @@ video {
   line-height: 1.5rem;
 }
 
-[type='text']:focus, [type='password']:focus, [type='search']:focus, [type='time']:focus, [multiple]:focus, textarea:focus, select:focus {
+[type='text']:focus, [type='password']:focus, [type='number']:focus, [type='search']:focus, [type='time']:focus, [multiple]:focus, textarea:focus, select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
