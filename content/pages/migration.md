@@ -15,7 +15,7 @@ eleventyNavigation:
   <li><a href="#changeunit-attributes">ChangeUnit attributes</a></li>
   <li><a href="#changeunit-example">ChangeUnit example</li>
   <li><a href="#best-practices">Best practices</li>
-  <li><strike><a href="#changeLog">ChangeLog</a><strike></li>
+  <li><strike><a href="#changeLog">ChangeLog</a></strike></li>
 </ol>
 
 <p class="tip">The <b>@ChangeLog</b> annotation has been <b>deprecated</b> in favour of the <b>@ChangeUnit</b>. For more information check <a href="/faq#changelog-deprecation">this section</a></p>
@@ -133,7 +133,7 @@ public class MyMigrationChangeUnit {
   This is harder to explain. As said, a changeUnit can be interrupted at any time. This means an specific changelog needs to be re-run. In the undesired scenario where the changelog's execution time is grater than the interruption time(could be Kubernetes initial delay), that changelog won't be ever finished. So the changelog needs to be developed in such a way that every iteration reduces its execution time, so eventually, after some iterations, the changelog finished.
 
 ------------------------------------------------------
-<h2 id="changelog"><strike>Changelog</strike></h2>
+<h2 id="changeLog"><strike>ChangeLog</strike></h2>
 
 From Mongock version 5, **@ChangeLog** and **@ChangeSet** annotations are **deprecated** and shouldn't be used. However, these  won't be removed for backwards compatibility.
 
@@ -145,4 +145,4 @@ From Mongock version 5, **@ChangeLog** and **@ChangeSet** annotations are **depr
 
 Please visit the [ChangeLog - version 4](https://www.mongock.io/changelogs) section to access the ChangeLog documentation for Version 4. 
 
-For more information about the reason we have adopted this change, please visit our [faq section](/faq#changelog-deprecation)
+For more information about the reason we have adopted this change, please visit our [FAQ section](/faq#changelog-deprecation)

@@ -3,8 +3,8 @@ title: PENDING
 date: Last Modified 
 permalink: /pending/index.html
 eleventyNavigation:
-  key: faq 
-  title: FAQ
+  key: pending 
+  title: Pending
   order: 13200
 ---
 

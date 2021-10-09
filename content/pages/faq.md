@@ -12,3 +12,4 @@ eleventyNavigation:
 - Why we have added the ChangeUnit annotation and deprecated ChangeLog
 - What happens if a changeUnit fails - loop
 - How manage HA in changes-> two step changes
+- What if we have an environmment with the latest changes and others out of synch?
