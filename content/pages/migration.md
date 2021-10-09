@@ -109,19 +109,22 @@ public class MyMigrationChangeUnit {
 ------------------------------------------------------
 ## Best practices
 
-- **Don't use persisted objects in your changeUnits**
-  Although Mogock provides a powerfull mechanism that allows you to inject any dependency you wish to your changeUnits, these are considered the source of truth and should treated like static resources, once executed shouldn't be changed.
-  With this in mind, imagine the scenario you have the class `Client` that represents a table in your database. You create a changeUnit which uses the field `name` of the client. One month later you realise you don't need this field anymore and decide to remove it. If you do that the first changeUnit's code won't compile. This leaves you with two options remove/update the first changeUnit or keep the unneeded field `name`. Any of which is a good option. 
+- **Don't use persisted objects in your ChangeUnits**
+  Although Mongock provides a powerful mechanism that allows you to inject any dependency you wish to your ChangeUnits, these are considered the source of truth and should treated like static resources, once executed shouldn't be changed.
+  With this in mind, imagine the scenario you have the class `Client` that represents a table in your database. You create a ChangeUnit which uses the field `name` of the client. One month later, you realise the field is not needed anymore and decide to remove it. If you remove it,the first ChangeUnit's code won't compile. This leaves you with two options: either remove/update the first ChangeUnit or keep the unneeded field `name`. Neither of which is a good option. 
 
-- **ChangeUnits backward compatible**
-  While the migration process is taking place, the old version of the software is likely to still be running. During this time could happen(and probably will) that the old version of the software is dealing with the new version of the data. Could even happen that the data is a mix between old and new version. This means the software must still work regardless of the status of the database. In case the developer is aware of this and still decides to provide a non-backward-compatible changeSet, he should know it's a detriment to high availability.
+- **Backwards compatible ChangeUnits**
+  While the migration process is taking place, the old version of the software is likely to still be running. During this time could happen(and probably will) that the old version of the software is dealing with the new version of the data. Could even happen that the data is a mix between old and new versions. This means the software must still work regardless of the status of the database. It can be a detriment to High Availability if ChangeUnits are  non-backward-compatible ChangeUnits.
 
 - **2-stage approach** (When HA is important)
-  When performing a change that implies an update operation that is likely to leave the code and data in an inconsistent state, we recommend to perform the change in two independent depoyments.
-  The first one only provides additions and is compatible with the current deployed code. However, together with the migration, the pertinent code change is also deployed. This code works with the old structure as well as the next change that will be applied. At this point, if the migration was executed, affecting the database but not the code, the services is still fine because the migration didn't produce a bracking change. However we need another step to ensure the code is also deployed. Once this is done, we have the first part of the data migration done(we only have to remove what's not needed anymore) and the code is able to work with the actual version of the data and the next migration that will be applying. The last stage is to do the new deployment with the data migration(which is comoatible with the current code deployed) together with the code reflecting the change. Once again, there are chances that the data migration is done but the service itself(code) doesn't. This is not a problem as the code deployed is also compatible with the new version of the data.
+  There are certain update operations that can leave that can leave code and data in an inconsitent state when performing a change. In such scenarios, we recommend to perform the change in two independent depoyments.
+
+  The first one: only provides additions and is compatible with the current deployed code. At this stage, the code would work with the old structure as well as the next change that will be applied. At this point, if the migration was executed, it affects the database but not the code allowing services to be running because the migration didn't produce a breaking change.
+
+  The second step: Another step is required to ensure the code is also deployed. Once this is done, we have the first part of the data migration done(we only have to remove what's not needed anymore) and the code is able to work with the actual version of the data and the next migration that will be applying. The last stage is to do the new deployment with the data migration(which is comoatible with the current code deployed) together with the code reflecting the change. Once again, there are chances that the data migration is done but the service itself(code) doesn't. This is not a problem as the code deployed is also compatible with the new version of the data.
   
 
-- **Light changeUnits**
+- **Light ChangeUnits**
   Try to wrap your migration in relatively light changeUnits. The concept of light is not universal, but the time to execute a changeUnit shouldn't mean a risk to the application's startup. 
   For example, when using Kubernetes in a transactional environment, if a changeUnit can potentially take longer than the Kubernetes inidial delay, the services will proably fall into a infinite loop. If there is no changeUnit that puts this in risk, the worse case scenario is that the service needs more than one restart to acomplish the entire migration, but eventually it wil.
 
