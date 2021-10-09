@@ -126,7 +126,7 @@ public class MyMigrationChangeUnit {
   For example, when using Kubernetes in a transactional environment, if a changeUnit can potentially take longer than the Kubernetes inidial delay, the services will proably fall into a infinite loop. If there is no changeUnit that puts this in risk, the worse case scenario is that the service needs more than one restart to acomplish the entire migration, but eventually it wil.
 
 
-- **Tries to enforce idempotency in your ChangeUnits as much as possible**(for non-transactional environment)
+- **Try to enforce idempotency in your ChangeUnits as much as possible**(for non-transactional environment)
   In this cases a changeUnit can be interrupted at any time. Mongock will execute again in the next execution. Although you have the rollback feature, in non-transactional environments it's not guranteed that it's executed correctly
 
 - **ChangeUnit reduces its execution time in every iteration**(for non-transactional environment) 
