@@ -116,7 +116,7 @@ public class MyMigrationChangeUnit {
 - **ChangeUnits backward compatible**
   While the migration process is taking place, the old version of the software is likely to still be running. During this time could happen(and probably will) that the old version of the software is dealing with the new version of the data. Could even happen that the data is a mix between old and new version. This means the software must still work regardless of the status of the database. In case the developer is aware of this and still decides to provide a non-backward-compatible changeSet, he should know it's a detriment to high availability.
 
-- **Use the 2-steps approach**(When HA is important)
+- **2-stage approach** (When HA is important)
   When performing a change that implies an update operation that is likely to leave the code and data in an inconsistent state, we recommend to perform the change in two independent depoyments.
   The first one only provides additions and is compatible with the current deployed code. However, together with the migration, the pertinent code change is also deployed. This code works with the old structure as well as the next change that will be applied. At this point, if the migration was executed, affecting the database but not the code, the services is still fine because the migration didn't produce a bracking change. However we need another step to ensure the code is also deployed. Once this is done, we have the first part of the data migration done(we only have to remove what's not needed anymore) and the code is able to work with the actual version of the data and the next migration that will be applying. The last stage is to do the new deployment with the data migration(which is comoatible with the current code deployed) together with the code reflecting the change. Once again, there are chances that the data migration is done but the service itself(code) doesn't. This is not a problem as the code deployed is also compatible with the new version of the data.
   
@@ -126,10 +126,10 @@ public class MyMigrationChangeUnit {
   For example, when using Kubernetes in a transactional environment, if a changeUnit can potentially take longer than the Kubernetes inidial delay, the services will proably fall into a infinite loop. If there is no changeUnit that puts this in risk, the worse case scenario is that the service needs more than one restart to acomplish the entire migration, but eventually it wil.
 
 
-- **Try to enforce idempotency in your ChangeUnits**(for non-transactional environment)
+- **Try to enforce idempotency in your ChangeUnits** (for non-transactional environment)
   In this cases a changeUnit can be interrupted at any time. Mongock will execute again in the next execution. Although you have the rollback feature, in non-transactional environments it's not guranteed that it's executed correctly
 
-- **ChangeUnit reduces its execution time in every iteration**(for non-transactional environment) 
+- **ChangeUnit reduces its execution time in every iteration** (for non-transactional environment) 
   This is harder to explain. As said, a changeUnit can be interrupted at any time. This means an specific changelog needs to be re-run. In the undesired scenario where the changelog's execution time is grater than the interruption time(could be Kubernetes initial delay), that changelog won't be ever finished. So the changelog needs to be developed in such a way that every iteration reduces its execution time, so eventually, after some iterations, the changelog finished.
 
 ------------------------------------------------------
