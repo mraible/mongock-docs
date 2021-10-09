@@ -69,7 +69,7 @@ Multiple attributes can be passed to ChangeUnits to configure these. The followi
 ------------------------------------------------------
 
 ## ChangeUnit example
-<p class="successAlt">ChangeUnits accept dependency injections directly at the method, as well as at constructor level</p>
+<p class="successAlt">ChangeUnits accept dependency injections directly in the method and at constructor level</p>
 
 ```java
 @ChangeUnit(id="myMigrationChangeUnitId", order = "1", author = "mongock_test", systemVersion = "1")
