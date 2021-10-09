@@ -17,7 +17,7 @@ eleventyNavigation:
     2.4. [Create your migration script/class](#create-your-migration-script%2Fclass)
     2.5. [Build the runner](#build-the-runner)
     2.6. [Execute the runner](#execute-the-runner)
-3. [Resources](#resources)
+3. [More Examples!](#resources)
 
 ## Steps to run Mongock
 
@@ -71,8 +71,8 @@ Carryng on with our **client-service** example in [what is Mongock?](/what-is-mo
 
 ### Create your migration script/class
 
-Note that by default, a changeUnit is wrapped in a transaction(natively or by using the database support or manually, when transactions are not supported).
-Visit the [transaxction section](/features/transactions/) for more information. 
+Note that by default, a ChangeUnit is wrapped in a transaction(natively or by using the database support or manually, when transactions are not supported).
+Visit the [Transaction section](/features/transactions/) for more information. 
 
 ```java
 package io.mongock.examples.migration;
@@ -101,7 +101,7 @@ public class ClientInitializerChange {
   }
 
   /**
-  This meethod is mandatory even when transactions are enabled.
+  This method is mandatory even when transactions are enabled.
   They are used in the undo operation and any other scenario where transactions are not an option.
   However, note that when transactions are avialble and Mongock need to rollback, this method is ignored.
   **/
@@ -150,6 +150,6 @@ Congratulations! Our basic Mongock setup is done. We just need to run our applic
 
 --------------------------------------------------
 
-## Resources
+## More Examples!
 
 You can checkout this [github repository](https://github.com/cloudyrock/mongock-examples) for more examples.

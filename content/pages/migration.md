@@ -21,7 +21,7 @@ eleventyNavigation:
 <p class="tip">The <b>@ChangeLog</b> annotation has been <b>deprecated</b> in favour of the <b>@ChangeUnit</b>. For more information check <a href="/faq#changelog-deprecation">this section</a></p>
 
 ## Introduction
- A migration is composed by multiple smaller pieces called changeUnits, which are processed in order by the Mongock runner.
+ A migration is composed by multiple smaller pieces called ChangeUnits, which are processed in order by the Mongock runner.
 
 ChangeUnits are the unit of migration. These refer to the annotated classes where developers write  migration logic/scripts.
 
@@ -32,7 +32,7 @@ A migration is constituted by an ordered list of ChangeUnits. Each of the Change
 1. Each ChangeUnit is wrapped in a **transaction:**. 
     - When transactions are possible(transactional environment), Mongock uses the mechanism provided by the database. 
     - On the other hand, in non-transactional environments, Mongock will try to provide an artificial transactional atmosphere by rolling back the failed change manually.
-2. In targeted operations, such as `undo`, `upgrade`, etc., the ChangeUnit is the unit of the operation. For example, when performing an `undo` operation, it needs to specify the _ChangeUnitId_ until which all the changeunits are reverted(inclusive).
+2. In targeted operations, such as `undo`, `upgrade`, etc., the ChangeUnit is the unit of the operation. For example, when performing an `undo` operation, it needs to specify the _ChangeUnitId_ until which all the ChangeUnits are reverted(inclusive).
 3. A ChangeUnit has only one migration method, which is marked with the **@Execution** annotation, and a rollback method, annotated with **@RollbackExecution**.
 
 ------------------------------------------------------
@@ -42,16 +42,16 @@ A migration is constituted by an ordered list of ChangeUnits. Each of the Change
 Every class marked as `@ChangeUnit` will be marked as a migration class and can contain methods annotated as follow:
 
 - **@Execution:** The main migration method(Mandatory)
-- **@RollbackExecution:** This method basically reverts the changes made by the `@Execution` method. It's mandatory and higly recommended to properly implement it. If the developers is confident it won't be needed, it can be left empty. 
+- **@RollbackExecution:** This method basically reverts the changes made by the `@Execution` method. It's mandatory and higly recommended to properly implement it. It can be left empty if developers don't think is required in some scenarios. 
   
   It will be triggered in the two folloing situations
   - When the `@Execution` method fails in a non-transactional environment
   - In recovery operation like **undo**
-- **@BeforeExecution:** Optional method that will be executed before the actual migration, meaning this that it won't be part of the transactional and executed in non-transactional context. 
-  It's useful to perform DDL operations in database where they are not allowed inside a transaction, like MongoDB, or as preparation for the actual migration. 
-  
-  Bear in mind that this method is treated and tracked in the database history like the `@Execution` method, meaning this that in case of failure, it will force the migration to be aborted, tracked in the database as failed and Mongock will run it again in the next execution. 
-- **@RollbackBeforeExecution:** Like the `@RollbackExecution` for the `@Execution` method, it's work is basically revert the changes made by the `@BeforeExecution` method. It's only mandatory when the method `@BeforeExecution` is present.
+- **@BeforeExecution:** Optional method that will be executed before the actual migration, meaning this that it won't be part of the transactional and executed in non-transactional context. It's useful to perform DDL operations in database where they are not allowed inside a transaction, like MongoDB, or as preparation for the actual migration. 
+
+This method is treated and tracked in the database history like the `@Execution` method, meaning this that in case of failure, it will force the migration to be aborted, tracked in the database as failed and Mongock will run it again in the next execution.
+
+- **@RollbackBeforeExecution:** Similar to the `@RollbackExecution` for the `@Execution` method. It reverts back the changes made by the `@BeforeExecution` method. It's only mandatory when the method `@BeforeExecution` is present.
 
 ------------------------------------------------------
 
