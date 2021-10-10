@@ -109,31 +109,37 @@ public class MyMigrationChangeUnit {
 ------------------------------------------------------
 ## Best practices
 
-- **Don't use persisted objects in your ChangeUnits**
+- **Use the Operation classes in favour of persisted objects in your ChangeUnits**
   Although Mongock provides a powerful mechanism that allows you to inject any dependency you wish to your ChangeUnits, these are considered the source of truth and should treated like static resources, once executed shouldn't be changed.
+
   With this in mind, imagine the scenario you have the class `Client` that represents a table in your database. You create a ChangeUnit which uses the field `name` of the client. One month later, you realise the field is not needed anymore and decide to remove it. If you remove it,the first ChangeUnit's code won't compile. This leaves you with two options: either remove/update the first ChangeUnit or keep the unneeded field `name`. Neither of which is a good option. 
 
-- **Backwards compatible ChangeUnits**
-  While the migration process is taking place, the old version of the software is likely to still be running. During this time could happen(and probably will) that the old version of the software is dealing with the new version of the data. Could even happen that the data is a mix between old and new versions. This means the software must still work regardless of the status of the database. It can be a detriment to High Availability if ChangeUnits are  non-backward-compatible ChangeUnits.
+  An example for MongoDB would be to use MongoTemplate in favour of using Repository classes directly to perform the migrations.
 
-- **2-stage approach** (When HA is important)
-  There are certain update operations that can leave that can leave code and data in an inconsitent state when performing a change. In such scenarios, we recommend to perform the change in two independent depoyments.
+- **High Availability Considerations:**
+  In a Distributed environment where multiple nodes of the Application are running, there are a few considerations when building migrations  with Mongock. 
 
+  - **Backwards compatible ChangeUnits**
+  While the migration process is taking place, the old version of the software is likely to still be running. During this time, it can happen that the old version of the software is dealing with the new version of the data. Scenarios where the data is a mix between old and new versions could also occur. This means the software must still work regardless of the status of the database. It can be a detriment to High Availability if ChangeUnits are  non-backward-compatible ChangeUnits.
+
+  - **2-stage approach** 
+  There are certain update operations that can leave that can leave code and data in an inconsitent state whilst performing a change. In such scenarios, we recommend to perform the change in two independent depoyments.
   The first one: only provides additions and is compatible with the current deployed code. At this stage, the code would work with the old structure as well as the next change that will be applied. At this point, if the migration was executed, it affects the database but not the code allowing services to be running because the migration didn't produce a breaking change.
-
-  The second step: Another step is required to ensure the code is also deployed. Once this is done, we have the first part of the data migration done(we only have to remove what's not needed anymore) and the code is able to work with the actual version of the data and the next migration that will be applying. The last stage is to do the new deployment with the data migration(which is comoatible with the current code deployed) together with the code reflecting the change. Once again, there are chances that the data migration is done but the service itself(code) doesn't. This is not a problem as the code deployed is also compatible with the new version of the data.
+  The next step is required to ensure the new refactored code is also deployed. Once this is done, we have the first part of the data migration done(we only have to remove what's not needed anymore) and the code is able to work with the actual version of the data and the next migration that will be applying. 
+  The last stage is to do the new deployment with the data migration(which is compatible with the current code deployed) together with the code reflecting the change. Once again, there are chances that the data migration is done but the service itself(code) doesn't. This is not a problem as the code deployed is also compatible with the new version of the data.
   
 
 - **Light ChangeUnits**
-  Try to wrap your migration in relatively light changeUnits. The concept of light is not universal, but the time to execute a changeUnit shouldn't mean a risk to the application's startup. 
-  For example, when using Kubernetes in a transactional environment, if a changeUnit can potentially take longer than the Kubernetes inidial delay, the services will proably fall into a infinite loop. If there is no changeUnit that puts this in risk, the worse case scenario is that the service needs more than one restart to acomplish the entire migration, but eventually it wil.
+  Try to wrap your migration in relatively light ChangeUnits. The concept of light is not universal, but the time to execute a ChangeUnit shouldn't mean a risk to the application's startup. 
+
+  For example, when using Kubernetes in a transactional environment, if a ChangeUnit can potentially take longer than the Kubernetes initial delay, the services will proably fall into a infinite loop. If there is no ChangeUnit that puts this in risk, the worse case scenario is that the service will be re-started by the Kubernetes agents as it needs more time to acomplish the entire migration, but eventually the migration will finalise.
 
 
 - **Try to enforce idempotency in your ChangeUnits** (for non-transactional environment)
-  In this cases a changeUnit can be interrupted at any time. Mongock will execute again in the next execution. Although you have the rollback feature, in non-transactional environments it's not guranteed that it's executed correctly
+  In this cases, a ChangeUnit can be interrupted at any time. Mongock will execute again in the next execution. Although you have the rollback feature, in non-transactional environments it's not guranteed that it's executed correctly.
 
 - **ChangeUnit reduces its execution time in every iteration** (for non-transactional environment) 
-  This is harder to explain. As said, a changeUnit can be interrupted at any time. This means an specific changelog needs to be re-run. In the undesired scenario where the changelog's execution time is grater than the interruption time(could be Kubernetes initial delay), that changelog won't be ever finished. So the changelog needs to be developed in such a way that every iteration reduces its execution time, so eventually, after some iterations, the changelog finished.
+  A ChangeUnit can be interrupted at any time. This means an specific changelog needs to be re-run. In the undesired scenario where the changelog's execution time is grater than the interruption time(could be Kubernetes initial delay), that changelog won't be ever finished. So the changelog needs to be developed in such a way that every iteration reduces its execution time, so eventually, after some iterations, the changelog finished.
 
 ------------------------------------------------------
 <h2 id="changeLog"><strike>ChangeLog</strike></h2>

@@ -13,3 +13,4 @@ eleventyNavigation:
 - CLI
 - commands in the CLI toe get the latest new, releases, etc.
 - Video tutorials 
+- Use Cases page
