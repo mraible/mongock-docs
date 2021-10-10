@@ -81,7 +81,6 @@ module.exports = function (eleventyConfig) {
    menuItems.sort(sortArray)
    menuItems.forEach(root => root.pages.sort(sortArray))
    
-   console.debug(menuItems[9])
    return menuItems;
  });
      
