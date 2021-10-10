@@ -3,7 +3,7 @@ title: Vue Components
 description: How to test Vue.js components.
 permalink: /guides/vuew/index.html
 toc: true
-date: Last Modified
+date: 2014-04-18 11:30:00 +0800
 eleventyNavigation:
   order: 2 
 ---

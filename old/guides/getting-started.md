@@ -2,7 +2,7 @@
 title: Getting Started
 description: Quick start guide showing how to get up and running.
 toc: true
-date: Last Modified
+date: 2014-04-18 11:30:00 +0800
 eleventyNavigation:
   order: 3 
 ---

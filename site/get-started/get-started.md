@@ -1,6 +1,6 @@
 ---
 title: Get started
-date: Last Modified 
+date: 2014-04-18 11:30:00 +0800 
 permalink: /get-started/index.html
 eleventyNavigation:
   root: true
