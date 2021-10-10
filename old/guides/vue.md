@@ -16,10 +16,10 @@ eleventyNavigation:
 First, install the necessary packages:
 
 ```bash
-npm install --save-dev @shutter/vue vue
+npm install --save-dev @mongock/vue vue
 ```
 
-You will need to authenticate to the shutter service in order to use it. Check out the [section in the *Getting Started* guide](../getting-started#authentication) if you haven't yet.
+You will need to authenticate to the mongock service in order to use it. Check out the [section in the *Getting Started* guide](../getting-started#authentication) if you haven't yet.
 
 
 ## Write a test
@@ -29,26 +29,26 @@ Create a new test file for a Vue component of yours. There are no hard restricti
 Here is an example testing a `MyButton` component, using good old [Mocha](https://mochajs.org/) as the test runner.
 
 ```js
-// src/components/MyButton.shutter.js
+// src/components/MyButton.mongock.js
 
-import createVueShutter from '@shutter/vue'
+import createVuemongock from '@mongock/vue'
 import MyButton from './MyButton'
 
-const shutter = createVueShutter(__dirname)
+const mongock = createVuemongock(__dirname)
 
 describe('Button component', function () {
   after(async function () {
     // Collect and evaluate results once we are done
-    await shutter.finish()
+    await mongock.finish()
   })
 
   it('matches visual snapshot', async function () {
     await Promise.all([
-      shutter.snapshot('Default Button', {
+      mongock.snapshot('Default Button', {
         components: { MyButton },
         template: '<my-button label='Click me'></my-button>'
       }),
-      shutter.snapshot('Primary Button',  {
+      mongock.snapshot('Primary Button',  {
         components: { MyButton },
         template: '<my-button primary label='Click me'></my-button>'
       })
@@ -67,49 +67,49 @@ $ npx mocha
 
 The first test run will create a `snapshots` directory and save the snapshots there as PNG images.
 
-When running this test again, `@shutter/vue` will once more render your button and compare the resulting snapshots to your previous component snapshots. The tests will fail if the snapshots don't match, printing a list of the failed test cases and an inspection link.
+When running this test again, `@mongock/vue` will once more render your button and compare the resulting snapshots to your previous component snapshots. The tests will fail if the snapshots don't match, printing a list of the failed test cases and an inspection link.
 
-The inspection link references the shutter.sh web app where you can see the rendered components, the expected outcomes and a visual diff between them.
+The inspection link references the mongock web app where you can see the rendered components, the expected outcomes and a visual diff between them.
 
 ## CLI & Updating snapshots
 
-First make sure the `shutter` package is installed:
+First make sure the `mongock` package is installed:
 
 ```bash
-$ npm install --save-dev shutter
+$ npm install --save-dev mongock
 ```
 
 Change your component, so that the new snapshot won't match the old one anymore. Run the tests and you will see an overview of the failed test cases.
 
 What if this change was intentional? You want to update your locally stored snapshot(s), so the tests succeed again and future test runs will compare to the new visual appearance.
 
-Let's update the snapshots using the `shutter` command line tool:
+Let's update the snapshots using the `mongock` command line tool:
 
 ```bash
-# `npx` comes with npm > 5.2 and will run shutter from ./node_modules/.bin/shutter
-$ npx shutter update
+# `npx` comes with npm > 5.2 and will run mongock from ./node_modules/.bin/mongock
+$ npx mongock update
 ```
 
 You will see an interactive prompt that allows you to select the snapshots you want to update. Select them with Space and confirm with Enter, that's it.
 
 <p class="text-center">
-  <img alt="Shutter CLI in action" src="/images/shutter-cli.png" style="max-width: 700px" />
+  <img alt="mongock CLI in action" src="/images/mongock-cli.png" style="max-width: 700px" />
 </p>
 
-If you need detailed usage information for the `shutter` command line tool, just run `npx shutter --help`.
+If you need detailed usage information for the `mongock` command line tool, just run `npx mongock --help`.
 
 ## Custom <code>&lt;head&gt;</code>
 
 The `<head>` section of the HTML document is easily customizable.
 
 ```js
-import createVueShutter from '@shutter/vue'
+import createVuemongock from '@mongock/vue'
 
 const head = `
   <link href="/styles.css" rel="stylesheet" />
 `
 
-const shutter = createVueShutter(__dirname, { head })
+const mongock = createVuemongock(__dirname, { head })
 ```
 
 ## Submit local files
@@ -117,7 +117,7 @@ const shutter = createVueShutter(__dirname, { head })
 You can submit local files that will be served on a path of your choice while rendering. This way you can use custom stylesheets, for instance.
 
 ```js
-import createVueShutter, { addFile } from '@shutter/vue'
+import createVuemongock, { addFile } from '@mongock/vue'
 import * as path from 'path'
 
 const files = await Promise.all([
@@ -126,33 +126,33 @@ const files = await Promise.all([
 const head = `
   <link href="/styles.css" rel="stylesheet" />
 `
-const shutter = createVueShutter(__dirname, { files, head })
+const mongock = createVuemongock(__dirname, { files, head })
 ```
 
 Please note that the submitted file will be publicly accessible.
 
 ## Using AVA
 
-The test runner [AVA](https://github.com/avajs/ava) is quite popular for its lean and clean test API. You can easily write tests using shutter as well:
+The test runner [AVA](https://github.com/avajs/ava) is quite popular for its lean and clean test API. You can easily write tests using mongock as well:
 
 ```js
-import createVueShutter from '@shutter/vue'
+import createVuemongock from '@mongock/vue'
 import MyButton from './MyButton'
 
-const shutter = createVueShutter(__dirname)
+const mongock = createVuemongock(__dirname)
 
 test.after(async () => {
   // Collect and evaluate results once we are done
-  await shutter.finish()
+  await mongock.finish()
 })
 
 test('Button', async t => {
   await Promise.all([
-    shutter.snapshot('Default Button', {
+    mongock.snapshot('Default Button', {
       components: { MyButton },
       template: '<my-button label='Click me'></my-button>'
     }),
-    shutter.snapshot('Primary Button',  {
+    mongock.snapshot('Primary Button',  {
       components: { MyButton },
       template: '<my-button primary label='Click me'></my-button>'
     })
@@ -167,7 +167,7 @@ This is an example test using Vuetify components and [AVA](https://ava.li/) as t
 import test from 'ava'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import createVueShutter, { addFile } from '../src'
+import createVuemongock, { addFile } from '../src'
 
 test('Vuetify components', async t => {
   Vue.use(Vuetify)
@@ -178,15 +178,15 @@ test('Vuetify components', async t => {
     <link href="/vuetify.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet" />
   `
-  const shutter = createVueShutter(__dirname, { files, head })
+  const mongock = createVuemongock(__dirname, { files, head })
 
-  await shutter.snapshot('Vuetify button', {
+  await mongock.snapshot('Vuetify button', {
     template: `<v-app>
       <v-btn>I am a button</v-btn>
     </v-app>`
   })
 
-  await shutter.snapshot('Vuetify toolbar with content', {
+  await mongock.snapshot('Vuetify toolbar with content', {
     template: `<v-app>
       <v-toolbar>
         <v-toolbar-side-icon></v-toolbar-side-icon>
@@ -201,7 +201,7 @@ test('Vuetify components', async t => {
     </v-app>`
   })
 
-  await shutter.finish()
+  await mongock.finish()
   t.pass()
 })
 ```

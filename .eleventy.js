@@ -14,7 +14,7 @@ const sortArray = (a, b) => {
 
 function makeTittle(title) {
   let newTitle = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
-  let formattedTitle = newTitle.replace("-", " ")
+  let formattedTitle = newTitle.replace(/-/g, ' ')
   return formattedTitle;
 }
 
@@ -23,7 +23,10 @@ function processPage(menuItems, menuIndexes, item) {
       const navData = item.data.eleventyNavigation;
       if(navData) {
         const data = item.data;
-        const folder = item.url.split("/")[1];
+        let folder = item.url.split("/")[1];
+        if(!folder) {
+          folder = item.data.page.fileSlug;
+        }
         if(!( typeof menuIndexes[folder] == 'number')) {
           const index = menuItems.length;
           menuIndexes[folder] = index;
@@ -35,14 +38,16 @@ function processPage(menuItems, menuIndexes, item) {
 
         const index = menuIndexes[folder] ;
         if(navData.root) {
-          menuItems[index].url = data.permalink || item.url;
-          menuItems[index].description = data.description;
+          if(navData.page == null || navData.page) {
+            menuItems[index].url = data.permalink || item.url;
+            menuItems[index].description = data.description;
+          }
           menuItems[index].order = navData.order;
         } else {
           menuItems[index].pages.push(
             {
               url: data.permalink || item.url,
-              title: data.title,
+              title: makeTittle(data.title),
               description: data.description,
               order: navData.order
             }

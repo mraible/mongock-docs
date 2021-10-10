@@ -9,13 +9,14 @@ eleventyNavigation:
   order: 45
 ---
 
-1. [Introduction](#introduction)
+<!--1. [Introduction](#introduction)
 2. [Runner options](#runner-options)
 3. [Build](#build)
 3. [Configuration](#configuration)
-4. [Execution](#execution)
+4. [Execution](#execution)-->
 
 
+[[TOC]]
 
 ## Introduction
 This page explains the process of using the runner, configuration properties, etc. You can find a more practical guide in each runner page.

@@ -10,10 +10,11 @@ eleventyNavigation:
   title: Transactions
 ---
 
-1. [Introduction](#introduction)
+<!--1. [Introduction](#introduction)
 2. [Configuration](#configuration)
-3. [How it works](#how-it-works)
+3. [How it works](#how-it-works)-->
 
+[[TOC]]
 ## Introduction 
 
 We already discussed the [Mongock process](/technical-overview#mongock-process) and the [migration component](/migration) in previous sections where the transactions are already mentioned. 

@@ -8,14 +8,15 @@ eleventyNavigation:
 ---
 
 
-1. [Main components](#main-components)
+<!--1. [Main components](#main-components)
     1.1. [Migration](#migration)
     1.2. [Driver](#driver)
     1.3. [Runner](#runner)
 2. [Mongock process](#mongock-process)
     2.1. [Process steps](#process-steps)
-    2.2. [Architecture](#architecture)
+    2.2. [Architecture](#architecture)-->
 
+[[TOC]]
 
 ## Main components
 
@@ -78,4 +79,9 @@ Mongock process follows the next steps:
 ### Architecture
 
 
-<img src="../content/images/technical-overview-diagram-User HLD.jpg" alt="Architecturei">
+<p class="text-center">
+    <img src="/images/technical-overview-diagram-User HLD.jpg" alt="Architecturei">
+</p>
+
+
+

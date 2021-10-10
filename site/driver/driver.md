@@ -7,12 +7,13 @@ eleventyNavigation:
   order: 70
 ---
 
-1. [Introduction](#introduction)
+<!--1. [Introduction](#introduction)
 2. [Configuration](#configuration)
 3. [How it works](#how-it-works)
-4. [Disabling the index creation](#Disabling-the-index-creation)
+4. [Disabling the index creation](#Disabling-the-index-creation)-->
 
 
+[[TOC]]
 ## Introduction
 
 To understand the concept of the driver within the Mongock architecture, visit the [technical overview page](/technical-overview#main/components). There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.

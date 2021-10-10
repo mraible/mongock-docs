@@ -11,7 +11,7 @@ p.note
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	background-color: #f0f7fb;
-	background-image: url(/content/images/icons/Pencil-48.png);
+	background-image: url(/images/icons/Pencil-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border: solid 1px #3498db;
@@ -26,7 +26,7 @@ p.warning
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	background-color: #f9e7e5;
-	background-image: url(/content/images/icons/Warning-48.png);
+	background-image: url(/images/icons/Warning-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border: solid 1px #c0392b;
@@ -41,7 +41,7 @@ p.success
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	background-color: #e7f6f0;
-	background-image: url(/content/images/icons/Check-48.png);
+	background-image: url(/images/icons/Check-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border: solid 1px #27ae60;
@@ -56,7 +56,7 @@ p.tip
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	background-color: #fffbea;
-	background-image: url('/content/images/icons/Bulb-48.png');
+	background-image: url('/images/icons/Bulb-48.png');
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border: solid 1px #f1c40f;
@@ -69,7 +69,7 @@ p.tip
 p.noteAlt
 {
 	background-color: #f0f7fb;
-	background-image: url(/content/images/icons/Pencil-48.png);
+	background-image: url(/images/icons/Pencil-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border-left: solid 4px #3498db;
@@ -81,7 +81,7 @@ p.noteAlt
 p.warningAlt
 {
 	background-color: #fcf7f2;
-	background-image: url(/content/images/icons/Warning-48.png);
+	background-image: url(/images/icons/Warning-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border-left: solid 4px #e74c3c;
@@ -93,7 +93,7 @@ p.warningAlt
 p.successAlt
 {
 	background-color: #e7f6f0;
-	background-image: url(/content/images/icons/Check-48.png);
+	background-image: url(/images/icons/Check-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border-left: solid 4px #2ecc71;
@@ -105,7 +105,7 @@ p.successAlt
 p.tipAlt
 {
 	background-color: #fffbea;
-	background-image: url('/content/images/icons/Bulb-48.png');
+	background-image: url('/images/icons/Bulb-48.png');
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border-left: solid 4px #f1c40f;
@@ -122,7 +122,7 @@ div.note
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	background-color: #f0f7fb;
-	background-image: url(/content/images/icons/Pencil-48.png);
+	background-image: url(/images/icons/Pencil-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border: solid 1px #3498db;
@@ -137,7 +137,7 @@ div.warning
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	background-color: #f9e7e5;
-	background-image: url(/content/images/icons/Warning-48.png);
+	background-image: url(/images/icons/Warning-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border: solid 1px #c0392b;
@@ -152,7 +152,7 @@ div.success
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	background-color: #e7f6f0;
-	background-image: url(/content/images/icons/Check-48.png);
+	background-image: url(/images/icons/Check-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border: solid 1px #27ae60;
@@ -167,7 +167,7 @@ div.tip
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	background-color: #fffbea;
-	background-image: url('/content/images/icons/Bulb-48.png');
+	background-image: url('/images/icons/Bulb-48.png');
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border: solid 1px #f1c40f;
@@ -180,7 +180,7 @@ div.tip
 div.noteAlt
 {
 	background-color: #f0f7fb;
-	background-image: url(/content/images/icons/Pencil-48.png);
+	background-image: url(/images/icons/Pencil-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border-left: solid 4px #3498db;
@@ -192,7 +192,7 @@ div.noteAlt
 div.warningAlt
 {
 	background-color: #fcf7f2;
-	background-image: url(/content/images/icons/Warning-48.png);
+	background-image: url(/images/icons/Warning-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border-left: solid 4px #e74c3c;
@@ -204,7 +204,7 @@ div.warningAlt
 div.successAlt
 {
 	background-color: #e7f6f0;
-	background-image: url(/content/images/icons/Check-48.png);
+	background-image: url(/images/icons/Check-48.png);
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border-left: solid 4px #2ecc71;
@@ -216,7 +216,7 @@ div.successAlt
 div.tipAlt
 {
 	background-color: #fffbea;
-	background-image: url('/content/images/icons/Bulb-48.png');
+	background-image: url('/images/icons/Bulb-48.png');
 	background-position: 9px 0px;
 	background-repeat: no-repeat;
 	border-left: solid 4px #f1c40f;

@@ -8,14 +8,16 @@ eleventyNavigation:
 ---
 
 
-<ol>
+<!--<ol>
   <li><a href="#introduction">Introduction</a></li>
   <li><a href="#changeunit-methods">ChangeUnit methods</a></li>
   <li><a href="#changeunit-attributes">ChangeUnit attributes</a></li>
   <li><a href="#changeunit-example">ChangeUnit example</li>
   <li><a href="#best-practices">Best practices</li>
   <li><strike><a href="#changeLog">ChangeLog</a></strike></li>
-</ol>
+</ol>-->
+
+[[TOC]]
 
 <p class="tip">The <b>@ChangeLog</b> annotation has been <b>deprecated</b> in favour of the <b>@ChangeUnit</b>. For more information check <a href="/faq#changelog-deprecation">this section</a></p>
 
@@ -143,13 +145,13 @@ public class MyMigrationChangeUnit {
 ------------------------------------------------------
 <h2 id="changeLog"><strike>ChangeLog</strike></h2>
 
-From Mongock version 5, **@ChangeLog** and **@ChangeSet** annotations are **deprecated** and shouldn't be used. However, these  won't be removed for backwards compatibility.
+From Mongock version 5, `@ChangeLog` and `@ChangeSet` annotations are **deprecated** and shouldn't be used. However, these  won't be removed for backwards compatibility.
 
 <div class="success">Please follow one of the recommended approaches depending on your use case:
 <p>- <b>For existing changeLogs created prior version 5:</b> Leave it untoched, keeping thedeprecated annotation.</p>
 <p>- <b>For new migrations from version 5:</b> Use the new @ChangeUnit annotation instead.</p>
 </div>
-
+<br />
 
 Please visit the [ChangeLog - version 4](https://www.mongock.io/changelogs) section to access the ChangeLog documentation for Version 4. 
 

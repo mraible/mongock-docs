@@ -1,15 +1,19 @@
 ---
 title: What is Mongock?
 date: Last Modified 
-permalink: /what-is-mongock/index.html
+permalink: /index.html
 eleventyNavigation:
   root: true
   order: 0
 ---
 
-1. [Introduction](#introduction)
+<!--1. [Introduction](#introduction)
 2. [Why Mongock?](#why-mongock%3F)
-4. [How it works](#how-it-works)
+4. [How it works](#how-it-works)-->
+
+<p class="text-center">
+    <img src="/images/mongock-logo-with-title.jpg" width="65%" alt="Mongock">
+</p>
 
 
 ## Introduction

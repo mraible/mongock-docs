@@ -9,13 +9,14 @@ eleventyNavigation:
   key: runner standalone
   title: 'Standalone'
 ---
-1. [Introduction](#introduction)
+<!--1. [Introduction](#introduction)
 2. [Get started](#get-started)
 3. [Features](#features)
    3.1 [Dependency injection](#dependency-injection)
    3.2 [Events](#events)
-4. [Example](#example)
+4. [Example](#example)-->
 
+[[TOC]]
 ## Introduction
 The standalone runner is the vanila runner, totally clean, with no framework. It's mainly used when no framework is configured, although it can be used with any framework, it just doesn't take advantage of the features it provides. The difference from other runners that are built to take the moest of the underlying framework, it requires more involvement from the user. 
 

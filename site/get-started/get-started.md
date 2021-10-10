@@ -6,9 +6,7 @@ eleventyNavigation:
   root: true
   order: 15
 ---
-
-
-1. [Steps to run Mongock](#steps-to-run-mongock)
+<!--1. [Steps to run Mongock](#steps-to-run-mongock)
 2. [Example](#example)
     2.1. [Add Mongock bom to your Pom file](#add-mongock-bom-to-your-pom-file)
     2.2. [Add the maven dependency for the runner](#add-the-maven-dependency-for-the-runner)
@@ -16,8 +14,9 @@ eleventyNavigation:
     2.4. [Create your migration script/class](#create-your-migration-script%2Fclass)
     2.5. [Build the runner](#build-the-runner)
     2.6. [Execute the runner](#execute-the-runner)
-3. [More Examples!](#resources)
+3. [More Examples!](#resources)-->
 
+[[TOC]]
 ## Steps to run Mongock
 
 1. Add Mongock bom to your Pom file. Visit [import Mongock BOM](/get-started#add-mongock-bom-to-your-pom-file)
@@ -144,7 +143,8 @@ When using the Springboot runner, you don't need to worry about the execution.  
 
 Congratulations! Our basic Mongock setup is done. We just need to run our application and we should see something like this in our log.
 ```
-2021-09-17 17:27:42.157  INFO 12878 --- [main] i.m.r.c.e.o.c.MigrationExecutorBase      : APPLIED - ChangeEntry{"id"="client-initializer", "author"="mongock", "class"="ClientInitializer", "method"="changeSet"}
+2021-09-17 17:27:42.157  INFO 12878 --- [main] i.m.r.c.e.o.c.MigrationExecutorBase      : 
+APPLIED - ChangeEntry{"id"="client-initializer", "author"="mongock", "class"="ClientInitializer", "method"="changeSet"}
 ```
 
 --------------------------------------------------

@@ -13,9 +13,9 @@ eleventyNavigation:
 
 ## Sign up
 
-The shutter.sh service is currently in closed alpha testing. You will need an invitation to use it until the service goes public.
+The mongock service is currently in closed alpha testing. You will need an invitation to use it until the service goes public.
 
-If you would like to get invited, just ping us on [Twitter](https://twitter.com/shuttersh) or check out our [website](https://shutter.sh/) for other ways to get in touch.
+If you would like to get invited, just ping us on [Twitter](https://twitter.com/mongocksh) or check out our [website](https://mongock/) for other ways to get in touch.
 
 
 ## Installation
@@ -23,10 +23,10 @@ If you would like to get invited, just ping us on [Twitter](https://twitter.com/
 Open a terminal and go to your working project's directory to install the packages.
 
 ```bash
-$ yarn add --dev shutter @shutter/react
+$ yarn add --dev mongock @mongock/react
 ```
 
-The `shutter` package is the CLI tool that does authentication and snapshot updates. The `@shutter/react` package contains the React component snapshotting functionality.
+The `mongock` package is the CLI tool that does authentication and snapshot updates. The `@mongock/react` package contains the React component snapshotting functionality.
 
 Make sure that you installed `react` and `react-dom`:
 
@@ -42,11 +42,11 @@ Use your favorite test runner to write the tests, like Jest, AVA, Mocha, Tape ..
 Log in using your GitHub account:
 
 ```bash
-# `npx` comes with npm and will run shutter from ./node_modules/.bin/shutter
-$ npx shutter login
+# `npx` comes with npm and will run mongock from ./node_modules/.bin/mongock
+$ npx mongock login
 ```
 
-Your authentication token has now been saved to a `.shutterrc` file and we are ready to get productive.
+Your authentication token has now been saved to a `.mongockrc` file and we are ready to get productive.
 
 <div class="alert alert-warning" markdown="1">
 **Security Note:** Keep your authentication token private. Don't commit it and don't share it, treat it like a password.
@@ -60,11 +60,11 @@ Let's write a first visual snapshot test! We will just render some static HTML /
 Start by creating a test project and installing the basic dependencies:
 
 ```bash
-$ mkdir shutter-test
-$ cd shutter-test
+$ mkdir mongock-test
+$ cd mongock-test
 
 $ echo "{}" > package.json
-$ npm install @shutter/core
+$ npm install @mongock/core
 ```
 
 Let's create a simple script file `button.js` to render a simple button:
@@ -72,9 +72,9 @@ Let's create a simple script file `button.js` to render a simple button:
 ```js
 // button.js
 
-const createShutter = require('@shutter/core').default
+const createmongock = require('@mongock/core').default
 
-const shutter = createShutter(__dirname)
+const mongock = createmongock(__dirname)
 
 const main = async () => {
   const html = `
@@ -97,8 +97,8 @@ const main = async () => {
     </style>
   `
 
-  await shutter.snapshot('Button', html)
-  await shutter.finish()
+  await mongock.snapshot('Button', html)
+  await mongock.finish()
 }
 
 main().catch(error => {
@@ -115,8 +115,8 @@ $ node button.js
 The output should look similar to that:
 
 ```
-Shutter ran 1 tests ✔
-Inspect the snapshots at <https://shutter.sh/snapshot-set/KyCa50DaCBqI>
+mongock ran 1 tests ✔
+Inspect the snapshots at <https://mongock/snapshot-set/KyCa50DaCBqI>
 ```
 
 Follow the link in the console output to inspect the rendered button in your browser. Also note that a file `snapshots/button.png` has just been created. It is a local copy of the rendered button snapshot that will be used for future regression testing.

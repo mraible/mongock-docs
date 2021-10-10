@@ -9,15 +9,16 @@ eleventyNavigation:
   key: runner springboot
   title: 'Springboot'
 ---
-1. [Introduction](#introduction)
+<!--1. [Introduction](#introduction)
 2. [Get started](#get-started)
 3. [Features](#features)
    3.1 [Runner type: Applicationrunner vs Initializingbean](#runner-type%3A-applicationrunner-vs-initializingbean)
    3.2 [Dependency injection](#dependeny-injection)
    3.3 [Profiles](#Profiles)
    3.2 [Events](#events)
-4. [Examples](#examples)
+4. [Examples](#examples)-->
 
+[[TOC]]
 
 ## Introduction
 As its name suggests, this runner is the one to use with Springboot. It leverages the Springboot features, like the ApplicationContext, profiles and EnventPublisher, to provides a smooth user experience
