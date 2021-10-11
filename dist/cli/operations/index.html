@@ -274,7 +274,7 @@
       <article>
         <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#migrate">Migrate</a></li><li><a href="#undo-pro">Undo  </a></li></ul></div></p>
 <h1 id="migrate"><a class="header-anchor" href="#migrate">#</a> Migrate</h1>
-<p>Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation</p>
+<p>Execute all the pending changeUnits, as the standard Mongock migration process.</p>
 <pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock migrate --appJar APP_JAR</div></code></pre>
 <table>
 <thead>
@@ -297,7 +297,8 @@
 </tbody>
 </table>
 <h1 id="undo-pro"><a class="header-anchor" href="#undo-pro">#</a> Undo  <span class="professional">PRO</span></h1>
-<p>Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation</p>
+<p>Reverts all the changeUnits until the <code>CHANGE_ID</code>, included.</p>
+<p>This operation uses the methods annotated with <code>@RollbackExecution</code> and <code>@RollbackBeforeExecution</code> in the changeUnits.</p>
 <pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock undo CHANGE_ID --appJar APP_JAR</div></code></pre>
 <table>
 <thead>

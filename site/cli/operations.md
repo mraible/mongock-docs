@@ -10,7 +10,9 @@ eleventyNavigation:
 
 
 # Migrate
-Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation
+
+Execute all the pending changeUnits, as the standard Mongock migration process.
+
 ```bash
 $ ./mongock migrate --appJar APP_JAR
 ```
@@ -19,7 +21,10 @@ $ ./mongock migrate --appJar APP_JAR
 | APP_JAR  | **--appJar**  |  String | It's the path to you executable uber JAR. |   YES     |  
 
 # Undo  <span class="professional">PRO</span>
-Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation Migration explanation
+
+Reverts all the changeUnits until the `CHANGE_ID`, included.
+
+This operation uses the methods annotated with `@RollbackExecution` and `@RollbackBeforeExecution` in the changeUnits.  
 
 ```bash
 $ ./mongock undo CHANGE_ID --appJar APP_JAR
