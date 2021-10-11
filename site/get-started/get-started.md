@@ -1,10 +1,10 @@
 ---
 title: Get started
-date: 2014-04-18 11:30:00 +0800 
+date: 2014-04-18 11:30:00 
 permalink: /get-started/index.html
 eleventyNavigation:
   root: true
-  order: 15
+  order: 20
 ---
 <!--1. [Steps to run Mongock](#steps-to-run-mongock)
 2. [Example](#example)

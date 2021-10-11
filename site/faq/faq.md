@@ -1,10 +1,10 @@
 ---
 title: FAQ
-date: 2014-04-18 11:30:00 +0800 
+date: 2014-04-18 11:30:00 
 permalink: /faq/index.html
 eleventyNavigation:
   root: true
-  order: 1200
+  order: 90
 ---
 ## List of questions to add
 

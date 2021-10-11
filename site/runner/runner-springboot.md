@@ -1,6 +1,6 @@
 ---
 title: 'Runner: Springboot' 
-date: 2014-04-18 11:30:00 +0800 
+date: 2014-04-18 11:30:00 
 permalink: /runner/springboot/index.html
 toc: true
 eleventyNavigation:

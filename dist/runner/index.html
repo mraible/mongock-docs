@@ -60,9 +60,10 @@
   <nav class="menu-root">
     
       
+  
   <h7 class="menu-item">
     
-      <a class="menu-item " href="/index.html">
+      <a class="menu-item "  href="/index.html">
         What is mongock
       </a>
     
@@ -73,9 +74,10 @@
       </nav>
     
       
+  
   <h7 class="menu-item">
     
-      <a class="menu-item " href="/technical-overview/index.html">
+      <a class="menu-item "  href="/technical-overview/index.html">
         Technical overview
       </a>
     
@@ -86,9 +88,10 @@
       </nav>
     
       
+  
   <h7 class="menu-item">
     
-      <a class="menu-item " href="/get-started/index.html">
+      <a class="menu-item "  href="/get-started/index.html">
         Get started
       </a>
     
@@ -99,9 +102,10 @@
       </nav>
     
       
+  
   <h7 class="menu-item">
     
-      <a class="menu-item " href="/migration/index.html">
+      <a class="menu-item "  href="/migration/index.html">
         Migration
       </a>
     
@@ -112,9 +116,10 @@
       </nav>
     
       
+  
   <h7 class="menu-item">
     
-      <a class="menu-item " href="/runner/index.html">
+      <a class="menu-item current-page"  href="/runner/index.html">
         Runner
       </a>
     
@@ -123,13 +128,15 @@
       <nav class="Runner">
         
           
-  <a class="menu-item " href="/runner/standalone/index.html">
+  
+  <a class="menu-item "  href="/runner/standalone/index.html">
     Runner: standalone
   </a>
 
         
           
-  <a class="menu-item " href="/runner/springboot/index.html">
+  
+  <a class="menu-item "  href="/runner/springboot/index.html">
     Runner: springboot
   </a>
 
@@ -137,9 +144,10 @@
       </nav>
     
       
+  
   <h7 class="menu-item">
     
-      <a class="menu-item " href="/driver/index.html">
+      <a class="menu-item "  href="/driver/index.html">
         Driver
       </a>
     
@@ -148,7 +156,8 @@
       <nav class="Driver">
         
           
-  <a class="menu-item " href="/driver/mongodb/index.html">
+  
+  <a class="menu-item "  href="/driver/mongodb/index.html">
     Driver: mongodb
   </a>
 
@@ -156,6 +165,7 @@
       </nav>
     
       
+  
   <h7 class="menu-item">
     
       Features
@@ -165,19 +175,22 @@
       <nav class="Features">
         
           
-  <a class="menu-item " href="/features/transactions/index.html">
+  
+  <a class="menu-item "  href="/features/transactions/index.html">
     Transactions
   </a>
 
         
           
-  <a class="menu-item " href="/features/events/index.html">
+  
+  <a class="menu-item "  href="/features/events/index.html">
     Events
   </a>
 
         
           
-  <a class="menu-item " href="/features/legacy-migration/index.html">
+  
+  <a class="menu-item "  href="/features/legacy-migration/index.html">
     Legacy migration
   </a>
 
@@ -185,22 +198,31 @@
       </nav>
     
       
+  
   <h7 class="menu-item">
     
-      <a class="menu-item " href="/roadmap/index.html">
-        Roadmap
+      <a class="menu-item "  href="/cli/index.html">
+        Cli
       </a>
     
   </h7>
 
-      <nav class="Roadmap">
+      <nav class="Cli">
+        
+          
+  
+  <a class="menu-item "  href="/cli/operations/index.html">
+    Operations
+  </a>
+
         
       </nav>
     
       
+  
   <h7 class="menu-item">
     
-      <a class="menu-item " href="/faq/index.html">
+      <a class="menu-item "  href="/faq/index.html">
         Faq
       </a>
     
@@ -211,9 +233,24 @@
       </nav>
     
       
+  
   <h7 class="menu-item">
     
-      <a class="menu-item " href="/pending/index.html">
+      <a class="menu-item "  href="/roadmap/index.html">
+        Roadmap
+      </a>
+    
+  </h7>
+
+      <nav class="Roadmap">
+        
+      </nav>
+    
+      
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/pending/index.html">
         Pending
       </a>
     
@@ -278,7 +315,7 @@
 <table>
 <thead>
 <tr>
-<th>Property</th>
+<th style="text-align:center">Property</th>
 <th style="text-align:left">type</th>
 <th>Description</th>
 <th style="text-align:center">Type</th>
@@ -287,84 +324,84 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>driver</strong></td>
+<td style="text-align:center"><strong>driver</strong></td>
 <td style="text-align:left">component</td>
 <td>The Mongock driver. This parameter can only be passed programatically. When opting for the <code>automatic approach</code>, Mongock builds the driver and injects it to the runner</td>
 <td style="text-align:center">ConnectionDriver</td>
 <td style="text-align:center">Mandatory</td>
 </tr>
 <tr>
-<td><strong>migrationScanPackage</strong></td>
+<td style="text-align:center"><strong>migrationScanPackage</strong></td>
 <td style="text-align:left">property</td>
 <td>The list of migration(changeUnits and changeLogs) classes and/or packages where they are stored</td>
 <td style="text-align:center">List&lt; String &gt;</td>
 <td style="text-align:center">Mandatory</td>
 </tr>
 <tr>
-<td><strong>metadata</strong></td>
+<td style="text-align:center"><strong>metadata</strong></td>
 <td style="text-align:left">property</td>
 <td>Custom data attached to the migration. It will be added to change entry in the mongock table/collection</td>
 <td style="text-align:center">Map&lt;String, Object&gt;</td>
 <td style="text-align:center">null</td>
 </tr>
 <tr>
-<td><strong>startSystemVersion</strong></td>
+<td style="text-align:center"><strong>startSystemVersion</strong></td>
 <td style="text-align:left">property</td>
 <td>System version to start with</td>
 <td style="text-align:center">String</td>
 <td style="text-align:center"><code>0</code></td>
 </tr>
 <tr>
-<td><strong>endSystemVersions</strong></td>
+<td style="text-align:center"><strong>endSystemVersions</strong></td>
 <td style="text-align:left">property</td>
 <td>System version to end with</td>
 <td style="text-align:center">String</td>
 <td style="text-align:center">MAX_VALUE</td>
 </tr>
 <tr>
-<td><strong>trackIgnored</strong></td>
+<td style="text-align:center"><strong>trackIgnored</strong></td>
 <td style="text-align:left">property</td>
 <td>Specifies if an ignored changeUnit(already executed for example) should be track in the Mongock table/collection with status IGNORED</td>
 <td style="text-align:center">boolean</td>
 <td style="text-align:center"><code>false</code></td>
 </tr>
 <tr>
-<td><strong>enabled</strong></td>
+<td style="text-align:center"><strong>enabled</strong></td>
 <td style="text-align:left">property</td>
 <td>If false, will disable Mongock execution</td>
 <td style="text-align:center">boolean</td>
 <td style="text-align:center">NO</td>
 </tr>
 <tr>
-<td><strong>serviceIdentifier</strong></td>
+<td style="text-align:center"><strong>serviceIdentifier</strong></td>
 <td style="text-align:left">property</td>
 <td>Application/service instance's indentifier</td>
 <td style="text-align:center">String</td>
 <td style="text-align:center">null</td>
 </tr>
 <tr>
-<td><strong>defaultMigrationAuthor</strong></td>
+<td style="text-align:center"><strong>defaultMigrationAuthor</strong></td>
 <td style="text-align:left">property</td>
 <td>Author field is not mandatory in ChangeUnit. The field <code>author</code> in this annoation is optional. However for backward compatibility it's still required. If it's provided in the ChangeUnit annotation, this value is taken. If not, Mongock will look at this property. If not provided, the default value is provided</td>
 <td style="text-align:center">String</td>
 <td style="text-align:center"><code>default_author</code></td>
 </tr>
 <tr>
-<td><strong>throwExceptionIfCannotObtainLock</strong></td>
+<td style="text-align:center"><strong>throwExceptionIfCannotObtainLock</strong></td>
 <td style="text-align:left">property</td>
 <td>Mongock will throw MongockException if lock can not be obtained. Builder method <code>dontFailIfCannotAcquireLock</code> to turn it to false</td>
 <td style="text-align:center">boolean</td>
 <td style="text-align:center">long</td>
 </tr>
 <tr>
-<td><strong>transactionEnabled</strong></td>
+<td style="text-align:center"><strong>transactionEnabled</strong></td>
 <td style="text-align:left">property</td>
 <td>Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is <code>true</code> or not provided. If it's <code>false</code>, transactions are disabled and will throw an exception if this field is <code>true</code> and the driver is not transactionable. To understand what <em>transactionable</em> means in the context of the driver and how to make a driver transactionable, visit the section <a href="/driver/">driver</a></td>
 <td style="text-align:center">boolean</td>
 <td style="text-align:center">null</td>
 </tr>
 <tr>
-<td><strong>transactionStrategy</strong></td>
+<td style="text-align:center"><strong>transactionStrategy</strong></td>
 <td style="text-align:left">property</td>
 <td>Dictates the transaction strategy. <code>CHANGE_UNIT</code> means each changeUnit(applied to deprecated changeLog as well) is wrapped in an independent transaction.<code>EXECUTION</code> strategy means that Mongock will wrap all the changeUnits in a single transaction. Note that Mongock higly recomend the default value, <code>CHANGE_UNIT</code>, as the <code>EXECUTION</code> strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way</td>
 <td style="text-align:center">String</td>

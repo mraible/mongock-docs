@@ -1,12 +1,12 @@
 ---
 title: Runner
-date: 2014-04-18 11:30:00 +0800 
+date: 2014-04-18 11:30:00 
 permalink: /runner/index.html
 eleventyNavigation:
   root: true
   key: runner 
   title: Runner
-  order: 45
+  order: 40
 ---
 
 <!--1. [Introduction](#introduction)
@@ -53,8 +53,8 @@ ______________________________________
 <p class="tipAlt">When using properties file, you need to add the prefix <b>`mongock.`</b></p>
 <p class="success">You can find more additional properties in each runner page</p>
 
-| Property                    | type | Description                                                                                  | Type                | Default value |
-| ------------------------------------|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
+| Property                  | type | Description                                                                                  | Type                | Default value |
+| :------------------------:|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
 | **driver**                | component | The Mongock driver. This parameter can only be passed programatically. When opting for the `automatic approach`, Mongock builds the driver and injects it to the runner | ConnectionDriver | Mandatory |  
 | **migrationScanPackage**  | property | The list of migration(changeUnits and changeLogs) classes and/or packages where they are stored | List< String >      |Mandatory |  
 | **metadata**              | property | Custom data attached to the migration. It will be added to change entry in the mongock table/collection  | Map<String, Object> | null |  

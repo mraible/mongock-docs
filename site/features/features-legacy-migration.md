@@ -1,6 +1,6 @@
 ---
 title: 'Legacy migration' 
-date: 2014-04-18 11:30:00 +0800 
+date: 2014-04-18 11:30:00 
 permalink: /features/legacy-migration/index.html
 toc: true
 eleventyNavigation:

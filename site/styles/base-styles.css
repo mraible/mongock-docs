@@ -1,3 +1,30 @@
+/*
+added by dieppa
+*/
+table{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 100%;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+/*end addition*/
+
+
+
 h1, h2 {
   padding-bottom: 0.3em;
   border-bottom: 1px solid #eaecef;

@@ -26,6 +26,7 @@
 
 .side-menu .menu-item.current-page {
   font-weight: bold;
+  color: #009879;
 }
 
 .side-menu h7.menu-item {

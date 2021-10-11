@@ -1,6 +1,6 @@
 ---
 title: PENDING
-date: 2014-04-18 11:30:00 +0800 
+date: 2014-04-18 11:30:00 
 permalink: /pending/index.html
 eleventyNavigation:
   root: true

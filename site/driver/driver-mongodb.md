@@ -1,6 +1,6 @@
 ---
 title: 'Driver: MongoDB' 
-date: 2014-04-18 11:30:00 +0800 
+date: 2014-04-18 11:30:00 
 permalink: /driver/mongodb/index.html
 toc: true
 eleventyNavigation:

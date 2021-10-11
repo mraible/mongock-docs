@@ -1,10 +1,10 @@
 ---
 title: 'Events' 
-date: 2014-04-18 11:30:00 +0800 
+date: 2014-04-18 11:30:00 
 permalink: /features/events/index.html
 toc: true
 eleventyNavigation:
-  order: 1115
+  order: 60
   root: true
   page: false
 ---

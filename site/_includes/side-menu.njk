@@ -1,13 +1,15 @@
 {% macro menuItem(targetPage) %}
-  <a class="menu-item {{ 'current-page' if page.url == targetPage.url else '' }}" href="{{ targetPage.url }}">
+  {% set pageUrlWithIndex = [page.url,"index.html"] | join %}
+  <a class="menu-item {{ 'current-page' if (page.url == targetPage.url) or (pageUrlWithIndex == targetPage.url ) else '' }}"  href="{{ targetPage.url }}">
     {{ targetPage.title }}
   </a>
 {% endmacro %}
 
 {% macro menuRoot(targetPage) %}
+  {% set pageUrlWithIndex = [page.url,"index.html"] | join %}
   <h7 class="menu-item">
     {% if targetPage.url %}
-      <a class="menu-item {{ 'current-page' if page.url == targetPage.url else '' }}" href="{{ targetPage.url }}">
+      <a class="menu-item {{ 'current-page' if (page.url == targetPage.url) or (pageUrlWithIndex == targetPage.url ) else '' }}"  href="{{ targetPage.url }}">
         {{ targetPage.title }}
       </a>
     {% else %}

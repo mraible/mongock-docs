@@ -3,7 +3,7 @@ title: React Components
 description: How to test React.js components.
 permalink: /guides/react/index.html
 toc: true
-date: 2014-04-18 11:30:00 +0800
+date: 2014-04-18 11:30:00
 eleventyNavigation:
   order: 1 
 ---
