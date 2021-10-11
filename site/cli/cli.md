@@ -11,40 +11,71 @@ eleventyNavigation:
 
 # Introduction
 
-Mongock also offers the possibility to execute migrations and other operations via CLI. 
-
-**Mention the application jar needs to be passed as parameter**
-
-# Requirements
-Explain 
-- Version 5 
-- --appJar
+So far we have explained how to run Mongock as part of your application, normally at the application's startup stage. This section explains how to run those migrations, and other operations, independely from the CLI.
 
 # Steps
 
 ## 1. Install CLI 
-1. Download the latest version of the **mongock-cli-LATEST_VERSION.zip** from [here](https://repo.maven.apache.org/maven2/io/mongock/mongock-cli/)
+1. Download the latest version of the **mongock-cli-LATEST_VERSION.zip** from [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.mongock/mongock-cli/badge.png)](https://repo.maven.apache.org/maven2/io/mongock/mongock-cli/)
 2. Unzip it 
 3. Open a terminal and locate it inside the unzipped folder
+4. Run the one of the operations available in [opreations page](/cli/operations)
 
 
 ## 2. Prepare your application
 
 ### With Springboot
-Mention the configuration classes
+If using Springboot in the application, there is not much to be done. Springboot creates already an uber jar with all the dependencies in it. 
+
+By default the Mongock CLI loads the entire application context. If you want the CLI only to load specific configuration classes that are enough to run the migrations,you can do this annotatting your main class with `@MongockCliConfiguration`.
+
+```java
+// The Mongock CLI will load the configuration from the classes io.your.package.ConfigurationClass1 and io.your.package.ConfigurationClass2.
+// Theses classes must contain all the beans and configuration needed to run the migration
+@EnableMongock
+@MongockCliConfiguration(sources = {
+        io.your.package.ConfigurationClass1.class,
+        io.your.package.ConfigurationClass2.class
+})
+@SpringBootApplication
+public class SpringBootSpringDataAnnotationBasicApp{
+  //...
+}
+```
+<div class="success">When using the builder approach(no <b>@EnableMongock</b>), the RunnerBuilder must be injected as a bean in the application context.</div>
 
 ### With standalone
 
-Explain 
-- The interfaces and so on.
-- Shaded jar
+When the application uses the Mongock standalone runner, it need the following to be able to work with the CLI:
+- Implement the interface `MongockBuilderProvider` returning the runner builder used in the application.
+- Annotate the main class with `@MongockCliConfiguration` providing the `MongockBuilderProvider` implementation class.
+- Generate an uber jar from the application, which will be passed to the Mongock CLI in the param `--appJar` 
 
-# Get started
+```java
+@MongockCliConfiguration(sources = Application.MongockBuilderProviderImpl.class)
+public class Application {
 
-The Mongock CLI follows the next sintax
+  public static void main(String[] args) {
+    //TODO your logic is not executed in the Mongock CLI
+  }
 
-```bash
-$ ./mongock OPERATION [paramters]
+  public static class MongockBuilderProviderImpl implements MongockBuilderProvider {
+    public RunnerStandaloneBuilder getBuilder() {
+      //...calling setter methods
+      return MongockStandalone.builder()
+    }
+  }
+}
 ```
 
-For more information about what operations Mongock offers and how to execute them, visit the [CLI operations page](/cli/operations)
+-----------------------------
+# Considerations
+#### appJar parameter 
+The application uber jar is one of the mandatory parameters in all the operations(at least those operations interacting with the migration classes, `@ChangeUnit` and `@ChangeLog`). The Mongock CLI takes the migration classes, the dependencies and the runner builder from it.
+
+#### Mongock version in your application 
+Mongock CLI requires the application to be upgraded to Mongock version 5.
+
+#### Professional operations
+
+There are some  operations labedl with <span class="professional">PRO</span>. This means it's a professional operation that requires the jar application to use the professional Mongock. Visit the [this section](/runner#professional) to use Mongock professional in your application.
