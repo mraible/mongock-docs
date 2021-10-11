@@ -1,5 +1,15 @@
 
 /* CUSTOM STYLE */
+.professional {
+  color: white;
+  padding: 8px;
+	background-color: #ff9800;
+	font-size: 15px;
+  border-radius:10px;
+	vertical-align: top;
+	
+}
+
 p
 {
 	margin-bottom: 8px;

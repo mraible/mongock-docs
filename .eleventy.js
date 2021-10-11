@@ -3,9 +3,34 @@ const markdownItAnchor = require('markdown-it-anchor')
 const markdownItTOC = require('markdown-it-table-of-contents')
 const syntaxHighlightPlugin = require('@11ty/eleventy-plugin-syntaxhighlight')
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
-const headerSlugify = (text) => {
+
+const PROFESSIONAL_LABEL = "<span class=\"professional\">";
+const headerSlugify = (input) => {
+
+
+  const index = input.indexOf(PROFESSIONAL_LABEL);
+  let text = input;
+  if(index > 0) {
+    const firstPart = input.substring(0, index)
+    const secondPart = input.substring(index + PROFESSIONAL_LABEL.length, input.indexOf("</span>"))
+    text =  firstPart+secondPart
+// console.log("-------------------------------------------------")
+// console.log("INPUT: " + input)
+//     console.log("FIRST: " + firstPart)
+//     console.log("SECOND: " + secondPart)
+//     console.log("TEXT: " + text)
+// console.log("-------------------------------------------------")
+  }
+   
   const cleaned = text.replace(/<\/?code>/g, '').replace(/(&lt;|&gt;|[<>])/g, '')
   return markdownItAnchor.defaults.slugify(cleaned)
+}
+
+const tocFormat = (content, md) => {
+
+  const index = content.indexOf(PROFESSIONAL_LABEL);
+  return index < 0 ? content : content.substring(0, index)
+
 }
 
 const sortArray = (a, b) => {
@@ -75,7 +100,8 @@ module.exports = function (eleventyConfig) {
   markdownEngine.use(markdownItTOC, {
     includeLevel: [1,2,3],
     containerHeaderHtml: '<h2>Table of Contents</h2>',
-    slugify: headerSlugify
+    slugify: headerSlugify,
+    format: tocFormat
   })
 
 // Added by Dieppa
