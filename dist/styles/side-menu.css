@@ -37,6 +37,7 @@
   color: inherit;
   text-decoration: inherit;
   transition: color .2s;
+  
 }
 .side-menu a:hover {
   color: #f44336;
