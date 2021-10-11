@@ -73,7 +73,7 @@ module.exports = function (eleventyConfig) {
     slugify: headerSlugify
   })
   markdownEngine.use(markdownItTOC, {
-    includeLevel: [2],
+    includeLevel: [1,2,3],
     containerHeaderHtml: '<h2>Table of Contents</h2>',
     slugify: headerSlugify
   })

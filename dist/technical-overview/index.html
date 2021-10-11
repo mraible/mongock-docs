@@ -279,7 +279,7 @@
 2. [Mongock process](#mongock-process)
     2.1. [Process steps](#process-steps)
     2.2. [Architecture](#architecture)-->
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#main-components">Main components</a></li><li><a href="#mongock-process">Mongock process</a></li></ul></div></p>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#main-components">Main components</a><ul><li><a href="#migration">Migration</a></li><li><a href="#driver">Driver</a></li><li><a href="#runner">Runner</a></li></ul></li><li><a href="#mongock-process">Mongock process</a><ul><li><a href="#process-steps">Process steps</a></li><li><a href="#architecture">Architecture</a></li></ul></li></ul></div></p>
 <h2 id="main-components"><a class="header-anchor" href="#main-components">#</a> Main components</h2>
 <h3 id="migration"><a class="header-anchor" href="#migration">#</a> Migration</h3>
 <p>A migration covers transactional changes and operations you want to track in your database. Mongock uses the concept of <strong>ChangeUnit</strong>, which is a single migration file. A migration can execute multiple ChangeUnits during start up.</p>

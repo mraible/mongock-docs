@@ -26,7 +26,6 @@
 
 .side-menu .menu-item.current-page {
   font-weight: bold;
-  color: #009879;
 }
 
 .side-menu h7.menu-item {
@@ -37,7 +36,6 @@
   color: inherit;
   text-decoration: inherit;
   transition: color .2s;
-  
 }
 .side-menu a:hover {
   color: #f44336;
