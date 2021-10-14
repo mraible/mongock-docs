@@ -4,22 +4,45 @@ const markdownItTOC = require('markdown-it-table-of-contents')
 const syntaxHighlightPlugin = require('@11ty/eleventy-plugin-syntaxhighlight')
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 
-const PROFESSIONAL_LABEL = "<span class=\"professional\">";
+const PROFESSIONAL_SPAN_LABEL = "<span class=\"professional\">";
+const PROFESSIONAL_A_LABEL = '<a href="/professional">';
 const headerSlugify = (input) => {
 
 
-  const index = input.indexOf(PROFESSIONAL_LABEL);
+  const indexSpan = input.indexOf(PROFESSIONAL_SPAN_LABEL);
+  const indexA = input.indexOf(PROFESSIONAL_A_LABEL);
+  let index;
+  let endToken;
+  let length;
+  if (indexA > 0 && indexA < indexSpan ) {
+    index = indexA;
+    endToken = '</a>';
+    length = PROFESSIONAL_A_LABEL.length;
+    if(indexSpan > 0) {
+      length+= PROFESSIONAL_SPAN_LABEL.length;
+      endToken = "</span>";
+    }
+  } else {
+    index = indexSpan;
+    endToken = "</span>";
+    length = PROFESSIONAL_SPAN_LABEL.length;
+    if(indexA > 0) {
+      length+= PROFESSIONAL_A_LABEL.length;
+      endToken = "</a>";
+    }
+  }
+
   let text = input;
   if(index > 0) {
     const firstPart = input.substring(0, index)
-    const secondPart = input.substring(index + PROFESSIONAL_LABEL.length, input.indexOf("</span>"))
+    const secondPart = input.substring(index + length, input.indexOf(endToken))
     text =  firstPart+secondPart
-// console.log("-------------------------------------------------")
-// console.log("INPUT: " + input)
-//     console.log("FIRST: " + firstPart)
-//     console.log("SECOND: " + secondPart)
-//     console.log("TEXT: " + text)
-// console.log("-------------------------------------------------")
+console.log("-------------------------------------------------")
+console.log("INPUT: " + input)
+    console.log("FIRST: " + firstPart)
+    console.log("SECOND: " + secondPart)
+    console.log("TEXT: " + text)
+console.log("-------------------------------------------------")
   }
    
   const cleaned = text.replace(/<\/?code>/g, '').replace(/(&lt;|&gt;|[<>])/g, '')
@@ -28,7 +51,7 @@ const headerSlugify = (input) => {
 
 const tocFormat = (content, md) => {
 
-  const index = content.indexOf(PROFESSIONAL_LABEL);
+  const index = content.indexOf(PROFESSIONAL_SPAN_LABEL);
   return index < 0 ? content : content.substring(0, index)
 
 }

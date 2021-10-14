@@ -78,4 +78,4 @@ Mongock CLI requires the application to be upgraded to Mongock version 5.
 
 #### Professional operations
 
-There are some  operations labedl with <span class="professional">PRO</span>. This means it's a professional operation that requires the jar application to use the professional Mongock. Visit the [this section](/runner#professional) to use Mongock professional in your application.
+There are some  operations labedl with <span class="professional">PRO</span>. This means it's a professional operation that requires the jar application to use the professional Mongock. Visit the [this section](/professional) to use Mongock professional in your application.

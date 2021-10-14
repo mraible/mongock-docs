@@ -13,14 +13,15 @@ eleventyNavigation:
 
 Execute all the pending changeUnits, as the standard Mongock migration process.
 
-```bash
-$ ./mongock migrate --appJar APP_JAR
-```
 |   Name   | CLI Parameter |  Type   | Description                               | Mandatory |
 | ---------|-------------|---------|-------------------------------------------|-----------|
 | APP_JAR  | **--appJar**  |  String | It's the path to you executable uber JAR. |   YES     |  
 
-# Undo  <span class="professional">PRO</span>
+```bash
+$ ./mongock migrate --appJar APP_JAR
+```
+
+# Undo <a href="/professional"><span class="professional">PRO</span></a>
 
 Reverts all the changeUnits until the `CHANGE_ID`, included.
 
