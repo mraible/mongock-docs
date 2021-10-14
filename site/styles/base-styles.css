@@ -11,8 +11,9 @@ table{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
+/*05a18a*/
 thead tr {
-    background-color: #009879;
+    background-color: #05a18a;
     color: #ffffff;
     text-align: left;
 }
@@ -49,6 +50,8 @@ h2 {
 }
 
 h3 {
+
+  color: #606060;
   margin-top: 24px;
   margin-bottom: 20px;
   font-family: 'Fjalla One', Helvetica, sans-serif;
@@ -57,6 +60,7 @@ h3 {
 }
 
 h6 {
+  color: #808080;
   margin-top: 8px;
   margin-bottom: 12px;
   font-size: 1.2rem;

@@ -288,18 +288,21 @@
 <tbody>
 <tr>
 <td>APP_JAR</td>
-<td><strong>--appJar</strong></td>
+<td><strong>-aj</strong></td>
 <td>String</td>
 <td>It's the path to you executable uber JAR.</td>
 <td>YES</td>
 </tr>
 </tbody>
 </table>
-<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock migrate --appJar APP_JAR</div></code></pre>
+<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock migrate -aj APP_JAR</div></code></pre>
+<!--<p class="text-center">
+    <img src="/images/migrate_operation_output.png" alt="Migrate">
+</p>-->
 <h1 id="undo-pro"><a class="header-anchor" href="#undo-pro">#</a> Undo <a href="/professional"><span class="professional">PRO</span></a></h1>
 <p>Reverts all the changeUnits until the <code>CHANGE_ID</code>, included.</p>
 <p>This operation uses the methods annotated with <code>@RollbackExecution</code> and <code>@RollbackBeforeExecution</code> in the changeUnits.</p>
-<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock undo CHANGE_ID --appJar APP_JAR</div></code></pre>
+<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock undo CHANGE_ID -aj APP_JAR</div></code></pre>
 <table>
 <thead>
 <tr>
@@ -313,14 +316,14 @@
 <tbody>
 <tr>
 <td>CHANGE_ID</td>
-<td><strong>N/A</strong></td>
+<td>N/A</td>
 <td>String</td>
 <td>It's the change identifier used in your <code>@ChangeUnit</code> annotation</td>
 <td>YES</td>
 </tr>
 <tr>
 <td>APP_JAR</td>
-<td><strong>--appJar</strong></td>
+<td><strong>-aj</strong></td>
 <td>String</td>
 <td>It's the path to you executable uber JAR.</td>
 <td>YES</td>
