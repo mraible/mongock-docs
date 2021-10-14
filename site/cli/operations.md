@@ -20,7 +20,7 @@ $ ./mongock migrate --appJar APP_JAR
 | ---------|-------------|---------|-------------------------------------------|-----------|
 | APP_JAR  | **--appJar**  |  String | It's the path to you executable uber JAR. |   YES     |  
 
-# Undo  <span class="professional">PRO</span>
+# Undo  <span class="professional"><a href="/pro/index.html">PRO</a></span>
 
 Reverts all the changeUnits until the `CHANGE_ID`, included.
 

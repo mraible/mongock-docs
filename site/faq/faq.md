@@ -14,4 +14,3 @@ eleventyNavigation:
 - What if we have an environmment with the latest changes and others out of synch?
 - Can Mongock be used in applications deployed in Kubernetes?
 - My migrations take long and it impacts my startup time... what should I do?
-- 
