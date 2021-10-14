@@ -22,6 +22,7 @@
 .side-menu .menu-item {
   display: list-item;
   margin: 0 0 0.8em;
+  color: #05a18a;
 }
 
 .side-menu .menu-item.current-page {
@@ -38,5 +39,5 @@
   transition: color .2s;
 }
 .side-menu a:hover {
-  color: #f44336;
+  font-weight: bold;
 }
