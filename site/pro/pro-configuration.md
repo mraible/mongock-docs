@@ -9,7 +9,7 @@ eleventyNavigation:
 
 [[TOC]]
 
-# Get started with the Mongock Professional features <span class="professional">PRO</span> 
+# Get started with Mongock Professional features <span class="professional">PRO</span> 
 
 The Mongock professional version offers additional features to the existing Community edition. Some of these features:
 - <b><a href="/cli/operations/index.html#undo-pro">Undo</a> Operation:</b> Providing greater flexibility to rollback your migrations and deploy an older version in your environment.
@@ -18,12 +18,12 @@ The Mongock professional version offers additional features to the existing Comm
 
 # Steps for including the PRO Edition
 
-1. Update the Maven groupId to reference the professional package. The following example showcases the SpringBoot:
-```XML
+1. Update the Maven groupId to reference the professional package. The following example showcases the SpringBoot Runner:
+```xml
   <groupId>io.mongock.professional</groupId>
   <artifactId>mongock-springboot</artifactId>
 ```
-2. You can get a License Key from [here](registration).
+2. You can get a License Key from [here](registration.html).
 
 
 # Questions? 
