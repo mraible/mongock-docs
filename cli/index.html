@@ -176,7 +176,7 @@
         
           
   
-  <a class="menu-item current-page"  href="/features/transactions/index.html">
+  <a class="menu-item "  href="/features/transactions/index.html">
     Transactions
   </a>
 
@@ -201,7 +201,7 @@
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/cli/index.html">
+      <a class="menu-item current-page"  href="/cli/index.html">
         Cli
       </a>
     
@@ -293,33 +293,39 @@
 </aside>
 
       <article>
-        <!--1. [Introduction](#introduction)
-2. [Configuration](#configuration)
-3. [How it works](#how-it-works)-->
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#best-practices">Best practices</a></li></ul></div></p>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>We already discussed the <a href="/technical-overview#mongock-process">Mongock process</a> and the <a href="/migration">migration component</a> in previous sections where the transactions are already mentioned.</p>
-<p>As it's name suggests, a changeUnit represents the unit of a migration. By default each changeUnit is wrapped in a independent transaction. This can be change by configuration, but it's not recommended.</p>
-<div class="tip">
-<p>In this section we mention <b>native transactions</b>. By this we mean the transaction machanism provided by the database.</p>
-<p>Mongock always try to provide a transacional environment as much as possible. When native transactions are notpossible, it tries to rollback the changes manually with the <a href="/migration#implementation">@RollbackExecution</a> method</p>
-</div>
-<h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
-<p>There are two points where the transactions are configured to be enforced or disabled, the property <code>mongock.transactioEnable</code>(setTransactionEnabled method in the builder) and the <strong>driver</strong>.</p>
-<p>In every driver's page, you will find enough information about how to enable the native transactions. Sometimes they are enabled by default and other times, like in the Springboot ecosystems, the transactions manager needs to be injected in the context.</p>
-<p>As explained in the <a href="/runner#Configuration">runner properties table</a>, the Mongock native transactionability follows the next logic</p>
-<div class="success">
-<p >When <b>mongock.transactioEnable</b> is true, it enforces native transactions, throwing an exception is the driver is not capable of it.</p>
-<p >When <b>mongock.transactioEnable</b> is false, it disable the transactions and ignores the transactionability of the driver.</p>
-<p >When <b>mongock.transactioEnable</b> is null, it totally delegates on the driver the transactionability of the migration.</p>
-</div>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<p>The easist way to understand how Mongock handles the transactions is by looking at <a href="/technical-overview#process-steps">this section</a>.</p>
-<h2 id="best-practices"><a class="header-anchor" href="#best-practices">#</a> Best practices</h2>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#steps">Steps</a><ul><li><a href="#1.-install-cli">1. Install CLI</a></li><li><a href="#2.-prepare-your-application">2. Prepare your application</a><ul><li><a href="#with-springboot">With Springboot</a></li><li><a href="#with-standalone">With standalone</a></li></ul></li></ul></li><li><a href="#considerations">Considerations</a></li></ul></div></p>
+<h1 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h1>
+<p>So far we have explained how to run Mongock as part of your application, normally at the application's startup stage. This section explains how to run those migrations, and other operations, independely from the CLI.</p>
+<h1 id="steps"><a class="header-anchor" href="#steps">#</a> Steps</h1>
+<h2 id="1.-install-cli"><a class="header-anchor" href="#1.-install-cli">#</a> 1. Install CLI</h2>
+<ol>
+<li>Download the latest version of the <strong>mongock-cli-LATEST_VERSION.zip</strong> from <a href="https://repo.maven.apache.org/maven2/io/mongock/mongock-cli/"><img src="https://maven-badges.herokuapp.com/maven-central/io.mongock/mongock-cli/badge.png" alt="Maven Central"></a></li>
+<li>Unzip it</li>
+<li>Open a terminal and locate it inside the unzipped folder</li>
+<li>Run the one of the operations available in <a href="/cli/operations">opreations page</a></li>
+</ol>
+<h2 id="2.-prepare-your-application"><a class="header-anchor" href="#2.-prepare-your-application">#</a> 2. Prepare your application</h2>
+<h3 id="with-springboot"><a class="header-anchor" href="#with-springboot">#</a> With Springboot</h3>
+<p>If using Springboot in the application, there is not much to be done. Springboot creates already an uber jar with all the dependencies in it.</p>
+<p>By default the Mongock CLI loads the entire application context. If you want the CLI only to load specific configuration classes that are enough to run the migrations,you can do this annotatting your main class with <code>@MongockCliConfiguration</code>.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">// The Mongock CLI will load the configuration from the classes io.your.package.ConfigurationClass1 and io.your.package.ConfigurationClass2.</span></div><div class="highlight-line"><span class="token comment">// Theses classes must contain all the beans and configuration needed to run the migration</span></div><div class="highlight-line"><span class="token annotation punctuation">@EnableMongock</span></div><div class="highlight-line"><span class="token annotation punctuation">@MongockCliConfiguration</span><span class="token punctuation">(</span>sources <span class="token operator">=</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>your<span class="token punctuation">.</span>package<span class="token punctuation">.</span></span>ConfigurationClass1</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>your<span class="token punctuation">.</span>package<span class="token punctuation">.</span></span>ConfigurationClass2</span><span class="token punctuation">.</span><span class="token keyword">class</span></div><div class="highlight-line"><span class="token punctuation">}</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@SpringBootApplication</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpringBootSpringDataAnnotationBasicApp</span><span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">//...</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<div class="success">When using the builder approach(no <b>@EnableMongock</b>), the RunnerBuilder must be injected as a bean in the application context.</div>
+<h3 id="with-standalone"><a class="header-anchor" href="#with-standalone">#</a> With standalone</h3>
+<p>When the application uses the Mongock standalone runner, it need the following to be able to work with the CLI:</p>
 <ul>
-<li>Always set explicitly the <code>mongock.transactionEnable</code> property to true/false</li>
-<li>DDL operations placed in the @BeforeExecution method of the changeUnit</li>
+<li>Implement the interface <code>MongockBuilderProvider</code> returning the runner builder used in the application.</li>
+<li>Annotate the main class with <code>@MongockCliConfiguration</code> providing the <code>MongockBuilderProvider</code> implementation class.</li>
+<li>Generate an uber jar from the application, which will be passed to the Mongock CLI in the param <code>--appJar</code></li>
 </ul>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@MongockCliConfiguration</span><span class="token punctuation">(</span>sources <span class="token operator">=</span> <span class="token class-name">Application<span class="token punctuation">.</span>MongockBuilderProviderImpl</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Application</span> <span class="token punctuation">{</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token comment">//TODO your logic is not executed in the Mongock CLI</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">MongockBuilderProviderImpl</span> <span class="token keyword">implements</span> <span class="token class-name">MongockBuilderProvider</span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token class-name">RunnerStandaloneBuilder</span> <span class="token function">getBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">      <span class="token comment">//...calling setter methods</span></div><div class="highlight-line">      <span class="token keyword">return</span> <span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<hr>
+<h1 id="considerations"><a class="header-anchor" href="#considerations">#</a> Considerations</h1>
+<h4 id="appjar-parameter"><a class="header-anchor" href="#appjar-parameter">#</a> appJar parameter</h4>
+<p>The application uber jar is one of the mandatory parameters in all the operations(at least those operations interacting with the migration classes, <code>@ChangeUnit</code> and <code>@ChangeLog</code>). The Mongock CLI takes the migration classes, the dependencies and the runner builder from it.</p>
+<h4 id="mongock-version-in-your-application"><a class="header-anchor" href="#mongock-version-in-your-application">#</a> Mongock version in your application</h4>
+<p>Mongock CLI requires the application to be upgraded to Mongock version 5.</p>
+<h4 id="professional-operations"><a class="header-anchor" href="#professional-operations">#</a> Professional operations</h4>
+<p>There are some  operations labedl with <span class="professional">PRO</span>. This means it's a professional operation that requires the jar application to use the professional Mongock. Visit the <a href="/professional">this section</a> to use Mongock professional in your application.</p>
 
       </article>
     </main>

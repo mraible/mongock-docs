@@ -176,7 +176,7 @@
         
           
   
-  <a class="menu-item current-page"  href="/features/transactions/index.html">
+  <a class="menu-item "  href="/features/transactions/index.html">
     Transactions
   </a>
 
@@ -222,7 +222,7 @@
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/pro/index.html">
+      <a class="menu-item current-page"  href="/pro/index.html">
         Pro
       </a>
     
@@ -293,33 +293,24 @@
 </aside>
 
       <article>
-        <!--1. [Introduction](#introduction)
-2. [Configuration](#configuration)
-3. [How it works](#how-it-works)-->
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#best-practices">Best practices</a></li></ul></div></p>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>We already discussed the <a href="/technical-overview#mongock-process">Mongock process</a> and the <a href="/migration">migration component</a> in previous sections where the transactions are already mentioned.</p>
-<p>As it's name suggests, a changeUnit represents the unit of a migration. By default each changeUnit is wrapped in a independent transaction. This can be change by configuration, but it's not recommended.</p>
-<div class="tip">
-<p>In this section we mention <b>native transactions</b>. By this we mean the transaction machanism provided by the database.</p>
-<p>Mongock always try to provide a transacional environment as much as possible. When native transactions are notpossible, it tries to rollback the changes manually with the <a href="/migration#implementation">@RollbackExecution</a> method</p>
-</div>
-<h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
-<p>There are two points where the transactions are configured to be enforced or disabled, the property <code>mongock.transactioEnable</code>(setTransactionEnabled method in the builder) and the <strong>driver</strong>.</p>
-<p>In every driver's page, you will find enough information about how to enable the native transactions. Sometimes they are enabled by default and other times, like in the Springboot ecosystems, the transactions manager needs to be injected in the context.</p>
-<p>As explained in the <a href="/runner#Configuration">runner properties table</a>, the Mongock native transactionability follows the next logic</p>
-<div class="success">
-<p >When <b>mongock.transactioEnable</b> is true, it enforces native transactions, throwing an exception is the driver is not capable of it.</p>
-<p >When <b>mongock.transactioEnable</b> is false, it disable the transactions and ignores the transactionability of the driver.</p>
-<p >When <b>mongock.transactioEnable</b> is null, it totally delegates on the driver the transactionability of the migration.</p>
-</div>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<p>The easist way to understand how Mongock handles the transactions is by looking at <a href="/technical-overview#process-steps">this section</a>.</p>
-<h2 id="best-practices"><a class="header-anchor" href="#best-practices">#</a> Best practices</h2>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#get-started-with-mongock-professional-features-pro">Get started with Mongock Professional features </a></li><li><a href="#steps-for-including-the-pro-edition">Steps for including the PRO Edition</a></li><li><a href="#questions%3F">Questions?</a></li></ul></div></p>
+<h1 id="get-started-with-mongock-professional-features-pro"><a class="header-anchor" href="#get-started-with-mongock-professional-features-pro">#</a> Get started with Mongock Professional features <span class="professional">PRO</span></h1>
+<p>The Mongock professional version offers additional features to the existing Community edition. Some of these features:</p>
 <ul>
-<li>Always set explicitly the <code>mongock.transactionEnable</code> property to true/false</li>
-<li>DDL operations placed in the @BeforeExecution method of the changeUnit</li>
+<li><b><a href="/cli/operations/index.html#undo-pro">Undo</a> Operation:</b> Providing greater flexibility to rollback your migrations and deploy an older version in your environment.</li>
+<li>Early access to the new exciting features coming up!</li>
+<li>It requires  no code changes from the community to upgrade to the Professional Edition!</li>
 </ul>
+<h1 id="steps-for-including-the-pro-edition"><a class="header-anchor" href="#steps-for-including-the-pro-edition">#</a> Steps for including the PRO Edition</h1>
+<ol>
+<li>Update the Maven groupId to reference the professional package. The following example showcases the SpringBoot Runner:</li>
+</ol>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock.professional<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-springboot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div></code></pre>
+<ol start="2">
+<li>You can get a License Key from <a href="registration.html">here</a>.</li>
+</ol>
+<h1 id="questions%3F"><a class="header-anchor" href="#questions%3F">#</a> Questions?</h1>
+<p>Please feel free to ask us <a href="mailto:dev@cloudyrock.io">here</a> if there is anything that the Mongock team can help you with.</p>
 
       </article>
     </main>
