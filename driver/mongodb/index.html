@@ -55,8 +55,13 @@
 
 
 
+
 <aside class="side-menu">
-  <h2>Navigation</h2>
+  <select style="width: 100%" name="vresion" id="version">
+    <option value="v5" selected>Version 5</option>
+    <option value="v4">Version 4</option>
+  </select>
+  <br /><br />
   <nav class="menu-root">
     
       
@@ -236,6 +241,20 @@
   
   <h7 class="menu-item">
     
+      <a class="menu-item "  href="/from-version-4-to-5/index.html">
+        From version 4 to 5
+      </a>
+    
+  </h7>
+
+      <nav class="From version 4 to 5">
+        
+      </nav>
+    
+      
+  
+  <h7 class="menu-item">
+    
       <a class="menu-item "  href="/roadmap/index.html">
         Roadmap
       </a>
@@ -264,19 +283,46 @@
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#mongodb-driver-options">MongoDB driver options</a></li><li><a href="#mongodb-configuration">MongoDB Configuration</a><ul><li><a href="#properties">Properties</a></li></ul></li><li><a href="#mongodb-springdata">MongoDB Springdata</a><ul><li><a href="#transactions">Transactions</a></li></ul></li><li><a href="#mongodb-native-drivers">MongoDB native drivers</a><ul><li><a href="#transactions">Transactions</a></li></ul></li><li><a href="#examples">Examples</a></li></ul></div></p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#mongodb-driver-options-and-compatibility">MongoDB driver options and compatibility</a></li><li><a href="#mongodb-configuration">MongoDB Configuration</a><ul><li><a href="#properties">Properties</a></li></ul></li><li><a href="#mongodb-springdata">MongoDB Springdata</a><ul><li><a href="#transactions">Transactions</a></li></ul></li><li><a href="#mongodb-native-drivers">MongoDB native drivers</a><ul><li><a href="#transactions">Transactions</a></li></ul></li><li><a href="#examples">Examples</a></li></ul></div></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
 <p>The concept of driver and how it works is already explained in the <a href="#technical-overview">technical-overview</a>] and <a href="#driver">driver</a> pages.</p>
 <p>Here we explain how to use a driver with MongoDB and they different drivers Mongock provides.</p>
+<br />
 <hr>
-<h2 id="mongodb-driver-options"><a class="header-anchor" href="#mongodb-driver-options">#</a> MongoDB driver options</h2>
+<h2 id="mongodb-driver-options-and-compatibility"><a class="header-anchor" href="#mongodb-driver-options-and-compatibility">#</a> MongoDB driver options and compatibility</h2>
 <p><strong>There are 4 drivers in the MongoDB family driver:</strong></p>
-<ul>
-<li>org.mongodb » mongodb-driver-sync (<em>v4.x</em>)</li>
-<li>org.mongodb » mongo-java-driver (<em>v3.x</em>)</li>
-<li>org.springframework.data » spring-data-mongodb (<em>v3.x</em>)</li>
-<li>org.springframework.data » spring-data-mongodb (<em>v2.x</em>)</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Mongock driver</th>
+<th>Driver library</th>
+<th>Version compatibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SpringDataMongoV3Driver</td>
+<td>org.springframework.data:spring-data-mongodb</td>
+<td>3.X.X</td>
+</tr>
+<tr>
+<td>SpringDataMongoV2Driver</td>
+<td>org.springframework.data:spring-data-mongodb</td>
+<td>2.X.X</td>
+</tr>
+<tr>
+<td>MongoSync4Driver</td>
+<td>org.mongodb:mongodb-driver-sync</td>
+<td>4.X.X</td>
+</tr>
+<tr>
+<td>MongoSync3Driver</td>
+<td>org.mongodb:mongo-java-driver</td>
+<td>3.X.X</td>
+</tr>
+</tbody>
+</table>
+<br />
 <hr>
 <h2 id="mongodb-configuration"><a class="header-anchor" href="#mongodb-configuration">#</a> MongoDB Configuration</h2>
 <p>All the MongoDB drivers share the same configuration.</p>
@@ -312,6 +358,7 @@
 </tr>
 </tbody>
 </table>
+<br />
 <hr>
 <h2 id="mongodb-springdata"><a class="header-anchor" href="#mongodb-springdata">#</a> MongoDB Springdata</h2>
 <p>Mongock offers two  drivers for MongoDB springdata. The latest, version 3.x, and the previous major version 2.x, just for those who haven't upgraded yet.</p>
@@ -325,7 +372,10 @@
 <li><strong>withLockStrategy</strong>(MongoTemplate mongoTemplate, long lockAcquiredForMillis, long lockQuitTryingAfterMillis, long lockTryFrequencyMillis)</li>
 </ul>
 <h3 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h3>
-<p class="warningAlt"><b>THIS NEED TO BE FILLED</b></p>
+<p>In order to use native transactions, Mongock only needs the <code>MongoTransactionManager</code> injected in the Spring application context and the flag <code>mongock.transaction-enabled</code> not false(it accepts null, but it#s highly recommended to explicitly set a value).</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line">	<span class="token annotation punctuation">@Bean</span></div><div class="highlight-line">	<span class="token keyword">public</span> <span class="token class-name">MongoTransactionManager</span> <span class="token function">transactionManager</span><span class="token punctuation">(</span><span class="token class-name">MongoTemplate</span> mongoTemplate<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MongoTransactionManager</span><span class="token punctuation">(</span>mongoTemplate<span class="token punctuation">.</span><span class="token function">getMongoDbFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">	<span class="token punctuation">}</span></div></code></pre>
+<p class="tipAlt">This assumes the MongoDB version used allows multi-document ACID transactions</p>
+<br />
 <hr>
 <h2 id="mongodb-native-drivers"><a class="header-anchor" href="#mongodb-native-drivers">#</a> MongoDB native drivers</h2>
 <p>Mongock offers two  drivers for MongoDB native drivers. The latest, version Sync 4.x, and the previous major version 3.x, just for those who haven't upgraded yet.</p>
@@ -339,7 +389,13 @@
 <li><strong>withLockStrategy</strong>(MongoClient mongoClient, String databaseName, long lockAcquiredForMillis, long lockQuitTryingAfterMillis,long lockTryFrequencyMillis)</li>
 </ul>
 <h3 id="transactions-2"><a class="header-anchor" href="#transactions-2">#</a> Transactions</h3>
-<p class="warningAlt"><b>THIS NEED TO BE FILLED</b></p>
+<p>Due to the MongoDB driver design, to work with transactions the <a href="https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html">ClientSession</a> object is required in every operation and then managed the transaction.
+Mongock make this very simple. The developer only needs to specify a <code>ClientSession</code> parameter in hthe contructor or method of the <code>@ChangeUnit</code> and use in the MongoDB operations. <strong>Mongock takes care of everything else.</strong>
+<br /><br />
+The following code shows how to save documents inside the transaction using the <code>ClientSession</code> object.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line">  <span class="token annotation punctuation">@Execution</span></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">execution</span><span class="token punctuation">(</span><span class="token class-name">ClientSession</span> clientSession<span class="token punctuation">,</span> <span class="token class-name">MongoDatabase</span> mongoDatabase<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  </div><div class="highlight-line">    mongoDatabase<span class="token punctuation">.</span><span class="token function">getCollection</span><span class="token punctuation">(</span>CLIENTS_COLLECTION_NAME<span class="token punctuation">,</span> <span class="token class-name">Client</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span></div><div class="highlight-line">            <span class="token punctuation">.</span><span class="token function">insertMany</span><span class="token punctuation">(</span>clientSession<span class="token punctuation">,</span> <span class="token class-name">IntStream</span><span class="token punctuation">.</span><span class="token function">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> INITIAL_CLIENTS<span class="token punctuation">)</span></div><div class="highlight-line">                    <span class="token punctuation">.</span><span class="token function">mapToObj</span><span class="token punctuation">(</span><span class="token class-name">ClientInitializerChangeLog</span><span class="token operator">::</span><span class="token function">getClient</span><span class="token punctuation">)</span></div><div class="highlight-line">                    <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div></code></pre>
+<br />
+<hr>
 <h2 id="examples"><a class="header-anchor" href="#examples">#</a> Examples</h2>
 <h4 id="example-automatic-approach-with-properties-file"><a class="header-anchor" href="#example-automatic-approach-with-properties-file">#</a> Example automatic approach with properties file</h4>
 <p class="successAlt">This approach is only possible with Springdata drivers and assumes the MongoTemplate is injected in the Spring context</p>

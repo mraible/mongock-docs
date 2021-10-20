@@ -241,7 +241,7 @@
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/from-version-4-to-5/index.html">
+      <a class="menu-item current-page"  href="/from-version-4-to-5/index.html">
         From version 4 to 5
       </a>
     
@@ -283,42 +283,118 @@
 </aside>
 
       <article>
-        <h1 id="get-your-license-key-to-access-all-the-pro-features."><a class="header-anchor" href="#get-your-license-key-to-access-all-the-pro-features.">#</a> Get your License Key to Access all the  <span class="professional">PRO</span> features.</h1>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#pom-changes">Pom changes</a></li><li><a href="#mongock-packages">Mongock packages</a></li><li><a href="#mongock-classes">Mongock classes</a></li><li><a href="#deprecations">Deprecations</a></li></ul></div></p>
+<h3 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h3>
+<p>Although the migration from version 4 to version 5 is trivial, we want to make you are fully supported.</p>
+<h3 id="pom-changes"><a class="header-anchor" href="#pom-changes">#</a> Pom changes</h3>
+<ul>
+<li>groupId has change from <code>com.github.cloudyrock.mongock</code> to <code>io.mongock</code></li>
+<li>BOM version to latest version: <a href="https://search.maven.org/artifact/io.mongock/mongock-driver-mongodb"><img src="https://maven-badges.herokuapp.com/maven-central/io.mongock/mongock-driver-mongodb/badge.png" alt="Maven Central"></a></li>
+</ul>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencyManagement</span><span class="token punctuation">></span></span></div><div class="highlight-line">   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span></div><div class="highlight-line">       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-bom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${latest_version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span></div><div class="highlight-line">           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span></div><div class="highlight-line">           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span></div><div class="highlight-line">       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line"> <span class="token comment">&lt;!--...--></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">></span></span></div></code></pre>
+<ul>
+<li>If using Spring, replace <code>mongock-spring-v5</code> to <code>mongock-springboot</code></li>
+</ul>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line"></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-springboot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<h3 id="mongock-packages"><a class="header-anchor" href="#mongock-packages">#</a> Mongock packages</h3>
 <table>
- <tr>
-  <th>First Name:</th>
-  <th><input type="text" id="name" name="name"/></th>
+<thead>
+<tr>
+<th>Module</th>
+<th>Version 4</th>
+<th>Version 5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spring runner</td>
+<td>com.github.cloudyrock.spring.v5</td>
+<td>io.mongock.runner.springboot</td>
 </tr>
 <tr>
-  <th>Last Name:</th>
-  <th><input type="text" id="lastName" name="lastname"/></th>
+<td>Spring runner</td>
+<td>com.github.cloudyrock.spring.util.events</td>
+<td>io.mongock.runner.spring.base.events</td>
 </tr>
 <tr>
-  <th>Company:</th>
-  <th><input type="text" id="company" name="company"/></th>
+<td>Standalone runner</td>
+<td>com.github.cloudyrock.standalone</td>
+<td>io.mongock.runner.standalone</td>
 </tr>
 <tr>
-  <th>Email:</th>
-  <th><input type="text" id="email" name="email"/></th>
+<td>MongoDB V3 driver</td>
+<td>com.github.cloudyrock.mongock.driver.mongodb.v3</td>
+<td>io.mongock.driver.mongodb.v3</td>
 </tr>
 <tr>
-  <th>Phone Number:</th>
-  <th><input type="text" id="phone" name="phone"/></th>
+<td>MongoDB Sybc4 driver</td>
+<td>com.github.cloudyrock.mongock.driver.mongodb.sync.v4</td>
+<td>io.mongock.driver.mongodb.sync.v4</td>
 </tr>
 <tr>
-  <th>Job Title:</th>
-  <th><input type="text" id="title" name="title"/></th>
+<td>SpringData V2 driver</td>
+<td>com.github.cloudyrock.mongock.driver.mongodb.springdata.v2.decorator</td>
+<td>Not changed</td>
 </tr>
 <tr>
-  <th>How did you hear of us?</th>
-  <th><input type="text" id="feedback" name="feedback"/></th>
+<td>SpringData V2 driver</td>
+<td>com.github.cloudyrock.mongock.driver.mongodb.springdata.v2</td>
+<td>io.mongock.driver.mongodb.springdata.v2</td>
 </tr>
+<tr>
+<td>SpringData V3 driver</td>
+<td>com.github.cloudyrock.mongock.driver.mongodb.springdata.v3.decorator</td>
+<td>Not changed</td>
 </tr>
-<th><button type="submit">Get my License Key</button> </th>
+<tr>
+<td>SpringData V2 driver</td>
+<td>com.github.cloudyrock.mongock.driver.mongodb.springdata.v3</td>
+<td>io.mongock.driver.mongodb.springdata.v3</td>
 </tr>
+</tbody>
 </table>
-<h1 id="questions%3F"><a class="header-anchor" href="#questions%3F">#</a> Questions?</h1>
-<p>Please feel free to ask us <a href="mailto:dev@cloudyrock.io">here</a> if there is anything that the Mongock team can help you with.</p>
+<h3 id="mongock-classes"><a class="header-anchor" href="#mongock-classes">#</a> Mongock classes</h3>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Version 4</th>
+<th>Version 5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spring runner</td>
+<td>com.github.cloudyrock.spring.v5.MongockSpring5</td>
+<td>io.mongock.runner.springboot.MongockSpringboot</td>
+</tr>
+<tr>
+<td>Spring runner</td>
+<td>com.github.cloudyrock.spring.v5.MongockSpring5.MongockApplicationRunner</td>
+<td>io.mongock.runner.springboot.base.MongockApplicationRunner</td>
+</tr>
+<tr>
+<td>Spring runner</td>
+<td>com.github.cloudyrock.spring.v5.MongockSpring5.MongockInitializingBeanRunner</td>
+<td>io.mongock.runner.springboot.base.MongockInitializingBeanRunner</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deprecations"><a class="header-anchor" href="#deprecations">#</a> Deprecations</h3>
+<h4 id="changelogs%2Fchangesets"><a class="header-anchor" href="#changelogs%2Fchangesets">#</a> ChangeLogs/ChangeSets</h4>
+<p>From Mongock version 5, <code>@ChangeLog</code> and <code>@ChangeSet</code> annotations are <strong>deprecated</strong> and shouldn't be used. However, these  won't be removed for backwards compatibility.</p>
+<div class="success">Please follow one of the recommended approaches depending on your use case:
+<p>- <b>For existing changeLogs created prior version 5:</b> Leave it untoched, keeping thedeprecated annotation.</p>
+<p>- <b>For new migrations from version 5:</b> Use the new @ChangeUnit annotation instead.</p>
+</div>
+<br />
+<p>Please visit the <a href="https://www.mongock.io/changelogs">ChangeLog - version 4</a> section to access the ChangeLog documentation for Version 4.</p>
+<p>For more information about the reason we have adopted this change, please visit our <a href="/faq#changelog-deprecation">FAQ section</a></p>
+<h4 id="mongocktemplate"><a class="header-anchor" href="#mongocktemplate">#</a> MongockTemplate</h4>
+<p>From version 5, the class <code>MongockTemplate</code>is deprecated, but it will always remain in code for backwards compatibility.
+We recommend leaving  old changeLogs  untouched (using with the deprecated MongockTemplate), but use Spring MongoTemplate for new
+changeLogs.</p>
+<p>This class won't be maintained from this version on, meaning this that, regrdless of the spring data version imported in the project, and although it will be still compatible(won't produce any compilation or runtime erros due to incompatibilities), MongockTemplate won't provide support to any new  method in the MongoTemplate's API after the version <code>spring-data-mongodb:4.2.3</code></p>
 
       </article>
     </main>
