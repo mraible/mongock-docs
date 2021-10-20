@@ -15,6 +15,7 @@ The concept of driver and how it works is already explained in the [technical-ov
 
 Here we explain how to use a driver with MongoDB and they different drivers Mongock provides.
 
+<br />
 -------------------------------------------
 
 ## MongoDB driver options
@@ -24,6 +25,7 @@ Here we explain how to use a driver with MongoDB and they different drivers Mong
 - org.springframework.data » spring-data-mongodb (_v3.x_)
 - org.springframework.data » spring-data-mongodb (_v2.x_)
 
+<br />
 -------------------------------------------
 
 ## MongoDB Configuration
@@ -39,7 +41,7 @@ All the MongoDB drivers share the same configuration.
 | **readConcern**    | Exactly the same MongoDB parameter **read concren**. For more information, visit the official MongoDB documentation for [read concern](https://docs.mongodb.com/manual/reference/read-concern/).  | String      | `majority` |
 | **readPreference** | Exactly the same MongoDB parameter **read preference**. For more information, visit the official MongoDB documentation for [read preference](https://docs.mongodb.com/manual/reference/read-preference/).  | String      | `primary` |
 
-
+<br />
 -------------------------------------------
 
 ## MongoDB Springdata
@@ -55,8 +57,16 @@ These classes provide the same two static initializers
 
 
 ### Transactions
-<p class="warningAlt"><b>THIS NEED TO BE FILLED</b></p>
+In order to use native transactions, Mongock only needs the `MongoTransactionManager` injected in the Spring application context and the flag `mongock.transaction-enabled` not false(it accepts null, but it#s highly recommended to explicitly set a value).
+```java
+	@Bean
+	public MongoTransactionManager transactionManager(MongoTemplate mongoTemplate) {
+		return new MongoTransactionManager(mongoTemplate.getMongoDbFactory());
+	}
+```
+<p class="tipAlt">This assumes the MongoDB version used allows multi-document ACID transactions</p>
 
+<br />
 -------------------------------------------
 
 ## MongoDB native drivers
@@ -71,9 +81,23 @@ These classes provide the same two static initializers
 - **withLockStrategy**(MongoClient mongoClient, String databaseName, long lockAcquiredForMillis, long lockQuitTryingAfterMillis,long lockTryFrequencyMillis)
 
 ### Transactions
-<p class="warningAlt"><b>THIS NEED TO BE FILLED</b></p>
+Due to the MongoDB driver design, to work with transactions the [ClientSession](https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html) object is required in every operation and then managed the transaction.
+Mongock make this very simple. The developer only needs to specify a `ClientSession` parameter in hthe contructor or method of the `@ChangeUnit` and use in the MongoDB operations. **Mongock takes care of everything else.**
+<br /><br />
+The following code shows how to save documents inside the transaction using the `ClientSession` object.
+```java
+  @Execution
+  public void execution(ClientSession clientSession, MongoDatabase mongoDatabase) {
+  
+    mongoDatabase.getCollection(CLIENTS_COLLECTION_NAME, Client.class)
+            .insertMany(clientSession, IntStream.range(0, INITIAL_CLIENTS)
+                    .mapToObj(ClientInitializerChangeLog::getClient)
+                    .collect(Collectors.toList()));
+  }
+```
 
-
+<br />
+-------------------------------------------
 ## Examples 
 
 #### Example automatic approach with properties file

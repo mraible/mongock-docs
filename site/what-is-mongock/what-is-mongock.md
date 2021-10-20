@@ -11,7 +11,7 @@ eleventyNavigation:
     <img src="/images/mongock-logo-with-title.jpg" width="65%" alt="Mongock">
 </p>
 
-<div class="successAlt">
+<div class="success">
 <b>Mongock 5 released!!</b> Please visit the <a href="from-version-4-to-5">upgrade page</a> to follow easy process. 
 </div>
 

@@ -19,3 +19,4 @@ eleventyNavigation:
 - Does the CLL change something in my application?
 - Until which Spring data version is MongockTemplate compatible with?
 - I have some references to MongockTemplate in my project and I've upgrade Mongock to version5, should I remove them?
+- What's the difference between **undo** and **rollback**?
