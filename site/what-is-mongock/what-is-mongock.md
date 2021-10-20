@@ -7,14 +7,13 @@ eleventyNavigation:
   order: 0
 ---
 
-<!--1. [Introduction](#introduction)
-2. [Why Mongock?](#why-mongock%3F)
-4. [How it works](#how-it-works)-->
-
 <p class="text-center">
     <img src="/images/mongock-logo-with-title.jpg" width="65%" alt="Mongock">
 </p>
 
+<div class="successAlt">
+<b>Mongock 5 released!!</b> Please visit the <a href="from-version-4-to-5">upgrade page</a> to follow easy process. 
+</div>
 
 ## Introduction
 Mongock is a Java based Migration tool as part of your Application code. It allows Developers to have ownership and control over Data migrations during the deployment process, allowing safer migrations in Distributed Systems as code and data changes are shipped together. 
