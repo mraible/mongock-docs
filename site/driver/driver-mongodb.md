@@ -11,7 +11,7 @@ eleventyNavigation:
 ---
 [[TOC]]
 ## Introduction
-The concept of driver and how it works is already explained in the [technical-overview](#technical-overview)] and [driver](#driver) pages.
+The concept of driver and how it works is already explained in the [technical-overview](#technical-overview) and [driver](#driver) pages.
 
 Here we explain how to use a driver with MongoDB and they different drivers Mongock provides.
 
