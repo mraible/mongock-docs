@@ -1,4 +1,3 @@
-// "build": "ELEVENTY_PRODUCTION=true eleventy && NODE_ENV=production",
 {
 
   "name": "mongock-documentation",
@@ -7,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf ./_site",
     "start": "eleventy --serve",
-    "build": "env NODE_ENV=production npx eleventy --pathprefix 'mongock-docs'",
+    "build": "ELEVENTY_PRODUCTION=true eleventy && NODE_ENV=production",
     "serve": "npx eleventy --serve",
     "watch": "npx eleventy --watch",
     "debug": "DEBUG=* npx eleventy"

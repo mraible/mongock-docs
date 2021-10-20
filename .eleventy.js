@@ -1,6 +1,6 @@
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
-const markdownItTOC = require('markdown-it-table-of-contents')
+const markdownItToc = require('markdown-it-table-of-contents')
 const syntaxHighlightPlugin = require('@11ty/eleventy-plugin-syntaxhighlight')
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 
@@ -120,7 +120,7 @@ module.exports = function (eleventyConfig) {
     permalinkSymbol: '#',
     slugify: headerSlugify
   })
-  markdownEngine.use(markdownItTOC, {
+  markdownEngine.use(markdownItToc, {
     includeLevel: [1,2,3],
     containerHeaderHtml: '<h2>Table of Contents</h2>',
     slugify: headerSlugify,
