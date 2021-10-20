@@ -16,16 +16,21 @@ The concept of driver and how it works is already explained in the [technical-ov
 Here we explain how to use a driver with MongoDB and they different drivers Mongock provides.
 
 <br />
+
 -------------------------------------------
 
-## MongoDB driver options
+## MongoDB driver options and compatibility
 **There are 4 drivers in the MongoDB family driver:**
-- org.mongodb » mongodb-driver-sync (_v4.x_)
-- org.mongodb » mongo-java-driver (_v3.x_)
-- org.springframework.data » spring-data-mongodb (_v3.x_)
-- org.springframework.data » spring-data-mongodb (_v2.x_)
+
+|     Mongock driver      |                  Driver library              | Version compatibility |
+|-------------------------|----------------------------------------------|-----------------------|
+| SpringDataMongoV3Driver | org.springframework.data:spring-data-mongodb | 3.X.X                 |
+| SpringDataMongoV2Driver | org.springframework.data:spring-data-mongodb | 2.X.X                 |
+|    MongoSync4Driver     |        org.mongodb:mongodb-driver-sync       | 4.X.X                 |
+|    MongoSync3Driver     |         org.mongodb:mongo-java-driver        | 3.X.X                 |
 
 <br />
+
 -------------------------------------------
 
 ## MongoDB Configuration
@@ -42,6 +47,7 @@ All the MongoDB drivers share the same configuration.
 | **readPreference** | Exactly the same MongoDB parameter **read preference**. For more information, visit the official MongoDB documentation for [read preference](https://docs.mongodb.com/manual/reference/read-preference/).  | String      | `primary` |
 
 <br />
+
 -------------------------------------------
 
 ## MongoDB Springdata
@@ -67,6 +73,7 @@ In order to use native transactions, Mongock only needs the `MongoTransactionMan
 <p class="tipAlt">This assumes the MongoDB version used allows multi-document ACID transactions</p>
 
 <br />
+
 -------------------------------------------
 
 ## MongoDB native drivers
@@ -97,7 +104,9 @@ The following code shows how to save documents inside the transaction using the 
 ```
 
 <br />
+
 -------------------------------------------
+
 ## Examples 
 
 #### Example automatic approach with properties file
