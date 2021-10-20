@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Monogck documentation",
   "scripts": {
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ./_site",
     "start": "eleventy --serve",
     "build": "ELEVENTY_PRODUCTION=true eleventy && NODE_ENV=production",
     "watch": "npx eleventy --watch",
