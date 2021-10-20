@@ -6,6 +6,11 @@ const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 
 const PROFESSIONAL_SPAN_LABEL = "<span class=\"professional\">";
 const PROFESSIONAL_A_LABEL = '<a href="/professional">';
+const EXCLUDE_FROM_MENU = new Set();
+EXCLUDE_FROM_MENU.add("pro");
+
+
+
 const headerSlugify = (input) => {
 
 
@@ -37,14 +42,7 @@ const headerSlugify = (input) => {
     const firstPart = input.substring(0, index)
     const secondPart = input.substring(index + length, input.indexOf(endToken))
     text =  firstPart+secondPart
-console.log("-------------------------------------------------")
-console.log("INPUT: " + input)
-    console.log("FIRST: " + firstPart)
-    console.log("SECOND: " + secondPart)
-    console.log("TEXT: " + text)
-console.log("-------------------------------------------------")
   }
-   
   const cleaned = text.replace(/<\/?code>/g, '').replace(/(&lt;|&gt;|[<>])/g, '')
   return markdownItAnchor.defaults.slugify(cleaned)
 }
@@ -74,6 +72,9 @@ function processPage(menuItems, menuIndexes, item) {
         let folder = item.url.split("/")[1];
         if(!folder) {
           folder = item.data.page.fileSlug;
+        }
+        if(EXCLUDE_FROM_MENU.has(folder)) {
+          return;
         }
         if(!( typeof menuIndexes[folder] == 'number')) {
           const index = menuItems.length;
