@@ -419,7 +419,8 @@ textarea::placeholder {
   color: #9ca3af;
 }
 
-button {
+button,
+[role="button"] {
   cursor: pointer;
 }
 
@@ -1271,6 +1272,10 @@ nav ul li a.active {
 
 .table {
   display: table !important;
+}
+
+.contents {
+  display: contents !important;
 }
 
 .hidden {

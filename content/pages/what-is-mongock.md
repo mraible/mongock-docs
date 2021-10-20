@@ -1,7 +1,7 @@
 ---
 title: What is Mongock?
 date: Last Modified 
-permalink: /what-is-mongock/index.html
+permalink: index.html
 eleventyNavigation:
   key: what is mongock 
   title: What is Mongock?
@@ -14,7 +14,7 @@ eleventyNavigation:
 
 
 ## Introduction
-Mongock is a Java based Migration tool as part of your Application code. It allows Developers to have ownership and control over Data migrations during the deployment process, allowing safer migrations in Distributed Systems as code and data changes are shipped together. 
+?????Mongock is a Java based Migration tool as part of your Application code. It allows Developers to have ownership and control over Data migrations during the deployment process, allowing safer migrations in Distributed Systems as code and data changes are shipped together. 
 
 It was originally designed for MongoDB Data migrations and the product is evolving to provide a wider suite of NoSQL / SQL Database compatibility and cover other feautures for transactional execution use cases that require state management in Distributed systems. 
 
