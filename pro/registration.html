@@ -176,7 +176,7 @@
         
           
   
-  <a class="menu-item current-page"  href="/features/transactions/index.html">
+  <a class="menu-item "  href="/features/transactions/index.html">
     Transactions
   </a>
 
@@ -232,7 +232,7 @@
         
           
   
-  <a class="menu-item "  href="/pro/registration.html">
+  <a class="menu-item current-page"  href="/pro/registration.html">
     Registration
   </a>
 
@@ -293,33 +293,42 @@
 </aside>
 
       <article>
-        <!--1. [Introduction](#introduction)
-2. [Configuration](#configuration)
-3. [How it works](#how-it-works)-->
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#best-practices">Best practices</a></li></ul></div></p>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>We already discussed the <a href="/technical-overview#mongock-process">Mongock process</a> and the <a href="/migration">migration component</a> in previous sections where the transactions are already mentioned.</p>
-<p>As it's name suggests, a changeUnit represents the unit of a migration. By default each changeUnit is wrapped in a independent transaction. This can be change by configuration, but it's not recommended.</p>
-<div class="tip">
-<p>In this section we mention <b>native transactions</b>. By this we mean the transaction machanism provided by the database.</p>
-<p>Mongock always try to provide a transacional environment as much as possible. When native transactions are notpossible, it tries to rollback the changes manually with the <a href="/migration#implementation">@RollbackExecution</a> method</p>
-</div>
-<h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
-<p>There are two points where the transactions are configured to be enforced or disabled, the property <code>mongock.transactioEnable</code>(setTransactionEnabled method in the builder) and the <strong>driver</strong>.</p>
-<p>In every driver's page, you will find enough information about how to enable the native transactions. Sometimes they are enabled by default and other times, like in the Springboot ecosystems, the transactions manager needs to be injected in the context.</p>
-<p>As explained in the <a href="/runner#Configuration">runner properties table</a>, the Mongock native transactionability follows the next logic</p>
-<div class="success">
-<p >When <b>mongock.transactioEnable</b> is true, it enforces native transactions, throwing an exception is the driver is not capable of it.</p>
-<p >When <b>mongock.transactioEnable</b> is false, it disable the transactions and ignores the transactionability of the driver.</p>
-<p >When <b>mongock.transactioEnable</b> is null, it totally delegates on the driver the transactionability of the migration.</p>
-</div>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<p>The easist way to understand how Mongock handles the transactions is by looking at <a href="/technical-overview#process-steps">this section</a>.</p>
-<h2 id="best-practices"><a class="header-anchor" href="#best-practices">#</a> Best practices</h2>
-<ul>
-<li>Always set explicitly the <code>mongock.transactionEnable</code> property to true/false</li>
-<li>DDL operations placed in the @BeforeExecution method of the changeUnit</li>
-</ul>
+        <h1 id="get-your-license-key-to-access-all-the-pro-features."><a class="header-anchor" href="#get-your-license-key-to-access-all-the-pro-features.">#</a> Get your License Key to Access all the  <span class="professional">PRO</span> features.</h1>
+<table>
+ <tr>
+  <th>First Name:</th>
+  <th><input type="text" id="name" name="name"/></th>
+</tr>
+<tr>
+  <th>Last Name:</th>
+  <th><input type="text" id="lastName" name="lastname"/></th>
+</tr>
+<tr>
+  <th>Company:</th>
+  <th><input type="text" id="company" name="company"/></th>
+</tr>
+<tr>
+  <th>Email:</th>
+  <th><input type="text" id="email" name="email"/></th>
+</tr>
+<tr>
+  <th>Phone Number:</th>
+  <th><input type="text" id="phone" name="phone"/></th>
+</tr>
+<tr>
+  <th>Job Title:</th>
+  <th><input type="text" id="title" name="title"/></th>
+</tr>
+<tr>
+  <th>How did you hear of us?</th>
+  <th><input type="text" id="feedback" name="feedback"/></th>
+</tr>
+</tr>
+<th><button type="submit">Get my License Key</button> </th>
+</tr>
+</table>
+<h1 id="questions%3F"><a class="header-anchor" href="#questions%3F">#</a> Questions?</h1>
+<p>Please feel free to ask us <a href="mailto:dev@cloudyrock.io">here</a> if there is anything that the Mongock team can help you with.</p>
 
       </article>
     </main>
