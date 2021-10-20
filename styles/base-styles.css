@@ -1,0 +1,68 @@
+/*
+added by dieppa
+*/
+table{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 100%;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/*05a18a*/
+thead tr {
+    background-color: #05a18a;
+    color: #ffffff;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+/*end addition*/
+
+
+
+h1, h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #eaecef;
+}
+
+h1 {
+  margin-top: 24px;
+  margin-bottom: 20px;
+  font-family: 'Fjalla One', Helvetica, sans-serif;
+  font-size: 1.8rem;
+  line-height: 100%;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin-top: 24px;
+  margin-bottom: 20px;
+  font-family: 'Fjalla One', Helvetica, sans-serif;
+  font-size: 1.7rem;
+  line-height: 100%;
+  text-transform: uppercase;
+}
+
+h3 {
+
+  color: #606060;
+  margin-top: 24px;
+  margin-bottom: 20px;
+  font-family: 'Fjalla One', Helvetica, sans-serif;
+  font-size: 1.5rem;
+  line-height: 125%;
+}
+
+h6 {
+  color: #808080;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  line-height: 100%;
+}

@@ -176,7 +176,7 @@
         
           
   
-  <a class="menu-item current-page"  href="/features/transactions/index.html">
+  <a class="menu-item "  href="/features/transactions/index.html">
     Transactions
   </a>
 
@@ -211,7 +211,7 @@
         
           
   
-  <a class="menu-item "  href="/cli/operations/index.html">
+  <a class="menu-item current-page"  href="/cli/operations/index.html">
     Operations
   </a>
 
@@ -285,33 +285,64 @@
 </aside>
 
       <article>
-        <!--1. [Introduction](#introduction)
-2. [Configuration](#configuration)
-3. [How it works](#how-it-works)-->
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#best-practices">Best practices</a></li></ul></div></p>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>We already discussed the <a href="/technical-overview#mongock-process">Mongock process</a> and the <a href="/migration">migration component</a> in previous sections where the transactions are already mentioned.</p>
-<p>As it's name suggests, a changeUnit represents the unit of a migration. By default each changeUnit is wrapped in a independent transaction. This can be change by configuration, but it's not recommended.</p>
-<div class="tip">
-<p>In this section we mention <b>native transactions</b>. By this we mean the transaction machanism provided by the database.</p>
-<p>Mongock always try to provide a transacional environment as much as possible. When native transactions are notpossible, it tries to rollback the changes manually with the <a href="/migration#implementation">@RollbackExecution</a> method</p>
-</div>
-<h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
-<p>There are two points where the transactions are configured to be enforced or disabled, the property <code>mongock.transactioEnable</code>(setTransactionEnabled method in the builder) and the <strong>driver</strong>.</p>
-<p>In every driver's page, you will find enough information about how to enable the native transactions. Sometimes they are enabled by default and other times, like in the Springboot ecosystems, the transactions manager needs to be injected in the context.</p>
-<p>As explained in the <a href="/runner#Configuration">runner properties table</a>, the Mongock native transactionability follows the next logic</p>
-<div class="success">
-<p >When <b>mongock.transactioEnable</b> is true, it enforces native transactions, throwing an exception is the driver is not capable of it.</p>
-<p >When <b>mongock.transactioEnable</b> is false, it disable the transactions and ignores the transactionability of the driver.</p>
-<p >When <b>mongock.transactioEnable</b> is null, it totally delegates on the driver the transactionability of the migration.</p>
-</div>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<p>The easist way to understand how Mongock handles the transactions is by looking at <a href="/technical-overview#process-steps">this section</a>.</p>
-<h2 id="best-practices"><a class="header-anchor" href="#best-practices">#</a> Best practices</h2>
-<ul>
-<li>Always set explicitly the <code>mongock.transactionEnable</code> property to true/false</li>
-<li>DDL operations placed in the @BeforeExecution method of the changeUnit</li>
-</ul>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#migrate">Migrate</a></li><li><a href="#undo-a-href%3D%22%2Fpro%2Findex.html%22pro%2Fa">Undo  </a></li></ul></div></p>
+<h1 id="migrate"><a class="header-anchor" href="#migrate">#</a> Migrate</h1>
+<p>Execute all the pending changeUnits, as the standard Mongock migration process.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>CLI Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Mandatory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APP_JAR</td>
+<td><strong>-aj</strong></td>
+<td>String</td>
+<td>It's the path to you executable uber JAR.</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock migrate -aj APP_JAR</div></code></pre>
+<!--<p class="text-center">
+    <img src="/images/migrate_operation_output.png" alt="Migrate">
+</p>-->
+<h1 id="undo-pro"><a class="header-anchor" href="#undo-pro">#</a> Undo  <span class="professional"><a href="/pro/index.html">PRO</a></span></h1>
+<p>Reverts all the changeUnits until the <code>CHANGE_ID</code>, included.</p>
+<p>This operation uses the methods annotated with <code>@RollbackExecution</code> and <code>@RollbackBeforeExecution</code> in the changeUnits.</p>
+<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock undo CHANGE_ID -aj APP_JAR</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>CLI Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Mandatory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHANGE_ID</td>
+<td>N/A</td>
+<td>String</td>
+<td>It's the change identifier used in your <code>@ChangeUnit</code> annotation</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>APP_JAR</td>
+<td><strong>-aj</strong></td>
+<td>String</td>
+<td>It's the path to you executable uber JAR.</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
 
       </article>
     </main>
