@@ -8,6 +8,8 @@ const PROFESSIONAL_SPAN_LABEL = "<span class=\"professional\">";
 const PROFESSIONAL_A_LABEL = '<a href="/professional">';
 const EXCLUDE_FROM_MENU = new Set();
 EXCLUDE_FROM_MENU.add("pro");
+EXCLUDE_FROM_MENU.add("pending");
+EXCLUDE_FROM_MENU.add("roadmap");
 
 
 

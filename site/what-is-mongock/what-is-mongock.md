@@ -7,14 +7,13 @@ eleventyNavigation:
   order: 0
 ---
 
-<!--1. [Introduction](#introduction)
-2. [Why Mongock?](#why-mongock%3F)
-4. [How it works](#how-it-works)-->
-
 <p class="text-center">
     <img src="/images/mongock-logo-with-title.jpg" width="65%" alt="Mongock">
 </p>
 
+<div class="success">
+<b>Mongock 5 released!!</b> Please visit the <a href="from-version-4-to-5">upgrade page</a> to follow easy process. 
+</div>
 
 ## Introduction
 Mongock is a Java based Migration tool as part of your Application code. It allows Developers to have ownership and control over Data migrations during the deployment process, allowing safer migrations in Distributed Systems as code and data changes are shipped together. 
@@ -90,7 +89,7 @@ Great, we have the migration done, tested, deployed and working nicely. Awesome 
 
 For a more in-depth description of Mongock, please visit the [Technical Overview](/technical-overview) section
 
-### ... Cool, but we got a new user story! :scream:
+### ... Cool, but we got a new user story! 😱
 
 But now a new User Story has arrived where it requires us to add a new field. Well, we already have Mongock setup, all it requires is to create another ChangeUnit to address this change in the same way we did previously. Don't worry, Mongock will take care of running only the ChangeUnits that haven't been executed yet.
 

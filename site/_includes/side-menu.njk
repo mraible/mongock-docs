@@ -18,8 +18,13 @@
   </h7>
 {% endmacro %}
 
+
 <aside class="side-menu">
-  <h2>Navigation</h2>
+  <select style="width: 100%" name="vresion" id="version">
+    <option value="v5" selected>Version 5</option>
+    <option value="v4">Version 4</option>
+  </select>
+  <br /><br />
   <nav class="menu-root">
     {% for menuSection in collections.menuItems %}
       {{ menuRoot(menuSection) }}

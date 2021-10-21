@@ -9,14 +9,9 @@ eleventyNavigation:
   key: runner standalone
   title: 'Standalone'
 ---
-<!--1. [Introduction](#introduction)
-2. [Get started](#get-started)
-3. [Features](#features)
-   3.1 [Dependency injection](#dependency-injection)
-   3.2 [Events](#events)
-4. [Example](#example)-->
 
 [[TOC]]
+
 ## Introduction
 The standalone runner is the vanila runner, totally clean, with no framework. It's mainly used when no framework is configured, although it can be used with any framework, it just doesn't take advantage of the features it provides. The difference from other runners that are built to take the moest of the underlying framework, it requires more involvement from the user. 
 
@@ -26,15 +21,31 @@ Currently it only supports the builder approach, with the setter methods. Howeve
 ______________________________________
 
 ## Get started
+
+## Get started
+Following the [get started section](get-started#steps-to-run-mongock), this covers steps 2 and 7.
+
+### Add the maven dependency for the runner (step 2)
+```xml
+<dependency>
+  <groupId>io.mongock</groupId>
+  <artifactId>mongock-standalone</artifactId>
+</dependency>
+```
+
+### Build the runner (step 7)
 Like the rest of the runners, the standalone runner is built from a builder. Each runner provides a class with an static method `builder()`.
+
 
 Bear in mind that there are two mandatory parameters for all kind of runner: the `driver` and at least one migration package or class
 ```java
-MongockStandalone
-  .builder()
-  .addMigrationScanPackage("com.your.migration.package")
-  .setDriver(driver);
+MongockStandalone.builder()
+    .setDriver(driver)
+    .addMigrationScanPackage("com.your.migration.package");
 ```
+
+<br />
+
 ______________________________________
 
 ## Configuration

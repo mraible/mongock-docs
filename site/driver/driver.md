@@ -7,12 +7,6 @@ eleventyNavigation:
   order: 50
 ---
 
-<!--1. [Introduction](#introduction)
-2. [Configuration](#configuration)
-3. [How it works](#how-it-works)
-4. [Disabling the index creation](#Disabling-the-index-creation)-->
-
-
 [[TOC]]
 ## Introduction
 
@@ -50,7 +44,7 @@ Although each family of driver may provide some additional configuration that yo
 
 ## How it works
 
-The driver is a mandatory parameter that must be injected to the builder. As explained in the [runner page](#runner#build), this can be done manually with the builder or automatically with annotations(if using a framework like Springboot that supports this kind of mechanisms).
+The driver is a mandatory parameter that must be injected to the builder. As explained in the [runner page](#runner#build), this can be done manually with the builder or automatically with autoconfiguration(if using a framework like Springboot that supports this kind of mechanisms).
 
 When using the builder approach, you need to create the driver(by fllowing the instructions in the specific driver page, under the driver section) and use the `setDriver(driver)` in the builder to inject it.
 
@@ -62,7 +56,7 @@ Similarly to the runners, all the drivers provide a class with two static method
 <p class="tipAlt">Visit the specific driver's page to see what paramters are required.</p>
 
 
-On the other hand, although this job is automatically done by Mongock, it will probably need some basic parameters, like the database, etc. Once again, please visit the concrete driver page to see what's required.
+On the other hand, although this job is handled by Mongock, it will probably need some basic parameters, like the database, etc. Once again, please visit the concrete driver page to see what's required.
 
 
 -------------------------------------------
