@@ -227,6 +227,20 @@
   
   <h7 class="menu-item">
     
+      <a class="menu-item "  href="/resources/index.html">
+        Resources
+      </a>
+    
+  </h7>
+
+      <nav class="Resources">
+        
+      </nav>
+    
+      
+  
+  <h7 class="menu-item">
+    
       <a class="menu-item "  href="/faq/index.html">
         Faq
       </a>
@@ -283,9 +297,9 @@
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#mongodb-driver-options-and-compatibility">MongoDB driver options and compatibility</a></li><li><a href="#mongodb-configuration">MongoDB Configuration</a><ul><li><a href="#properties">Properties</a></li></ul></li><li><a href="#mongodb-springdata">MongoDB Springdata</a><ul><li><a href="#transactions">Transactions</a></li></ul></li><li><a href="#mongodb-native-drivers">MongoDB native drivers</a><ul><li><a href="#transactions">Transactions</a></li></ul></li><li><a href="#examples">Examples</a></li></ul></div></p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#mongodb-driver-options-and-compatibility">MongoDB driver options and compatibility</a></li><li><a href="#mongodb-common-configuration">MongoDB common configuration</a><ul><li><a href="#properties">Properties</a></li></ul></li><li><a href="#mongodb-springdata">MongoDB Springdata</a><ul><li><a href="#get-started">Get started</a></li></ul></li><li><a href="#mongodb-native-drivers">MongoDB native drivers</a><ul><li><a href="#get-started">Get started</a></li></ul></li><li><a href="#examples">Examples</a></li></ul></div></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>The concept of driver and how it works is already explained in the <a href="#technical-overview">technical-overview</a>] and <a href="#driver">driver</a> pages.</p>
+<p>The concept of driver and how it works is already explained in the <a href="#technical-overview">technical-overview</a> and <a href="#driver">driver</a> pages.</p>
 <p>Here we explain how to use a driver with MongoDB and they different drivers Mongock provides.</p>
 <br />
 <hr>
@@ -324,7 +338,7 @@
 </table>
 <br />
 <hr>
-<h2 id="mongodb-configuration"><a class="header-anchor" href="#mongodb-configuration">#</a> MongoDB Configuration</h2>
+<h2 id="mongodb-common-configuration"><a class="header-anchor" href="#mongodb-common-configuration">#</a> MongoDB common configuration</h2>
 <p>All the MongoDB drivers share the same configuration.</p>
 <p class="tipAlt">When setting configuration via properties file, it must be prefixed by <b>mongock.mongo-db</b></p>
 <h3 id="properties"><a class="header-anchor" href="#properties">#</a> Properties</h3>
@@ -366,15 +380,23 @@
 <li>SpringDataMongoV3Driver</li>
 <li>SpringDataMongoV2Driver</li>
 </ul>
+<h3 id="get-started"><a class="header-anchor" href="#get-started">#</a> Get started</h3>
+<p>Following the <a href="get-started#steps-to-run-mongock">get started section</a>, this covers steps 3 and 5 and 6.</p>
+<h4 id="add-maven-dependency-for-the-driver-(step-2)"><a class="header-anchor" href="#add-maven-dependency-for-the-driver-(step-2)">#</a> Add maven dependency for the driver (step 2)</h4>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongodb-springdata-v3-driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token comment">&lt;!--&lt;artifactId>mongodb-springdata-v2-driver&lt;/artifactId> for MongoDB spring data v2--></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<h4 id="build-the-driver-(setp-5)"><a class="header-anchor" href="#build-the-driver-(setp-5)">#</a> Build the driver (setp 5)</h4>
+<p class="successAlt"><b>This step is only required for builder approach.</b> Mongock handles it for autoconfiguration<p>
 <p>These classes provide the same two static initializers</p>
 <ul>
 <li><strong>withDefaultLock</strong>(MongoTemplate mongoTemplate)</li>
 <li><strong>withLockStrategy</strong>(MongoTemplate mongoTemplate, long lockAcquiredForMillis, long lockQuitTryingAfterMillis, long lockTryFrequencyMillis)</li>
 </ul>
-<h3 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h3>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">SpringDataMongoV3Driver</span> driver <span class="token operator">=</span> <span class="token class-name">SpringDataMongoV3Driver</span><span class="token punctuation">.</span><span class="token function">withDefaultLock</span><span class="token punctuation">(</span>mongoTemplate<span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<h4 id="driver-extra-configuration-(step-6)"><a class="header-anchor" href="#driver-extra-configuration-(step-6)">#</a> Driver extra configuration (step 6)</h4>
+<h5 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h5>
 <p>In order to use native transactions, Mongock only needs the <code>MongoTransactionManager</code> injected in the Spring application context and the flag <code>mongock.transaction-enabled</code> not false(it accepts null, but it#s highly recommended to explicitly set a value).</p>
+<p><em>Keep in mid that your MongoDB database must allow multi-document ACID transactions</em></p>
 <pre class="language-java"><code class="language-java"><div class="highlight-line">	<span class="token annotation punctuation">@Bean</span></div><div class="highlight-line">	<span class="token keyword">public</span> <span class="token class-name">MongoTransactionManager</span> <span class="token function">transactionManager</span><span class="token punctuation">(</span><span class="token class-name">MongoTemplate</span> mongoTemplate<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MongoTransactionManager</span><span class="token punctuation">(</span>mongoTemplate<span class="token punctuation">.</span><span class="token function">getMongoDbFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">	<span class="token punctuation">}</span></div></code></pre>
-<p class="tipAlt">This assumes the MongoDB version used allows multi-document ACID transactions</p>
 <br />
 <hr>
 <h2 id="mongodb-native-drivers"><a class="header-anchor" href="#mongodb-native-drivers">#</a> MongoDB native drivers</h2>
@@ -383,12 +405,19 @@
 <li>MongoSync4Driver</li>
 <li>MongoCore3Driver</li>
 </ul>
+<h3 id="get-started-2"><a class="header-anchor" href="#get-started-2">#</a> Get started</h3>
+<p>Following the <a href="get-started#steps-to-run-mongock">get started section</a>, this covers steps 3 and 5 and 6.</p>
+<h4 id="add-maven-dependency-for-the-driver-(step-2)-2"><a class="header-anchor" href="#add-maven-dependency-for-the-driver-(step-2)-2">#</a> Add maven dependency for the driver (step 2)</h4>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongodb-driver-sync<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token comment">&lt;!--&lt;artifactId>mongodb-v3-driver&lt;/artifactId> for MongoDB driver v3--></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<h4 id="build-the-driver-(setps-5)"><a class="header-anchor" href="#build-the-driver-(setps-5)">#</a> Build the driver (setps 5)</h4>
 <p>These classes provide the same two static initializers</p>
 <ul>
 <li><strong>withDefaultLock</strong>(MongoClient mongoClient, String databaseName)</li>
 <li><strong>withLockStrategy</strong>(MongoClient mongoClient, String databaseName, long lockAcquiredForMillis, long lockQuitTryingAfterMillis,long lockTryFrequencyMillis)</li>
 </ul>
-<h3 id="transactions-2"><a class="header-anchor" href="#transactions-2">#</a> Transactions</h3>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">MongoSync4Driver</span> driver <span class="token operator">=</span> <span class="token class-name">MongoSync4Driver</span><span class="token punctuation">.</span><span class="token function">withDefaultLock</span><span class="token punctuation">(</span>mongoClient<span class="token punctuation">,</span> databaseName<span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<h4 id="driver-extra-configuration-(step-6)-2"><a class="header-anchor" href="#driver-extra-configuration-(step-6)-2">#</a> Driver extra configuration (step 6)</h4>
+<h5 id="transactions-2"><a class="header-anchor" href="#transactions-2">#</a> Transactions</h5>
 <p>Due to the MongoDB driver design, to work with transactions the <a href="https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html">ClientSession</a> object is required in every operation and then managed the transaction.
 Mongock make this very simple. The developer only needs to specify a <code>ClientSession</code> parameter in hthe contructor or method of the <code>@ChangeUnit</code> and use in the MongoDB operations. <strong>Mongock takes care of everything else.</strong>
 <br /><br />
@@ -397,7 +426,7 @@ The following code shows how to save documents inside the transaction using the 
 <br />
 <hr>
 <h2 id="examples"><a class="header-anchor" href="#examples">#</a> Examples</h2>
-<h4 id="example-automatic-approach-with-properties-file"><a class="header-anchor" href="#example-automatic-approach-with-properties-file">#</a> Example automatic approach with properties file</h4>
+<h4 id="example-autoconfiguration-approach-with-properties-file"><a class="header-anchor" href="#example-autoconfiguration-approach-with-properties-file">#</a> Example autoconfiguration approach with properties file</h4>
 <p class="successAlt">This approach is only possible with Springdata drivers and assumes the MongoTemplate is injected in the Spring context</p>
 <pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">mongo-db</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token key atrule">write-concern</span><span class="token punctuation">:</span></div><div class="highlight-line">      <span class="token key atrule">w</span><span class="token punctuation">:</span> majority</div><div class="highlight-line">      <span class="token key atrule">wTimeoutMs</span><span class="token punctuation">:</span> <span class="token number">1000</span></div><div class="highlight-line">      <span class="token key atrule">journal</span><span class="token punctuation">:</span> <span class="token boolean important">true</span></div><div class="highlight-line">    <span class="token key atrule">read-concern</span><span class="token punctuation">:</span> majority</div><div class="highlight-line">    <span class="token key atrule">read-preference</span><span class="token punctuation">:</span> primary</div></code></pre>
 <h4 id="example-with-builder"><a class="header-anchor" href="#example-with-builder">#</a> Example with builder</h4>

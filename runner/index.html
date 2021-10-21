@@ -227,6 +227,20 @@
   
   <h7 class="menu-item">
     
+      <a class="menu-item "  href="/resources/index.html">
+        Resources
+      </a>
+    
+  </h7>
+
+      <nav class="Resources">
+        
+      </nav>
+    
+      
+  
+  <h7 class="menu-item">
+    
       <a class="menu-item "  href="/faq/index.html">
         Faq
       </a>
@@ -316,7 +330,7 @@
 <p><strong>Builder approach:</strong> The user manually configures and executes the runner by using the runner builder. Normally by setter methods. Regardless the type of runner, all of them provides an static method <code>builder()</code> which returns the builder.</p>
 </li>
 <li>
-<p><strong>Automatic approach:</strong> Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.</p>
+<p><strong>Autoconfiguration:</strong> Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.</p>
 </li>
 </ul>
 <hr>
@@ -337,7 +351,7 @@
 <tr>
 <td style="text-align:center"><strong>driver</strong></td>
 <td style="text-align:left">component</td>
-<td>The Mongock driver. This parameter can only be passed programatically. When opting for the <code>automatic approach</code>, Mongock builds the driver and injects it to the runner</td>
+<td>The Mongock driver. This parameter can only be passed programatically. When opting for <strong>autoconfiguration</strong>, Mongock builds the driver and injects it to the runner</td>
 <td style="text-align:center">ConnectionDriver</td>
 <td style="text-align:center">Mandatory</td>
 </tr>
@@ -423,7 +437,7 @@
 <hr>
 <h2 id="execution"><a class="header-anchor" href="#execution">#</a> Execution</h2>
 <p>Although each builder may provide additional options to build the runner, all of them share the basic method <code>buildRunner()</code>, which returns a <code>MongockRunner</code> instance. This interface provides multiple methods, one of them is <code>execute()</code>, which starts the migration process. This is the natural way to run Mongock when using the standalone runner.</p>
-<p>On the other hand, when opting for the automatic approach, the user doesn't need to worry about the execution, Mongock, with the help of the framework, takes care of it.</p>
+<p>On the other hand, when opting for autoconfiguration, the user doesn't need to worry about the execution, Mongock, with the help of the framework, takes care of it.</p>
 
       </article>
     </main>

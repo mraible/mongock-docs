@@ -227,6 +227,20 @@
   
   <h7 class="menu-item">
     
+      <a class="menu-item "  href="/resources/index.html">
+        Resources
+      </a>
+    
+  </h7>
+
+      <nav class="Resources">
+        
+      </nav>
+    
+      
+  
+  <h7 class="menu-item">
+    
       <a class="menu-item "  href="/faq/index.html">
         Faq
       </a>
@@ -283,11 +297,7 @@
 </aside>
 
       <article>
-        <!--1. [Introduction](#introduction)
-2. [Configuration](#configuration)
-3. [How it works](#how-it-works)
-4. [Disabling the index creation](#Disabling-the-index-creation)-->
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#disabling-the-index-creation">Disabling the index creation</a></li></ul></div></p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#disabling-the-index-creation">Disabling the index creation</a></li></ul></div></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
 <p>To understand the concept of the driver within the Mongock architecture, visit the <a href="/technical-overview#main/components">technical overview page</a>. There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.</p>
 <p>Thw two main responsabilities of the driver are:</p>
@@ -356,7 +366,7 @@ Currently, we only
 </table>
 <hr>
 <h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<p>The driver is a mandatory parameter that must be injected to the builder. As explained in the <a href="#runner#build">runner page</a>, this can be done manually with the builder or automatically with annotations(if using a framework like Springboot that supports this kind of mechanisms).</p>
+<p>The driver is a mandatory parameter that must be injected to the builder. As explained in the <a href="#runner#build">runner page</a>, this can be done manually with the builder or automatically with autoconfiguration(if using a framework like Springboot that supports this kind of mechanisms).</p>
 <p>When using the builder approach, you need to create the driver(by fllowing the instructions in the specific driver page, under the driver section) and use the <code>setDriver(driver)</code> in the builder to inject it.</p>
 <p>Similarly to the runners, all the drivers provide a class with two static methods</p>
 <ul>
@@ -364,7 +374,7 @@ Currently, we only
 <li><strong>withLockConfiguration</strong>, which takes the same parameters as the <code>withDefaultLock</code> method, plus the three basic parameters to configure the lock(<code>lockAcquiredForMillis</code>, <code>lockQuitTryingAfterMillis</code> and <code>lockTryFrequencyMillis</code>)</li>
 </ul>
 <p class="tipAlt">Visit the specific driver's page to see what paramters are required.</p>
-<p>On the other hand, although this job is automatically done by Mongock, it will probably need some basic parameters, like the database, etc. Once again, please visit the concrete driver page to see what's required.</p>
+<p>On the other hand, although this job is handled by Mongock, it will probably need some basic parameters, like the database, etc. Once again, please visit the concrete driver page to see what's required.</p>
 <hr>
 <h2 id="disabling-the-index-creation"><a class="header-anchor" href="#disabling-the-index-creation">#</a> Disabling the index creation</h2>
 <p>Sometimes, for some reasons, you don't want Mongock to perform administration tasks such as index creations. However they are mandatory and must be created.</p>

@@ -227,6 +227,20 @@
   
   <h7 class="menu-item">
     
+      <a class="menu-item "  href="/resources/index.html">
+        Resources
+      </a>
+    
+  </h7>
+
+      <nav class="Resources">
+        
+      </nav>
+    
+      
+  
+  <h7 class="menu-item">
+    
       <a class="menu-item "  href="/faq/index.html">
         Faq
       </a>
@@ -283,22 +297,22 @@
 </aside>
 
       <article>
-        <!--1. [Introduction](#introduction)
-2. [Get started](#get-started)
-3. [Features](#features)
-   3.1 [Dependency injection](#dependency-injection)
-   3.2 [Events](#events)
-4. [Example](#example)-->
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#get-started">Get started</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#features">Features</a><ul><li><a href="#dependency-injection">Dependency injection</a></li><li><a href="#events">Events</a></li></ul></li><li><a href="#example">Example</a></li></ul></div></p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction">Introduction</a></li><li><a href="#get-started">Get started</a></li><li><a href="#get-started">Get started</a><ul><li><a href="#add-the-maven-dependency-for-the-runner-(step-2)">Add the maven dependency for the runner (step 2)</a></li><li><a href="#build-the-runner-(step-7)">Build the runner (step 7)</a></li></ul></li><li><a href="#configuration">Configuration</a></li><li><a href="#features">Features</a><ul><li><a href="#dependency-injection">Dependency injection</a></li><li><a href="#events">Events</a></li></ul></li><li><a href="#example">Example</a></li></ul></div></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
 <p>The standalone runner is the vanila runner, totally clean, with no framework. It's mainly used when no framework is configured, although it can be used with any framework, it just doesn't take advantage of the features it provides. The difference from other runners that are built to take the moest of the underlying framework, it requires more involvement from the user.</p>
 <p>For example, while most of frameworks provides an event mechanism out of the box, in this case the user needs to provide the listener manually, as well as inject the dependencies, as no application context is setup. As the reader can guess, this runner only allows the traditional approach.</p>
 <p>Currently it only supports the builder approach, with the setter methods. However we are working on providing an option to use a properties file. It would still use the builder, but instead with setter methods, passing a configuration file.</p>
 <hr>
 <h2 id="get-started"><a class="header-anchor" href="#get-started">#</a> Get started</h2>
+<h2 id="get-started-2"><a class="header-anchor" href="#get-started-2">#</a> Get started</h2>
+<p>Following the <a href="get-started#steps-to-run-mongock">get started section</a>, this covers steps 2 and 7.</p>
+<h3 id="add-the-maven-dependency-for-the-runner-(step-2)"><a class="header-anchor" href="#add-the-maven-dependency-for-the-runner-(step-2)">#</a> Add the maven dependency for the runner (step 2)</h3>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-standalone<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<h3 id="build-the-runner-(step-7)"><a class="header-anchor" href="#build-the-runner-(step-7)">#</a> Build the runner (step 7)</h3>
 <p>Like the rest of the runners, the standalone runner is built from a builder. Each runner provides a class with an static method <code>builder()</code>.</p>
 <p>Bear in mind that there are two mandatory parameters for all kind of runner: the <code>driver</code> and at least one migration package or class</p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">MongockStandalone</span></div><div class="highlight-line">  <span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token punctuation">.</span><span class="token function">addMigrationScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.your.migration.package"</span><span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span>driver<span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span>driver<span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addMigrationScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.your.migration.package"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<br />
 <hr>
 <h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
 <p>Visit the <a href="/runner#configuration">configuration section</a> in the runner page to see the list of the basic runner's properties.</p>
