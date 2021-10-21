@@ -9,14 +9,6 @@ eleventyNavigation:
   key: runner springboot
   title: 'Springboot'
 ---
-<!--1. [Introduction](#introduction)
-2. [Get started](#get-started)
-3. [Features](#features)
-   3.1 [Runner type: Applicationrunner vs Initializingbean](#runner-type%3A-applicationrunner-vs-initializingbean)
-   3.2 [Dependency injection](#dependeny-injection)
-   3.3 [Profiles](#Profiles)
-   3.2 [Events](#events)
-4. [Examples](#examples)-->
 
 [[TOC]]
 
@@ -24,12 +16,27 @@ eleventyNavigation:
 As its name suggests, this runner is the one to use with Springboot. It leverages the Springboot features, like the ApplicationContext, profiles and EnventPublisher, to provides a smooth user experience
 
 It supports both building approaches, builder and automatic.
+
+<br />
+
 ______________________________________
 
+
 ## Get started
+Following the [get started section](get-started#steps-to-run-mongock), this covers steps 2 and 5.
+
+### Add the maven dependency for the runner
+```xml
+<dependency>
+  <groupId>io.mongock</groupId>
+  <artifactId>mongock-springboot</artifactId>
+</dependency>
+```
+
+### Build the runner
 Like the rest of the runners, the springboot runner is built from a builder. Each runner provides a class with an static method `builder()`.
 
-As we already know, there are two mandatory parameters for all kind of runner: the `driver` and at least one migration package or class. Springboot adds an extra mandatory field, the **Spring ApplicationContext**, from which all the dependencies injected to your migration classes are taken.
+Springboot adds an extra mandatory field to the driver and scan class/package(mandatory in all the runners), the **Spring ApplicationContext**, from which all the dependencies injected to your migration classes are taken.
 
 When using the builder approach, you need to provide the driver and ApplicationContext manually to the builder. On the other hand, when using the automatic approach, Mongock will take the ApplicationContext from Springboot directly and will build the driver, which probably requires you to inject to the context the required parameters. For example the database, MongoTemplate, etc. This depends on the type of Driver you are using. Find more information in the [driver section](/driver).
 
@@ -39,10 +46,21 @@ MongockSpringboot.builder()
     .addMigrationScanPackage("com.your.migration.package")
     .setSpringContext(springContext);
 ```
+
+<br />
+
 ______________________________________
+
+## Springboot compatibility
+|   Mongock Runner   | Framework  | Version compatibility |
+|--------------------|------------|-----------------------|
+|  MongockSpringboot | Springboot | 2.X.X                 |
 
 ## Configuration
 Visit the [configuration section](/runner#configuration) in the runner page to see the list of the basic runner's properties.
+
+<br />
+
 ______________________________________
 
 ## Features
@@ -116,6 +134,9 @@ public class MongockSuccessEventListener implements ApplicationListener<SpringMi
 ```
 
 The [example section](/runner/standalone#example) shows how to use it in the builder.
+
+<br />
+
 ______________________________________
 
 ## Examples
