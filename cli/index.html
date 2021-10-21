@@ -289,7 +289,7 @@
 <h3 id="with-standalone"><a class="header-anchor" href="#with-standalone">#</a> With standalone</h3>
 <p>When the application uses the Mongock standalone runner, it need the following to be able to work with the CLI:</p>
 <ul>
-<li>Implement the interface <code>MongockBuilderProvider</code> returning the runner builder used in the application.</li>
+<li>Implement the interface <code>MongockBuilderProvider</code> returning the runner builder used in the application. Notice that should provide an empty constructor that will be used by the CLI.</li>
 <li>Annotate the main class with <code>@MongockCliConfiguration</code> providing the <code>MongockBuilderProvider</code> implementation class.</li>
 <li>Generate an uber jar from the application, which will be passed to the Mongock CLI in the param <code>--appJar</code></li>
 </ul>
