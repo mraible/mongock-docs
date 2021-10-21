@@ -49,7 +49,7 @@ public class SpringBootSpringDataAnnotationBasicApp{
 When the application uses the Mongock standalone runner, it need the following to be able to work with the CLI:
 - Implement the interface `MongockBuilderProvider` returning the runner builder used in the application. Notice that should provide an empty constructor that will be used by the CLI.
 - Annotate the main class with `@MongockCliConfiguration` providing the `MongockBuilderProvider` implementation class.
-- Generate an uber jar from the application, which will be passed to the Mongock CLI in the param `--appJar` 
+- Generate an uber jar from the application, which will be passed to the Mongock CLI in the param `--appJar` Mor information about generating an uber jar with [maven](https://maven.apache.org/plugins/maven-shade-plugin/) and [gradle](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
 
 ```java
 @MongockCliConfiguration(sources = Application.MongockBuilderProviderImpl.class)
