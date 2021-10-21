@@ -49,12 +49,12 @@ With Mongock standalone, it takes the `MongockBuilderProvider` implementations a
 ## I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?
 No, even if you use a more updated version of Spring Data. You just use Spring MongoTemplate for now on.
 
-## What's the difference between **undo** and **rollback**?
+## What's the difference between `undo` and `rollback`?
 **Rollback** is the act of reverting a change when it fails at execution time. On the other hand **undo** is the act of reverting a change some time after being successfully executed.
 
 
 
-## My migrations take long and it impacts my startup time... what should I do?
+<!--## My migrations take long and it impacts my startup time... what should I do?
 
 ## What if we have an environmment with the latest changes and others out of synch?
-## How manage HA in changes-> two step changes
+## How manage HA in changes-> two step changes-->
