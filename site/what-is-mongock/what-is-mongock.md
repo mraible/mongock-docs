@@ -89,7 +89,7 @@ Great, we have the migration done, tested, deployed and working nicely. Awesome 
 
 For a more in-depth description of Mongock, please visit the [Technical Overview](/technical-overview) section
 
-### ... Cool, but we got a new user story! :scream:
+### ... Cool, but we got a new user story! 😱
 
 But now a new User Story has arrived where it requires us to add a new field. Well, we already have Mongock setup, all it requires is to create another ChangeUnit to address this change in the same way we did previously. Don't worry, Mongock will take care of running only the ChangeUnits that haven't been executed yet.
 
