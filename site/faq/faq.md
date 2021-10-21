@@ -38,7 +38,7 @@ The main reason for this is that some other operations like undo, rely on this m
 ## Can Mongock be used in applications deployed in Kubernetes?
 Yes. Actually the main use of Mongock is as part of the application start up, shipping together code and data changes, providing safer migratios in distributed systems.
 
-## Does the CLL change something in my application?
+## Does the CLI change something in my application?
 No. The CLI just takes from your application what is needed to run the migration.
 
 With Mongock standalone, it takes the `MongockBuilderProvider` implementations and retrieves the builder. For Springboot, by default it loads the entire Springboot context, but you can filter which configuration class to load by annotating the main class with `@MongockCliCOnfiguration`. For more information please visit the [cli page](/cli)
