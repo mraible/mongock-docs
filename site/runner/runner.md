@@ -45,7 +45,7 @@ Mongock offers two build approaches:
 
 - **Builder approach:** The user manually configures and executes the runner by using the runner builder. Normally by setter methods. Regardless the type of runner, all of them provides an static method `builder()` which returns the builder.
 
-- **Automatic approach:** Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.
+- **Autoconfiguration:** Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.
 ______________________________________
 
 ## Configuration
@@ -55,7 +55,7 @@ ______________________________________
 
 | Property                  | type | Description                                                                                  | Type                | Default value |
 | :------------------------:|:---------------------------------------------------------------------------------------------|---------------------|:-----------:|:-------------:|
-| **driver**                | component | The Mongock driver. This parameter can only be passed programatically. When opting for the `automatic approach`, Mongock builds the driver and injects it to the runner | ConnectionDriver | Mandatory |  
+| **driver**                | component | The Mongock driver. This parameter can only be passed programatically. When opting for **autoconfiguration**, Mongock builds the driver and injects it to the runner | ConnectionDriver | Mandatory |  
 | **migrationScanPackage**  | property | The list of migration(changeUnits and changeLogs) classes and/or packages where they are stored | List< String >      |Mandatory |  
 | **metadata**              | property | Custom data attached to the migration. It will be added to change entry in the mongock table/collection  | Map<String, Object> | null |  
 | **startSystemVersion**    | property | System version to start with                                                                 | String              | `0` |  
@@ -72,4 +72,4 @@ ______________________________________
 ## Execution
 Although each builder may provide additional options to build the runner, all of them share the basic method `buildRunner()`, which returns a `MongockRunner` instance. This interface provides multiple methods, one of them is `execute()`, which starts the migration process. This is the natural way to run Mongock when using the standalone runner. 
 
-On the other hand, when opting for the automatic approach, the user doesn't need to worry about the execution, Mongock, with the help of the framework, takes care of it.
+On the other hand, when opting for autoconfiguration, the user doesn't need to worry about the execution, Mongock, with the help of the framework, takes care of it.

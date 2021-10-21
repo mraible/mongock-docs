@@ -23,9 +23,9 @@ ______________________________________
 ## Get started
 
 ## Get started
-Following the [get started section](get-started#steps-to-run-mongock), this covers steps 2 and 5.
+Following the [get started section](get-started#steps-to-run-mongock), this covers steps 2 and 7.
 
-### Add the maven dependency for the runner
+### Add the maven dependency for the runner (step 2)
 ```xml
 <dependency>
   <groupId>io.mongock</groupId>
@@ -33,7 +33,7 @@ Following the [get started section](get-started#steps-to-run-mongock), this cove
 </dependency>
 ```
 
-### Build the runner
+### Build the runner (step 7)
 Like the rest of the runners, the standalone runner is built from a builder. Each runner provides a class with an static method `builder()`.
 
 

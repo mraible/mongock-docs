@@ -15,7 +15,7 @@ eleventyNavigation:
 ## Introduction
 As its name suggests, this runner is the one to use with Springboot. It leverages the Springboot features, like the ApplicationContext, profiles and EnventPublisher, to provides a smooth user experience
 
-It supports both building approaches, builder and automatic.
+It supports both building approaches, builder and autoconfiguration.
 
 <br />
 
@@ -23,9 +23,9 @@ ______________________________________
 
 
 ## Get started
-Following the [get started section](get-started#steps-to-run-mongock), this covers steps 2 and 5.
+Following the [get started section](get-started#steps-to-run-mongock), this covers steps 2 and 7.
 
-### Add the maven dependency for the runner
+### Add the maven dependency for the runner (step 2)
 ```xml
 <dependency>
   <groupId>io.mongock</groupId>
@@ -33,12 +33,12 @@ Following the [get started section](get-started#steps-to-run-mongock), this cove
 </dependency>
 ```
 
-### Build the runner
+### Build the runner (step 7)
 Like the rest of the runners, the springboot runner is built from a builder. Each runner provides a class with an static method `builder()`.
 
 Springboot adds an extra mandatory field to the driver and scan class/package(mandatory in all the runners), the **Spring ApplicationContext**, from which all the dependencies injected to your migration classes are taken.
 
-When using the builder approach, you need to provide the driver and ApplicationContext manually to the builder. On the other hand, when using the automatic approach, Mongock will take the ApplicationContext from Springboot directly and will build the driver, which probably requires you to inject to the context the required parameters. For example the database, MongoTemplate, etc. This depends on the type of Driver you are using. Find more information in the [driver section](/driver).
+When using the builder approach, you need to provide the driver and ApplicationContext manually to the builder. On the other hand, when using the autoconfiguration approach, Mongock will take the ApplicationContext from Springboot directly and will build the driver, which probably requires you to inject to the context the required parameters. For example the database, MongoTemplate, etc. This depends on the type of Driver you are using. Find more information in the [driver section](/driver).
 
 ```java
 MongockSpringboot.builder()
@@ -74,7 +74,7 @@ Springboot provides two options to delegate an execution, in this case the migra
 
 Mongock takes advantage of this aspects and, on top of the method `buildRunner()`, provides two other options to suport the ApplicationRunner and InitializingBean.
 
-When using the automatic approach, ou can set the runner type by configuration with
+When using autoconfiguration, ou can set the runner type by configuration with
 ```yaml
 mongock:
   runner-type: [applicationrunner | initializingbean]
