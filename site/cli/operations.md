@@ -26,7 +26,10 @@ $ ./mongock migrate -aj APP_JAR
 
 
 
-# Undo  <span class="professional"><a href="/pro/index.html">PRO</a></span>
+
+<!--UNTIL PROFESSIONAL LIB IS OFFICIAL PUBLISHED-->
+
+<!--# Undo  <span class="professional"><a href="/pro/index.html">PRO</a></span>
 
 Reverts all the changeUnits until the `CHANGE_ID`, included.
 
@@ -38,5 +41,5 @@ $ ./mongock undo CHANGE_ID -aj APP_JAR
 |   Name    | CLI Parameter |  Type   | Description                                                      | Mandatory |
 |-----------|---------------|---------|------------------------------------------------------------------|----------|
 | CHANGE_ID |        N/A    |  String | It's the change identifier used in your `@ChangeUnit` annotation |   YES     |
-| APP_JAR   |      **-aj**  |  String | It's the path to you executable uber JAR.                        |   YES     |
+| APP_JAR   |      **-aj**  |  String | It's the path to you executable uber JAR.                        |   YES     |-->
 
