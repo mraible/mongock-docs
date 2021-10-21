@@ -1,5 +1,5 @@
 ---
-title: What is Next? 🚀 Our Roadmap  
+title: Mongock Professional - How to get set up  
 date: 2014-04-18 11:30:00 
 permalink: /pro/index.html
 eleventyNavigation:

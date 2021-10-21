@@ -30,8 +30,13 @@ If using Springboot in the application, there is not much to be done. Springboot
 By default the Mongock CLI loads the entire application context. If you want the CLI only to load specific configuration classes that are enough to run the migrations,you can do this annotatting your main class with `@MongockCliConfiguration`.
 
 ```java
-// The Mongock CLI will load the configuration from the classes io.your.package.ConfigurationClass1 and io.your.package.ConfigurationClass2.
-// Theses classes must contain all the beans and configuration needed to run the migration
+ 
+//The Mongock CLI will load the configuration from the classes 
+//io.your.package.ConfigurationClass1 
+//and io.your.package.ConfigurationClass2.
+
+//Theses classes must contain all the beans and 
+//configuration needed to run the migration.
 @EnableMongock
 @MongockCliConfiguration(sources = {
         io.your.package.ConfigurationClass1.class,
