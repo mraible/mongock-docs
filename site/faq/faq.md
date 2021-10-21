@@ -19,7 +19,7 @@ This the reason we have added the `@ChangeUnit`. A more practical version of the
 More information in the [migration section](/migration)
 
 
-## I've migrated to Mongock 5 and there are some existing `@ChangeLog` classes in my project. Should I remove or change them?
+## I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?
 No. Your old changeLogs should remain untouched. Although deprecated, they will remain in the code for backguard compatibility. 
 
 For more information about the recommended approach, please visit [this section](/migration#changelog)
@@ -29,7 +29,7 @@ Mongock always try to rollback the failed changes. In a transactional environmen
 
 Once that rollback operation is performed, Mongock will abort the migration and throw an exception. The next time Mongock is executed will carry on from the failed changeUnit. You need to understand that if the changeUnit keep failing, Mongock will keep aborting. In an self-deployed infrastructure like Kubernetes this potentitally means get into an infitnie loop.  
 
-## Should I implment the `@RollbackExecution` method in transactional environments?
+## Should I implment the @RollbackExecution method in transactional environments?
 Yes, we highly recommend to implement the `@RollbackExecution` method. 
 
 The main reason for this is that some other operations like undo, rely on this methods to work. However it's a very good practice as it provides a robust system that is less affected when moving to non-transactional environments. 
@@ -49,7 +49,7 @@ With Mongock standalone, it takes the `MongockBuilderProvider` implementations a
 ## I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?
 No, even if you use a more updated version of Spring Data. You just use Spring MongoTemplate for now on.
 
-## What's the difference between `undo` and `rollback`?
+## What's the difference between undo and rollback?
 **Rollback** is the act of reverting a change when it fails at execution time. On the other hand **undo** is the act of reverting a change some time after being successfully executed.
 
 
