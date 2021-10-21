@@ -269,7 +269,7 @@
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#migrate">Migrate</a></li><li><a href="#undo-a-href%3D%22%2Fpro%2Findex.html%22pro%2Fa">Undo  </a></li></ul></div></p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#migrate">Migrate</a></li></ul></div></p>
 <h1 id="migrate"><a class="header-anchor" href="#migrate">#</a> Migrate</h1>
 <p>Execute all the pending changeUnits, as the standard Mongock migration process.</p>
 <table>
@@ -296,37 +296,20 @@
 <!--<p class="text-center">
     <img src="/images/migrate_operation_output.png" alt="Migrate">
 </p>-->
-<h1 id="undo-pro"><a class="header-anchor" href="#undo-pro">#</a> Undo  <span class="professional"><a href="/pro/index.html">PRO</a></span></h1>
-<p>Reverts all the changeUnits until the <code>CHANGE_ID</code>, included.</p>
-<p>This operation uses the methods annotated with <code>@RollbackExecution</code> and <code>@RollbackBeforeExecution</code> in the changeUnits.</p>
-<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock undo CHANGE_ID -aj APP_JAR</div></code></pre>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>CLI Parameter</th>
-<th>Type</th>
-<th>Description</th>
-<th>Mandatory</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CHANGE_ID</td>
-<td>N/A</td>
-<td>String</td>
-<td>It's the change identifier used in your <code>@ChangeUnit</code> annotation</td>
-<td>YES</td>
-</tr>
-<tr>
-<td>APP_JAR</td>
-<td><strong>-aj</strong></td>
-<td>String</td>
-<td>It's the path to you executable uber JAR.</td>
-<td>YES</td>
-</tr>
-</tbody>
-</table>
+<!--UNTIL PROFESSIONAL LIB IS OFFICIAL PUBLISHED-->
+<!--# Undo  <span class="professional"><a href="/pro/index.html">PRO</a></span>
+
+Reverts all the changeUnits until the `CHANGE_ID`, included.
+
+This operation uses the methods annotated with `@RollbackExecution` and `@RollbackBeforeExecution` in the changeUnits.  
+
+```bash
+$ ./mongock undo CHANGE_ID -aj APP_JAR
+```
+|   Name    | CLI Parameter |  Type   | Description                                                      | Mandatory |
+|-----------|---------------|---------|------------------------------------------------------------------|----------|
+| CHANGE_ID |        N/A    |  String | It's the change identifier used in your `@ChangeUnit` annotation |   YES     |
+| APP_JAR   |      **-aj**  |  String | It's the path to you executable uber JAR.                        |   YES     |-->
 
       </article>
     </main>
