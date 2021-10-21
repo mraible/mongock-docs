@@ -18,7 +18,7 @@ eleventyNavigation:
 ## Introduction
 Mongock is a Java based Migration tool as part of your Application code. It allows Developers to have ownership and control over Data migrations during the deployment process, allowing safer migrations in Distributed Systems as code and data changes are shipped together. 
 
-It was originally designed for MongoDB Data migrations and the product is evolving to provide a wider suite of NoSQL / SQL Database compatibility and cover other feautures for transactional execution use cases that require state management in Distributed systems. 
+It was originally designed for MongoDB Data migrations and the product is evolving to provide a wider suite of Database compatibility and cover other feautures for transactional execution use cases that require state management in Distributed systems. 
 
 ------------------------------------------------
 
@@ -68,8 +68,8 @@ Please, visit the [ChangeUnit section](/migration/) for more information.
 We need to access the database for multiple reasons:
 - To persist the client data we just retrieved.
 - Mongock needs to track the ChangeUnits that have been executed, so the **client-service** doesn't execute them twice. 
--- As more than one instance of the client-service may be running simultaneusly in the environment, it will try to execute the same migration on startup. To prevent this, Mongock uses a pesimistic lock that is persisted in database.
--- In addition, this allows Mongock to store a history of changes and execute Rollbacks, amongst other operations.
+  - As more than one instance of the client-service may be running simultaneusly in the environment, it will try to execute the same migration on startup. To prevent this, Mongock uses a pesimistic lock that is persisted in database.
+  - In addition, this allows Mongock to store a history of changes and execute Rollbacks, amongst other operations.
 
 
 For allowing Mongock to access the Database and persist state changes, we will use the **Mongock Driver**. The driver contains all the information and mechanisms to access to the database. Mongock provides multiple drivers for different databases. The developers can choose the most suitable and configure the driver by providing some information like the the target schema, etc.
@@ -81,11 +81,11 @@ Once we have implemented our migration in our changelog and configured the persi
 
 The Mongock Runner orchestrates the configurations, environment/framework settings, the driver and the ChangeUnits and runs all migrations in an orderly manner. The most common use case is that the  application won't start until the migration has been succesfully finalized (although this  behaviour can be altered). This means that if the list of migrations fail, the application will stop its startup process and exit. This will be retried again in the next startup and Mongock will continue the migration where it left.
 
-Mongock provides multiple runners for framework compatibility: for standalone applications, Springboot, Micronaut(coming soon), etc. 
-
-Please, visit the [Runner section](/runner/) for more information.
-
 Great, we have the migration done, tested, deployed and working nicely. Awesome 🎉 
+
+Mongock provides multiple runners for framework compatibility: for standalone applications, Springboot and many others coming soon. Please, visit the [Runner section](/runner/) for more information.
+
+
 
 For a more in-depth description of Mongock, please visit the [Technical Overview](/technical-overview) section
 
@@ -97,7 +97,7 @@ But now a new User Story has arrived where it requires us to add a new field. We
 
 
 ### ... other ways of running Mongock
-The explained way of running Mongock is the common and traditional use case. However, Mongock offers more.
+The explained way of running Mongock is the common and traditional use case. However, Mongock can be used in wider use cases and offers more operations to support these.
 
 You can use the **Mongock CLI** to run the same migration, but also other operations like undo, list and more supported operations. The purpose is to provide a flexible manner of executing migrations.
 
