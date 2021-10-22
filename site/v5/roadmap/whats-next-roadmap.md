@@ -18,4 +18,4 @@ eleventyNavigation:
 
 ## 🧠 Some Ideas?
 
-Please feel free to share with us [here](mailto:dev@cloudyrock.io) if there is a feature that Mongock can help support your project. 
+Please feel free to share with us [here](mailto:support@mongock.io) if there is a feature that Mongock can help support your project. 

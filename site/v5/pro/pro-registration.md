@@ -91,4 +91,4 @@ eleventyNavigation:
 
 # Questions? 
 
-Please feel free to ask us [here](mailto:dev@cloudyrock.io) if there is anything that the Mongock team can help you with. 
+Please feel free to ask us [here](mailto:support@mongock.io) if there is anything that the Mongock team can help you with. 

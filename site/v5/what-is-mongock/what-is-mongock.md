@@ -41,7 +41,7 @@ In a nutshell:
 - Can run in standalone projects without depending on frameworks.
 - Great support with the Spring Framework overall, with native implementations in SpringBoot.
 
-Get more information about our support model at [dev@cloudyrock.io​](mailto:dev@cloudyrock.io​) and we can help you walking you to production. 
+Get more information about our support model at [support@mongock.io​](mailto:support@mongock.io​) and we can help you walking you to production. 
 
 ------------------------------------------------
 
