@@ -21,8 +21,8 @@ EXCLUDE_FROM_MENU.add("roadmap");
  * VERSIONS
  */
 const versions = [];
-versions.push({name: "version 5", value: "v5", default: true});
-versions.push({name: "version 4", value: "v4"});
+versions.push({name: "version 5", value: "v5", default: true, index: "/index.html"});
+versions.push({name: "version 4", value: "v4", index: "/v4/old-mongock/index.html"});
 
 const headerSlugify = (input) => {
 
@@ -160,7 +160,7 @@ module.exports = function (eleventyConfig) {
          name: version.name,
          value: version.value,
          default: version.default,
-         index: "/" + version.value + "/index.html" 
+         index: version.index 
        }
      );
    });

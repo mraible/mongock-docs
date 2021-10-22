@@ -20,29 +20,30 @@
 
 
 <script>
-
 const versions = [];
 {% for versionedMenus in collections.versionedMenus %}
- // versions.push("{{ versionedMenus.value }}");
-  versions.push({value: "{{ versionedMenus.value }}", index: "{{ versionedMenus.index }}" });
-
+ 
+versions.push({value: "{{ versionedMenus.value }}", index: "{{ versionedMenus.index }}" });
   {% if versionedMenus.default %}
-    let defaultVersion = "{{ versionedMenus.value }}";
+let defaultVersion = "{{ versionedMenus.value }}";
   {% endif %}
 {% endfor %}
 
+const selectedVersions = defaultVersion;
 window.onload = function() {
-  onLoad();
+  const urlVersion = window.location.pathname.split("/")[1];
+  let validVersion = "";
+  versions.forEach(version => {
+    if(urlVersion == version.value) {
+      validVersion = urlVersion;
+    }
+  })
+  pickVersion(validVersion);
 };
-
-function onLoad() {
-  const urlSearchParams = new URLSearchParams(window.location.search);
-  const params = Object.fromEntries(urlSearchParams.entries());
-  pickVersion(params.version);
-}
 
 function pickVersion(urlVersion) {
   const pickedVersion = urlVersion || defaultVersion;
+  document.getElementById("versionSelect").value = pickedVersion;
   versions.forEach(version => {
     const htmlElement = document.getElementById(version.value);
     if(htmlElement) {
@@ -61,7 +62,11 @@ function changeVersion() {
   for(let i = 0 ; i < versions.length ; i++) {
     const version = versions[i];
     if(version.value == newVersion) {
-      console.log("redirect to: " + version.index);
+      console.log("redirect to: " + window.location.origin + version.index);
+      window.location.href = window.location.origin + version.index;
+
+    } else {
+      console.log("version " + newVersion + " not found. Not redirecting.")
     }
   }
 }
@@ -86,7 +91,7 @@ function changeVersion() {
 
   <nav class="menu-root">
     {% for versionedMenus in collections.versionedMenus %}
-      <div id="{{ versionedMenus.value }}">
+      <div id="{{ versionedMenus.value }}" style="display: none;">
         {% for menuSection in versionedMenus.menuItems %} 
           {{ menuRoot(menuSection) }}
           <nav class="{{ menuSection.title }}">
