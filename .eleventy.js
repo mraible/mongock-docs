@@ -71,10 +71,12 @@ function processPage(menuItems, menuIndexes, item) {
       const navData = item.data.eleventyNavigation;
       if(navData) {
         const data = item.data;
-        let folder = item.url.split("/")[1];
+        let versionFolder = navData.version;
+        let folder = item.url.split("/")[2];
         if(!folder) {
           folder = item.data.page.fileSlug;
         }
+
         if(EXCLUDE_FROM_MENU.has(folder)) {
           return;
         }

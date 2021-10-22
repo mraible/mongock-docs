@@ -1,5 +1,4 @@
 {
-
   "name": "mongock-documentation",
   "version": "1.0.0",
   "description": "Monogck documentation",
@@ -21,12 +20,11 @@
     "url": "https://github.com/monogock/mongock-docs/issues"
   },
   "homepage": "https://github.com/monogock/mongock-docs",
-
   "devDependencies": {
-    "@11ty/eleventy": "^0.5.2",
+    "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-navigation": "^0.3.2",
     "@11ty/eleventy-plugin-syntaxhighlight": "^1.0.5",
     "markdown-it-anchor": "^5.0.2",
-    "markdown-it-table-of-contents": "^0.4.3"
+    "markdown-it-table-of-contents": "^0.5.2"
   }
 }
