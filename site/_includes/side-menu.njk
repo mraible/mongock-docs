@@ -62,7 +62,6 @@ function changeVersion() {
   for(let i = 0 ; i < versions.length ; i++) {
     const version = versions[i];
     if(version.value == newVersion) {
-      console.log("redirect to: " + window.location.origin + version.index);
       window.location.href = window.location.origin + version.index;
 
     } else {
