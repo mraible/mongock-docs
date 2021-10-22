@@ -13,7 +13,7 @@ eleventyNavigation:
 [[TOC]]
 
 ## Introduction
-As its name suggests, this runner is the one to use with Springboot. It leverages the Springboot features, like the ApplicationContext, profiles and EnventPublisher, to provides a smooth user experience
+As its name suggests, this runner is the one to use with Springboot. It leverages the Springboot features, like the ApplicationContext, profiles and EventPublisher, to provides a smooth user experience.
 
 It supports both building approaches, builder and autoconfiguration.
 
@@ -23,7 +23,7 @@ ______________________________________
 
 
 ## Get started
-Following the [get started section](get-started#steps-to-run-mongock), this covers steps 2 and 7.
+Following the [get started section](/get-started#steps-to-run-mongock), this covers steps 2 and 7.
 
 ### Add the maven dependency for the runner (step 2)
 ```xml
@@ -69,12 +69,12 @@ ______________________________________
 
 Springboot provides two options to delegate an execution, in this case the migration:
 - **ApplicationRunner:** Declaring a bean implementing this interface lets you to execute the code after the Springboot application is started. 
-- **InitializingBean:** However, when implementing this interface, the execution is performed before the application is started, but after all the properties and beans are setallows to execute the code after all the beans are set, but before the Springboot application is started.
+- **InitializingBean:** However, when implementing this interface, the execution is performed before the application is started, but after all the properties and beans are set allows to execute the code after all the beans are set, but before the Springboot application is started.
 
 
-Mongock takes advantage of this aspects and, on top of the method `buildRunner()`, provides two other options to suport the ApplicationRunner and InitializingBean.
+Mongock takes advantage of this aspects and, on top of the method `buildRunner()`, provides two other options to support the ApplicationRunner and InitializingBean.
 
-When using autoconfiguration, ou can set the runner type by configuration with
+When using autoconfiguration, you can set the runner type by configuration with:
 ```yaml
 mongock:
   runner-type: [applicationrunner | initializingbean]
@@ -98,7 +98,7 @@ public MongockInitializingBeanRunner mongockRunner(ConnectionDriver driver, Appl
 ```
 
 ### Dependency injection
-As mentioned in the [get started section](#get-started), the springboot runner takes the dependency injected to the migration classes(`@ChangeUnit` and the deprecated @ChangeLog), from the Springboot ApplicationContext
+As mentioned in the [get started section](#get-started), the springboot runner takes the dependency injected to the migration classes(`@ChangeUnit` and the deprecated @ChangeLog), from the Springboot ApplicationContext:
 ```java
 MongockSpringboot.builder()
     .setSpringContext(springContext);
@@ -115,7 +115,7 @@ As explained in the [events page](/events), Mongock provides three Events: Start
 - SpringMigrationFailureEvent
 
 To listen to these events you need to:
-- Provide the event publisher to the Mongock builder with the method `setEventPublisher(springApplicationEventPublisher)`
+- Provide the event publisher to the Mongock builder with the method `setEventPublisher(springApplicationEventPublisher)`.
 - Implement the Springboot ApplicationListener interface for the type of event you want to listen.
 
 ```java
@@ -133,7 +133,7 @@ public class MongockSuccessEventListener implements ApplicationListener<SpringMi
 }
 ```
 
-The [example section](/runner/standalone#example) shows how to use it in the builder.
+The [example section](/runner/springboot#examples) shows how to use it in the builder.
 
 <br />
 
@@ -145,8 +145,8 @@ ______________________________________
 ```yaml
 mongock:
   change-unit-scan-package:
-    - io.mongock...migrtion.client.initializer
-    - io.mongock...migration.client.updater
+    - com.your.migration.package1
+    - com.your.migration.package2
   metadata:
     change-motivation: Missing field in collection
     decided-by: Tom Waugh
@@ -162,6 +162,7 @@ mongock:
       change-log-class: legacyMigrationClassField
       change-set-method: legacyChangeSetMethodField
   track-ignored: false #Default true
+  transaction-enabled: true
   runner-type: applicationrunner
   enabled: true #Default true
 ```
@@ -172,14 +173,14 @@ mongock:
 builder
     .setDriver(driver)
     .setSpringContext(springApplicationContext)
-    .addMigrationScanPackage("com.your.migration.package")
-    .adMigrationScanPackage("com.your.migration.package")
+    .addMigrationScanPackage("com.your.migration.package1")
+    .addMigrationScanPackage("com.your.migration.package2")
     .setEventPublisher(springApplicationEventPublisher)
     .withMetadata(
-        new HashMap(){{
+        new HashMap() { {
           put("change-motivation", "Missing field in collection");
           put("decided-by", "Tom Waugh");
-      }})
+      } })
     .setStartSystemVersion("1.3")
     .setEndSystemVersion("6.4")
     .setLegacyMigration(new MongockLegacyMigration(
@@ -190,7 +191,7 @@ builder
         "legacyTimestampField", 
         "legacyChangeLogClassField", 
         "legacyChangeSetMethodField"))
-    .setTrackIgnored(true)
+    .setTrackIgnored(false)
     .setTransactionEnabled(true)
     .buildInitializingBeanRunner();
 ```    

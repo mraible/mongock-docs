@@ -23,6 +23,6 @@ In our  [example repository](https://github.com/cloudyrock/mongock-examples) you
 - [Springboot multitenant](https://github.com/mongock/mongock-examples/tree/develop/mongock-examples-mongodb/springboot-multitenant): An example of hadling multitenant migrations with Mongock builder, Springboot and spring data.
 <!--It  requires [Mongock professional](/pro)-->
 
-- [Standalone with MongoDB-sync driver](https://github.com/mongock/mongock-examples/tree/develop/mongock-examples-mongodb/standalone-mongodb-sync): 
+- [Standalone with MongoDB-sync driver](https://github.com/mongock/mongock-examples/tree/develop/mongock-examples-mongodb/standalone-mongodb-sync): An example with standalone runner(no framework) and MongoDB-sync driver. It provides some advanced features such as secondary database for retrieving data and events.
 
-- [Standalone with Spring Data](https://github.com/mongock/mongock-examples/tree/develop/mongock-examples-mongodb/standalone-springdata)
+- [Standalone with Spring Data](https://github.com/mongock/mongock-examples/tree/develop/mongock-examples-mongodb/standalone-springdata): An example with standalone runner(no framework) and spring data driver. It provides some advanced features such as secondary database for retrieving data and events.

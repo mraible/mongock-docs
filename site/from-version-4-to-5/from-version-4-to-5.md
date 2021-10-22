@@ -4,7 +4,7 @@ date: 2014-04-18 11:30:00
 permalink: /from-version-4-to-5/index.html
 eleventyNavigation:
   root: true
-  order: 90
+  order: 100
 ---
 
 [[TOC]]
@@ -63,17 +63,17 @@ Although the migration from version 4 to version 5 is trivial, we want to make y
 ### Deprecations
 
 #### ChangeLogs/ChangeSets
-From Mongock version 5, `@ChangeLog` and `@ChangeSet` annotations are **deprecated** and shouldn't be used. However, these  won't be removed for backwards compatibility.
+From Mongock version 5, `@ChangeLog` and `@ChangeSet` annotations are **deprecated** and shouldn't be used. However, these won't be removed for backwards compatibility.
 
 <div class="success">Please follow one of the recommended approaches depending on your use case:
-<p>- <b>For existing changeLogs created prior version 5:</b> Leave it untoched, keeping thedeprecated annotation.</p>
+<p>- <b>For existing changeLogs created prior version 5:</b> Leave it untouched, keeping the deprecated annotation.</p>
 <p>- <b>For new migrations from version 5:</b> Use the new @ChangeUnit annotation instead.</p>
 </div>
 <br />
 
 Please visit the [ChangeLog - version 4](https://www.mongock.io/changelogs) section to access the ChangeLog documentation for Version 4. 
 
-For more information about the reason we have adopted this change, please visit our [FAQ section](/faq#changelog-deprecation)
+For more information about the reason we have adopted this change, please visit our [FAQ section](/faq#changelog-deprecation).
 
 
 
@@ -82,7 +82,7 @@ From version 5, the class `MongockTemplate`is deprecated, but it will always rem
 We recommend leaving  old changeLogs  untouched (using with the deprecated MongockTemplate), but use Spring MongoTemplate for new
 changeLogs.
 
-This class won't be maintained from this version on, meaning this that, regrdless of the spring data version imported in the project, and although it will be still compatible(won't produce any compilation or runtime erros due to incompatibilities), MongockTemplate won't provide support to any new  method in the MongoTemplate's API after the version `spring-data-mongodb:4.2.3`  
+This class won't be maintained from this version on, meaning this that, regardless of the spring data version imported in the project, and although it will be still compatible(won't produce any compilation or runtime errors due to incompatibilities), MongockTemplate won't provide support to any new  method in the MongoTemplate's API after the version `spring-data-mongodb:4.2.3`. 
 
 
 

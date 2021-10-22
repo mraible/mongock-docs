@@ -15,7 +15,7 @@ Execute all the pending changeUnits, as the standard Mongock migration process.
 
 |   Name   | CLI Parameter |  Type   | Description                               | Mandatory |
 | ---------|-------------|---------|-------------------------------------------|-----------|
-| APP_JAR  | **-aj**  |  String | It's the path to you executable uber JAR. |   YES     |  
+| APP_JAR  | **-aj**  |  String | It's the path to your executable uber JAR. |   YES     |  
 
 ```bash
 $ ./mongock migrate -aj APP_JAR

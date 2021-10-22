@@ -11,7 +11,7 @@ eleventyNavigation:
 
 ## Steps
 
-Mongock provides different runners, from the standalone runner(vanila version) to Springboot, and other frameworks. In this section will show how to use Mongock with Springboot.
+Mongock provides different runners, from the standalone runner(vanilla version) to Springboot, and other frameworks. In this section will show how to use Mongock with Springboot.
 
 Carryng on with our **client-service** example in [what is Mongock?](/what-is-mongock), lets start working with Mongock!
 
@@ -39,7 +39,7 @@ Carryng on with our **client-service** example in [what is Mongock?](/what-is-mo
 ```
 
 ### 3- Add the maven dependency for the driver
-[Driver options](driver/#driver-options)
+[Driver options](/driver/#driver-options)
 ```xml
 <dependency>
   <groupId>io.mongock</groupId>
@@ -92,17 +92,18 @@ public class ClientInitializerChange {
   }
 ```
 ### 5- Build the driver (only requried for builder approach)
-[Driver](/driver)
-Although all the drivers follow the same build pattenr, they miay slightly differ from each other. Plese visit the specific driver's page for more details. 
+
+Although all the drivers follow the same build pattern, they may slightly differ from each other. Please visit the specific [driver's page](/driver) for more details. 
 
 ### 6- Driver extra configuration
 This step is **NOT MANDATORY**, however for certain features, the driver may require some extra help. For example, in order to enable transactions with spring data, the transaction manager needs to be injected in the application context.
 
-Plese visit the specific driver's page for more details.
+Plese visit the specific [driver's page](/driver) for more details.
 
 ### 7- Build the runner
 <p class="tipAlt">When using the builder approach, the driver needs to be injected to the runner by using the method: <b>setDriver</b></p>
 <br />
+
 There are two approaches when comes to build the Mongock runner, the builder and the autoconfiguration approach. Visit the [runner builder](/runner#build) for more information. 
 <br /><br />
 For this example, we use the autoconfiguration approach with Springboot.
@@ -128,7 +129,8 @@ public class App {
 
 ### 8- Execute the runner
 [Execute runner](/runner#build)
-When using the Springboot runner, you don't need to worry about the execution.  Mongock takes care of it :wink:
+
+When using the Springboot runner, you don't need to worry about the execution.  Mongock takes care of it 😉
 
 
 Congratulations! Our basic Mongock setup is done. We just need to run our application and we should see something like this in our log.

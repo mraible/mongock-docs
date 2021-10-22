@@ -16,29 +16,29 @@ eleventyNavigation:
 </div>
 
 ## Introduction
-Mongock is a Java based Migration tool as part of your Application code. It allows Developers to have ownership and control over Data migrations during the deployment process, allowing safer migrations in Distributed Systems as code and data changes are shipped together. 
+Mongock is a Java based migration tool as part of your application code. It allows developers to have ownership and control over data migrations during the deployment process, allowing safer migrations in distributed systems as code and data changes are shipped together. 
 
-It was originally designed for MongoDB Data migrations and the product is evolving to provide a wider suite of Database compatibility and cover other feautures for transactional execution use cases that require state management in Distributed systems. 
+It was originally designed for MongoDB data migrations and the product is evolving to provide a wider suite of database compatibility and cover other features for transactional execution use cases that require state management in distributed systems. 
 
 ------------------------------------------------
 
 ## Why Mongock?
-Our mission is to enable Developers to deploy and manage stateful Data migrations in Distributed Systems in a safe and reliable manner. If you are looking for migrating data for your Java Application Services in a safe and reliable manner via Code, Mongock is your best bet.
+Our mission is to enable developers to deploy and manage stateful data migrations in distributed systems in a safe and reliable manner. If you are looking for migrating data for your Java Application Services in a safe and reliable manner via code, Mongock is your best bet.
 
 In a nutshell:
-- Mongock is a Java-based tool that you can import in your Application.
-- Mongock promotes a Code-first approach for Migrations, allowing developers to write migration scripts in Java which ship with the Application code. This enables Code and Database changes to ship together.
-- Mongock persists in your Database the changes made. This allows Developers to gain more control over the management of changes via Migrations, Rollbacks + other amazing features.
+- Mongock is a Java-based tool that you can import in your application.
+- Mongock promotes a code-first approach for migrations, allowing developers to write migration scripts in Java which ship with the application code. This enables code and database changes to ship together.
+- Mongock persists in your database the changes made. This allows developers to gain more control over the management of changes via migrations, rollbacks + other amazing features.
 - It is the most reliable production-grade solution for MongoDB migrations currently in the market, compatible with Mongo Atlas and different MongoDB versions.
-- Mongock is used in Distributed Systems as the solution implements a solid locking mechanism.
+- Mongock is used in distributed systems as the solution implements a solid locking mechanism.
 - Our team offers great support and is very responsive.
-- We are an open source tool, operating under the Apache License 2.0 
+- We are an open source tool, operating under the Apache License 2.0.
 - We maintain and update features regularly.
 - Currently, Mongock is used by several tech companies in different industries.
 - Adopted by well-known frameworks such as JHipster as part of the scaffolding.
 - Can be used together with most, if not all, frameworks.
-- Can run in Standalone projects without depending on frameworks.
-- Great support with the Spring framework overall, with native implementations in SpringBoot.
+- Can run in standalone projects without depending on frameworks.
+- Great support with the Spring Framework overall, with native implementations in SpringBoot.
 
 Get more information about our support model at [dev@cloudyrock.io​](mailto:dev@cloudyrock.io​) and we can help you walking you to production. 
 
@@ -53,7 +53,7 @@ We have a microservice called **client-service**, which uses the table/collectio
 
 As part of the development, we have a new User Story which requires your application to get some clients data from a third party system and persist them into database, in the `clients` table/collection. This is only required once and must be performed as part of the release.
 
-In addition, the **client-service** is deployed in a Distributed environment running with more than one node and with horizontal scaling.
+In addition, the **client-service** is deployed in a distributed environment running with more than one node and with horizontal scaling.
 
 ### 2. Your migration changes ([ChangeUnit](/migration/))
 We first need to implement the migration to retrieve the data from the third party system and persist it in the database. For this we use the ChangeUnit, which is Mongock's unit of Migration. This will be where we write the code. 
@@ -69,10 +69,10 @@ We need to access the database for multiple reasons:
 - To persist the client data we just retrieved.
 - Mongock needs to track the ChangeUnits that have been executed, so the **client-service** doesn't execute them twice. 
   - As more than one instance of the client-service may be running simultaneusly in the environment, it will try to execute the same migration on startup. To prevent this, Mongock uses a pesimistic lock that is persisted in database.
-  - In addition, this allows Mongock to store a history of changes and execute Rollbacks, amongst other operations.
+  - In addition, this allows Mongock to store a history of changes and execute rollbacks, amongst other operations.
 
 
-For allowing Mongock to access the Database and persist state changes, we will use the **Mongock Driver**. The driver contains all the information and mechanisms to access to the database. Mongock provides multiple drivers for different databases. The developers can choose the most suitable and configure the driver by providing some information like the the target schema, etc.
+For allowing Mongock to access the database and persist state changes, we will use the **Mongock Driver**. The driver contains all the information and mechanisms to access to the database. Mongock provides multiple drivers for different databases. The developers can choose the most suitable and configure the driver by providing some information like the the target schema, etc.
 
 Please, visit the [Driver section](/driver/) for more information.
 

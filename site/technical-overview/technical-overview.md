@@ -38,10 +38,10 @@ Mongock splits the drivers in _driver families_, grouped by databases. Then, wit
 For example, in the case of MongoDB, Mongock provides 4 drivers for:
 - org.mongodb » mongodb-driver-sync
 - org.mongodb » mongo-java-driver
-- org.springframework.data » spring-data-mongodb(v 3.x)
-- org.springframework.data » spring-data-mongodb(v 2.x)
+- org.springframework.data » spring-data-mongodb(v3.x)
+- org.springframework.data » spring-data-mongodb(v2.x)
 
-The Mongock architecture is designed in such a way that allows you to combine any driver with any runner. For example, you may want to use a Mongock driver for SQL springdata with the standalone runner(no framework).
+The Mongock architecture is designed in such a way that allows you to combine any driver with any runner. For example, you may want to use a Mongock driver for springdata with the standalone runner(no framework).
 
 _For more information, visit the [Driver page](/driver/)_
 
@@ -73,8 +73,8 @@ Mongock process follows the next steps:
 5. Takes the next ChangeUnit and executes it.
     - If the ChangeUnit is successfully executed, Mongock persists an entry in the Mongock change history with the state SUCCESS and start the step 5 again.
     - If the ChangeUnit fails, the runner rolls back the change(natively in a transactional environments or manually with the method [@RollbackExecution](/migration#implementation) in non-transactional environments), persists the ChangeUnit as processed with state FAILED and aborts the migration.
-6. If the runner acomplished to execute the entire migration with no failures, it's considered successful. It relases the lock and finishes the migration.
-7. On the other hand, if any ChangeUnit fails, the runner stops the migration at that point and throws an exception. When Mongock is executed again, it will continue from the failure ChangeUnit(included)
+6. If the runner acomplished to execute the entire migration with no failures, it's considered successful. It releases the lock and finishes the migration.
+7. On the other hand, if any ChangeUnit fails, the runner stops the migration at that point and throws an exception. When Mongock is executed again, it will continue from the failure ChangeUnit(included).
 
 ### Architecture
 

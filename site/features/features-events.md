@@ -18,7 +18,7 @@ eleventyNavigation:
 [[TOC]]
 ## Introduction
 Mongock uses events as a way to notify the main application in which state is the Mongock process and eventually the result of the execution.
-There is a big different in the approach, depending on which type of runner is used. For spring applications, Mongock takes advantage of the ApplicationEventPublisher, which is provided to Mongock at building time. On the other hand, for standalone applications, Mongock requires a an explicit handler at building time.
+There is a big different in the approach, depending on which type of runner is used. For spring applications, Mongock takes advantage of the ApplicationEventPublisher, which is provided to Mongock at building time. On the other hand, for standalone applications, Mongock requires an explicit handler at building time.
 
 
 ## Type of events
@@ -31,4 +31,4 @@ Please notice that there is no scenario in which both events, success and failur
 
 ## Get started
 
-Each runner's page provides you the information you need to use the events accordinly to runner's approach.
+Each runner's page provides you the information you need to use the events accordingly to runner's approach.
