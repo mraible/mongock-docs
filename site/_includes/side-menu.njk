@@ -19,20 +19,88 @@
 {% endmacro %}
 
 
+<script>
+const versions = [];
+{% for versionedMenus in collections.versionedMenus %}
+ 
+versions.push({value: "{{ versionedMenus.value }}", index: "{{ versionedMenus.index }}" });
+  {% if versionedMenus.default %}
+let defaultVersion = "{{ versionedMenus.value }}";
+  {% endif %}
+{% endfor %}
+
+const selectedVersions = defaultVersion;
+window.onload = function() {
+  const urlVersion = window.location.pathname.split("/")[1];
+  let validVersion = "";
+  versions.forEach(version => {
+    if(urlVersion == version.value) {
+      validVersion = urlVersion;
+    }
+  })
+  pickVersion(validVersion);
+};
+
+function pickVersion(urlVersion) {
+  const pickedVersion = urlVersion || defaultVersion;
+  document.getElementById("versionSelect").value = pickedVersion;
+  versions.forEach(version => {
+    const htmlElement = document.getElementById(version.value);
+    if(htmlElement) {
+      if(pickedVersion == version.value) {
+        htmlElement.style.display = "inline";
+      } else {
+        htmlElement.style.display = "none";
+      }
+    }
+    
+  });
+}
+
+function changeVersion() {
+  var newVersion = document.getElementById("versionSelect").value;
+  for(let i = 0 ; i < versions.length ; i++) {
+    const version = versions[i];
+    if(version.value == newVersion) {
+      console.log("redirect to: " + window.location.origin + version.index);
+      window.location.href = window.location.origin + version.index;
+
+    } else {
+      console.log("version " + newVersion + " not found. Not redirecting.")
+    }
+  }
+}
+
+</script>
+
+
+
+
+
+
 <aside class="side-menu">
-  <select style="width: 100%" name="vresion" id="version">
-    <option value="v5" selected>Version 5</option>
-    <option value="v4">Version 4</option>
+  
+  <select style="width: 100%" name="version" id="versionSelect" onchange="changeVersion()">
+    {% for versionedMenus in collections.versionedMenus %}
+      <option value="{{ versionedMenus.value }}">{{ versionedMenus.name }}</option>
+    {% endfor %}
   </select>
   <br /><br />
+
+
+
   <nav class="menu-root">
-    {% for menuSection in collections.menuItems %}
-      {{ menuRoot(menuSection) }}
-      <nav class="{{ menuSection.title }}">
-        {% for pageItem in menuSection.pages %}
-          {{ menuItem(pageItem) }}
+    {% for versionedMenus in collections.versionedMenus %}
+      <div id="{{ versionedMenus.value }}" style="display: none;">
+        {% for menuSection in versionedMenus.menuItems %} 
+          {{ menuRoot(menuSection) }}
+          <nav class="{{ menuSection.title }}">
+            {% for pageItem in menuSection.pages %}
+              {{ menuItem(pageItem) }}
+            {% endfor %}
+          </nav>
         {% endfor %}
-      </nav>
+      </div>  
     {% endfor %}
   </nav>
 </aside>

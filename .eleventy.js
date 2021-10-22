@@ -3,15 +3,26 @@ const markdownItAnchor = require('markdown-it-anchor')
 const markdownItToc = require('markdown-it-table-of-contents')
 const syntaxHighlightPlugin = require('@11ty/eleventy-plugin-syntaxhighlight')
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
-
+/**
+ * HTML tags to remove from TOC
+ */
 const PROFESSIONAL_SPAN_LABEL = "<span class=\"professional\">";
 const PROFESSIONAL_A_LABEL = '<a href="/professional">';
+
+/**
+ * FOLDERS TO REMOVE FROM SIDE MENU
+ */
 const EXCLUDE_FROM_MENU = new Set();
 EXCLUDE_FROM_MENU.add("pro");
 EXCLUDE_FROM_MENU.add("pending");
 EXCLUDE_FROM_MENU.add("roadmap");
 
-
+/**
+ * VERSIONS
+ */
+const versions = [];
+versions.push({name: "version 5", value: "v5", default: true, index: "/index.html"});
+versions.push({name: "version 4", value: "v4", index: "/v4/old-mongock/index.html"});
 
 const headerSlugify = (input) => {
 
@@ -56,9 +67,10 @@ const tocFormat = (content, md) => {
 
 }
 
-const sortArray = (a, b) => {
+const sortMenu = (a, b) => {
   return (a.order || 0) - (b.order || 0);
 };
+
 
 function makeTittle(title) {
   let newTitle = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
@@ -66,18 +78,17 @@ function makeTittle(title) {
   return formattedTitle;
 }
 
-function processPage(menuItems, menuIndexes, item) {
+function processPage(versionFolderFilter, menuItems, menuIndexes, item) {
 
       const navData = item.data.eleventyNavigation;
       if(navData) {
-        const data = item.data;
         let versionFolder = navData.version;
         let folder = item.url.split("/")[2];
         if(!folder) {
           folder = item.data.page.fileSlug;
         }
 
-        if(EXCLUDE_FROM_MENU.has(folder)) {
+        if(EXCLUDE_FROM_MENU.has(folder) || versionFolder != versionFolderFilter) {
           return;
         }
         if(!( typeof menuIndexes[folder] == 'number')) {
@@ -89,7 +100,8 @@ function processPage(menuItems, menuIndexes, item) {
           });
         }
 
-        const index = menuIndexes[folder] ;
+        const data = item.data;
+        const index = menuIndexes[folder];
         if(navData.root) {
           if(navData.page == null || navData.page) {
             menuItems[index].url = data.permalink || item.url;
@@ -107,6 +119,7 @@ function processPage(menuItems, menuIndexes, item) {
           )
         }
       }
+
    }
 
 module.exports = function (eleventyConfig) {
@@ -133,14 +146,25 @@ module.exports = function (eleventyConfig) {
   })
 
 // Added by Dieppa
-   eleventyConfig.addCollection("menuItems", collection =>{
-   let menuIndexes = {};
-   let menuItems = [];
-   collection.getAll().forEach(item => processPage(menuItems, menuIndexes, item));
-   menuItems.sort(sortArray)
-   menuItems.forEach(root => root.pages.sort(sortArray))
-   
-   return menuItems;
+   eleventyConfig.addCollection("versionedMenus", collection =>{
+   let versionedMenus = [];
+   versions.forEach(version => {
+     let menuIndexes = {};
+     let menuItemsArray = [];
+     collection.getAll().forEach(item => processPage(version.value, menuItemsArray, menuIndexes, item));  
+     menuItemsArray.sort(sortMenu)
+     menuItemsArray.forEach(root => root.pages.sort(sortMenu))
+     versionedMenus.push(
+       {
+         menuItems: menuItemsArray,
+         name: version.name,
+         value: version.value,
+         default: version.default,
+         index: version.index 
+       }
+     );
+   });
+   return versionedMenus;
  });
      
 // End addition
