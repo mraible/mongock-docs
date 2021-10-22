@@ -139,7 +139,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/index.html">
+      <a class="menu-item "  href="/index.html">
         What is mongock
       </a>
     
@@ -312,7 +312,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v5/faq/index.html">
+      <a class="menu-item current-page"  href="/v5/faq/index.html">
         Faq
       </a>
     
@@ -388,75 +388,36 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p class="text-center">
-    <img src="/images/mongock-logo-with-title.jpg" width="65%" alt="Mongock">
-</p>
-<div class="success">
-<b>Mongock 5 released!!</b> Please visit the <a href="from-version-4-to-5">upgrade page</a> to follow easy process. 
-</div>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>Mongock is a Java based migration tool as part of your application code. It allows developers to have ownership and control over data migrations during the deployment process, allowing safer migrations in distributed systems as code and data changes are shipped together.</p>
-<p>It was originally designed for MongoDB data migrations and the product is evolving to provide a wider suite of database compatibility and cover other features for transactional execution use cases that require state management in distributed systems.</p>
-<hr>
-<h2 id="why-mongock%3F"><a class="header-anchor" href="#why-mongock%3F">#</a> Why Mongock?</h2>
-<p>Our mission is to enable developers to deploy and manage stateful data migrations in distributed systems in a safe and reliable manner. If you are looking for migrating data for your Java Application Services in a safe and reliable manner via code, Mongock is your best bet.</p>
-<p>In a nutshell:</p>
-<ul>
-<li>Mongock is a Java-based tool that you can import in your application.</li>
-<li>Mongock promotes a code-first approach for migrations, allowing developers to write migration scripts in Java which ship with the application code. This enables code and database changes to ship together.</li>
-<li>Mongock persists in your database the changes made. This allows developers to gain more control over the management of changes via migrations, rollbacks + other amazing features.</li>
-<li>It is the most reliable production-grade solution for MongoDB migrations currently in the market, compatible with Mongo Atlas and different MongoDB versions.</li>
-<li>Mongock is used in distributed systems as the solution implements a solid locking mechanism.</li>
-<li>Our team offers great support and is very responsive.</li>
-<li>We are an open source tool, operating under the Apache License 2.0.</li>
-<li>We maintain and update features regularly.</li>
-<li>Currently, Mongock is used by several tech companies in different industries.</li>
-<li>Adopted by well-known frameworks such as JHipster as part of the scaffolding.</li>
-<li>Can be used together with most, if not all, frameworks.</li>
-<li>Can run in standalone projects without depending on frameworks.</li>
-<li>Great support with the Spring Framework overall, with native implementations in SpringBoot.</li>
-</ul>
-<p>Get more information about our support model at <a href="mailto:dev@cloudyrock.xn--io-h1t">dev@cloudyrock.io​</a> and we can help you walking you to production.</p>
-<hr>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<h3 id="1.-scenario"><a class="header-anchor" href="#1.-scenario">#</a> 1. Scenario</h3>
-<p>Lets describe a scenario where the use of Mongock plays a big role:</p>
-<p>We have a microservice called <strong>client-service</strong>, which uses the table/collection <code>clients</code></p>
-<p>As part of the development, we have a new User Story which requires your application to get some clients data from a third party system and persist them into database, in the <code>clients</code> table/collection. This is only required once and must be performed as part of the release.</p>
-<p>In addition, the <strong>client-service</strong> is deployed in a distributed environment running with more than one node and with horizontal scaling.</p>
-<h3 id="2.-your-migration-changes-(changeunit)"><a class="header-anchor" href="#2.-your-migration-changes-(changeunit)">#</a> 2. Your migration changes (<a href="/migration/">ChangeUnit</a>)</h3>
-<p>We first need to implement the migration to retrieve the data from the third party system and persist it in the database. For this we use the ChangeUnit, which is Mongock's unit of Migration. This will be where we write the code.</p>
-<div class="successAlt">
-<b>Note:</b> From version 5, ChangeLog annotation is deprecated (though remains for backwards compatibility). It's been replaced by <b>@ChangeUnit</b>.
-</div>
-<p>Please, visit the <a href="/migration/">ChangeUnit section</a> for more information.</p>
-<h3 id="3.-the-persistent-layer-(driver)"><a class="header-anchor" href="#3.-the-persistent-layer-(driver)">#</a> 3. The persistent layer (<a href="/driver/">Driver</a>)</h3>
-<p>We need to access the database for multiple reasons:</p>
-<ul>
-<li>To persist the client data we just retrieved.</li>
-<li>Mongock needs to track the ChangeUnits that have been executed, so the <strong>client-service</strong> doesn't execute them twice.
-<ul>
-<li>As more than one instance of the client-service may be running simultaneusly in the environment, it will try to execute the same migration on startup. To prevent this, Mongock uses a pesimistic lock that is persisted in database.</li>
-<li>In addition, this allows Mongock to store a history of changes and execute rollbacks, amongst other operations.</li>
-</ul>
-</li>
-</ul>
-<p>For allowing Mongock to access the database and persist state changes, we will use the <strong>Mongock Driver</strong>. The driver contains all the information and mechanisms to access to the database. Mongock provides multiple drivers for different databases. The developers can choose the most suitable and configure the driver by providing some information like the the target schema, etc.</p>
-<p>Please, visit the <a href="/driver/">Driver section</a> for more information.</p>
-<h3 id="4.-run-the-migration"><a class="header-anchor" href="#4.-run-the-migration">#</a> 4. Run the migration</h3>
-<p>Once we have implemented our migration in our changelog and configured the persistent layer using a Mongock driver, we need to run the migration. For this, we will use the <strong>Mongock Runner</strong>.</p>
-<p>The Mongock Runner orchestrates the configurations, environment/framework settings, the driver and the ChangeUnits and runs all migrations in an orderly manner. The most common use case is that the  application won't start until the migration has been succesfully finalized (although this  behaviour can be altered). This means that if the list of migrations fail, the application will stop its startup process and exit. This will be retried again in the next startup and Mongock will continue the migration where it left.</p>
-<p>Great, we have the migration done, tested, deployed and working nicely. Awesome 🎉</p>
-<p>Mongock provides multiple runners for framework compatibility: for standalone applications, Springboot and many others coming soon. Please, visit the <a href="/runner/">Runner section</a> for more information.</p>
-<p>For a more in-depth description of Mongock, please visit the <a href="/technical-overview">Technical Overview</a> section</p>
-<h3 id="...-cool%2C-but-we-got-a-new-user-story!-%F0%9F%98%B1"><a class="header-anchor" href="#...-cool%2C-but-we-got-a-new-user-story!-%F0%9F%98%B1">#</a> ... Cool, but we got a new user story! 😱</h3>
-<p>But now a new User Story has arrived where it requires us to add a new field. Well, we already have Mongock setup, all it requires is to create another ChangeUnit to address this change in the same way we did previously. Don't worry, Mongock will take care of running only the ChangeUnits that haven't been executed yet.</p>
-<p class="noteAlt"> Note that a <b>ChangeUnit</b> represents a unit of migration, which means that each ChangeUnit is wrapped in a <b>transaction</b>. As soon as it's finished, it's commited.</p>
-<h3 id="...-other-ways-of-running-mongock"><a class="header-anchor" href="#...-other-ways-of-running-mongock">#</a> ... other ways of running Mongock</h3>
-<p>The explained way of running Mongock is the common and traditional use case. However, Mongock can be used in wider use cases and offers more operations to support these.</p>
-<p>You can use the <strong>Mongock CLI</strong> to run the same migration, but also other operations like undo, list and more supported operations. The purpose is to provide a flexible manner of executing migrations.</p>
-<p>Please, visit the <a href="/cli/">CLI section</a> for more information.</p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog"> Why we have added the ChangeUnit annotation and deprecated ChangeLog</a></li><li><a href="#i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F"> I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?</a></li><li><a href="#what-happens-if-a-changeunit-fails"> What happens if a changeUnit fails</a></li><li><a href="#should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F"> Should I implement the @RollbackExecution method in transactional environments?</a></li><li><a href="#can-mongock-be-used-in-applications-deployed-in-kubernetes%3F"> Can Mongock be used in applications deployed in Kubernetes?</a></li><li><a href="#does-the-cli-change-something-in-my-application%3F"> Does the CLI change something in my application?</a></li><li><a href="#until-which-spring-data-version-is-mongocktemplate-compatible-with%3F"> Until which Spring data version is MongockTemplate compatible with?</a></li><li><a href="#i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F"> I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?</a></li><li><a href="#what's-the-difference-between-undo-and-rollback%3F"> What's the difference between undo and rollback?</a></li></ul></div></p>
+<h2 id="why-we-have-added-the-changeunit-annotation-and-deprecated-changelog"><a class="header-anchor" href="#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog">#</a> Why we have added the ChangeUnit annotation and deprecated ChangeLog</h2>
+<p>Mongock team is aware of the implications of this change, that's why is totally backward compatible. All the old code related to <code>@ChangeLog</code> and <code>@ChangeSet</code> will remain compatible.</p>
+<p>However, the Mongock team has identified that the old changelog structure starts to struggle handling new features. The configuration was cumbersome and a bit more complex that needed.</p>
+<p>This is the reason we have added the <code>@ChangeUnit</code>. A more practical version of the <code>@ChangeLog</code>, which can be see as a changeLog, wich a unique and mandatory changeSet(<code>@Execution</code>) that also requires a complementary method <code>@RollbackExecution</code>.</p>
+<p>More information in the <a href="/migration">migration section</a>.</p>
+<h2 id="i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F"><a class="header-anchor" href="#i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F">#</a> I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?</h2>
+<p>No. Your old changeLogs should remain untouched. Although deprecated, they will remain in the code for backward compatibility.</p>
+<p>For more information about the recommended approach, please visit <a href="/migration">this section</a>.</p>
+<h2 id="what-happens-if-a-changeunit-fails"><a class="header-anchor" href="#what-happens-if-a-changeunit-fails">#</a> What happens if a changeUnit fails</h2>
+<p>Mongock always try to rollback the failed changes. In a transactional environment, Mongock relies on the database transactional mechanism to rollback the migration changes(<code>@Execution</code> method) as well as the mongock metadata associated to the change. In summary it would be like that change was never started. In a non-transactional environment, Mongock manually tries to rollback the migration change by executing the <code>@RollbackExecution</code> method and marks the change entry as <code>ROLLED_BACK</code> in the database. Please notice that although Mongock will try its best to achieve this, it's not guaranteed.</p>
+<p>Once the rollback operation is performed, Mongock will abort the migration and throw an exception. The next time Mongock is executed will carry on from the failed changeUnit. You need to understand that if the changeUnit keep failing, Mongock will keep aborting. In an self-deployed infrastructure like Kubernetes this potentially means get into an infinite loop.</p>
+<h2 id="should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F"><a class="header-anchor" href="#should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F">#</a> Should I implement the @RollbackExecution method in transactional environments?</h2>
+<p>Yes, we highly recommend to implement the <code>@RollbackExecution</code> method.</p>
+<p>The main reason for this is that some other operations like undo, rely on this method to work. However it's a very good practice as it provides a robust system that is less affected when moving to non-transactional environments.</p>
+<h2 id="can-mongock-be-used-in-applications-deployed-in-kubernetes%3F"><a class="header-anchor" href="#can-mongock-be-used-in-applications-deployed-in-kubernetes%3F">#</a> Can Mongock be used in applications deployed in Kubernetes?</h2>
+<p>Yes. Actually the main use of Mongock is as part of the application start up, shipping together code and data changes, providing safer migrations in distributed systems.</p>
+<h2 id="does-the-cli-change-something-in-my-application%3F"><a class="header-anchor" href="#does-the-cli-change-something-in-my-application%3F">#</a> Does the CLI change something in my application?</h2>
+<p>No. The CLI just takes from your application what is needed to run the migration.</p>
+<p>With Mongock standalone, it takes the <code>MongockBuilderProvider</code> implementations and retrieves the builder. For Springboot, by default it loads the entire Springboot context, but you can filter which configuration class to load by annotating the main class with <code>@MongockCliConfiguration</code>. For more information please visit the <a href="/cli">cli page</a>.</p>
+<h2 id="until-which-spring-data-version-is-mongocktemplate-compatible-with%3F"><a class="header-anchor" href="#until-which-spring-data-version-is-mongocktemplate-compatible-with%3F">#</a> Until which Spring data version is MongockTemplate compatible with?</h2>
+<p>4.2.3. But you can use more recent version of Spring Data. MongockTemplate won't reflect the new API, but it won't complain.</p>
+<h2 id="i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F"><a class="header-anchor" href="#i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F">#</a> I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?</h2>
+<p>No, even if you use a more updated version of Spring Data. You just use Spring MongoTemplate for now on.</p>
+<h2 id="what's-the-difference-between-undo-and-rollback%3F"><a class="header-anchor" href="#what's-the-difference-between-undo-and-rollback%3F">#</a> What's the difference between undo and rollback?</h2>
+<p><strong>Rollback</strong> is the act of reverting a change after failing at execution time. On the other hand <strong>undo</strong> is the act of reverting a change some time after being successfully executed.</p>
+<!--## My migrations take long and it impacts my startup time... what should I do?
 
+## What if we have an environmment with the latest changes and others out of synch?
+## How manage HA in changes-> two step changes-->
       </article>
     </main>
 

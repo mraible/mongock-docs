@@ -139,7 +139,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/index.html">
+      <a class="menu-item "  href="/index.html">
         What is mongock
       </a>
     
@@ -388,74 +388,24 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p class="text-center">
-    <img src="/images/mongock-logo-with-title.jpg" width="65%" alt="Mongock">
-</p>
-<div class="success">
-<b>Mongock 5 released!!</b> Please visit the <a href="from-version-4-to-5">upgrade page</a> to follow easy process. 
-</div>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>Mongock is a Java based migration tool as part of your application code. It allows developers to have ownership and control over data migrations during the deployment process, allowing safer migrations in distributed systems as code and data changes are shipped together.</p>
-<p>It was originally designed for MongoDB data migrations and the product is evolving to provide a wider suite of database compatibility and cover other features for transactional execution use cases that require state management in distributed systems.</p>
-<hr>
-<h2 id="why-mongock%3F"><a class="header-anchor" href="#why-mongock%3F">#</a> Why Mongock?</h2>
-<p>Our mission is to enable developers to deploy and manage stateful data migrations in distributed systems in a safe and reliable manner. If you are looking for migrating data for your Java Application Services in a safe and reliable manner via code, Mongock is your best bet.</p>
-<p>In a nutshell:</p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#get-started-with-mongock-professional-features-pro"> Get started with Mongock Professional features PRO</a></li><li><a href="#steps-for-including-the-pro-edition"> Steps for including the PRO Edition</a></li><li><a href="#questions%3F"> Questions?</a></li></ul></div></p>
+<h1 id="get-started-with-mongock-professional-features-pro"><a class="header-anchor" href="#get-started-with-mongock-professional-features-pro">#</a> Get started with Mongock Professional features <span class="professional">PRO</span></h1>
+<p>The Mongock professional version offers additional features to the existing Community edition. Some of these features:</p>
 <ul>
-<li>Mongock is a Java-based tool that you can import in your application.</li>
-<li>Mongock promotes a code-first approach for migrations, allowing developers to write migration scripts in Java which ship with the application code. This enables code and database changes to ship together.</li>
-<li>Mongock persists in your database the changes made. This allows developers to gain more control over the management of changes via migrations, rollbacks + other amazing features.</li>
-<li>It is the most reliable production-grade solution for MongoDB migrations currently in the market, compatible with Mongo Atlas and different MongoDB versions.</li>
-<li>Mongock is used in distributed systems as the solution implements a solid locking mechanism.</li>
-<li>Our team offers great support and is very responsive.</li>
-<li>We are an open source tool, operating under the Apache License 2.0.</li>
-<li>We maintain and update features regularly.</li>
-<li>Currently, Mongock is used by several tech companies in different industries.</li>
-<li>Adopted by well-known frameworks such as JHipster as part of the scaffolding.</li>
-<li>Can be used together with most, if not all, frameworks.</li>
-<li>Can run in standalone projects without depending on frameworks.</li>
-<li>Great support with the Spring Framework overall, with native implementations in SpringBoot.</li>
+<li><b><a href="/cli/operations/index.html#undo-pro">Undo</a> Operation:</b> Providing greater flexibility to rollback your migrations and deploy an older version in your environment.</li>
+<li>Early access to the new exciting features coming up!</li>
+<li>It requires  no code changes from the community to upgrade to the Professional Edition!</li>
 </ul>
-<p>Get more information about our support model at <a href="mailto:dev@cloudyrock.xn--io-h1t">dev@cloudyrock.io​</a> and we can help you walking you to production.</p>
-<hr>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<h3 id="1.-scenario"><a class="header-anchor" href="#1.-scenario">#</a> 1. Scenario</h3>
-<p>Lets describe a scenario where the use of Mongock plays a big role:</p>
-<p>We have a microservice called <strong>client-service</strong>, which uses the table/collection <code>clients</code></p>
-<p>As part of the development, we have a new User Story which requires your application to get some clients data from a third party system and persist them into database, in the <code>clients</code> table/collection. This is only required once and must be performed as part of the release.</p>
-<p>In addition, the <strong>client-service</strong> is deployed in a distributed environment running with more than one node and with horizontal scaling.</p>
-<h3 id="2.-your-migration-changes-(changeunit)"><a class="header-anchor" href="#2.-your-migration-changes-(changeunit)">#</a> 2. Your migration changes (<a href="/migration/">ChangeUnit</a>)</h3>
-<p>We first need to implement the migration to retrieve the data from the third party system and persist it in the database. For this we use the ChangeUnit, which is Mongock's unit of Migration. This will be where we write the code.</p>
-<div class="successAlt">
-<b>Note:</b> From version 5, ChangeLog annotation is deprecated (though remains for backwards compatibility). It's been replaced by <b>@ChangeUnit</b>.
-</div>
-<p>Please, visit the <a href="/migration/">ChangeUnit section</a> for more information.</p>
-<h3 id="3.-the-persistent-layer-(driver)"><a class="header-anchor" href="#3.-the-persistent-layer-(driver)">#</a> 3. The persistent layer (<a href="/driver/">Driver</a>)</h3>
-<p>We need to access the database for multiple reasons:</p>
-<ul>
-<li>To persist the client data we just retrieved.</li>
-<li>Mongock needs to track the ChangeUnits that have been executed, so the <strong>client-service</strong> doesn't execute them twice.
-<ul>
-<li>As more than one instance of the client-service may be running simultaneusly in the environment, it will try to execute the same migration on startup. To prevent this, Mongock uses a pesimistic lock that is persisted in database.</li>
-<li>In addition, this allows Mongock to store a history of changes and execute rollbacks, amongst other operations.</li>
-</ul>
-</li>
-</ul>
-<p>For allowing Mongock to access the database and persist state changes, we will use the <strong>Mongock Driver</strong>. The driver contains all the information and mechanisms to access to the database. Mongock provides multiple drivers for different databases. The developers can choose the most suitable and configure the driver by providing some information like the the target schema, etc.</p>
-<p>Please, visit the <a href="/driver/">Driver section</a> for more information.</p>
-<h3 id="4.-run-the-migration"><a class="header-anchor" href="#4.-run-the-migration">#</a> 4. Run the migration</h3>
-<p>Once we have implemented our migration in our changelog and configured the persistent layer using a Mongock driver, we need to run the migration. For this, we will use the <strong>Mongock Runner</strong>.</p>
-<p>The Mongock Runner orchestrates the configurations, environment/framework settings, the driver and the ChangeUnits and runs all migrations in an orderly manner. The most common use case is that the  application won't start until the migration has been succesfully finalized (although this  behaviour can be altered). This means that if the list of migrations fail, the application will stop its startup process and exit. This will be retried again in the next startup and Mongock will continue the migration where it left.</p>
-<p>Great, we have the migration done, tested, deployed and working nicely. Awesome 🎉</p>
-<p>Mongock provides multiple runners for framework compatibility: for standalone applications, Springboot and many others coming soon. Please, visit the <a href="/runner/">Runner section</a> for more information.</p>
-<p>For a more in-depth description of Mongock, please visit the <a href="/technical-overview">Technical Overview</a> section</p>
-<h3 id="...-cool%2C-but-we-got-a-new-user-story!-%F0%9F%98%B1"><a class="header-anchor" href="#...-cool%2C-but-we-got-a-new-user-story!-%F0%9F%98%B1">#</a> ... Cool, but we got a new user story! 😱</h3>
-<p>But now a new User Story has arrived where it requires us to add a new field. Well, we already have Mongock setup, all it requires is to create another ChangeUnit to address this change in the same way we did previously. Don't worry, Mongock will take care of running only the ChangeUnits that haven't been executed yet.</p>
-<p class="noteAlt"> Note that a <b>ChangeUnit</b> represents a unit of migration, which means that each ChangeUnit is wrapped in a <b>transaction</b>. As soon as it's finished, it's commited.</p>
-<h3 id="...-other-ways-of-running-mongock"><a class="header-anchor" href="#...-other-ways-of-running-mongock">#</a> ... other ways of running Mongock</h3>
-<p>The explained way of running Mongock is the common and traditional use case. However, Mongock can be used in wider use cases and offers more operations to support these.</p>
-<p>You can use the <strong>Mongock CLI</strong> to run the same migration, but also other operations like undo, list and more supported operations. The purpose is to provide a flexible manner of executing migrations.</p>
-<p>Please, visit the <a href="/cli/">CLI section</a> for more information.</p>
+<h1 id="steps-for-including-the-pro-edition"><a class="header-anchor" href="#steps-for-including-the-pro-edition">#</a> Steps for including the PRO Edition</h1>
+<ol>
+<li>Update the Maven groupId to reference the professional package. The following example showcases the SpringBoot Runner:</li>
+</ol>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock.professional<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-springboot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div></code></pre>
+<ol start="2">
+<li>You can get a License Key from <a href="registration.html">here</a>.</li>
+</ol>
+<h1 id="questions%3F"><a class="header-anchor" href="#questions%3F">#</a> Questions?</h1>
+<p>Please feel free to ask us <a href="mailto:dev@cloudyrock.io">here</a> if there is anything that the Mongock team can help you with.</p>
 
       </article>
     </main>

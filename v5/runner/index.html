@@ -139,7 +139,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/index.html">
+      <a class="menu-item "  href="/index.html">
         What is mongock
       </a>
     
@@ -195,7 +195,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v5/runner/index.html">
+      <a class="menu-item current-page"  href="/v5/runner/index.html">
         Runner
       </a>
     
@@ -388,74 +388,147 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p class="text-center">
-    <img src="/images/mongock-logo-with-title.jpg" width="65%" alt="Mongock">
-</p>
-<div class="success">
-<b>Mongock 5 released!!</b> Please visit the <a href="from-version-4-to-5">upgrade page</a> to follow easy process. 
-</div>
+        <!--1. [Introduction](#introduction)
+2. [Runner options](#runner-options)
+3. [Build](#build)
+3. [Configuration](#configuration)
+4. [Execution](#execution)-->
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#runner-options"> Runner options</a></li><li><a href="#build"> Build</a></li><li><a href="#configuration"> Configuration</a></li><li><a href="#execution"> Execution</a></li></ul></div></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>Mongock is a Java based migration tool as part of your application code. It allows developers to have ownership and control over data migrations during the deployment process, allowing safer migrations in distributed systems as code and data changes are shipped together.</p>
-<p>It was originally designed for MongoDB data migrations and the product is evolving to provide a wider suite of database compatibility and cover other features for transactional execution use cases that require state management in distributed systems.</p>
-<hr>
-<h2 id="why-mongock%3F"><a class="header-anchor" href="#why-mongock%3F">#</a> Why Mongock?</h2>
-<p>Our mission is to enable developers to deploy and manage stateful data migrations in distributed systems in a safe and reliable manner. If you are looking for migrating data for your Java Application Services in a safe and reliable manner via code, Mongock is your best bet.</p>
-<p>In a nutshell:</p>
+<p>This page explains the process of using the runner, configuration properties, etc. You can find a more practical guide in each runner page.</p>
+<p>As mentioned in the <a href="/technical-overview#runner">technical overview</a>, the runner is the orchestator that handles the environment and it's responsible of the process.</p>
+<p>The natural steps you should follow are:</p>
 <ul>
-<li>Mongock is a Java-based tool that you can import in your application.</li>
-<li>Mongock promotes a code-first approach for migrations, allowing developers to write migration scripts in Java which ship with the application code. This enables code and database changes to ship together.</li>
-<li>Mongock persists in your database the changes made. This allows developers to gain more control over the management of changes via migrations, rollbacks + other amazing features.</li>
-<li>It is the most reliable production-grade solution for MongoDB migrations currently in the market, compatible with Mongo Atlas and different MongoDB versions.</li>
-<li>Mongock is used in distributed systems as the solution implements a solid locking mechanism.</li>
-<li>Our team offers great support and is very responsive.</li>
-<li>We are an open source tool, operating under the Apache License 2.0.</li>
-<li>We maintain and update features regularly.</li>
-<li>Currently, Mongock is used by several tech companies in different industries.</li>
-<li>Adopted by well-known frameworks such as JHipster as part of the scaffolding.</li>
-<li>Can be used together with most, if not all, frameworks.</li>
-<li>Can run in standalone projects without depending on frameworks.</li>
-<li>Great support with the Spring Framework overall, with native implementations in SpringBoot.</li>
+<li>Decide the right runner for your project from the <a href="#runner-options">available options</a>.</li>
+<li>Import the maven dependencies(which can be found in each runner page).</li>
+<li><a href="#build">Build the runner</a>.</li>
+<li><a href="#execution">Execute it</a>.</li>
 </ul>
-<p>Get more information about our support model at <a href="mailto:dev@cloudyrock.xn--io-h1t">dev@cloudyrock.io​</a> and we can help you walking you to production.</p>
 <hr>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<h3 id="1.-scenario"><a class="header-anchor" href="#1.-scenario">#</a> 1. Scenario</h3>
-<p>Lets describe a scenario where the use of Mongock plays a big role:</p>
-<p>We have a microservice called <strong>client-service</strong>, which uses the table/collection <code>clients</code></p>
-<p>As part of the development, we have a new User Story which requires your application to get some clients data from a third party system and persist them into database, in the <code>clients</code> table/collection. This is only required once and must be performed as part of the release.</p>
-<p>In addition, the <strong>client-service</strong> is deployed in a distributed environment running with more than one node and with horizontal scaling.</p>
-<h3 id="2.-your-migration-changes-(changeunit)"><a class="header-anchor" href="#2.-your-migration-changes-(changeunit)">#</a> 2. Your migration changes (<a href="/migration/">ChangeUnit</a>)</h3>
-<p>We first need to implement the migration to retrieve the data from the third party system and persist it in the database. For this we use the ChangeUnit, which is Mongock's unit of Migration. This will be where we write the code.</p>
-<div class="successAlt">
-<b>Note:</b> From version 5, ChangeLog annotation is deprecated (though remains for backwards compatibility). It's been replaced by <b>@ChangeUnit</b>.
-</div>
-<p>Please, visit the <a href="/migration/">ChangeUnit section</a> for more information.</p>
-<h3 id="3.-the-persistent-layer-(driver)"><a class="header-anchor" href="#3.-the-persistent-layer-(driver)">#</a> 3. The persistent layer (<a href="/driver/">Driver</a>)</h3>
-<p>We need to access the database for multiple reasons:</p>
+<h2 id="runner-options"><a class="header-anchor" href="#runner-options">#</a> Runner options</h2>
+<p>There are specific runners for certain environments, like frameworks, etc.</p>
+<p>Currently Mongock provides:</p>
 <ul>
-<li>To persist the client data we just retrieved.</li>
-<li>Mongock needs to track the ChangeUnits that have been executed, so the <strong>client-service</strong> doesn't execute them twice.
-<ul>
-<li>As more than one instance of the client-service may be running simultaneusly in the environment, it will try to execute the same migration on startup. To prevent this, Mongock uses a pesimistic lock that is persisted in database.</li>
-<li>In addition, this allows Mongock to store a history of changes and execute rollbacks, amongst other operations.</li>
+<li><a href="/runner/standalone/">Mongock standalone runner</a></li>
+<li><a href="/runner/springboot/">Mongock springboot runner</a></li>
 </ul>
+<!--- [Mongock micronaut runner](/runner/micronaut/) -->
+<hr>
+<h2 id="build"><a class="header-anchor" href="#build">#</a> Build</h2>
+<p>Mongock offers two build approaches:</p>
+<ul>
+<li>
+<p><strong>Builder approach:</strong> The user manually configures and executes the runner by using the runner builder. Normally by setter methods. Regardless the type of runner, all of them provides an static method <code>builder()</code> which returns the builder.</p>
+</li>
+<li>
+<p><strong>Autoconfiguration:</strong> Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.</p>
 </li>
 </ul>
-<p>For allowing Mongock to access the database and persist state changes, we will use the <strong>Mongock Driver</strong>. The driver contains all the information and mechanisms to access to the database. Mongock provides multiple drivers for different databases. The developers can choose the most suitable and configure the driver by providing some information like the the target schema, etc.</p>
-<p>Please, visit the <a href="/driver/">Driver section</a> for more information.</p>
-<h3 id="4.-run-the-migration"><a class="header-anchor" href="#4.-run-the-migration">#</a> 4. Run the migration</h3>
-<p>Once we have implemented our migration in our changelog and configured the persistent layer using a Mongock driver, we need to run the migration. For this, we will use the <strong>Mongock Runner</strong>.</p>
-<p>The Mongock Runner orchestrates the configurations, environment/framework settings, the driver and the ChangeUnits and runs all migrations in an orderly manner. The most common use case is that the  application won't start until the migration has been succesfully finalized (although this  behaviour can be altered). This means that if the list of migrations fail, the application will stop its startup process and exit. This will be retried again in the next startup and Mongock will continue the migration where it left.</p>
-<p>Great, we have the migration done, tested, deployed and working nicely. Awesome 🎉</p>
-<p>Mongock provides multiple runners for framework compatibility: for standalone applications, Springboot and many others coming soon. Please, visit the <a href="/runner/">Runner section</a> for more information.</p>
-<p>For a more in-depth description of Mongock, please visit the <a href="/technical-overview">Technical Overview</a> section</p>
-<h3 id="...-cool%2C-but-we-got-a-new-user-story!-%F0%9F%98%B1"><a class="header-anchor" href="#...-cool%2C-but-we-got-a-new-user-story!-%F0%9F%98%B1">#</a> ... Cool, but we got a new user story! 😱</h3>
-<p>But now a new User Story has arrived where it requires us to add a new field. Well, we already have Mongock setup, all it requires is to create another ChangeUnit to address this change in the same way we did previously. Don't worry, Mongock will take care of running only the ChangeUnits that haven't been executed yet.</p>
-<p class="noteAlt"> Note that a <b>ChangeUnit</b> represents a unit of migration, which means that each ChangeUnit is wrapped in a <b>transaction</b>. As soon as it's finished, it's commited.</p>
-<h3 id="...-other-ways-of-running-mongock"><a class="header-anchor" href="#...-other-ways-of-running-mongock">#</a> ... other ways of running Mongock</h3>
-<p>The explained way of running Mongock is the common and traditional use case. However, Mongock can be used in wider use cases and offers more operations to support these.</p>
-<p>You can use the <strong>Mongock CLI</strong> to run the same migration, but also other operations like undo, list and more supported operations. The purpose is to provide a flexible manner of executing migrations.</p>
-<p>Please, visit the <a href="/cli/">CLI section</a> for more information.</p>
+<hr>
+<h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
+<p class="tipAlt">When using properties file, you need to add the prefix <b>`mongock.`.</b></p>
+<p class="success">You can find more additional properties in each runner page.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Property</th>
+<th style="text-align:left">type</th>
+<th>Description</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>driver</strong></td>
+<td style="text-align:left">component</td>
+<td>The Mongock driver. This parameter can only be passed programatically. When opting for <strong>autoconfiguration</strong>, Mongock builds the driver and injects it to the runner.</td>
+<td style="text-align:center">ConnectionDriver</td>
+<td style="text-align:center">Mandatory</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>migrationScanPackage</strong></td>
+<td style="text-align:left">property</td>
+<td>The list of migration(changeUnits and changeLogs) classes and/or packages where they are stored.</td>
+<td style="text-align:center">List&lt; String &gt;</td>
+<td style="text-align:center">Mandatory</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>metadata</strong></td>
+<td style="text-align:left">property</td>
+<td>Custom data attached to the migration. It will be added to change entry in the mongock table/collection.</td>
+<td style="text-align:center">Map&lt;String, Object&gt;</td>
+<td style="text-align:center">null</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>startSystemVersion</strong></td>
+<td style="text-align:left">property</td>
+<td>System version to start with.</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center"><code>0</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>endSystemVersions</strong></td>
+<td style="text-align:left">property</td>
+<td>System version to end with.</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">MAX_VALUE</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>trackIgnored</strong></td>
+<td style="text-align:left">property</td>
+<td>Specifies if an ignored changeUnit(already executed for example) should be track in the Mongock table/collection with status IGNORED.</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>enabled</strong></td>
+<td style="text-align:left">property</td>
+<td>If false, will disable Mongock execution.</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">NO</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>serviceIdentifier</strong></td>
+<td style="text-align:left">property</td>
+<td>Application/service instance's indentifier.</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">null</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>defaultMigrationAuthor</strong></td>
+<td style="text-align:left">property</td>
+<td>Author field is not mandatory in ChangeUnit. The field <code>author</code> in this annotation is optional. However for backward compatibility it's still required. If it's provided in the ChangeUnit annotation, this value is taken. If not, Mongock will look at this property. If not provided, the default value is provided.</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center"><code>default_author</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>throwExceptionIfCannotObtainLock</strong></td>
+<td style="text-align:left">property</td>
+<td>Mongock will throw MongockException if lock can not be obtained. Builder method <code>dontFailIfCannotAcquireLock</code> to turn it to false.</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">long</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>transactionEnabled</strong></td>
+<td style="text-align:left">property</td>
+<td>Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is <code>true</code> or not provided. If it's <code>false</code>, transactions are disabled and will throw an exception if this field is <code>true</code> and the driver is not transactionable. To understand what <em>transactionable</em> means in the context of the driver and how to make a driver transactionable, visit the section <a href="/driver/">driver</a>.</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">null</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>transactionStrategy</strong></td>
+<td style="text-align:left">property</td>
+<td>Dictates the transaction strategy. <code>CHANGE_UNIT</code> means each changeUnit(applied to deprecated changeLog as well) is wrapped in an independent transaction.<code>EXECUTION</code> strategy means that Mongock will wrap all the changeUnits in a single transaction. Note that Mongock highly recommend the default value, <code>CHANGE_UNIT</code>, as the <code>EXECUTION</code> strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way.</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center"><code>CHANGE_UNIT</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="execution"><a class="header-anchor" href="#execution">#</a> Execution</h2>
+<p>Although each builder may provide additional options to build the runner, all of them share the basic method <code>buildRunner()</code>, which returns a <code>MongockRunner</code> instance. This interface provides multiple methods, one of them is <code>execute()</code>, which starts the migration process. This is the natural way to run Mongock when using the standalone runner.</p>
+<p>On the other hand, when opting for autoconfiguration, the user doesn't need to worry about the execution, Mongock, with the help of the framework, takes care of it.</p>
 
       </article>
     </main>
