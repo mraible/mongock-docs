@@ -16,9 +16,8 @@ Sometimes you want to migrate to Mongock from another framework you have been us
 
 The best way to explain the concept to developers is to provide some code.
 
-{% tabs %}
-{% tab title="properties" %}
 ```yaml
+#When using properties
 mongock:
 #...other configuration
   legacy-migration:
@@ -33,10 +32,11 @@ mongock:
       change-set-method: legacyChangeSetMethodField
       metadata: legacyMetadataField
 ```
-{% endtab %}
 
-{% tab title="Builder" %}
+
+
 ```java
+//Builder
 LegacyMigrationMappingFields field = new LegacyMigrationMappingFields();
 field.setChangeId("legacyChangeIdField");
 field.setAuthor("legacyAuthorField");
@@ -55,8 +55,6 @@ builder.setLegacyMigration(legacyMigration);
 //other configuration
 
 ```
-{% endtab %}
-{% endtabs %}
 
 With this, Mongock will run a process just once\(run-always=false\), take all the changes in the collection dbchangelog \(collection-name\), will map the fields\(changeId, author, timestamp, changeLogClass, changeSetMethod and metadata\) from the ones specified in the mapping-fields property.
 
@@ -86,7 +84,6 @@ Once finished, if the property changes-count-expectation is specified, will thro
 
 Migrating from the deprecated framework Mongobee will be probably the most common case for legacy migrations. Although Mongock has evolved and become a much more powerful and sophisticated framework than its predecessor , it initially started as a Mongobee fork. That's why they share the core fields in the changeLog collection. This makes very easy the migration from Mongobee to Mongock.
 
-{% hint style="success" %}
+<div style="success">
 When migrating from Mongobee to Mongock, you only need to specify the `legacy-migration.origin` property, whose value will be most of the times`dbchangelog.` 
-{% endhint %}
-
+</div>

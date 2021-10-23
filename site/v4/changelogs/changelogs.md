@@ -17,13 +17,13 @@ To tell Mongock to run your migration, you need:
 2. Annotate your changeSet methods by **@ChangeSet**
 3. Tell Mongock where your changeLog classes are by providing the changeLog scan package\(you can specify more than one\)
 
-{% hint style="warning" %}
+<div class="success">
 When using Spring, you must use **MongockTemplate,** instead of Spring MongoTemplate. MongockTemplate is just a decorator/wrapper providing exactly the same API than MongoTemplate, but ensuring your changes are correctly synchronised. 
-{% endhint %}
+</div>
 
-{% hint style="info" %}
+<div class="success">
 Please take a look the [Best practices]() section for design decisions.  
-{% endhint %}
+</div>
 
 ## @ChangeLog
 
@@ -115,25 +115,22 @@ public void someChange6(MongoDatabase db) {
 
 When specifying versions you are able to upgrade to specific versions:
 
-{% tabs %}
-{% tab title="Properties" %}
 ```yaml
 mongock:
   start-system-version: 1
   end-system-version: 2.5.1
 ```
-{% endtab %}
 
-{% tab title="Builder" %}
+
+
 ```java
+//When using Builder
   mongockBuilder
       //...
       .setStartSystemVersion("1")
       .setEndSystemVersion("2.5.1")
       //... 
 ```
-{% endtab %}
-{% endtabs %}
 
 This example will execute changeSet methods 1, 2 and 3, because the specified systemVersion in the changeSet should be greater equals the **startSystemVersion** and lower equals the **endSystemVersion**. In other words, both startSystemVersion and endSystemVersion are inclusive.
 

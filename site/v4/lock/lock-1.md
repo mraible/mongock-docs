@@ -28,15 +28,15 @@ Mongock uses two mechanisms for this. Static and dynamic lock guardian.
 
 * **static lock guardian**: This is mainly used for driver and  database components, known in advance, such as MongoDatabase, MongoCollection, MongoTemplate\(MongockTemplate\), etc. This mechanism is based on the decorator pattern, so it is just a wrap wrap to ensure the lock is acquisition.
 
-{% hint style="success" %}
+<div style="success">
 **MongockTemplate** must be used instead of MongoTemplate.
-{% endhint %}
+</div>
 
 * **dynamic lock guardian**: This used for the **custom objects** used in changeSet methods, like repositories, etc. This implementation uses the JDK dynamic proxy instrumentation. While it has its pros and cons, it provides a fair balance between performance and framework intrusion. Unfortunately, one of the well known  limitations is that only interfaces can be proxied, so for this reason Mongock only allows interface for custom beans in changeSet methods. Please consult [Injecting custom beans](injecting-custom-dependencies-to-changesets.md) for more information.
 
-{% hint style="warning" %}
+<div style="warning">
 **Custom beans** in changeSet methods **must be interfaces**.
-{% endhint %}
+</div>
 
 ## Configuration
 
@@ -47,9 +47,9 @@ There are just 4 parameters to tune the lock.You can configure them by using pro
 * **maxTries**: Number of times Mongock will try to acquire the lock. You can configure it with method setLockConfig in builder.
 * **throwExceptionIfCannotObtainLock**: Mongock will throw MongockException if lock can not be obtained. You can configure it with method setLockConfig in builder.
 
-{% hint style="warning" %}
+<div style="warning">
 When using the builder method **setLockConfig**, which takes lockAcquiredForMinutes, maxWaitingForLockMinutes and maxTries as parameters, **will implicitly set throwExceptionIfCannotObtainLock to true.** 
 
 However, in common scenarios it doesn't makes much sense, but you can set it to false afterwards with method throwExceptionIfCannotObtainLock though.
-{% endhint %}
+</div>
 

@@ -26,13 +26,13 @@ The idea is to provide a specific driver for every Java MongoDB driver, library 
 
 Mongock drivers use two MongoDB collections. The **changeLogCollection**\(called mongockChangeLog by default\), where the changeLog history will be stored, and the **lockCollection**\(called mongockLock by default\), used for pessimistic synchronisation between Mongock executions.
 
-{% hint style="warning" %}
+<div style="warning">
 It's important that **all the Mongock executions** that need to be synchronised\(different services or instances using the same MongoDB database\) **use the same lockCollection**. This is the only way they can be synchronised
-{% endhint %}
+</div>
 
-{% hint style="warning" %}
+<div style="warning">
 Also **ensure that the right changeLogCollection** is used in order **to prevent** Mongock from **re-running migrations undesirably**. If you need to migrate from another changeLogCollection or from another legacy migration framework, please refer to [Legacy migration](legacy-migration.md) for more information.
-{% endhint %}
+</div>
 
 ## Building time: Driver
 
@@ -128,8 +128,8 @@ Driver configuration is very simple, but there are still a couple of properties 
   </tbody>
 </table>
 
-{% tabs %}
-{% tab title="properties" %}
+
+***properties***
 ```yaml
 mongock:
   change-log-repository-name: newChangeLogCollectionName
@@ -139,9 +139,9 @@ mongock:
   max-tries: 3
   index-creation: false
 ```
-{% endtab %}
 
-{% tab title="v3-driver" %}
+
+***v3-driver***
 ```java
 MongoCore3Driver driver = MongoCore3Driver.withDefaultLock(mongoDatabase);
 //or .withLockSetting(mongoTemplate, acquiredForMinutes, maxWaitingFor, maxTries);
@@ -149,9 +149,9 @@ driver.setChangeLogRepositoryName("newChangeLogCollectionName");
 driver.setLockRepositoryName("newLockCollectionName");
 driver.setIndexCreation(false);
 ```
-{% endtab %}
 
-{% tab title="sync-v4-driver" %}
+
+***sync-v4-driver***
 ```java
 MongoSync4Driver driver = MongoSync4Driver.withDefaultLock(mongoDatabase);
 //or .withLockSetting(mongoTemplate, acquiredForMinutes, maxWaitingFor, maxTries);
@@ -159,9 +159,9 @@ driver.setChangeLogRepositoryName("newChangeLogCollectionName");
 driver.setLockRepositoryName("newLockCollectionName");
 driver.setIndexCreation(false);
 ```
-{% endtab %}
 
-{% tab title="springdata-v2-driver" %}
+
+***springdata-v2-driver***
 ```java
 SpringDataMongo2Driver driver = SpringDataMongo2Driver
 .withDefaultLock(mongoTemplate);
@@ -170,9 +170,9 @@ driver.setChangeLogRepositoryName("newChangeLogCollectionName");
 driver.setLockRepositoryName("newLockCollectionName");
 driver.setIndexCreation(false);
 ```
-{% endtab %}
 
-{% tab title="springdata-v3-driver" %}
+
+***springdata-v3-driver***
 ```java
 SpringDataMongo3Driver driver = SpringDataMongo3Driver
 .withDefaultLock(mongoTemplate);
@@ -181,8 +181,7 @@ driver.setChangeLogRepositoryName("newChangeLogCollectionName");
 driver.setLockRepositoryName("newLockCollectionName");
 driver.setIndexCreation(false);
 ```
-{% endtab %}
-{% endtabs %}
+
 
 ## Transactions
 

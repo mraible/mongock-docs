@@ -12,9 +12,9 @@ eleventyNavigation:
 
 Mongock allows you to use  custom beans in your changeSet methods, so you are not restricted to use basic MongoDB\(or specific framework\) components, like MongoDatabase, MongoCollection or MongoTemplate.\(actually you would be using their Mongock decorators, not the direct components\)
 
-{% hint style="info" %}
+<div class="success">
 **Custom beans must be interfaces**. The reason behind is explained in the [lock section](lock-1.md#how-is-the-lock-ensured-in-every-database-access)
-{% endhint %}
+</div>
 
 ```java
 @ChangeLog(order = "1")
@@ -114,9 +114,9 @@ The Mongock's proxy instrumentation have two main goals:
 1. Intercept the actual method you are calling to ensure the lock is acquired.
 2. Return a proxied object  to ensure the lock is acquired in subsequent calls
 
-{% hint style="info" %}
+<div class="success">
 By default, Mongock won't return a proxied object if one of the following conditions is in place:  The returned object is not an interface or it's a primitive type, String, Class type, wrapper type or any object in a package prefixed by"java.", "com.sun.", "javax.", "jdk.internal." or "sun."
-{% endhint %}
+</div>
 
 ## Advance configuration: Prevent proxing my beans
 

@@ -27,9 +27,9 @@ public void changeWithMongockTemplate(MongockTemplate mongockTemplate) {
 
 **Mongock** accepts Spring's `org.springframework.context.annotation.Profile` annotation. If a changeLog or changeSet class is annotated with `@Profile`, then it is activated for current application profiles.
 
-{% hint style="success" %}
+<div style="success">
 Mongock will automatically pick the active profiles from the Spring `ApplicationContext` . Then you only need to annotate your changeLogs and changeSets.
-{% endhint %}
+</div>
 
 **Annotating ChangeLogs and ChangeSets with Profile**
 
@@ -57,9 +57,9 @@ public class changeLogForTestOnly{
 }
 ```
 
-{% hint style="info" %}
+<div style="info">
 Mongock will support in next versions the new Profile expression approach from Spring. Please check our [roadmap]()
-{% endhint %}
+</div>
 
 ## ApplicationRunner vs InitializingBean
 
@@ -67,45 +67,43 @@ When using Spring runner, you choose what type of bean you want to build; Spring
 
 **With annotation approach:**
 
-{% tabs %}
-{% tab title="ApplicationRunner" %}
+***ApplicationRunner***
 ```yaml
 mongock:
   change-logs-scan-package:
     - com.github.cloudyrock.mongock...changelogs.client.initializer
   runner-type: applicationrunner
 ```
-{% endtab %}
 
-{% tab title="InitializingBean" %}
+
+***InitializingBean***
 ```yaml
 mongock:
   change-logs-scan-package:
     - com.github.cloudyrock.mongock...changelogs.client.initializer
   runner-type: initializingbean
 ```
-{% endtab %}
-{% endtabs %}
+
+
 
 **With traditional builder approach:**
 
-{% tabs %}
-{% tab title="ApplicationRunner" %}
+***ApplicationRunner***
 ```java
 MongockSpring5.builder().
     .addChangeLogsScanPackage("changelogs.package.path")
     //...
     .buildApplicationRunner();
 ```
-{% endtab %}
 
-{% tab title="InitializingBean" %}
+
+***InitializingBean***
 ```java
 MongockSpring5.builder().
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.initializer")
     //...
     .buildInitializingBeanRunner();
 ```
-{% endtab %}
-{% endtabs %}
+
+
 

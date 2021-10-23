@@ -10,9 +10,9 @@ eleventyNavigation:
 
 # Recovery\(coming soon\)
 
-{% hint style="info" %}
+<div style="info">
 **Coming soon**
-{% endhint %}
+</div>
 
 In non-transactional environments, the recovery mechanism will allow you to execute some actions when a changeSet fails to simulate your manual "rollback". It works retrospectively in reverse order, so when a changeSet fails, it will run all the recovery methods associated with the executed changeSets, starting from the most recently executed.
 

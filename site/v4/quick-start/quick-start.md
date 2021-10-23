@@ -21,9 +21,9 @@ Mongock is set up in a few steps, which will be explained briefly in this sectio
 
 All the steps in group 1\(importing artifact dependencies\)  are common independently of the approach you use\(annotation or builder\).
 
-{% hint style="success" %}
+<div style="success">
 These are the unique steps you need to run Mongock. The rest of the documentation is about explaining them and how to extend  the "configuration step" to use/tune the different features.
-{% endhint %}
+</div>
 
 ## Checking the last version
 
@@ -51,70 +51,60 @@ Both approaches share the first 4 steps. All of them related to your pom file.
 
 2- **Import runner dependency.** For more information, check the [runner compatibility table](standalone.md#runners-types-and-compatibility-table).
 
-{% tabs %}
-{% tab title="Spring 5" %}
+***Spring 5***
 ```markup
 <dependency>
     <groupId>com.github.cloudyrock.mongock</groupId>
     <artifactId>mongock-spring-v5</artifactId>
 </dependency>
 ```
-{% endtab %}
 
-{% tab title="Mongock Standalone" %}
+
+***Mongock Standalone***
 ```markup
 <dependency>
     <groupId>com.github.cloudyrock.mongock</groupId>
     <artifactId>mongock-standalone</artifactId>
 </dependency>
 ```
-{% endtab %}
-{% endtabs %}
 
 3- **Import driver dependency.** For more information, check the [driver compatibility table](spring.md#driver-types-and-compatibility-table).
 
-{% tabs %}
-{% tab title="Spring data 3" %}
+***Spring data 3***
 ```markup
 <dependency>
     <groupId>com.github.cloudyrock.mongock</groupId>
     <artifactId>mongodb-springdata-v3-driver</artifactId>
 </dependency>
 ```
-{% endtab %}
 
-{% tab title="Spring data 2" %}
+***Spring data 2***
 ```markup
 <dependency>
     <groupId>com.github.cloudyrock.mongock</groupId>
     <artifactId>mongodb-springdata-v2-driver</artifactId>
 </dependency>
 ```
-{% endtab %}
 
-{% tab title="MongoDB sync driver 4" %}
+***MongoDB sync driver 4***
 ```markup
 <dependency>
     <groupId>com.github.cloudyrock.mongock</groupId>
     <artifactId>mongodb-sync-v4-driver</artifactId>
 </dependency>
 ```
-{% endtab %}
 
-{% tab title="MongoDB driver 3" %}
+***MongoDB driver 3***
 ```markup
 <dependency>
     <groupId>com.github.cloudyrock.mongock</groupId>
     <artifactId>mongodb-v3-driver</artifactId>
 </dependency>
 ```
-{% endtab %}
-{% endtabs %}
 
 4-  **Import your MongoDB and Spring Data dependencies**. In order to avoid transitive dependency issues, Mongock doesn't import any MongoDB or Spring Data library. So you need to provide them. For more information, check the [driver compatibility table](spring.md#driver-types-and-compatibility-table).
 
-{% tabs %}
-{% tab title="Spring data 3" %}
+***Spring data 3***
 ```markup
 <dependency>
     <groupId>org.mongodb</groupId>
@@ -127,9 +117,7 @@ Both approaches share the first 4 steps. All of them related to your pom file.
     <version>${mongodb.spring-data.v3.version}</version>
 </dependency>
 ```
-{% endtab %}
-
-{% tab title="Spring data 2" %}
+***Spring data 2***
 ```markup
 <dependency>
     <groupId>org.mongodb</groupId>
@@ -142,9 +130,8 @@ Both approaches share the first 4 steps. All of them related to your pom file.
     <version>${mongodb.spring-data.v2.version}</version>
 </dependency>
 ```
-{% endtab %}
 
-{% tab title="MongoDB sync driver 4" %}
+***MongoDB sync driver 4***
 ```markup
 <dependency>
     <groupId>org.mongodb</groupId>
@@ -152,9 +139,7 @@ Both approaches share the first 4 steps. All of them related to your pom file.
     <version>${mongodb.driver-sync.version}</version>
 </dependency>
 ```
-{% endtab %}
-
-{% tab title="MongoDB driver 3" %}
+***MongoDB driver 3***
 ```markup
 <dependency>
     <groupId>org.mongodb</groupId>
@@ -162,8 +147,6 @@ Both approaches share the first 4 steps. All of them related to your pom file.
     <version>${mongodb.java-driver}</version>
 </dependency>
 ```
-{% endtab %}
-{% endtabs %}
 
 ## Building and running Mongock: Annotation vs Builder
 
@@ -201,8 +184,7 @@ While the annotation approach is more convenient, the traditional builder approa
 
 In this case you need to build the Mongock Instance yourself and , in case of Spring, provide the Mongock Bean.
 
-{% tabs %}
-{% tab title="Spring ApplicationRunner" %}
+***Spring ApplicationRunner***
 ```java
 public MongockApplicationRunner mongockApplicationRunner(
         ApplicationContext springContext,
@@ -214,9 +196,7 @@ public MongockApplicationRunner mongockApplicationRunner(
         .buildApplicationRunner();
   }
 ```
-{% endtab %}
-
-{% tab title="Spring InitializingBean" %}
+***Spring InitializingBean***
 ```java
 public MongockInitializingBeanRunner mongockInitializingBeanRunner(
         ApplicationContext springContext,
@@ -229,9 +209,7 @@ public MongockInitializingBeanRunner mongockInitializingBeanRunner(
   }
 
 ```
-{% endtab %}
-
-{% tab title="Standalone" %}
+***Standalone***
 ```java
 MongoClient mongoClient = MongoClients.create("MongoDB connection string");
 MongockStandalone.builder()
@@ -241,10 +219,8 @@ MongockStandalone.builder()
 // when using standalone runner, you need to run it manually
 runner.execute();
 ```
-{% endtab %}
-{% endtabs %}
 
-{% hint style="info" %}
+<div style="info">
 Note that for standalone example we have used MongoSync4Driver as it's a more common scenario. Please take a look to our driver [version compatibility table](spring.md#driver-types-and-compatibility-table).
-{% endhint %}
+</div>
 

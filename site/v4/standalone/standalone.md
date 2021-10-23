@@ -59,12 +59,11 @@ However, if you opt for the manual builder approach, you need to build the runne
 | **trackIgnored** | false | boolean | Specifies if ignored changeSets\(already executed, etc.\) should be track in the changeLog collection with **IGNORED** status | [link](further-configuration.md#trackignored) |
 | **enabled** | true | boolean | If false, will disable Mongock execution | [link](further-configuration.md#enable) |
 
-{% hint style="warning" %}
+<div style="warning">
 When using the builder method **setLockConfig**, which takes lockAcquiredForMinutes, maxWaitingForLockMinutes and maxTries as parameters, **will implicitly set throwExceptionIfCannotObtainLock to true.**
-{% endhint %}
+</div>
 
-{% tabs %}
-{% tab title="properties" %}
+***Properties***
 ```yaml
 mongock:
   change-logs-scan-package:
@@ -90,9 +89,8 @@ mongock:
   track-ignored: true
   enabled: true
 ```
-{% endtab %}
 
-{% tab title="mongock-spring-v5" %}
+***mongock-spring-v5***
 ```java
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.initializer")
@@ -112,9 +110,8 @@ builder
     .setEnabled(true)
 
 ```
-{% endtab %}
 
-{% tab title="standalone" %}
+***Standalone***
 ```java
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.initializer")
@@ -133,8 +130,7 @@ builder
     .setEnabled(true)
     .execute();
 ```
-{% endtab %}
-{% endtabs %}
+
 
 
 

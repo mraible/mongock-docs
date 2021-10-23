@@ -15,8 +15,7 @@ Sometimes there is the need of adding some extra information to the mongock Chan
 
 You can specify your metadata like:
 
-{% tabs %}
-{% tab title="properties" %}
+
 ```yaml
 mongock:
   change-logs-scan-package:
@@ -26,10 +25,10 @@ mongock:
     decided-by: Tom Waugh
     
 ```
-{% endtab %}
 
-{% tab title="mongock-spring-v5" %}
+
 ```java
+//mongock-spring-v5
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setSpringContext(springContext)
@@ -39,10 +38,11 @@ builder
           put("decided-by", "Tom Waugh");
       }})
 ```
-{% endtab %}
 
-{% tab title="standalone" %}
+
+
 ```java
+//standalone
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .withMetadata(
@@ -51,8 +51,6 @@ builder
           put("decided-by", "Tom Waugh");
       }})
 ```
-{% endtab %}
-{% endtabs %}
 
 #### And you can expect some result such as...
 
@@ -129,8 +127,6 @@ With this solution, he can tag every changeSet with his product version and will
 
 By specifying versions you are able to upgrade to specific versions:
 
-{% tabs %}
-{% tab title="properties" %}
 ```yaml
 mongock:
   change-logs-scan-package:
@@ -139,27 +135,24 @@ mongock:
   end-system-version: 2.5.5
     
 ```
-{% endtab %}
 
-{% tab title="mongock-spring-v5" %}
+
 ```java
+//mongock-spring-v5
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setSpringContext(springContext)
     .setStartSystemVersion("1")
     .setEndSystemVersion("2.5.5")
 ```
-{% endtab %}
 
-{% tab title="standalone" %}
 ```java
+//standalone
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setStartSystemVersion("1")
     .setEndSystemVersion("2.5.5")
 ```
-{% endtab %}
-{% endtabs %}
 
 ChangeSets with systemVersion
 
@@ -191,65 +184,56 @@ This example will execute `ChangeSet` 1, 2 and 3, because the specified systemVe
 
 Mongock will check all your changeSets in your changeLog packages and will run all of them that hasn't been run yet or they were run already but failed or are marked`runAlways` in the annotations. The rest will be ignored. By default the won't be tracked in the changeLogCollection again, as they were already when were successfully executed, however, if for any reasons you wanted to track them in every Mongock's execution, you need to set track-ignored to `true`.
 
-{% tabs %}
-{% tab title="properties" %}
 ```yaml
 mongock:
   #...
   track-ignored: true
     
 ```
-{% endtab %}
 
-{% tab title="mongock-spring-v5" %}
+
 ```java
+//mongock-spring-v5
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setSpringContext(springContext)
     .setTrackIgnored(true)
 ```
-{% endtab %}
 
-{% tab title="standalone" %}
 ```java
+//standalone
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setTrackIgnored(true)
 ```
-{% endtab %}
-{% endtabs %}
 
 ## enabled
 
 If for any reason you wanted to give Mongock a rest and disabled it, you can set enable to false and mongock won't process your changeLogs. It's enabled b default.
 
-{% tabs %}
-{% tab title="properties" %}
 ```yaml
 mongock:
   #...
   enabled: false
     
 ```
-{% endtab %}
 
-{% tab title="mongock-spring-v5" %}
+
 ```java
+//mongock-spring-v5
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setSpringContext(springContext)
     .setEnabled(true)
 ```
-{% endtab %}
 
-{% tab title="standalone" %}
+
 ```java
+//standalone
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setEnabled(true)
 ```
-{% endtab %}
-{% endtabs %}
 
 ## index-creation
 
@@ -260,33 +244,31 @@ Please take into account that in this case, although Mongock won't create the in
 
 As said, to achieve this you need two things. First telling Mongock to not create the indexes by: 
 
-{% tabs %}
-{% tab title="properties" %}
 ```yaml
 mongock:
   #...
   index-creation: false
     
 ```
-{% endtab %}
 
-{% tab title="mongock-spring-v5" %}
+
 ```java
+//mongock-spring-v5
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setSpringContext(springContext)
     .setEnabled(true)
 ```
-{% endtab %}
 
-{% tab title="standalone" %}
+
+
 ```java
+//standalone
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setEnabled(true)
 ```
-{% endtab %}
-{% endtabs %}
+
 
 And creating the indexes manually. The `mongockChangeLog`indexes should look similar to the following
 
@@ -342,30 +324,25 @@ and the `mongockLock`indexes:
 
 Mongock keep track of hostname's executor in the `changeLogCollection`. You can suffix the hostname with `serviceIdentifier` to distinguish multiple instances of your service.
 
-{% tabs %}
-{% tab title="properties" %}
 ```yaml
 mongock:
   #...
   service-identifier: "myService"
     
 ```
-{% endtab %}
 
-{% tab title="mongock-spring-v5" %}
+
 ```java
+//mongock-spring-v5
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setSpringContext(springContext)
     .setServiceIdentifier("myService")
 ```
-{% endtab %}
 
-{% tab title="standalone" %}
 ```java
+//standalone
 builder
     .addChangeLogsScanPackage("com.github.cloudyrock.mongock.client.initializer")
     .setServiceIdentifier("myService")
 ```
-{% endtab %}
-{% endtabs %}

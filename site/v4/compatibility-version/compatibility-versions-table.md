@@ -11,29 +11,25 @@ eleventyNavigation:
 
 ## Runner compatibility versions
 
-{% tabs %}
-{% tab title="Spring 5 runner" %}
+
 ### Mongock Spring 5 runner
 
 | Mongock ****Version | Spring Version | Spring boot Version |
 | :--- | :--- | :--- |
 | **&lt;4.2.8.BETA** | **5.2.6.RELEASE** | **2.2.12.RELEASE** |
 | **&gt;=4.2.8.BETA** | **5.2.12.RELEASE** | **2.3.7.RELEASE** |
-{% endtab %}
 
-{% tab title="Standalone runner" %}
+
+
 ### Mongock Standalone runner
 
 This runner doesn't depend on any framework
-{% endtab %}
-{% endtabs %}
 
 
 
 ## Driver compatibility versions
 
-{% tabs %}
-{% tab title="Spring-data-v3" %}
+
 ### Mongock Spring Data v3 driver
 
 <table>
@@ -128,9 +124,8 @@ This runner doesn't depend on any framework
     </tr>
   </tbody>
 </table>
-{% endtab %}
 
-{% tab title="Spring-data-v2" %}
+
 ### Mongock Spring Data v2 driver
 
 <table>
@@ -225,9 +220,7 @@ This runner doesn't depend on any framework
     </tr>
   </tbody>
 </table>
-{% endtab %}
 
-{% tab title="MongoDB-sync-v4 driver" %}
 ### Mongock MongoDB sync v4 driver
 
 <table>
@@ -292,9 +285,7 @@ This runner doesn't depend on any framework
     </tr>
   </tbody>
 </table>
-{% endtab %}
 
-{% tab title="MongoDB-v3 driver " %}
 ### Mongock MongoDB v3 driver
 
 <table>
@@ -358,8 +349,6 @@ This runner doesn't depend on any framework
     </tr>
   </tbody>
 </table>
-{% endtab %}
-{% endtabs %}
 
 ## 
 

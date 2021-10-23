@@ -60,9 +60,9 @@ This is also the same Changock concept, just specialised for MongoDB. Runners ar
 
 As drivers, legacy versions of the same driver will be supported\(subscribed to the support policy applied\), but won't be enhanced. Please take a look to [support policy]().
 
-{% hint style="info" %}
+<div style="success">
 When using MongockStandalone, once you have built the runner instance,  you need to run it manually with **`runner.execute()`**
-{% endhint %}
+</div>
 
 ## Builder
 
@@ -70,29 +70,30 @@ Once again, it's the same as the Changock concept: The mechanism to build a Mong
 
 In version 4 we have added a new approach in Spring based on annotation that makes all the work for you. However, if you need to have more control over the bean creation or you are not using Spring or any other reason, you still have the manual builder approach available.
 
-{% tabs %}
-{% tab title="Spring 5 ApplicationRunner" %}
+
 ```java
+//Spring 5 ApplicationRunner
 MongockSpring5.builder()
         .setDriver(getDriver())
         .addChangeLogsScanPackages("changelogs_package_path")
         .setSpringContext(springContext)
         .buildApplicationRunner();
 ```
-{% endtab %}
 
-{% tab title="Spring 5 InitializingBean" %}
+
 ```java
+//Spring 5 InitializingBean
 MongockSpring5.builder()
         .setDriver(getDriver())
         .addChangeLogsScanPackages("changelogs_package_path")
         .setSpringContext(springContext)
         .buildInitializingBeanRunner();
 ```
-{% endtab %}
 
-{% tab title="Standalone" %}
+
+
 ```java
+//Standalone
 MongockStandalone.Runner runner = MongockStandalone.builder()
         .setDriver(getDriver())
         .addChangeLogsScanPackage("changelogs_package_path")
@@ -100,10 +101,8 @@ MongockStandalone.Runner runner = MongockStandalone.builder()
 // when using standalone runner, you need to run it manually
 runner.execute();
 ```
-{% endtab %}
-{% endtabs %}
 
-{% hint style="info" %}
+<div style="info">
 Annotation approach is the recommended way when using Spring, however you still have the builder approach if you need more control, you are not using Spring or simply you are more comfortable with it.
-{% endhint %}
+</div>
 

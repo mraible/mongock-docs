@@ -10,9 +10,9 @@ eleventyNavigation:
 
 # Events
 
-{% hint style="info" %}
+<div class="success">
 Feature in beta version and documentation in construction
-{% endhint %}
+</div>
 
 #### **Since version 4.2.1.BETA**
 
