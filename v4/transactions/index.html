@@ -223,7 +223,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v5/driver/index.html">
+      <a class="menu-item "  href="/v5/driver/index.html">
         Driver
       </a>
     
@@ -498,7 +498,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/transactions/index.html">
+      <a class="menu-item current-page"  href="/v4/transactions/index.html">
         Transactions
       </a>
     
@@ -612,98 +612,58 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#configuration"> Configuration</a></li><li><a href="#how-it-works"> How it works</a></li><li><a href="#disabling-the-index-creation"> Disabling the index creation</a></li></ul></div></p>
+        <h1 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h1>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>To understand the concept of the driver within the Mongock architecture, visit the <a href="/technical-overview#main/components">technical overview page</a>. There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.</p>
-<p>The two main responsabilities of the driver are:</p>
+<p>Starting from the 4.0 release, MongoDB supports multi-document ACID transactions. And Mongock now provides support for these native MongoDB transactions, as well as Spring Data transactions.</p>
+<p>Before starting to work with MongoDB transactions you may want to check the <a href="https://docs.mongodb.com/manual/core/transactions/">official MongoDB documentation</a>, <a href="https://docs.mongodb.com/manual/reference/limits/#Multi-document-Transactions">multi-document  transaction restrictions</a> and <a href="https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#mongo.transactions">Spring Data Reference documentation</a>.</p>
+<h2 id="transactions-levels"><a class="header-anchor" href="#transactions-levels">#</a> Transactions levels</h2>
+<p>In Mongock we see 3 transaction levels; per migration(entire-migration), per changeSet(annotated method) and per changeLog(annotated class).</p>
+<p>Currently Mongock only provides support for entire-migration transactions, but we are working to provide the other two levels.</p>
+<h4 id="migration-transaction(entire-migration)"><a class="header-anchor" href="#migration-transaction(entire-migration)">#</a> Migration transaction(entire-migration)</h4>
+<p>With this migration level Mongock will encapsulate all the unexecuted changes and will run them inside the same transaction. If there is any failure, the entire migration rollbacks and therefore Mongock's execution fails.</p>
+<p>This migration level is useful because you ensure you don't get any inconsistent data state, but you don't have any control, Mongock just pick everything and wrap it in a transaction, doesn't matter how big the entire migration is.</p>
+<p>You should also take into account MongoDB's limitations such as the maximum documents per transactions.</p>
+<p>We recommend <strong>migration transactions</strong> for small migrations, for which you are confident they can be executed in a single transaction without problem.</p>
+<h4 id="changeset-transaction"><a class="header-anchor" href="#changeset-transaction">#</a> ChangeSet transaction</h4>
+<div style="warning">
+This feature is under development. Not available yet
+</div>
+<p>Opposite to <strong>migration transactions</strong>, there is also changeSet transactions, the smallest level of Mongock transactions. This level will make Mongock to create a new transaction per changeSet. If a changeSet/transaction fails and assuming  it's <a href="further-configuration.md#fail-fast">fail-fast</a>, the committed transactions will stay but Mongock will rollback the failed transaction and won't execute the following ones. In case of a failed transactions is not fail-fast, Mongock will rollback it, but will carry on with the execution.</p>
+<p>ChangeSet migrations are good because of their granularity. You ensure a changeSet is not half-committed while you can progress over executions when unexpected failures happens.</p>
+<p>Also it solves  the issue with <strong>migration transactions,</strong> allowing you to commit small &quot;chunks of migration&quot;.</p>
+<p>However, the cons of this approach is that you will probably want to be flexible when committing your changes and not be restricted to changeSet.</p>
+<p>We recommend this level whenever you are confident that all your &quot;migration steps&quot; fit in methods.</p>
+<h4 id="changelog-transaction"><a class="header-anchor" href="#changelog-transaction">#</a> ChangeLog transaction</h4>
+<div style="warning">
+This feature is under development. Not available yet
+</div>
+<p>This level of transaction is a solution between <strong>migration transaction</strong> and <strong>changeSet transaction</strong>, providing a good trade-off that normally fits the majority of the projects needs.</p>
+<p>With this transaction level Mongock takes every unexecuted changeLog and packages it in a transaction. In case of failure, it behaves exactly the same as <strong>changeSet transactions</strong>.</p>
+<p>This is the recommended transaction level for several reasons:</p>
 <ul>
-<li>Persisting the change history.</li>
-<li>Persisting the distributed lock.</li>
+<li>Fits the recommended design approach for migrations. More information <a href="best-practices.md#migration-design">here</a></li>
+<li>More flexible, allowing you to create the logical transactional groups the way you want, without being forced to adapt it to changeSets or all-or-nothing</li>
+<li>If for any reason the entire migration cannot be executed at once, it can be done in smaller steps, which are committed in every execution, allowing the migration to progress in every iteration.</li>
+<li>Prevent to commit very small transactional units(changeSets) in such a way that while the changeSet is committed(and consistent), the actual logical migration is half-committed.</li>
 </ul>
-<!---------------------------------------------
-## Driver options
-Currently, we only 
-- [MongoDB](/driver/mongodb)
-- [Elasticsearch](/driver/elasticsearch)
-- [SQL](/driver/sql)
-- [CosmosDB](/driver/cosmosdb)
-- [DocumentDB](/driver/documentdb)-->
-<hr>
-<h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
-<p>Although each family of driver may provide some additional configuration that you can see in the specific driver page(for example in MongoDB, you can configure the writeConcern, readConcern, etc.), all of drivers share the following properties:</p>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-<th>Type</th>
-<th>Default value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>migrationRepositoryName</strong></td>
-<td>Repository name where the change entries are persisted in database. It replaces the deprecated property <strong>changeLogRepositoryName</strong>.<br /> If you need to migrate from another changeLogCollection or from another legacy migration framework, visit the <a href="/features/legacy-migration">legacy migration page</a> for more information.</td>
-<td>String</td>
-<td><code>mongockChangeLog</code></td>
-</tr>
-<tr>
-<td><strong>lockRepositoryName</strong></td>
-<td>Repository name where the lock is persisted in database. It's important that all the Mongock executions that need to be synchronised(different services or instances using the same MongoDB database) use the same lockCollection.</td>
-<td>String</td>
-<td><code>mongockLock</code></td>
-</tr>
-<tr>
-<td><strong>lockAcquiredForMillis</strong></td>
-<td>The period the lock will be reserved once acquired. If the migration finishes before, the lock will be released. If the process takes longer thant this period, it will automatically extended. When using the builder approach, this is applied in the driver. Minimum value is 3 seconds.</td>
-<td>long</td>
-<td>1 minute</td>
-</tr>
-<tr>
-<td><strong>lockQuitTryingAfterMillis</strong></td>
-<td>The time after what Mongock will quit trying to acquire the lock, in case it's acquired by another process. When using the builder approach, this is applied in the driver. Minimum value is 0, which means won't wait whatsoever.</td>
-<td>long</td>
-<td>3 minutes</td>
-</tr>
-<tr>
-<td><strong>lockTryFrequencyMillis</strong></td>
-<td>In case the lock is held by another process, it indicates the frequency trying to acquire it. Regardless of this value, the longest Mongock will wait is until the current lock's expiration. When using the builder approach, this is applied in the driver. Minimum 500 milliseconds.</td>
-<td>long</td>
-<td>1 second</td>
-</tr>
-<tr>
-<td><strong>indexCreation</strong></td>
-<td>If false, Mongock won't create the necessary index. However it will check that they are already created, failing otherwise. Default true.</td>
-<td>String</td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<p>The driver is a mandatory parameter that must be injected to the builder. As explained in the <a href="#runner#build">runner page</a>, this can be done manually with the builder or automatically with autoconfiguration(if using a framework like Springboot that supports this kind of mechanisms).</p>
-<p>When using the builder approach, you need to create the driver(by following the instructions in the specific driver page, under the driver section) and use the <code>setDriver(driver)</code> in the builder to inject it.</p>
-<p>Similarly to the runners, all the drivers provide a class with two static methods:</p>
-<ul>
-<li><strong>withDefaultLock</strong> which takes as parameters just what's required for the driver to work(database url, template, etc.).</li>
-<li><strong>withLockConfiguration</strong>, which takes the same parameters as the <code>withDefaultLock</code> method, plus the three basic parameters to configure the lock(<code>lockAcquiredForMillis</code>, <code>lockQuitTryingAfterMillis</code> and <code>lockTryFrequencyMillis</code>).</li>
-</ul>
-<p class="tipAlt">Visit the specific driver's page to see what paramters are required.</p>
-<p>On the other hand, although this job is handled by Mongock, it will probably need some basic parameters, like the database, etc. Once again, please visit the concrete driver page to see what's required.</p>
-<hr>
-<h2 id="disabling-the-index-creation"><a class="header-anchor" href="#disabling-the-index-creation">#</a> Disabling the index creation</h2>
-<p>Sometimes, for some reasons, you don't want Mongock to perform administration tasks such as index creations. However they are mandatory and must be created.</p>
-<p>In this scenarios Mongock allows you to create the indexes yourself manually by setting <code>index-creation</code> to false.</p>
-<p>However, bear in mind that in this case, although Mongock won't create the indexes, will still check they are correctly created, so the indexes must be created prior to Mongock initialisation. Otherwise will throw an exception.</p>
-<p>As said, to achieve this you need two things. First telling Mongock to not create the indexes by:</p>
-<p>Properties</p>
-<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token comment">#...</span></div><div class="highlight-line">  <span class="token key atrule">index-creation</span><span class="token punctuation">:</span> <span class="token boolean important">false</span></div></code></pre>
-<p>Builder</p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setIndexCreation</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<p>And creating the indexes manually. The mongockChangeLog indexes should look similar to the following</p>
-<pre class="language-javascript"><code class="language-javascript"><div class="highlight-line"><span class="token punctuation">[</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"_id"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"_id_"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockChangeLog"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"unique"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"executionId"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></div><div class="highlight-line">            <span class="token string">"author"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></div><div class="highlight-line">            <span class="token string">"changeId"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"executionId_1_author_1_changeId_1"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockChangeLog"</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">]</span></div></code></pre>
-<p>and the mongockLock indexes:</p>
-<pre class="language-javascript"><code class="language-javascript"><div class="highlight-line"><span class="token punctuation">[</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"_id"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"_id_"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockLock"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"unique"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"key_1"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockLock"</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">]</span></div></code></pre>
+<h2 id="how-to-use-transactions"><a class="header-anchor" href="#how-to-use-transactions">#</a> How to use transactions</h2>
+<p>You don't really need to much to benefit from transactions, however you will need to do some configuration work which will depend on which Mongock driver family you are using, Spring Data or Java MongoDB driver.</p>
+<h3 id="spring-data"><a class="header-anchor" href="#spring-data">#</a> Spring Data</h3>
+<p>For <a href="spring.md">Mongock Spring Data drivers</a>, the only requirement is to provide MongoTransactionManager. If you are using the MongockEnable annotation approach, by adding the MongoTransactionManager to the Spring context is enough, Mongock will pick it up.</p>
+<p>On the other hand, if you are using the traditional builder approach, you need to provide the MongoTransactionManager to the Mongock driver by using the method <code>enableTransactionWithTxManager</code></p>
+<h3 id="mongodb-driver"><a class="header-anchor" href="#mongodb-driver">#</a> MongoDB Driver</h3>
+<p>When using the <a href="spring.md">Mongock driver for Java MongoDB driver</a> you are forced to use the traditional builder approach, but you don't need to do anything else to work with transaction rather than just build your driver providing the MongoClient and database name.</p>
+<h2 id="disabling-transactions"><a class="header-anchor" href="#disabling-transactions">#</a> Disabling transactions</h2>
+<p>As you can see, as soon as Mongock sees any possibility of using transactions it will, but sometimes it's not the right decision. For example, you provide the MongoTransactionManager to the Spring context, but don't really want Mongock to use transactions. Or by just constructing the Mongock driver for MongoDB Java driver, it will try to work with transactions, but your MongoDb architecture may not be ready for it.</p>
+<p>In those cases, you can disable transactions either via properties(when EnableMongock annotation approach is used), with <code>transaction-enable=false</code> or by builder, with driver's method <code>disableTransaction()</code></p>
+<p><em><strong>properties</strong></em></p>
+<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">transaction-enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span></div></code></pre>
+<p><em><strong>driver</strong></em></p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">disableTransaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<h2 id="transaction-options"><a class="header-anchor" href="#transaction-options">#</a> Transaction options</h2>
+<p>When using Spring Data, the transaction will use the transactionManager's, so Mongock's doesn't take any responsibility. However, when using any Mongock driver for Java MongoDB drivers such as MongoSyn5Driver or MongoCore3Driver, you are able to tell Mongock which transaction options to use with the builder method <code>setTransactionOptions</code> , which takes a com.mongodb,TransactionOptions as parameter. As default Mongock will use <code>primary</code> as <strong>readPreference</strong> and <code>MAJORITY</code> as <strong>readConcern</strong> and writeConcern.</p>
+<p>Example:</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setTransactionOptions</span><span class="token punctuation">(</span></div><div class="highlight-line">        <span class="token class-name">TransactionOptions</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">readPreference</span><span class="token punctuation">(</span><span class="token class-name">ReadPreference</span><span class="token punctuation">.</span><span class="token function">primary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">readConcern</span><span class="token punctuation">(</span><span class="token class-name">ReadConcern</span><span class="token punctuation">.</span>AVAILABLE<span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">writeConcern</span><span class="token punctuation">(</span><span class="token class-name">WriteConcern</span><span class="token punctuation">.</span>ACKNOWLEDGED<span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
 
       </article>
     </main>

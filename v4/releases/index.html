@@ -223,7 +223,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v5/driver/index.html">
+      <a class="menu-item "  href="/v5/driver/index.html">
         Driver
       </a>
     
@@ -596,7 +596,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/releases/index.html">
+      <a class="menu-item current-page"  href="/v4/releases/index.html">
         Releases
       </a>
     
@@ -612,98 +612,8 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#configuration"> Configuration</a></li><li><a href="#how-it-works"> How it works</a></li><li><a href="#disabling-the-index-creation"> Disabling the index creation</a></li></ul></div></p>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>To understand the concept of the driver within the Mongock architecture, visit the <a href="/technical-overview#main/components">technical overview page</a>. There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.</p>
-<p>The two main responsabilities of the driver are:</p>
-<ul>
-<li>Persisting the change history.</li>
-<li>Persisting the distributed lock.</li>
-</ul>
-<!---------------------------------------------
-## Driver options
-Currently, we only 
-- [MongoDB](/driver/mongodb)
-- [Elasticsearch](/driver/elasticsearch)
-- [SQL](/driver/sql)
-- [CosmosDB](/driver/cosmosdb)
-- [DocumentDB](/driver/documentdb)-->
-<hr>
-<h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
-<p>Although each family of driver may provide some additional configuration that you can see in the specific driver page(for example in MongoDB, you can configure the writeConcern, readConcern, etc.), all of drivers share the following properties:</p>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-<th>Type</th>
-<th>Default value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>migrationRepositoryName</strong></td>
-<td>Repository name where the change entries are persisted in database. It replaces the deprecated property <strong>changeLogRepositoryName</strong>.<br /> If you need to migrate from another changeLogCollection or from another legacy migration framework, visit the <a href="/features/legacy-migration">legacy migration page</a> for more information.</td>
-<td>String</td>
-<td><code>mongockChangeLog</code></td>
-</tr>
-<tr>
-<td><strong>lockRepositoryName</strong></td>
-<td>Repository name where the lock is persisted in database. It's important that all the Mongock executions that need to be synchronised(different services or instances using the same MongoDB database) use the same lockCollection.</td>
-<td>String</td>
-<td><code>mongockLock</code></td>
-</tr>
-<tr>
-<td><strong>lockAcquiredForMillis</strong></td>
-<td>The period the lock will be reserved once acquired. If the migration finishes before, the lock will be released. If the process takes longer thant this period, it will automatically extended. When using the builder approach, this is applied in the driver. Minimum value is 3 seconds.</td>
-<td>long</td>
-<td>1 minute</td>
-</tr>
-<tr>
-<td><strong>lockQuitTryingAfterMillis</strong></td>
-<td>The time after what Mongock will quit trying to acquire the lock, in case it's acquired by another process. When using the builder approach, this is applied in the driver. Minimum value is 0, which means won't wait whatsoever.</td>
-<td>long</td>
-<td>3 minutes</td>
-</tr>
-<tr>
-<td><strong>lockTryFrequencyMillis</strong></td>
-<td>In case the lock is held by another process, it indicates the frequency trying to acquire it. Regardless of this value, the longest Mongock will wait is until the current lock's expiration. When using the builder approach, this is applied in the driver. Minimum 500 milliseconds.</td>
-<td>long</td>
-<td>1 second</td>
-</tr>
-<tr>
-<td><strong>indexCreation</strong></td>
-<td>If false, Mongock won't create the necessary index. However it will check that they are already created, failing otherwise. Default true.</td>
-<td>String</td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<p>The driver is a mandatory parameter that must be injected to the builder. As explained in the <a href="#runner#build">runner page</a>, this can be done manually with the builder or automatically with autoconfiguration(if using a framework like Springboot that supports this kind of mechanisms).</p>
-<p>When using the builder approach, you need to create the driver(by following the instructions in the specific driver page, under the driver section) and use the <code>setDriver(driver)</code> in the builder to inject it.</p>
-<p>Similarly to the runners, all the drivers provide a class with two static methods:</p>
-<ul>
-<li><strong>withDefaultLock</strong> which takes as parameters just what's required for the driver to work(database url, template, etc.).</li>
-<li><strong>withLockConfiguration</strong>, which takes the same parameters as the <code>withDefaultLock</code> method, plus the three basic parameters to configure the lock(<code>lockAcquiredForMillis</code>, <code>lockQuitTryingAfterMillis</code> and <code>lockTryFrequencyMillis</code>).</li>
-</ul>
-<p class="tipAlt">Visit the specific driver's page to see what paramters are required.</p>
-<p>On the other hand, although this job is handled by Mongock, it will probably need some basic parameters, like the database, etc. Once again, please visit the concrete driver page to see what's required.</p>
-<hr>
-<h2 id="disabling-the-index-creation"><a class="header-anchor" href="#disabling-the-index-creation">#</a> Disabling the index creation</h2>
-<p>Sometimes, for some reasons, you don't want Mongock to perform administration tasks such as index creations. However they are mandatory and must be created.</p>
-<p>In this scenarios Mongock allows you to create the indexes yourself manually by setting <code>index-creation</code> to false.</p>
-<p>However, bear in mind that in this case, although Mongock won't create the indexes, will still check they are correctly created, so the indexes must be created prior to Mongock initialisation. Otherwise will throw an exception.</p>
-<p>As said, to achieve this you need two things. First telling Mongock to not create the indexes by:</p>
-<p>Properties</p>
-<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token comment">#...</span></div><div class="highlight-line">  <span class="token key atrule">index-creation</span><span class="token punctuation">:</span> <span class="token boolean important">false</span></div></code></pre>
-<p>Builder</p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setIndexCreation</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<p>And creating the indexes manually. The mongockChangeLog indexes should look similar to the following</p>
-<pre class="language-javascript"><code class="language-javascript"><div class="highlight-line"><span class="token punctuation">[</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"_id"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"_id_"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockChangeLog"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"unique"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"executionId"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></div><div class="highlight-line">            <span class="token string">"author"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></div><div class="highlight-line">            <span class="token string">"changeId"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"executionId_1_author_1_changeId_1"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockChangeLog"</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">]</span></div></code></pre>
-<p>and the mongockLock indexes:</p>
-<pre class="language-javascript"><code class="language-javascript"><div class="highlight-line"><span class="token punctuation">[</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"_id"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"_id_"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockLock"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"unique"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"key_1"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockLock"</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">]</span></div></code></pre>
+        <h1 id="releases"><a class="header-anchor" href="#releases">#</a> Releases</h1>
+<p>Please visit out <a href="https://github.com/cloudyrock/mongock/releases">github release page</a> to see our releases and what is covered in each of them.</p>
 
       </article>
     </main>

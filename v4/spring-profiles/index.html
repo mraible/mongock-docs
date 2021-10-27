@@ -223,7 +223,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v5/driver/index.html">
+      <a class="menu-item "  href="/v5/driver/index.html">
         Driver
       </a>
     
@@ -470,7 +470,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring-profiles/index.html">
+      <a class="menu-item current-page"  href="/v4/spring-profiles/index.html">
         Spring profiles
       </a>
     
@@ -612,98 +612,36 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#configuration"> Configuration</a></li><li><a href="#how-it-works"> How it works</a></li><li><a href="#disabling-the-index-creation"> Disabling the index creation</a></li></ul></div></p>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>To understand the concept of the driver within the Mongock architecture, visit the <a href="/technical-overview#main/components">technical overview page</a>. There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.</p>
-<p>The two main responsabilities of the driver are:</p>
-<ul>
-<li>Persisting the change history.</li>
-<li>Persisting the distributed lock.</li>
-</ul>
-<!---------------------------------------------
-## Driver options
-Currently, we only 
-- [MongoDB](/driver/mongodb)
-- [Elasticsearch](/driver/elasticsearch)
-- [SQL](/driver/sql)
-- [CosmosDB](/driver/cosmosdb)
-- [DocumentDB](/driver/documentdb)-->
-<hr>
-<h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
-<p>Although each family of driver may provide some additional configuration that you can see in the specific driver page(for example in MongoDB, you can configure the writeConcern, readConcern, etc.), all of drivers share the following properties:</p>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-<th>Type</th>
-<th>Default value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>migrationRepositoryName</strong></td>
-<td>Repository name where the change entries are persisted in database. It replaces the deprecated property <strong>changeLogRepositoryName</strong>.<br /> If you need to migrate from another changeLogCollection or from another legacy migration framework, visit the <a href="/features/legacy-migration">legacy migration page</a> for more information.</td>
-<td>String</td>
-<td><code>mongockChangeLog</code></td>
-</tr>
-<tr>
-<td><strong>lockRepositoryName</strong></td>
-<td>Repository name where the lock is persisted in database. It's important that all the Mongock executions that need to be synchronised(different services or instances using the same MongoDB database) use the same lockCollection.</td>
-<td>String</td>
-<td><code>mongockLock</code></td>
-</tr>
-<tr>
-<td><strong>lockAcquiredForMillis</strong></td>
-<td>The period the lock will be reserved once acquired. If the migration finishes before, the lock will be released. If the process takes longer thant this period, it will automatically extended. When using the builder approach, this is applied in the driver. Minimum value is 3 seconds.</td>
-<td>long</td>
-<td>1 minute</td>
-</tr>
-<tr>
-<td><strong>lockQuitTryingAfterMillis</strong></td>
-<td>The time after what Mongock will quit trying to acquire the lock, in case it's acquired by another process. When using the builder approach, this is applied in the driver. Minimum value is 0, which means won't wait whatsoever.</td>
-<td>long</td>
-<td>3 minutes</td>
-</tr>
-<tr>
-<td><strong>lockTryFrequencyMillis</strong></td>
-<td>In case the lock is held by another process, it indicates the frequency trying to acquire it. Regardless of this value, the longest Mongock will wait is until the current lock's expiration. When using the builder approach, this is applied in the driver. Minimum 500 milliseconds.</td>
-<td>long</td>
-<td>1 second</td>
-</tr>
-<tr>
-<td><strong>indexCreation</strong></td>
-<td>If false, Mongock won't create the necessary index. However it will check that they are already created, failing otherwise. Default true.</td>
-<td>String</td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<p>The driver is a mandatory parameter that must be injected to the builder. As explained in the <a href="#runner#build">runner page</a>, this can be done manually with the builder or automatically with autoconfiguration(if using a framework like Springboot that supports this kind of mechanisms).</p>
-<p>When using the builder approach, you need to create the driver(by following the instructions in the specific driver page, under the driver section) and use the <code>setDriver(driver)</code> in the builder to inject it.</p>
-<p>Similarly to the runners, all the drivers provide a class with two static methods:</p>
-<ul>
-<li><strong>withDefaultLock</strong> which takes as parameters just what's required for the driver to work(database url, template, etc.).</li>
-<li><strong>withLockConfiguration</strong>, which takes the same parameters as the <code>withDefaultLock</code> method, plus the three basic parameters to configure the lock(<code>lockAcquiredForMillis</code>, <code>lockQuitTryingAfterMillis</code> and <code>lockTryFrequencyMillis</code>).</li>
-</ul>
-<p class="tipAlt">Visit the specific driver's page to see what paramters are required.</p>
-<p>On the other hand, although this job is handled by Mongock, it will probably need some basic parameters, like the database, etc. Once again, please visit the concrete driver page to see what's required.</p>
-<hr>
-<h2 id="disabling-the-index-creation"><a class="header-anchor" href="#disabling-the-index-creation">#</a> Disabling the index creation</h2>
-<p>Sometimes, for some reasons, you don't want Mongock to perform administration tasks such as index creations. However they are mandatory and must be created.</p>
-<p>In this scenarios Mongock allows you to create the indexes yourself manually by setting <code>index-creation</code> to false.</p>
-<p>However, bear in mind that in this case, although Mongock won't create the indexes, will still check they are correctly created, so the indexes must be created prior to Mongock initialisation. Otherwise will throw an exception.</p>
-<p>As said, to achieve this you need two things. First telling Mongock to not create the indexes by:</p>
-<p>Properties</p>
-<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token comment">#...</span></div><div class="highlight-line">  <span class="token key atrule">index-creation</span><span class="token punctuation">:</span> <span class="token boolean important">false</span></div></code></pre>
-<p>Builder</p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setIndexCreation</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<p>And creating the indexes manually. The mongockChangeLog indexes should look similar to the following</p>
-<pre class="language-javascript"><code class="language-javascript"><div class="highlight-line"><span class="token punctuation">[</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"_id"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"_id_"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockChangeLog"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"unique"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"executionId"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></div><div class="highlight-line">            <span class="token string">"author"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></div><div class="highlight-line">            <span class="token string">"changeId"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"executionId_1_author_1_changeId_1"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockChangeLog"</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">]</span></div></code></pre>
-<p>and the mongockLock indexes:</p>
-<pre class="language-javascript"><code class="language-javascript"><div class="highlight-line"><span class="token punctuation">[</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"_id"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"_id_"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockLock"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token string">"v"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"unique"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">            <span class="token string">"key"</span> <span class="token operator">:</span> <span class="token number">1</span></div><div class="highlight-line">        <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"name"</span> <span class="token operator">:</span> <span class="token string">"key_1"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token string">"ns"</span> <span class="token operator">:</span> <span class="token string">"my-database.mongockLock"</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">]</span></div></code></pre>
+        <h1 id="spring-specific-features"><a class="header-anchor" href="#spring-specific-features">#</a> Spring specific features</h1>
+<h2 id="mongocktemplate"><a class="header-anchor" href="#mongocktemplate">#</a> MongockTemplate</h2>
+<p>As mentioned in  <a href="changelogs.md">ChangeLogs</a> section, when using Spring, you must use <strong>MongockTemplate,</strong> instead of Spring MongoTemplate. <strong>MongockTemplate</strong> is just a decorator/wrapper providing exactly the same API than MongoTemplate, but ensuring your changes are correctly synchronised.</p>
+<p>You can find the technical reason behind in the <a href="lock-1.md">Lock</a> section.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"005"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeWithMongockTemplate"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">changeWithMongockTemplate</span><span class="token punctuation">(</span><span class="token class-name">MongockTemplate</span> mongockTemplate<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  mongockTemplate<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MyEntity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<h2 id="profiles"><a class="header-anchor" href="#profiles">#</a> Profiles</h2>
+<p><strong>Mongock</strong> accepts Spring's <code>org.springframework.context.annotation.Profile</code> annotation. If a changeLog or changeSet class is annotated with <code>@Profile</code>, then it is activated for current application profiles.</p>
+<div style="success">
+Mongock will automatically pick the active profiles from the Spring `ApplicationContext` . Then you only need to annotate your changeLogs and changeSets.
+</div>
+<p><strong>Annotating ChangeLogs and ChangeSets with Profile</strong></p>
+<p><em><strong>Example 1</strong></em>: annotated changeSet will be invoked for a <code>dev</code> profile</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@Profile</span><span class="token punctuation">(</span><span class="token string">"dev"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeSetForDevOnly"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token string">"01"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">changeSetForDevOnly</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span><span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">// ...</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<p><em><strong>Example 2</strong></em>: all change sets in a changeLog will be invoked for a <code>test</code> profile</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeLog</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@Profile</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> changeLogForTestOnly<span class="token punctuation">{</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeSetForTestOnly"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token string">"01"</span><span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">changeSetForTestOnly</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span><span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token comment">// ...</span></div><div class="highlight-line">  <span class="token punctuation">}</span> </div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<div style="info">
+Mongock will support in next versions the new Profile expression approach from Spring. Please check our [roadmap]()
+</div>
+<h2 id="applicationrunner-vs-initializingbean"><a class="header-anchor" href="#applicationrunner-vs-initializingbean">#</a> ApplicationRunner vs InitializingBean</h2>
+<p>When using Spring runner, you choose what type of bean you want to build; Spring <a href="https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/ApplicationRunner.html">ApplicationRunner</a> bean or a <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/InitializingBean.html">InitializingBean</a>.</p>
+<p><strong>With annotation approach:</strong></p>
+<p><em><strong>ApplicationRunner</strong></em></p>
+<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">change-logs-scan-package</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token punctuation">-</span> com.github.cloudyrock.mongock<span class="token punctuation">...</span>changelogs.client.initializer</div><div class="highlight-line">  <span class="token key atrule">runner-type</span><span class="token punctuation">:</span> applicationrunner</div></code></pre>
+<p><em><strong>InitializingBean</strong></em></p>
+<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">change-logs-scan-package</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token punctuation">-</span> com.github.cloudyrock.mongock<span class="token punctuation">...</span>changelogs.client.initializer</div><div class="highlight-line">  <span class="token key atrule">runner-type</span><span class="token punctuation">:</span> initializingbean</div></code></pre>
+<p><strong>With traditional builder approach:</strong></p>
+<p><em><strong>ApplicationRunner</strong></em></p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">MongockSpring5</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"changelogs.package.path"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token comment">//...</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">buildApplicationRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<p><em><strong>InitializingBean</strong></em></p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">MongockSpring5</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.initializer"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token comment">//...</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">buildInitializingBeanRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
 
       </article>
     </main>
