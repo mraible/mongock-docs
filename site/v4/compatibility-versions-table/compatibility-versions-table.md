@@ -7,17 +7,37 @@ eleventyNavigation:
   root: true
   order: 6
 ---
+
 # Version compatibility table
+
 
 ## Runner compatibility versions
 
 
 ### Mongock Spring 5 runner
 
-| Mongock ****Version | Spring Version | Spring boot Version |
-| :--- | :--- | :--- |
-| **&lt;4.2.8.BETA** | **5.2.6.RELEASE** | **2.2.12.RELEASE** |
-| **&gt;=4.2.8.BETA** | **5.2.12.RELEASE** | **2.3.7.RELEASE** |
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Mongock Version</th>
+      <th style="text-align:left">Spring Version</th>
+      <th style="text-align:left">Spring boot Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">&lt;4.2.8.BETA</td>
+      <td style="text-align:left">5.2.6.RELEASE</td>
+      <td style="text-align:left">2.2.12.RELEASE</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">&gt;=4.2.8.BETA</td>
+      <td style="text-align:left"> 5.2.12.RELEASE</td>
+      <td style="text-align:left">2.3.7.RELEASE</td>
+    </tr>
+  </tbody>
+</table>
 
 
 

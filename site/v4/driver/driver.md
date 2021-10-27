@@ -1,7 +1,7 @@
 ---
 title: Driver
 date: 2014-04-18 11:30:00 
-permalink: /v4/spring/index.html
+permalink: /v4/driver/index.html
 eleventyNavigation:
   version: v4
   root: true
@@ -10,28 +10,28 @@ eleventyNavigation:
 
 # Driver
 
-We have already mention the concept driver in [Main concepts](main-concepts.md#driver). Drivers are the part of Mongock in charge of dealing with MongoDB.
+We have already mention the concept driver in [Main concepts](/v4/main-concepts#driver). Drivers are the part of Mongock in charge of dealing with MongoDB.
 
 ## Motivation
 
-In order to provide support to different MongoDB versions, Java MongoDB drivers and libraries, we need to separate this connector from the rest of Mongock, so the user can choose the right alternative for him\(for example, using directly the Java MongoDB driver or Spring Data library\)
+In order to provide support to different MongoDB versions, Java MongoDB drivers and libraries, we need to separate this connector from the rest of Mongock, so the user can choose the right alternative for him(for example, using directly the Java MongoDB driver or Spring Data library)
 
 It's also important when comes to old version. Users may don't want to upgrade to the last version of MongoDB or driver, but they still need Mongock to be supported for their production deployments.
 
 ## How it works
 
-Technically drivers are simple implementations of the same interface which provides the contract between the driver itself and the [runner](standalone.md).
+Technically drivers are simple implementations of the same interface which provides the contract between the driver itself and the [runner](/v4/standalone).
 
 The idea is to provide a specific driver for every Java MongoDB driver, library or need. Open source users will be able to add drivers, following the driver specification.
 
-Mongock drivers use two MongoDB collections. The **changeLogCollection**\(called mongockChangeLog by default\), where the changeLog history will be stored, and the **lockCollection**\(called mongockLock by default\), used for pessimistic synchronisation between Mongock executions.
+Mongock drivers use two MongoDB collections. The **changeLogCollection**(called mongockChangeLog by default), where the changeLog history will be stored, and the **lockCollection**(called mongockLock by default), used for pessimistic synchronisation between Mongock executions.
 
-<div style="warning">
-It's important that **all the Mongock executions** that need to be synchronised\(different services or instances using the same MongoDB database\) **use the same lockCollection**. This is the only way they can be synchronised
+<div class="tip">
+It's important that <b>all the Mongock executions</b> that need to be synchronised(different services or instances using the same MongoDB database) <b>use the same lockCollection</b>. This is the only way they can be synchronised
 </div>
 
-<div style="warning">
-Also **ensure that the right changeLogCollection** is used in order **to prevent** Mongock from **re-running migrations undesirably**. If you need to migrate from another changeLogCollection or from another legacy migration framework, please refer to [Legacy migration](legacy-migration.md) for more information.
+<div class="tip">
+Also <b>ensure that the right changeLogCollection</b> is used in order <b>to prevent</b> Mongock from <b>re-running migrations undesirably</b>. If you need to migrate from another changeLogCollection or from another legacy migration framework, please refer to [Legacy migration](v4/legacy-migration) for more information.
 </div>
 
 ## Building time: Driver
@@ -67,7 +67,7 @@ Driver configuration is very simple, but there are still a couple of properties 
     </tr>
     <tr>
       <td style="text-align:left">
-        <p>&lt;b&gt;&lt;/b&gt;</p>
+        <p></p>
         <p><b>changeLogCollectionName</b>
         </p>
       </td>
@@ -185,5 +185,5 @@ driver.setIndexCreation(false);
 
 ## Transactions
 
-For transactions, please go to [Transactions](transactions.md) section.
+For transactions, please go to [Transactions](/v4/transactions) section.
 

@@ -12,17 +12,19 @@ eleventyNavigation:
 
 Mongock is set up in a few steps, which will be explained briefly in this section and more detailed in the rest of the documentation:
 
-1. **Importing artifact dependencies\(maven, gradle, etc.\)**
-   1. _Mongock's bom_
-   2. _Mongock's runner_
-   3. _Mongock's driver_
-   4. _MongoDB driver or specific underlying  library_
-2. **Configure and run Mongock: Annotation approach or traditional builder approach**
+**1- Importing artifact dependencies\(maven, gradle, etc.\):**
+    
+    1. _Mongock's bom_
+    2. _Mongock's runner_
+    3. _Mongock's driver_
+    4. _MongoDB driver or specific underlying library_
+
+**2- Configure and run Mongock: Annotation approach or traditional builder approach.**
 
 All the steps in group 1\(importing artifact dependencies\)  are common independently of the approach you use\(annotation or builder\).
 
-<div style="success">
-These are the unique steps you need to run Mongock. The rest of the documentation is about explaining them and how to extend  the "configuration step" to use/tune the different features.
+<div class="success">
+These are the only steps you need to run Mongock. The rest of the documentation is explains its usage and how to extend  the "configuration step" to make use of the different features.
 </div>
 
 ## Checking the last version
@@ -49,7 +51,7 @@ Both approaches share the first 4 steps. All of them related to your pom file.
 </dependencyManagement>
 ```
 
-2- **Import runner dependency.** For more information, check the [runner compatibility table](standalone.md#runners-types-and-compatibility-table).
+2- **Import runner dependency.** For more information, check the [runner compatibility table](/v4/runner#runners-types-and-compatibility-table).
 
 ***Spring 5***
 ```markup
@@ -68,7 +70,7 @@ Both approaches share the first 4 steps. All of them related to your pom file.
 </dependency>
 ```
 
-3- **Import driver dependency.** For more information, check the [driver compatibility table](spring.md#driver-types-and-compatibility-table).
+3- **Import driver dependency.** For more information, check the [driver compatibility table](/v4/driver#driver-types-and-compatibility-table).
 
 ***Spring data 3***
 ```markup
@@ -102,7 +104,7 @@ Both approaches share the first 4 steps. All of them related to your pom file.
 </dependency>
 ```
 
-4-  **Import your MongoDB and Spring Data dependencies**. In order to avoid transitive dependency issues, Mongock doesn't import any MongoDB or Spring Data library. So you need to provide them. For more information, check the [driver compatibility table](spring.md#driver-types-and-compatibility-table).
+4-  **Import your MongoDB and Spring Data dependencies**. In order to avoid transitive dependency issues, Mongock doesn't import any MongoDB or Spring Data library. So you need to provide them. For more information, check the [driver compatibility table](/v4/driver#driver-types-and-compatibility-table).
 
 ***Spring data 3***
 ```markup
@@ -150,7 +152,7 @@ Both approaches share the first 4 steps. All of them related to your pom file.
 
 ## Building and running Mongock: Annotation vs Builder
 
-Once you have successfully imported the necessary dependencies, as we briefly explained in [Main concepts](main-concepts.md#builder), there are two ways you can build and run Mongock. In most cases, when using Spring framework, the most easy and convenient way is the annotation approach. However, sometimes you are not using Spring or you need more control over your Mongock bean. In that case you should opt for the traditional builder approach.
+Once you have successfully imported the necessary dependencies, as we briefly explained in [Main concepts](/v4/main-concepts#builder), there are two ways you can build and run Mongock. In most cases, when using Spring framework, the most easy and convenient way is the annotation approach. However, sometimes you are not using Spring or you need more control over your Mongock bean. In that case you should opt for the traditional builder approach.
 
 ### Annotation approach
 
@@ -158,7 +160,7 @@ When opting for annotation approach, all your configuration will be set in your 
 
 Then, you only need to tell Spring to use Mongock by annotating your Spring boot application with  **@EnableMongock** annotation 
 
-1- **Add your changeLog package path to your property file**. Minimal configuration requires at least one changeLog package\(it's an array, so you can add more than one\), but anything you can configure manually with the builder, you can do it as well with properties. However note that Mongock provides default values. Worthy noticing the lock, which is now enabled by default, unlike older versions where you need to explicitly enable it, due to backward compatibility.
+1- **Add your changeLog package path to your property file**: Minimal configuration requires at least one changeLog package\(it's an array, so you can add more than one\), but anything you can configure manually with the builder, you can do it as well with properties. However note that Mongock provides default values. Worthy noticing the lock, which is now enabled by default, unlike older versions where you need to explicitly enable it, due to backward compatibility.
 
 ```yaml
 mongock:
@@ -220,7 +222,7 @@ MongockStandalone.builder()
 runner.execute();
 ```
 
-<div style="info">
-Note that for standalone example we have used MongoSync4Driver as it's a more common scenario. Please take a look to our driver [version compatibility table](spring.md#driver-types-and-compatibility-table).
+<div class="tip">
+Note that for standalone example we have used MongoSync4Driver as it's a more common scenario. Please take a look to our driver <a href="/v4/driver#driver-types-and-compatibility-table">version compatibility table</a>.
 </div>
 

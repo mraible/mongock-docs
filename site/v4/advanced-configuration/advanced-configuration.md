@@ -1,7 +1,7 @@
 ---
 title: Advanced Configuration
 date: 2014-04-18 11:30:00 
-permalink: /v4/further-configuration/index.html
+permalink: /v4/advanced-configuration/index.html
 eleventyNavigation:
   version: v4
   root: true
@@ -13,7 +13,7 @@ eleventyNavigation:
 
 Sometimes there is the need of adding some extra information to the mongock ChangeLog documents at execution time. This is addressed by Mongock allowing you to set a Map object to the properties or builder with the metadata, which will be added later to each mongockChangeLog document involved in the migration
 
-You can specify your metadata like:
+You can specify your metadata like one of the following options:
 
 
 ```yaml
@@ -72,14 +72,14 @@ builder
     "executionMillis": {
         "$numberLong": "1"
     },
-    "_class": "io.changock.driver.api.entry.ChangeEntry$1"
+    "_class": "io.mongock.driver.api.entry.ChangeEntry$1"
 }
 ```
 
 ## fail-fast 
 
 When this property is set to `false` in your changeSet annotation,  Mongock won't abort the migration in case of any exception during the method's execution.   
-However, please note that the changeLog entry will be marked as **FAILED** in the changeLogCollection, so next Mongock executions will try to process it again**.**
+However, please note that the changeLog entry will be marked as **FAILED** in the changeLogCollection, so next Mongock executions will try to process it again.
 
 ```java
 @ChangeLog(order = "1")
@@ -113,7 +113,7 @@ public class ClientInitializerChangeLog {
     "executionMillis": {
         "$numberLong": "-1"
     },
-    "_class": "io.changock.driver.api.entry.ChangeEntry$1"
+    "_class": "io.mongock.driver.api.entry.ChangeEntry$1"
 }
 ```
 

@@ -22,7 +22,7 @@ In Mongock we see 3 transaction levels; per migration\(entire-migration\), per c
 
 Currently Mongock only provides support for entire-migration transactions, but we are working to provide the other two levels.
 
-#### Migration transaction\(entire-migration\)
+### Migration transaction\(entire-migration\)
 
 With this migration level Mongock will encapsulate all the unexecuted changes and will run them inside the same transaction. If there is any failure, the entire migration rollbacks and therefore Mongock's execution fails.
 
@@ -32,13 +32,14 @@ You should also take into account MongoDB's limitations such as the maximum docu
 
 We recommend **migration transactions** for small migrations, for which you are confident they can be executed in a single transaction without problem.
 
-#### ChangeSet transaction
+### ChangeSet transaction
 
-<div style="warning">
+<div class="warning">
 This feature is under development. Not available yet
 </div>
+<br><br>
 
-Opposite to **migration transactions**, there is also changeSet transactions, the smallest level of Mongock transactions. This level will make Mongock to create a new transaction per changeSet. If a changeSet/transaction fails and assuming  it's [fail-fast](further-configuration.md#fail-fast), the committed transactions will stay but Mongock will rollback the failed transaction and won't execute the following ones. In case of a failed transactions is not fail-fast, Mongock will rollback it, but will carry on with the execution.
+Opposite to **migration transactions**, there is also changeSet transactions, the smallest level of Mongock transactions. This level will make Mongock to create a new transaction per changeSet. If a changeSet/transaction fails and assuming  it's [fail-fast](/v4/advanced-configuration.md#fail-fast), the committed transactions will stay but Mongock will rollback the failed transaction and won't execute the following ones. In case of a failed transactions is not fail-fast, Mongock will rollback it, but will carry on with the execution.
 
 ChangeSet migrations are good because of their granularity. You ensure a changeSet is not half-committed while you can progress over executions when unexpected failures happens.
 
@@ -48,11 +49,12 @@ However, the cons of this approach is that you will probably want to be flexible
 
 We recommend this level whenever you are confident that all your "migration steps" fit in methods.
 
-#### ChangeLog transaction
+### ChangeLog transaction
 
-<div style="warning">
+<div class="warning">
 This feature is under development. Not available yet
 </div>
+<br><br>
 
 This level of transaction is a solution between **migration transaction** and **changeSet transaction**, providing a good trade-off that normally fits the majority of the projects needs.
 
@@ -60,7 +62,7 @@ With this transaction level Mongock takes every unexecuted changeLog and package
 
 This is the recommended transaction level for several reasons:
 
-* Fits the recommended design approach for migrations. More information [here](best-practices.md#migration-design)
+* Fits the recommended design approach for migrations. 
 * More flexible, allowing you to create the logical transactional groups the way you want, without being forced to adapt it to changeSets or all-or-nothing
 * If for any reason the entire migration cannot be executed at once, it can be done in smaller steps, which are committed in every execution, allowing the migration to progress in every iteration.
 * Prevent to commit very small transactional units\(changeSets\) in such a way that while the changeSet is committed\(and consistent\), the actual logical migration is half-committed.
@@ -71,13 +73,13 @@ You don't really need to much to benefit from transactions, however you will nee
 
 ### Spring Data
 
-For [Mongock Spring Data drivers](spring.md), the only requirement is to provide MongoTransactionManager. If you are using the MongockEnable annotation approach, by adding the MongoTransactionManager to the Spring context is enough, Mongock will pick it up.
+For [Mongock Spring Data drivers](/v4/spring), the only requirement is to provide MongoTransactionManager. If you are using the MongockEnable annotation approach, by adding the MongoTransactionManager to the Spring context is enough, Mongock will pick it up.
 
 On the other hand, if you are using the traditional builder approach, you need to provide the MongoTransactionManager to the Mongock driver by using the method `enableTransactionWithTxManager` 
 
 ### MongoDB Driver
 
-When using the [Mongock driver for Java MongoDB driver](spring.md) you are forced to use the traditional builder approach, but you don't need to do anything else to work with transaction rather than just build your driver providing the MongoClient and database name.
+When using the [Mongock driver for Java MongoDB driver](/v4/spring) you are forced to use the traditional builder approach, but you don't need to do anything else to work with transaction rather than just build your driver providing the MongoClient and database name.
 
 ## Disabling transactions
 
@@ -97,7 +99,7 @@ mongock:
 driver.disableTransaction();
 ```
 
-##    Transaction options
+## Transaction options
 
 When using Spring Data, the transaction will use the transactionManager's, so Mongock's doesn't take any responsibility. However, when using any Mongock driver for Java MongoDB drivers such as MongoSyn5Driver or MongoCore3Driver, you are able to tell Mongock which transaction options to use with the builder method `setTransactionOptions` , which takes a com.mongodb,TransactionOptions as parameter. As default Mongock will use `primary` as **readPreference** and `MAJORITY` as **readConcern** and writeConcern.
 

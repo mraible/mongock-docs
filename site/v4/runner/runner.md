@@ -1,7 +1,7 @@
 ---
 title: Runner
 date: 2014-04-18 11:30:00 
-permalink: /v4/standalone/index.html
+permalink: /v4/runner/index.html
 eleventyNavigation:
   version: v4
   root: true
@@ -10,7 +10,7 @@ eleventyNavigation:
 
 # Runner
 
-In [Main concepts](main-concepts.md#driver) we already mentioned the concept of **runners**. Runners are the ones dealing with the process logic and framework.
+In [Main concepts](/v4/main-concepts#runner) we already mentioned the concept of **runners**. Runners are the ones dealing with the process logic and framework.
 
 ## Motivation
 
@@ -37,7 +37,7 @@ It does not used any framework support for its execution. Ideally when running s
 
 Based on Spring 5 and Spring Boot 2, its objetive to provide the easiest way to run Mongock with it. It provide support for Spring profiles, context, properties, annotation approach based on Spring configuration, etc.
 
-Unlike Mongock standalone, it provides two building approach: the traditional builder approach and annotation approach\(**@EnabbleMongock**\)
+Unlike Mongock standalone, it provides two building approach: the traditional builder approach and annotation approach\(**@EnableMongock**\)
 
 ## Building time: Runner
 
@@ -49,18 +49,18 @@ However, if you opt for the manual builder approach, you need to build the runne
 
 | Configuration parameter | Default value | Type | Description | Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **changeLogScanPackage** | mandatory. At least one. | List&lt;String&gt; | Instructs Mongock where to find the changeLog classes.  | [link](changelogs.md) |
-| **springContext** | mandatory for Spring | ApplicationContext | Sets the spring Application context for bean injections into ChangeSet methods. It's where the custom beans, MongoTemplate, profiles, etc. is take from. | [link](further-configuration.md#spring-context) |
-| **metadata** | null | Map&lt;String, Object&gt; | Custom data attached to the migration. It will added to all changes in changeLog collection | [link](further-configuration.md#metadata) |
-| **startSystemVersion** | "0" | String | System version to start with | [link](further-configuration.md#systemversion) |
-| **endSystemVersions** | MAX\_VALUE | String | System version to end with. | [link](further-configuration.md#systemversion) |
-| **throwExceptionIfCannot**.... | true | boolean | Mongock will throw MongockException if lock can not be obtained. Builder method **setLockConfig** | [link](lock-1.md) |
-| **legacyMigration** | null | Object | Configuration related to migrate from legacy systems. | [link](legacy-migration.md) |
-| **trackIgnored** | false | boolean | Specifies if ignored changeSets\(already executed, etc.\) should be track in the changeLog collection with **IGNORED** status | [link](further-configuration.md#trackignored) |
-| **enabled** | true | boolean | If false, will disable Mongock execution | [link](further-configuration.md#enable) |
+| **changeLogScanPackage** | mandatory. At least one. | List&lt;String&gt; | Instructs Mongock where to find the changeLog classes.  | [link](/v4/changelogs) |
+| **springContext** | mandatory for Spring | ApplicationContext | Sets the spring Application context for bean injections into ChangeSet methods. It's where the custom beans, MongoTemplate, profiles, etc. is take from. | [link](/v4/advanced-configuration#spring-context) |
+| **metadata** | null | Map&lt;String, Object&gt; | Custom data attached to the migration. It will added to all changes in changeLog collection | [link](/v4/advanced-configuration#metadata) |
+| **startSystemVersion** | "0" | String | System version to start with | [link](/v4/advanced-configuration#systemversion) |
+| **endSystemVersions** | MAX\_VALUE | String | System version to end with. | [link](/v4/advanced-configuration#systemversion) |
+| **throwExceptionIfCannot**.... | true | boolean | Mongock will throw MongockException if lock can not be obtained. Builder method **setLockConfig** | [link](/v4/lock) |
+| **legacyMigration** | null | Object | Configuration related to migrate from legacy systems. | [link](/v4/legacy-migration) |
+| **trackIgnored** | false | boolean | Specifies if ignored changeSets\(already executed, etc.\) should be track in the changeLog collection with **IGNORED** status | [link](/v4/advanced-configuration#trackignored) |
+| **enabled** | true | boolean | If false, will disable Mongock execution | [link](/v4/advanced-configuration#enable) |
 
-<div style="warning">
-When using the builder method **setLockConfig**, which takes lockAcquiredForMinutes, maxWaitingForLockMinutes and maxTries as parameters, **will implicitly set throwExceptionIfCannotObtainLock to true.**
+<div class="tip">
+When using the builder method <b>setLockConfig</b>, which takes lockAcquiredForMinutes, maxWaitingForLockMinutes and maxTries as parameters, <b>will implicitly set throwExceptionIfCannotObtainLock to true.</b>
 </div>
 
 ***Properties***
@@ -130,11 +130,3 @@ builder
     .setEnabled(true)
     .execute();
 ```
-
-
-
-
-
-
-##  
-

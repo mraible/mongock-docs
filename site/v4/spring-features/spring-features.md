@@ -1,7 +1,7 @@
 ---
 title: Spring specific features
 date: 2014-04-18 11:30:00 
-permalink: /v4/spring-profiles/index.html
+permalink: /v4/spring-features/index.html
 eleventyNavigation:
   version: v4
   root: true
@@ -12,9 +12,9 @@ eleventyNavigation:
 
 ## MongockTemplate
 
-As mentioned in  [ChangeLogs](changelogs.md) section, when using Spring, you must use **MongockTemplate,** instead of Spring MongoTemplate. **MongockTemplate** is just a decorator/wrapper providing exactly the same API than MongoTemplate, but ensuring your changes are correctly synchronised. 
+As mentioned in  [ChangeLogs](/v4/changelogs) section, when using Spring, you must use **MongockTemplate,** instead of Spring MongoTemplate. **MongockTemplate** is just a decorator/wrapper providing exactly the same API than MongoTemplate, but ensuring your changes are correctly synchronised. 
 
-You can find the technical reason behind in the [Lock](lock-1.md) section. 
+You can find the technical reason behind in the [Lock](/v4/lock) section. 
 
 ```java
 @ChangeSet(order = "005", id = "changeWithMongockTemplate", author = "mongock")
@@ -27,9 +27,11 @@ public void changeWithMongockTemplate(MongockTemplate mongockTemplate) {
 
 **Mongock** accepts Spring's `org.springframework.context.annotation.Profile` annotation. If a changeLog or changeSet class is annotated with `@Profile`, then it is activated for current application profiles.
 
-<div style="success">
+<br><br>
+<div class="success">
 Mongock will automatically pick the active profiles from the Spring `ApplicationContext` . Then you only need to annotate your changeLogs and changeSets.
 </div>
+<br><br>
 
 **Annotating ChangeLogs and ChangeSets with Profile**
 
@@ -56,10 +58,6 @@ public class changeLogForTestOnly{
   } 
 }
 ```
-
-<div style="info">
-Mongock will support in next versions the new Profile expression approach from Spring. Please check our [roadmap]()
-</div>
 
 ## ApplicationRunner vs InitializingBean
 

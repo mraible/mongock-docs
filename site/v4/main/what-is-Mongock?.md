@@ -28,7 +28,7 @@ There are several good reasons to use Mongock in your project. Here we give you 
 * Used by well known frameworks such as [JHipster](https://www.jhipster.tech).
 * Can be used together with most, if not all, frameworks.
 * Provides great integration for [Spring](https://spring.io/), allowing you to inject any custom dependency you want to your changeLog method and still been synchronised
-* We walk with you to production. Get more information about our support model at [dev@cloudyrock.io](mailto:dev@cloudyrock.io)
+* We walk with you to production. Get more information about our support model at [support@mongock.io​](mailto:support@mongock.io​)
 
 
 

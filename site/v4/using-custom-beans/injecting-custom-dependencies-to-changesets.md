@@ -10,11 +10,13 @@ eleventyNavigation:
 
 # Using custom beans in changeSet methods
 
-Mongock allows you to use  custom beans in your changeSet methods, so you are not restricted to use basic MongoDB\(or specific framework\) components, like MongoDatabase, MongoCollection or MongoTemplate.\(actually you would be using their Mongock decorators, not the direct components\)
+Mongock allows you to use  custom beans in your changeSet methods, so you are not restricted to use basic MongoDB(or specific framework) components, like MongoDatabase, MongoCollection or MongoTemplate.(actually you would be using their Mongock decorators, not the direct components)
+<br><br>
 
 <div class="success">
-**Custom beans must be interfaces**. The reason behind is explained in the [lock section](lock-1.md#how-is-the-lock-ensured-in-every-database-access)
+<b>Custom beans must be interfaces</b>. The reason behind is explained in the <a href="/v4/lock#how-is-the-lock-ensured-in-every-database-access">lock section</a>.
 </div>
+<br><br>
 
 ```java
 @ChangeLog(order = "1")
@@ -31,9 +33,9 @@ public class ClientInitializer {
 }
 ```
 
-## How to use it
+# How to use it
 
-### With Spring runner
+## With Spring runner
 
 If you are using Spring Runner, you will be able to access to all of the beans present in the Spring context, just by adding the required bean in your changeSet as parameter.
 
@@ -51,13 +53,13 @@ public class ClientInitializerChangeLog {
 }
 ```
 
-### With Standalone runner
+## With Standalone runner
 
 While you will still be using your custom bean by adding the parameter in your changeSet method as parameter, as the previous figure, when using the standalone runner you need to inject your custom bean manually at building time.
 
-You have 4 ways to add your bean\(or dependency\)
+You have 4 ways to add your bean(or dependency):
 
-#### Just the instance, inferencing the type
+### Just the instance, inferencing the type
 
 Mongock will extract the type from the instance. 
 
@@ -69,7 +71,7 @@ MongockStandalone.builder()
         .execute()
 ```
 
-#### Specifying the type
+### Specifying the type
 
 The issue with the previous approach is, for example, when your bean implements an interface and you want your bean to be injected when any changeSet specify the interface as a parameter
 
@@ -81,7 +83,7 @@ MongockStandalone.builder()
         .execute()
 ```
 
-#### With name
+### With name
 
 Sometimes, regardless of the type, you want the bean to be injected by a name. 
 
@@ -93,7 +95,7 @@ MongockStandalone.builder()
         .execute()
 ```
 
-#### With name and type
+### With name and type
 
 And there may be other times when you want everything, be able to reference your bean in your changeSets with a name and by type.
 
@@ -105,20 +107,21 @@ MongockStandalone.builder()
         .execute()
 ```
 
-## Advanced: Proxy explanation
+# Advanced: Proxy explanation
 
-As explained in [lock section](lock-1.md#how-is-the-lock-ensured-in-every-database-access), custom beans are proxied to ensure  the database is accessed in a  synchronised manner using the lock. 
+As explained in [lock section](/v4/lock#how-is-the-lock-ensured-in-every-database-access), custom beans are proxied to ensure  the database is accessed in a  synchronised manner using the lock. 
 
 The Mongock's proxy instrumentation have two main goals:
 
 1. Intercept the actual method you are calling to ensure the lock is acquired.
 2. Return a proxied object  to ensure the lock is acquired in subsequent calls
-
+<br><br>
 <div class="success">
 By default, Mongock won't return a proxied object if one of the following conditions is in place:  The returned object is not an interface or it's a primitive type, String, Class type, wrapper type or any object in a package prefixed by"java.", "com.sun.", "javax.", "jdk.internal." or "sun."
 </div>
+<br><br>
 
-## Advance configuration: Prevent proxing my beans
+# Advance configuration: Prevent proxing my beans
 
 Although it is a conservative approach, the default Mongock's proxy behaviour it's the recommended option and most cases will be fine with it. It is a convenient way which provides a good balance between easiness and performance. 
 
@@ -126,7 +129,7 @@ However, sometimes you need a tune this. Luckily in Mongock almost everything is
 
 You can prevent proxing custom beans by using **@NonLockGuarded** annotation. You can apply it to your bean's type, a specific method or a changeSet parameter. 
 
-### @NonLockGuarded in changeSet parameter
+## @NonLockGuarded in changeSet parameter
 
 This will tell Mongock you don't want to proxy that bean in that specific changeSet method. 
 
@@ -143,7 +146,7 @@ public class ClientInitializerChangeLog {
 }
 ```
 
-### @NonLockGuarded in custom bean's type
+## @NonLockGuarded in custom bean's type
 
 If you annotate your custom bean's type, Mongock won't never proxy any bean of that type. 
 
@@ -156,7 +159,7 @@ public class MyCustomBeanImpl implements MyCustomBean {
 }
 ```
 
-### @NonLockGuarded in custom bean's method
+## @NonLockGuarded in custom bean's method
 
 When annotating a method, there are 3 options:
 
@@ -164,7 +167,7 @@ When annotating a method, there are 3 options:
 * You want to **ensure the lock in the method's call** but you don't want to return a proxy
 * You neither want to ensure the lock in the method's call nor return a proxy
 
-#### **Not ensuring the lock in the method's call but returning a proxy**
+### **Not ensuring the lock in the method's call but returning a proxy**
 
 For this purpose you need to annotate your method providing the value **METHOD**. However, as METHOD is the default value, you don't need to provide any.
 
@@ -179,7 +182,7 @@ public class MyCustomBeanImpl implements MyCustomBean {
 }
 ```
 
-#### En**suring the lock in the method's call but not returning a proxy**
+### Ensuring the lock in the method's call but not returning a proxy
 
 To achieve this you need to annotate your method with **RETURN** value.
 
@@ -193,7 +196,7 @@ public class MyCustomBeanImpl implements MyCustomBean {
     }
 ```
 
-#### Neither ensuring the lock in the method's call nor returning a proxy
+### Neither ensuring the lock in the method's call nor returning a proxy
 
 For this purpose you need to annotate your method providing the value **NONE**
 

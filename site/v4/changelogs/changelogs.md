@@ -17,17 +17,13 @@ To tell Mongock to run your migration, you need:
 2. Annotate your changeSet methods by **@ChangeSet**
 3. Tell Mongock where your changeLog classes are by providing the changeLog scan package\(you can specify more than one\)
 
-<div class="success">
-When using Spring, you must use **MongockTemplate,** instead of Spring MongoTemplate. MongockTemplate is just a decorator/wrapper providing exactly the same API than MongoTemplate, but ensuring your changes are correctly synchronised. 
-</div>
-
-<div class="success">
-Please take a look the [Best practices]() section for design decisions.  
+<div class="tip">
+When using Spring, you must use <b>MongockTemplate</b>, instead of Spring MongoTemplate. MongockTemplate is just a decorator/wrapper providing exactly the same API than MongoTemplate, but ensuring your changes are correctly synchronised. 
 </div>
 
 ## @ChangeLog
 
-Class with change sets must be annotated by **@ChangeLog.** As **t**here can be more than one changeLog , Mongock will use the **order** argument to decide how to sort them:
+Class with change sets must be annotated by **@ChangeLog.** As there can be more than one changeLog, Mongock will use the **order** argument to decide how to sort them:
 
 ```java
 @ChangeLog(order = "001")
@@ -39,7 +35,7 @@ public class DatabaseChangelog {
 ## @ChangeSet
 
 Method annotated by **@ChangeSet** is taken and applied to the database. History of applied change sets is stored in a collection in your MongoDB.   
-This collection is called **mongockChangeLog** by default. You can instruct Mongock to use another name by configuration. Please refer to [Driver](spring.md) page for more information.
+This collection is called **mongockChangeLog** by default. You can instruct Mongock to use another name by configuration. Please refer to [Driver](/v4/driver) page for more information.
 
 The **@ChangeSet** parameters are:
 
@@ -49,7 +45,7 @@ The **@ChangeSet** parameters are:
 | author | String | Mandatory | Author of a change set |
 | order | String | null | String for sorting change sets in one changeLog. Sorting in alphabetical order, ascending. It can be a number, a date etc. |
 | runAlways | Boolean | false | If true, changeSet will always be executed |
-| systemVersion | String | "0" | Defines which SystemVersion the changeSet is linked to.  See [System Version]() for more information. |
+| systemVersion | String | "0" | Defines which SystemVersion the changeSet is linked to.  |
 | failFast | boolean | true | When false, Mongock won't abort the migration in case of any exception during the method's execution.  |
 
 ### Defining ChangeSet methods
@@ -115,14 +111,14 @@ public void someChange6(MongoDatabase db) {
 
 When specifying versions you are able to upgrade to specific versions:
 
+Via Properties:
 ```yaml
 mongock:
   start-system-version: 1
   end-system-version: 2.5.1
 ```
 
-
-
+Or via Builder:
 ```java
 //When using Builder
   mongockBuilder
