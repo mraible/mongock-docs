@@ -1,7 +1,7 @@
 ---
 title: Using custom beans in changeSet methods
 date: 2014-04-18 11:30:00 
-permalink: /v4/injecting-custom-dependencies-to-changesets/index.html
+permalink: /v4/custom-injections/index.html
 eleventyNavigation:
   version: v4
   root: true

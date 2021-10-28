@@ -1,7 +1,7 @@
 ---
 title: Advanced Configuration
 date: 2014-04-18 11:30:00 
-permalink: /v4/advanced-configuration/index.html
+permalink: /v4/advanced-config/index.html
 eleventyNavigation:
   version: v4
   root: true

@@ -1,7 +1,7 @@
 ---
-title: Version compatibility table
+title: Version compatibility
 date: 2014-04-18 11:30:00 
-permalink: /v4/compatibility-versions-table/index.html
+permalink: /v4/compatibility/index.html
 eleventyNavigation:
   version: v4
   root: true
