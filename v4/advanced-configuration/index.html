@@ -400,13 +400,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring/index.html">
-        Spring
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
       </a>
     
   </h7>
 
-          <nav class="Spring">
+          <nav class="Driver">
             
           </nav>
          
@@ -414,13 +414,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/standalone/index.html">
-        Standalone
+      <a class="menu-item "  href="/v4/runner/index.html">
+        Runner
       </a>
     
   </h7>
 
-          <nav class="Standalone">
+          <nav class="Runner">
             
           </nav>
          
@@ -428,13 +428,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/compatibility-versions-table/index.html">
-        Compatibility versions table
+      <a class="menu-item "  href="/v4/compatibility/index.html">
+        Compatibility
       </a>
     
   </h7>
 
-          <nav class="Compatibility versions table">
+          <nav class="Compatibility">
             
           </nav>
          
@@ -456,13 +456,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/injecting-custom-dependencies-to-changesets/index.html">
-        Injecting custom dependencies to changesets
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
       </a>
     
   </h7>
 
-          <nav class="Injecting custom dependencies to changesets">
+          <nav class="Custom injections">
             
           </nav>
          
@@ -470,13 +470,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring-profiles/index.html">
-        Spring profiles
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
       </a>
     
   </h7>
 
-          <nav class="Spring profiles">
+          <nav class="Spring features">
             
           </nav>
          
@@ -484,13 +484,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v4/further-configuration/index.html">
-        Further configuration
+      <a class="menu-item current-page"  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
       </a>
     
   </h7>
 
-          <nav class="Further configuration">
+          <nav class="Advanced configuration">
             
           </nav>
          
@@ -512,20 +512,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/validations/index.html">
-        Validations
-      </a>
-    
-  </h7>
-
-          <nav class="Validations">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/reactive/index.html">
         Reactive
       </a>
@@ -540,20 +526,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/recovery/index.html">
-        Recovery
-      </a>
-    
-  </h7>
-
-          <nav class="Recovery">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/events/index.html">
         Events
       </a>
@@ -561,20 +533,6 @@ function changeVersion() {
   </h7>
 
           <nav class="Events">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
-      <a class="menu-item "  href="/v4/undo/index.html">
-        Undo
-      </a>
-    
-  </h7>
-
-          <nav class="Undo">
             
           </nav>
          
@@ -615,18 +573,18 @@ function changeVersion() {
         <h1 id="advanced-configuration"><a class="header-anchor" href="#advanced-configuration">#</a> Advanced configuration</h1>
 <h2 id="metadata"><a class="header-anchor" href="#metadata">#</a> metadata</h2>
 <p>Sometimes there is the need of adding some extra information to the mongock ChangeLog documents at execution time. This is addressed by Mongock allowing you to set a Map object to the properties or builder with the metadata, which will be added later to each mongockChangeLog document involved in the migration</p>
-<p>You can specify your metadata like:</p>
+<p>You can specify your metadata like one of the following options:</p>
 <pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">change-logs-scan-package</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token punctuation">-</span> com.github.cloudyrock.mongock.client.initializer</div><div class="highlight-line">  <span class="token key atrule">metadata</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token key atrule">change-motivation</span><span class="token punctuation">:</span> Missing field in collection</div><div class="highlight-line">    <span class="token key atrule">decided-by</span><span class="token punctuation">:</span> Tom Waugh</div><div class="highlight-line">    </div></code></pre>
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//mongock-spring-v5</span></div><div class="highlight-line">builder</div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.github.cloudyrock.mongock.client.initializer"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setSpringContext</span><span class="token punctuation">(</span>springContext<span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">withMetadata</span><span class="token punctuation">(</span></div><div class="highlight-line">        <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div></code></pre>
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//standalone</span></div><div class="highlight-line">builder</div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.github.cloudyrock.mongock.client.initializer"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">withMetadata</span><span class="token punctuation">(</span></div><div class="highlight-line">        <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div></code></pre>
 <h4 id="and-you-can-expect-some-result-such-as..."><a class="header-anchor" href="#and-you-can-expect-some-result-such-as...">#</a> And you can expect some result such as...</h4>
-<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token key atrule">"executionId"</span><span class="token punctuation">:</span> <span class="token string">"2020-07-16T19:10:29.451797-363"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeId"</span><span class="token punctuation">:</span> <span class="token string">"test1"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"author"</span><span class="token punctuation">:</span> <span class="token string">"testuser"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"timestamp"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"$date"</span><span class="token punctuation">:</span> <span class="token string">"2020-07-16T18:10:29.465Z"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"state"</span><span class="token punctuation">:</span> <span class="token string">"EXECUTED"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeLogClass"</span><span class="token punctuation">:</span> <span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.general.MongockTestResource"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeSetMethod"</span><span class="token punctuation">:</span> <span class="token string">"testChangeSet"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"metadata"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"change-motivation"</span><span class="token punctuation">:</span> <span class="token string">"Missing field in collection"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token key atrule">"decided-by"</span><span class="token punctuation">:</span> <span class="token string">"Tom Waugh"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"executionMillis"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"$numberLong"</span><span class="token punctuation">:</span> <span class="token string">"1"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"_class"</span><span class="token punctuation">:</span> <span class="token string">"io.changock.driver.api.entry.ChangeEntry$1"</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token key atrule">"executionId"</span><span class="token punctuation">:</span> <span class="token string">"2020-07-16T19:10:29.451797-363"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeId"</span><span class="token punctuation">:</span> <span class="token string">"test1"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"author"</span><span class="token punctuation">:</span> <span class="token string">"testuser"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"timestamp"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"$date"</span><span class="token punctuation">:</span> <span class="token string">"2020-07-16T18:10:29.465Z"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"state"</span><span class="token punctuation">:</span> <span class="token string">"EXECUTED"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeLogClass"</span><span class="token punctuation">:</span> <span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.general.MongockTestResource"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeSetMethod"</span><span class="token punctuation">:</span> <span class="token string">"testChangeSet"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"metadata"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"change-motivation"</span><span class="token punctuation">:</span> <span class="token string">"Missing field in collection"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token key atrule">"decided-by"</span><span class="token punctuation">:</span> <span class="token string">"Tom Waugh"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"executionMillis"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"$numberLong"</span><span class="token punctuation">:</span> <span class="token string">"1"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"_class"</span><span class="token punctuation">:</span> <span class="token string">"io.mongock.driver.api.entry.ChangeEntry$1"</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
 <h2 id="fail-fast"><a class="header-anchor" href="#fail-fast">#</a> fail-fast</h2>
 <p>When this property is set to <code>false</code> in your changeSet annotation,  Mongock won't abort the migration in case of any exception during the method's execution.<br>
-However, please note that the changeLog entry will be marked as <strong>FAILED</strong> in the changeLogCollection, so next Mongock executions will try to process it again**.**</p>
+However, please note that the changeLog entry will be marked as <strong>FAILED</strong> in the changeLogCollection, so next Mongock executions will try to process it again.</p>
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeLog</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClientInitializerChangeLog</span> <span class="token punctuation">{</span></div><div class="highlight-line"></div><div class="highlight-line">    <span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>id <span class="token operator">=</span> <span class="token string">"data-initializer"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">,</span> failFast <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token class-name">ClientInitializer</span><span class="token punctuation">(</span><span class="token class-name">ClientRepository</span> clientRepository<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token comment">//...</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
 <h4 id="the-resulting-changelog-entry-%3A"><a class="header-anchor" href="#the-resulting-changelog-entry-%3A">#</a> The resulting changeLog entry :</h4>
-<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token key atrule">"state"</span><span class="token punctuation">:</span> <span class="token string">"FAILED"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"executionId"</span><span class="token punctuation">:</span> <span class="token string">"2020-07-16T19:45:03.894424-896"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeId"</span><span class="token punctuation">:</span> <span class="token string">"test1"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"author"</span><span class="token punctuation">:</span> <span class="token string">"testuser"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"timestamp"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"$date"</span><span class="token punctuation">:</span> <span class="token string">"2020-07-16T18:45:03.905Z"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line"></div><div class="highlight-line">    <span class="token key atrule">"changeLogClass"</span><span class="token punctuation">:</span> <span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.general.MongockTestResource"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeSetMethod"</span><span class="token punctuation">:</span> <span class="token string">"testChangeSet"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"metadata"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"change-motivation"</span><span class="token punctuation">:</span> <span class="token string">"Missing field in collection"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token key atrule">"decided-by"</span><span class="token punctuation">:</span> <span class="token string">"Tom Waugh"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"executionMillis"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"$numberLong"</span><span class="token punctuation">:</span> <span class="token string">"-1"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"_class"</span><span class="token punctuation">:</span> <span class="token string">"io.changock.driver.api.entry.ChangeEntry$1"</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token key atrule">"state"</span><span class="token punctuation">:</span> <span class="token string">"FAILED"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"executionId"</span><span class="token punctuation">:</span> <span class="token string">"2020-07-16T19:45:03.894424-896"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeId"</span><span class="token punctuation">:</span> <span class="token string">"test1"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"author"</span><span class="token punctuation">:</span> <span class="token string">"testuser"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"timestamp"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"$date"</span><span class="token punctuation">:</span> <span class="token string">"2020-07-16T18:45:03.905Z"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line"></div><div class="highlight-line">    <span class="token key atrule">"changeLogClass"</span><span class="token punctuation">:</span> <span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.general.MongockTestResource"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"changeSetMethod"</span><span class="token punctuation">:</span> <span class="token string">"testChangeSet"</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"metadata"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"change-motivation"</span><span class="token punctuation">:</span> <span class="token string">"Missing field in collection"</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token key atrule">"decided-by"</span><span class="token punctuation">:</span> <span class="token string">"Tom Waugh"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"executionMillis"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token key atrule">"$numberLong"</span><span class="token punctuation">:</span> <span class="token string">"-1"</span></div><div class="highlight-line">    <span class="token punctuation">}</span><span class="token punctuation">,</span></div><div class="highlight-line">    <span class="token key atrule">"_class"</span><span class="token punctuation">:</span> <span class="token string">"io.mongock.driver.api.entry.ChangeEntry$1"</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
 <h2 id="systemversion"><a class="header-anchor" href="#systemversion">#</a> systemVersion</h2>
 <p>Methods annotated by <code>@ChangeSet</code> have also the possibility to contain systemVersion. This is a useful feature from a consultancy point of view. The more descriptive scenario is when a software provider has several customers who he provides his software to. The clients may be using different versions of the software at the same time. So when the provider installs the product for a customer, the changeSets need to be applied depending on the product version.</p>
 <p>Then in the properties file(or builder) the systemVersion for the migration will be specified.</p>

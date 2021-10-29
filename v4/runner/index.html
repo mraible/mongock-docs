@@ -400,13 +400,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring/index.html">
-        Spring
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
       </a>
     
   </h7>
 
-          <nav class="Spring">
+          <nav class="Driver">
             
           </nav>
          
@@ -414,13 +414,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v4/standalone/index.html">
-        Standalone
+      <a class="menu-item current-page"  href="/v4/runner/index.html">
+        Runner
       </a>
     
   </h7>
 
-          <nav class="Standalone">
+          <nav class="Runner">
             
           </nav>
          
@@ -428,13 +428,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/compatibility-versions-table/index.html">
-        Compatibility versions table
+      <a class="menu-item "  href="/v4/compatibility/index.html">
+        Compatibility
       </a>
     
   </h7>
 
-          <nav class="Compatibility versions table">
+          <nav class="Compatibility">
             
           </nav>
          
@@ -456,13 +456,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/injecting-custom-dependencies-to-changesets/index.html">
-        Injecting custom dependencies to changesets
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
       </a>
     
   </h7>
 
-          <nav class="Injecting custom dependencies to changesets">
+          <nav class="Custom injections">
             
           </nav>
          
@@ -470,13 +470,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring-profiles/index.html">
-        Spring profiles
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
       </a>
     
   </h7>
 
-          <nav class="Spring profiles">
+          <nav class="Spring features">
             
           </nav>
          
@@ -484,13 +484,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/further-configuration/index.html">
-        Further configuration
+      <a class="menu-item "  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
       </a>
     
   </h7>
 
-          <nav class="Further configuration">
+          <nav class="Advanced configuration">
             
           </nav>
          
@@ -512,20 +512,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/validations/index.html">
-        Validations
-      </a>
-    
-  </h7>
-
-          <nav class="Validations">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/reactive/index.html">
         Reactive
       </a>
@@ -540,20 +526,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/recovery/index.html">
-        Recovery
-      </a>
-    
-  </h7>
-
-          <nav class="Recovery">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/events/index.html">
         Events
       </a>
@@ -561,20 +533,6 @@ function changeVersion() {
   </h7>
 
           <nav class="Events">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
-      <a class="menu-item "  href="/v4/undo/index.html">
-        Undo
-      </a>
-    
-  </h7>
-
-          <nav class="Undo">
             
           </nav>
          
@@ -613,7 +571,7 @@ function changeVersion() {
 
       <article>
         <h1 id="runner"><a class="header-anchor" href="#runner">#</a> Runner</h1>
-<p>In <a href="main-concepts.md#driver">Main concepts</a> we already mentioned the concept of <strong>runners</strong>. Runners are the ones dealing with the process logic and framework.</p>
+<p>In <a href="/v4/main-concepts#runner">Main concepts</a> we already mentioned the concept of <strong>runners</strong>. Runners are the ones dealing with the process logic and framework.</p>
 <h2 id="motivation"><a class="header-anchor" href="#motivation">#</a> Motivation</h2>
 <p>While Mongock standalone could be run with any framework, it would be nice that the user has some kind of adaption to take advantage of the underlying frameworks, for any relevant framework in the market. For example, in Spring, been able to use the Spring context, profiles or property files, etc. And once having that, it would be ideal for the user to be able to use version of Mongock adapted to the specific framework's version he is using and once a new version come up and he decide to not upgrade, still having support for the legacy version.</p>
 <p>This is the goal of Mongock runners. Currently Mongock only provides support for standalone(which can be run in any framework) and Spring 5, but the objective is to provide support for any relevant framework in the market.</p>
@@ -626,7 +584,7 @@ function changeVersion() {
 <p>It does not used any framework support for its execution. Ideally when running standalone Java applications, you want to have all the control of the Mongock instance and when it's executed or when you are using a framework for which there is no specific Mongock runner, you can use Mongock standalone while we develop it.</p>
 <h3 id="mongock-spring-v5-runner"><a class="header-anchor" href="#mongock-spring-v5-runner">#</a> Mongock Spring v5 runner</h3>
 <p>Based on Spring 5 and Spring Boot 2, its objetive to provide the easiest way to run Mongock with it. It provide support for Spring profiles, context, properties, annotation approach based on Spring configuration, etc.</p>
-<p>Unlike Mongock standalone, it provides two building approach: the traditional builder approach and annotation approach(<strong>@EnabbleMongock</strong>)</p>
+<p>Unlike Mongock standalone, it provides two building approach: the traditional builder approach and annotation approach(<strong>@EnableMongock</strong>)</p>
 <h2 id="building-time%3A-runner"><a class="header-anchor" href="#building-time%3A-runner">#</a> Building time: Runner</h2>
 <p>When use it the annotation approach, you just need to import the required Mongock runner dependency, annotate your SpringBootApplication with <strong>@EnableMongock</strong> and everything is done for you.  All the configuration should be provided via properties file.</p>
 <p>However, if you opt for the manual builder approach, you need to build the runner yourself by using Mongock builder</p>
@@ -647,68 +605,68 @@ function changeVersion() {
 <td style="text-align:left">mandatory. At least one.</td>
 <td style="text-align:left">List&lt;String&gt;</td>
 <td style="text-align:left">Instructs Mongock where to find the changeLog classes.</td>
-<td style="text-align:left"><a href="changelogs.md">link</a></td>
+<td style="text-align:left"><a href="/v4/changelogs">link</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>springContext</strong></td>
 <td style="text-align:left">mandatory for Spring</td>
 <td style="text-align:left">ApplicationContext</td>
 <td style="text-align:left">Sets the spring Application context for bean injections into ChangeSet methods. It's where the custom beans, MongoTemplate, profiles, etc. is take from.</td>
-<td style="text-align:left"><a href="further-configuration.md#spring-context">link</a></td>
+<td style="text-align:left"><a href="/v4/advanced-configuration#spring-context">link</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>metadata</strong></td>
 <td style="text-align:left">null</td>
 <td style="text-align:left">Map&lt;String, Object&gt;</td>
 <td style="text-align:left">Custom data attached to the migration. It will added to all changes in changeLog collection</td>
-<td style="text-align:left"><a href="further-configuration.md#metadata">link</a></td>
+<td style="text-align:left"><a href="/v4/advanced-configuration#metadata">link</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>startSystemVersion</strong></td>
 <td style="text-align:left">&quot;0&quot;</td>
 <td style="text-align:left">String</td>
 <td style="text-align:left">System version to start with</td>
-<td style="text-align:left"><a href="further-configuration.md#systemversion">link</a></td>
+<td style="text-align:left"><a href="/v4/advanced-configuration#systemversion">link</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>endSystemVersions</strong></td>
 <td style="text-align:left">MAX_VALUE</td>
 <td style="text-align:left">String</td>
 <td style="text-align:left">System version to end with.</td>
-<td style="text-align:left"><a href="further-configuration.md#systemversion">link</a></td>
+<td style="text-align:left"><a href="/v4/advanced-configuration#systemversion">link</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>throwExceptionIfCannot</strong>....</td>
 <td style="text-align:left">true</td>
 <td style="text-align:left">boolean</td>
 <td style="text-align:left">Mongock will throw MongockException if lock can not be obtained. Builder method <strong>setLockConfig</strong></td>
-<td style="text-align:left"><a href="lock-1.md">link</a></td>
+<td style="text-align:left"><a href="/v4/lock">link</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>legacyMigration</strong></td>
 <td style="text-align:left">null</td>
 <td style="text-align:left">Object</td>
 <td style="text-align:left">Configuration related to migrate from legacy systems.</td>
-<td style="text-align:left"><a href="legacy-migration.md">link</a></td>
+<td style="text-align:left"><a href="/v4/legacy-migration">link</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>trackIgnored</strong></td>
 <td style="text-align:left">false</td>
 <td style="text-align:left">boolean</td>
 <td style="text-align:left">Specifies if ignored changeSets(already executed, etc.) should be track in the changeLog collection with <strong>IGNORED</strong> status</td>
-<td style="text-align:left"><a href="further-configuration.md#trackignored">link</a></td>
+<td style="text-align:left"><a href="/v4/advanced-configuration#trackignored">link</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>enabled</strong></td>
 <td style="text-align:left">true</td>
 <td style="text-align:left">boolean</td>
 <td style="text-align:left">If false, will disable Mongock execution</td>
-<td style="text-align:left"><a href="further-configuration.md#enable">link</a></td>
+<td style="text-align:left"><a href="/v4/advanced-configuration#enable">link</a></td>
 </tr>
 </tbody>
 </table>
-<div style="warning">
-When using the builder method **setLockConfig**, which takes lockAcquiredForMinutes, maxWaitingForLockMinutes and maxTries as parameters, **will implicitly set throwExceptionIfCannotObtainLock to true.**
+<div class="tip">
+When using the builder method <b>setLockConfig</b>, which takes lockAcquiredForMinutes, maxWaitingForLockMinutes and maxTries as parameters, <b>will implicitly set throwExceptionIfCannotObtainLock to true.</b>
 </div>
 <p><em><strong>Properties</strong></em></p>
 <pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">change-logs-scan-package</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token punctuation">-</span> com.github.cloudyrock.mongock<span class="token punctuation">...</span>changelogs.client.initializer</div><div class="highlight-line">    <span class="token punctuation">-</span> com.github.cloudyrock.mongock<span class="token punctuation">...</span>changelogs.client.updater</div><div class="highlight-line">  <span class="token key atrule">metadata</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token key atrule">change-motivation</span><span class="token punctuation">:</span> Missing field in collection</div><div class="highlight-line">    <span class="token key atrule">decided-by</span><span class="token punctuation">:</span> Tom Waugh</div><div class="highlight-line">  <span class="token key atrule">start-system-version</span><span class="token punctuation">:</span> <span class="token number">1.3</span></div><div class="highlight-line">  <span class="token key atrule">end-system-version</span><span class="token punctuation">:</span> <span class="token number">6.4</span></div><div class="highlight-line">  <span class="token key atrule">lock-acquired-for-minutes</span><span class="token punctuation">:</span> <span class="token number">10</span></div><div class="highlight-line">  <span class="token key atrule">max-waiting-for-lock-minutes</span><span class="token punctuation">:</span> <span class="token number">4</span></div><div class="highlight-line">  <span class="token key atrule">max-tries</span><span class="token punctuation">:</span> <span class="token number">5</span></div><div class="highlight-line">  <span class="token key atrule">throw-exception-if-cannot-obtain-lock</span><span class="token punctuation">:</span> <span class="token boolean important">true</span></div><div class="highlight-line">  <span class="token key atrule">legacy-migration</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token key atrule">origin</span><span class="token punctuation">:</span> mongobeeChangeLogCollection</div><div class="highlight-line">    <span class="token key atrule">mapping-fields</span><span class="token punctuation">:</span></div><div class="highlight-line">      <span class="token key atrule">change-id</span><span class="token punctuation">:</span> legacyChangeIdField</div><div class="highlight-line">      <span class="token key atrule">author</span><span class="token punctuation">:</span> legacyAuthorField</div><div class="highlight-line">      <span class="token key atrule">timestamp</span><span class="token punctuation">:</span> legacyTimestampField</div><div class="highlight-line">      <span class="token key atrule">change-log-class</span><span class="token punctuation">:</span> legacyChangeLogClassField</div><div class="highlight-line">      <span class="token key atrule">change-set-method</span><span class="token punctuation">:</span> legacyChangeSetMethodField</div><div class="highlight-line">  <span class="token key atrule">track-ignored</span><span class="token punctuation">:</span> <span class="token boolean important">true</span></div><div class="highlight-line">  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span></div></code></pre>
@@ -716,7 +674,6 @@ When using the builder method **setLockConfig**, which takes lockAcquiredForMinu
 <pre class="language-java"><code class="language-java"><div class="highlight-line">builder</div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.initializer"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.updater"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setSpringContext</span><span class="token punctuation">(</span>springContext<span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">withMetadata</span><span class="token punctuation">(</span></div><div class="highlight-line">        <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setStartSystemVersion</span><span class="token punctuation">(</span><span class="token string">"1.3"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setEndSystemVersion</span><span class="token punctuation">(</span><span class="token string">"6.4"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setLockConfig</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setLegacyMigration</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MongockLegacyMigration</span><span class="token punctuation">(</span></div><div class="highlight-line">        <span class="token string">"mongobeeChangeLogCollection"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token string">"legacyChangeIdField"</span><span class="token punctuation">,</span> <span class="token string">"legacyAuthorField"</span><span class="token punctuation">,</span> <span class="token string">"legacyTimestampField"</span><span class="token punctuation">,</span> <span class="token string">"legacyChangeLogClassField"</span><span class="token punctuation">,</span> <span class="token string">"legacyChangeSetMethodField"</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setTrackIgnored</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setEnabled</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span></div><div class="highlight-line"></div></code></pre>
 <p><em><strong>Standalone</strong></em></p>
 <pre class="language-java"><code class="language-java"><div class="highlight-line">builder</div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.initializer"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.updater"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">withMetadata</span><span class="token punctuation">(</span></div><div class="highlight-line">        <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setStartSystemVersion</span><span class="token punctuation">(</span><span class="token string">"1.3"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setEndSystemVersion</span><span class="token punctuation">(</span><span class="token string">"6.4"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setLockConfig</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setLegacyMigration</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MongockLegacyMigration</span><span class="token punctuation">(</span></div><div class="highlight-line">        <span class="token string">"mongobeeChangeLogCollection"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token string">"legacyChangeIdField"</span><span class="token punctuation">,</span> <span class="token string">"legacyAuthorField"</span><span class="token punctuation">,</span> <span class="token string">"legacyTimestampField"</span><span class="token punctuation">,</span> <span class="token string">"legacyChangeLogClassField"</span><span class="token punctuation">,</span> <span class="token string">"legacyChangeSetMethodField"</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setTrackIgnored</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setEnabled</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<h2 id=""><a class="header-anchor" href="#">#</a> </h2>
 
       </article>
     </main>

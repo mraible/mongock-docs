@@ -400,13 +400,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring/index.html">
-        Spring
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
       </a>
     
   </h7>
 
-          <nav class="Spring">
+          <nav class="Driver">
             
           </nav>
          
@@ -414,13 +414,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/standalone/index.html">
-        Standalone
+      <a class="menu-item "  href="/v4/runner/index.html">
+        Runner
       </a>
     
   </h7>
 
-          <nav class="Standalone">
+          <nav class="Runner">
             
           </nav>
          
@@ -428,13 +428,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/compatibility-versions-table/index.html">
-        Compatibility versions table
+      <a class="menu-item "  href="/v4/compatibility/index.html">
+        Compatibility
       </a>
     
   </h7>
 
-          <nav class="Compatibility versions table">
+          <nav class="Compatibility">
             
           </nav>
          
@@ -456,13 +456,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/injecting-custom-dependencies-to-changesets/index.html">
-        Injecting custom dependencies to changesets
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
       </a>
     
   </h7>
 
-          <nav class="Injecting custom dependencies to changesets">
+          <nav class="Custom injections">
             
           </nav>
          
@@ -470,13 +470,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring-profiles/index.html">
-        Spring profiles
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
       </a>
     
   </h7>
 
-          <nav class="Spring profiles">
+          <nav class="Spring features">
             
           </nav>
          
@@ -484,13 +484,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/further-configuration/index.html">
-        Further configuration
+      <a class="menu-item "  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
       </a>
     
   </h7>
 
-          <nav class="Further configuration">
+          <nav class="Advanced configuration">
             
           </nav>
          
@@ -512,20 +512,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/validations/index.html">
-        Validations
-      </a>
-    
-  </h7>
-
-          <nav class="Validations">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/reactive/index.html">
         Reactive
       </a>
@@ -540,20 +526,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/recovery/index.html">
-        Recovery
-      </a>
-    
-  </h7>
-
-          <nav class="Recovery">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/events/index.html">
         Events
       </a>
@@ -561,20 +533,6 @@ function changeVersion() {
   </h7>
 
           <nav class="Events">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
-      <a class="menu-item "  href="/v4/undo/index.html">
-        Undo
-      </a>
-    
-  </h7>
-
-          <nav class="Undo">
             
           </nav>
          
@@ -615,13 +573,13 @@ function changeVersion() {
         <h1 id="main-concepts"><a class="header-anchor" href="#main-concepts">#</a> Main concepts</h1>
 <p>This page explains all the essential concepts you will need to know to understand what Mongock is and how it works.</p>
 <h2 id="mongock-structure"><a class="header-anchor" href="#mongock-structure">#</a> Mongock structure</h2>
-<p>Mongock, as <a href="./#what-is-changock">Changock</a> specialisation for MongoDB,  consists in 3 main type of objects: ChangeLogs, driver and runner. Builders are simply used to configure and build these 3 components.</p>
+<p>Mongock consists in 3 main type of objects: ChangeLogs, driver and runner. Builders are simply used to configure and build these 3 components.</p>
 <h2 id="changelogs"><a class="header-anchor" href="#changelogs">#</a> ChangeLogs</h2>
-<p>A Mongock executable process a set of <strong>changeLogs</strong>, which are the classes that will contain the actual migration. A <strong>changeLog</strong> consists in a bunch of methods called <strong>changeSet</strong>, which is a single task (set of instructions made on a database)<strong>.</strong> In other words a changeLog is a class annotated with <code>@ChangeLog</code> and containing methods annotated with <code>@ChangeSet.</code>ChangeLogs will be explained further in <a href="changelogs.md">Creating changeLogs</a></p>
+<p>A Mongock executable process a set of <strong>changeLogs</strong>, which are the classes that will contain the actual migration. A <strong>changeLog</strong> consists in a bunch of methods called <strong>changeSet</strong>, which is a single task (set of instructions made on a database)<strong>.</strong> In other words a changeLog is a class annotated with <code>@ChangeLog</code> and containing methods annotated with <code>@ChangeSet.</code>ChangeLogs will be explained further in <a href="/v4/changelogs">Creating changeLogs</a></p>
 <p>We recommend to read our best practices for creating and designing changeLogs.</p>
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeLog</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClientInitializerChangeLog</span> <span class="token punctuation">{</span></div><div class="highlight-line"></div><div class="highlight-line">    <span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>id <span class="token operator">=</span> <span class="token string">"data-initializer"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token string">"001"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token class-name">ClientInitializer</span><span class="token punctuation">(</span><span class="token class-name">ClientRepository</span> clientRepository<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Client</span><span class="token punctuation">></span></span> clients <span class="token operator">=</span> <span class="token class-name">IntStream</span><span class="token punctuation">.</span><span class="token function">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> INITIAL_CLIENTS<span class="token punctuation">)</span></div><div class="highlight-line">                <span class="token punctuation">.</span><span class="token function">mapToObj</span><span class="token punctuation">(</span>i <span class="token operator">-></span> <span class="token keyword">new</span> <span class="token class-name">Client</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">                <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">        clientRepository<span class="token punctuation">.</span><span class="token function">saveAll</span><span class="token punctuation">(</span>clients<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
 <h2 id="driver"><a class="header-anchor" href="#driver">#</a> Driver</h2>
-<p>This is the Changock's driver concept taken to a lower level: MongoDB version, MongoDB Java driver and library. The driver is responsible for dealing with the specific database driver or library wrapping the database access such as <a href="https://spring.io/projects/spring-data-mongodb">Spring data</a>. Currently Mongock provides the following drivers:</p>
+<p>This is the Mongock's driver concept taken to a lower level: MongoDB version, MongoDB Java driver and library. The driver is responsible for dealing with the specific database driver or library wrapping the database access such as <a href="https://spring.io/projects/spring-data-mongodb">Spring data</a>. Currently Mongock provides the following drivers:</p>
 <ul>
 <li>mongodb-v3-driver</li>
 <li>mongodb-sync-v4-driver</li>
@@ -629,24 +587,24 @@ function changeVersion() {
 <li>mongodb-springdata-v3-driver</li>
 </ul>
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">MongockConnectionDriver</span> driver <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SpringDataMongo3Driver</span><span class="token punctuation">(</span>mongoTemplate<span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<p>Although one of the main goals of this is to keep providing support for legacy drivers, while continue adding new drivers, once a new version(for example sync-4-driver) is added, the legacy one(v3-driver) will be still supported, but not evolved, meaning this that we won't provide any new feature for it, just bug fixes. However the level of support will depend on the type of Mongock edition you are using. Please take a look to <a href="">support policy</a>.</p>
+<p>Although one of the main goals of this is to keep providing support for legacy drivers, while continue adding new drivers, once a new version(for example sync-4-driver) is added, the legacy one(v3-driver) will be still supported, but not evolved, meaning this that we won't provide any new feature for it, just bug fixes.</p>
 <h2 id="runner"><a class="header-anchor" href="#runner">#</a> Runner</h2>
-<p>This is also the same Changock concept, just specialised for MongoDB. Runners are the ones dealing with the process logic and framework. For example, there is a runner for Java standalone applications(with no framework at all) or for specific frameworks(and versions), if it's needed or useful. Currently Mongock provides the following runners:</p>
+<p>This is also the same Mongock concept, just specialised for MongoDB. Runners are the ones dealing with the process logic and framework. For example, there is a runner for Java standalone applications(with no framework at all) or for specific frameworks(and versions), if it's needed or useful. Currently Mongock provides the following runners:</p>
 <ul>
 <li>mongock-standalone</li>
 <li>mongock-spring-v5</li>
 </ul>
-<p>As drivers, legacy versions of the same driver will be supported(subscribed to the support policy applied), but won't be enhanced. Please take a look to <a href="">support policy</a>.</p>
-<div style="success">
-When using MongockStandalone, once you have built the runner instance,  you need to run it manually with **`runner.execute()`**
+<p>As drivers, legacy versions of the same driver will be supported(subscribed to the support policy applied), but won't be enhanced.</p>
+<div class="tip">
+When using MongockStandalone, once you have built the runner instance,  you will need to run it manually with <b>runner.execute()</b>
 </div>
 <h2 id="builder"><a class="header-anchor" href="#builder">#</a> Builder</h2>
-<p>Once again, it's the same as the Changock concept: The mechanism to build a Mongock instance(with the specific driver) to process your migrations.</p>
-<p>In version 4 we have added a new approach in Spring based on annotation that makes all the work for you. However, if you need to have more control over the bean creation or you are not using Spring or any other reason, you still have the manual builder approach available.</p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Spring 5 ApplicationRunner</span></div><div class="highlight-line"><span class="token class-name">MongockSpring5</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span><span class="token function">getDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackages</span><span class="token punctuation">(</span><span class="token string">"changelogs_package_path"</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setSpringContext</span><span class="token punctuation">(</span>springContext<span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">buildApplicationRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Spring 5 InitializingBean</span></div><div class="highlight-line"><span class="token class-name">MongockSpring5</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span><span class="token function">getDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackages</span><span class="token punctuation">(</span><span class="token string">"changelogs_package_path"</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setSpringContext</span><span class="token punctuation">(</span>springContext<span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">buildInitializingBeanRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Standalone</span></div><div class="highlight-line"><span class="token class-name">MongockStandalone<span class="token punctuation">.</span>Runner</span> runner <span class="token operator">=</span> <span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span><span class="token function">getDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"changelogs_package_path"</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">buildRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token comment">// when using standalone runner, you need to run it manually</span></div><div class="highlight-line">runner<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<div style="info">
+<p>Once again, it's the same as the Mongock concept: The mechanism to build a Mongock instance(with the specific driver) to process your migrations.</p>
+<p>In version 4, we have added a new approach in Spring based on annotation that makes all the work for you. However, if you need to have more control over the bean creation or you are not using Spring or any other reason, you still have the manual builder approach available.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Spring 5 ApplicationRunner Example</span></div><div class="highlight-line"><span class="token class-name">MongockSpring5</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span><span class="token function">getDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackages</span><span class="token punctuation">(</span><span class="token string">"changelogs_package_path"</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setSpringContext</span><span class="token punctuation">(</span>springContext<span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">buildApplicationRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Spring 5 InitializingBean Example</span></div><div class="highlight-line"><span class="token class-name">MongockSpring5</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span><span class="token function">getDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackages</span><span class="token punctuation">(</span><span class="token string">"changelogs_package_path"</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setSpringContext</span><span class="token punctuation">(</span>springContext<span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">buildInitializingBeanRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Standalone Example</span></div><div class="highlight-line"><span class="token class-name">MongockStandalone<span class="token punctuation">.</span>Runner</span> runner <span class="token operator">=</span> <span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span><span class="token function">getDriver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"changelogs_package_path"</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">buildRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token comment">// when using standalone runner, you need to run it manually</span></div><div class="highlight-line">runner<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<div class="tip">
 Annotation approach is the recommended way when using Spring, however you still have the builder approach if you need more control, you are not using Spring or simply you are more comfortable with it.
 </div>
 

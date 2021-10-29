@@ -400,13 +400,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring/index.html">
-        Spring
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
       </a>
     
   </h7>
 
-          <nav class="Spring">
+          <nav class="Driver">
             
           </nav>
          
@@ -414,13 +414,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/standalone/index.html">
-        Standalone
+      <a class="menu-item "  href="/v4/runner/index.html">
+        Runner
       </a>
     
   </h7>
 
-          <nav class="Standalone">
+          <nav class="Runner">
             
           </nav>
          
@@ -428,13 +428,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/compatibility-versions-table/index.html">
-        Compatibility versions table
+      <a class="menu-item current-page"  href="/v4/compatibility/index.html">
+        Compatibility
       </a>
     
   </h7>
 
-          <nav class="Compatibility versions table">
+          <nav class="Compatibility">
             
           </nav>
          
@@ -456,13 +456,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/injecting-custom-dependencies-to-changesets/index.html">
-        Injecting custom dependencies to changesets
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
       </a>
     
   </h7>
 
-          <nav class="Injecting custom dependencies to changesets">
+          <nav class="Custom injections">
             
           </nav>
          
@@ -470,13 +470,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v4/spring-profiles/index.html">
-        Spring profiles
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
       </a>
     
   </h7>
 
-          <nav class="Spring profiles">
+          <nav class="Spring features">
             
           </nav>
          
@@ -484,13 +484,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/further-configuration/index.html">
-        Further configuration
+      <a class="menu-item "  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
       </a>
     
   </h7>
 
-          <nav class="Further configuration">
+          <nav class="Advanced configuration">
             
           </nav>
          
@@ -512,20 +512,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/validations/index.html">
-        Validations
-      </a>
-    
-  </h7>
-
-          <nav class="Validations">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/reactive/index.html">
         Reactive
       </a>
@@ -540,20 +526,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/recovery/index.html">
-        Recovery
-      </a>
-    
-  </h7>
-
-          <nav class="Recovery">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/events/index.html">
         Events
       </a>
@@ -561,20 +533,6 @@ function changeVersion() {
   </h7>
 
           <nav class="Events">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
-      <a class="menu-item "  href="/v4/undo/index.html">
-        Undo
-      </a>
-    
-  </h7>
-
-          <nav class="Undo">
             
           </nav>
          
@@ -612,36 +570,345 @@ function changeVersion() {
 </aside>
 
       <article>
-        <h1 id="spring-specific-features"><a class="header-anchor" href="#spring-specific-features">#</a> Spring specific features</h1>
-<h2 id="mongocktemplate"><a class="header-anchor" href="#mongocktemplate">#</a> MongockTemplate</h2>
-<p>As mentioned in  <a href="changelogs.md">ChangeLogs</a> section, when using Spring, you must use <strong>MongockTemplate,</strong> instead of Spring MongoTemplate. <strong>MongockTemplate</strong> is just a decorator/wrapper providing exactly the same API than MongoTemplate, but ensuring your changes are correctly synchronised.</p>
-<p>You can find the technical reason behind in the <a href="lock-1.md">Lock</a> section.</p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"005"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeWithMongockTemplate"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">changeWithMongockTemplate</span><span class="token punctuation">(</span><span class="token class-name">MongockTemplate</span> mongockTemplate<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  mongockTemplate<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MyEntity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
-<h2 id="profiles"><a class="header-anchor" href="#profiles">#</a> Profiles</h2>
-<p><strong>Mongock</strong> accepts Spring's <code>org.springframework.context.annotation.Profile</code> annotation. If a changeLog or changeSet class is annotated with <code>@Profile</code>, then it is activated for current application profiles.</p>
-<div style="success">
-Mongock will automatically pick the active profiles from the Spring `ApplicationContext` . Then you only need to annotate your changeLogs and changeSets.
-</div>
-<p><strong>Annotating ChangeLogs and ChangeSets with Profile</strong></p>
-<p><em><strong>Example 1</strong></em>: annotated changeSet will be invoked for a <code>dev</code> profile</p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@Profile</span><span class="token punctuation">(</span><span class="token string">"dev"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeSetForDevOnly"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token string">"01"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">changeSetForDevOnly</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span><span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">// ...</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
-<p><em><strong>Example 2</strong></em>: all change sets in a changeLog will be invoked for a <code>test</code> profile</p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeLog</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@Profile</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> changeLogForTestOnly<span class="token punctuation">{</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeSetForTestOnly"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token string">"01"</span><span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">changeSetForTestOnly</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span><span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token comment">// ...</span></div><div class="highlight-line">  <span class="token punctuation">}</span> </div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
-<div style="info">
-Mongock will support in next versions the new Profile expression approach from Spring. Please check our [roadmap]()
-</div>
-<h2 id="applicationrunner-vs-initializingbean"><a class="header-anchor" href="#applicationrunner-vs-initializingbean">#</a> ApplicationRunner vs InitializingBean</h2>
-<p>When using Spring runner, you choose what type of bean you want to build; Spring <a href="https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/ApplicationRunner.html">ApplicationRunner</a> bean or a <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/InitializingBean.html">InitializingBean</a>.</p>
-<p><strong>With annotation approach:</strong></p>
-<p><em><strong>ApplicationRunner</strong></em></p>
-<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">change-logs-scan-package</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token punctuation">-</span> com.github.cloudyrock.mongock<span class="token punctuation">...</span>changelogs.client.initializer</div><div class="highlight-line">  <span class="token key atrule">runner-type</span><span class="token punctuation">:</span> applicationrunner</div></code></pre>
-<p><em><strong>InitializingBean</strong></em></p>
-<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">change-logs-scan-package</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token punctuation">-</span> com.github.cloudyrock.mongock<span class="token punctuation">...</span>changelogs.client.initializer</div><div class="highlight-line">  <span class="token key atrule">runner-type</span><span class="token punctuation">:</span> initializingbean</div></code></pre>
-<p><strong>With traditional builder approach:</strong></p>
-<p><em><strong>ApplicationRunner</strong></em></p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">MongockSpring5</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"changelogs.package.path"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token comment">//...</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">buildApplicationRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<p><em><strong>InitializingBean</strong></em></p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">MongockSpring5</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.initializer"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token comment">//...</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">buildInitializingBeanRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+        <h1 id="version-compatibility-table"><a class="header-anchor" href="#version-compatibility-table">#</a> Version compatibility table</h1>
+<h2 id="runner-compatibility-versions"><a class="header-anchor" href="#runner-compatibility-versions">#</a> Runner compatibility versions</h2>
+<h3 id="mongock-spring-5-runner"><a class="header-anchor" href="#mongock-spring-5-runner">#</a> Mongock Spring 5 runner</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Mongock Version</th>
+      <th style="text-align:left">Spring Version</th>
+      <th style="text-align:left">Spring boot Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">&lt;4.2.8.BETA</td>
+      <td style="text-align:left">5.2.6.RELEASE</td>
+      <td style="text-align:left">2.2.12.RELEASE</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">&gt;=4.2.8.BETA</td>
+      <td style="text-align:left"> 5.2.12.RELEASE</td>
+      <td style="text-align:left">2.3.7.RELEASE</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="mongock-standalone-runner"><a class="header-anchor" href="#mongock-standalone-runner">#</a> Mongock Standalone runner</h3>
+<p>This runner doesn't depend on any framework</p>
+<h2 id="driver-compatibility-versions"><a class="header-anchor" href="#driver-compatibility-versions">#</a> Driver compatibility versions</h2>
+<h3 id="mongock-spring-data-v3-driver"><a class="header-anchor" href="#mongock-spring-data-v3-driver">#</a> Mongock Spring Data v3 driver</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">
+        <p>Mongock</p>
+        <p>Spring 5
+          <br />runner</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p></p>
+      </th>
+      <th style="text-align:left">Spring boot</th>
+      <th style="text-align:left">
+        <p>MongoDB</p>
+        <p>driver
+          <br />sync</p>
+        <p>version 4</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p>Data</p>
+        <p>version 3</p>
+      </th>
+      <th style="text-align:left">
+        <p>MongoDB</p>
+        <p>java</p>
+        <p>driver</p>
+        <p>Version 3</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p>Data</p>
+        <p>version 2</p>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>&lt;4.2.8.BETA</b>
+      </td>
+      <td style="text-align:left">
+        <p><b>5.2.6.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left">
+        <p><b>2.2.12.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left"><b>4.0.2</b>
+      </td>
+      <td style="text-align:left">
+        <p><b>3.0.0.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>&gt;=4.2.8.BETA</b>
+      </td>
+      <td style="text-align:left">
+        <p><b>5.2.12.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left">
+        <p><b>2.3.7.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left"><b>4.0.5</b>
+      </td>
+      <td style="text-align:left">
+        <p><b>3.0.6.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="mongock-spring-data-v2-driver"><a class="header-anchor" href="#mongock-spring-data-v2-driver">#</a> Mongock Spring Data v2 driver</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">
+        <p>Mongock</p>
+        <p>Spring 5
+          <br />runner</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p></p>
+      </th>
+      <th style="text-align:left">Spring boot</th>
+      <th style="text-align:left">
+        <p>MongoDB</p>
+        <p>driver
+          <br />sync</p>
+        <p>version 4</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p>Data</p>
+        <p>version 3</p>
+      </th>
+      <th style="text-align:left">
+        <p>MongoDB</p>
+        <p>java</p>
+        <p>driver</p>
+        <p>Version 3</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p>Data</p>
+        <p>version 2</p>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>&lt;4.2.8.BETA</b>
+      </td>
+      <td style="text-align:left">
+        <p><b>5.2.6.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left">
+        <p><b>2.2.12.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"><b>3.11.0</b>
+      </td>
+      <td style="text-align:left">
+        <p><b>2.2.6.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>&gt;=4.2.8.BETA</b>
+      </td>
+      <td style="text-align:left">
+        <p><b>5.2.12.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left">
+        <p><b>2.3.7.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"><b>3.11.2</b>
+      </td>
+      <td style="text-align:left">
+        <p><b>2.2.12.</b>
+        </p>
+        <p><b>RELEASE</b>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="mongock-mongodb-sync-v4-driver"><a class="header-anchor" href="#mongock-mongodb-sync-v4-driver">#</a> Mongock MongoDB sync v4 driver</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">
+        <p>Mongock</p>
+        <p>Spring 5
+          <br />runner</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p></p>
+      </th>
+      <th style="text-align:left">Spring boot</th>
+      <th style="text-align:left">
+        <p>MongoDB</p>
+        <p>driver
+          <br />sync</p>
+        <p>version 4</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p>Data</p>
+        <p>version 3</p>
+      </th>
+      <th style="text-align:left">
+        <p>MongoDB</p>
+        <p>java</p>
+        <p>driver</p>
+        <p>Version 3</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p>Data</p>
+        <p>version 2</p>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>&lt;4.2.8.BETA</b>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"><b>4.0.2</b>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>&gt;=4.2.8.BETA</b>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"><b>4.0.5</b>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="mongock-mongodb-v3-driver"><a class="header-anchor" href="#mongock-mongodb-v3-driver">#</a> Mongock MongoDB v3 driver</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">
+        <p>Mongock</p>
+        <p>Version</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p></p>
+      </th>
+      <th style="text-align:left">Spring boot</th>
+      <th style="text-align:left">
+        <p>MongoDB</p>
+        <p>driver
+          <br />sync</p>
+        <p>version 4</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p>Data</p>
+        <p>version 3</p>
+      </th>
+      <th style="text-align:left">
+        <p>MongoDB</p>
+        <p>java</p>
+        <p>driver</p>
+        <p>Version 3</p>
+      </th>
+      <th style="text-align:left">
+        <p>Spring</p>
+        <p>Data</p>
+        <p>version 2</p>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><b>&lt;4.2.8.BETA</b>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"><b>3.11.0</b>
+      </td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><b>&gt;=4.2.8.BETA</b>
+      </td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"><b>3.11.2</b>
+      </td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id=""><a class="header-anchor" href="#">#</a> </h2>
 
       </article>
     </main>

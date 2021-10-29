@@ -400,13 +400,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring/index.html">
-        Spring
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
       </a>
     
   </h7>
 
-          <nav class="Spring">
+          <nav class="Driver">
             
           </nav>
          
@@ -414,13 +414,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/standalone/index.html">
-        Standalone
+      <a class="menu-item "  href="/v4/runner/index.html">
+        Runner
       </a>
     
   </h7>
 
-          <nav class="Standalone">
+          <nav class="Runner">
             
           </nav>
          
@@ -428,13 +428,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/compatibility-versions-table/index.html">
-        Compatibility versions table
+      <a class="menu-item "  href="/v4/compatibility/index.html">
+        Compatibility
       </a>
     
   </h7>
 
-          <nav class="Compatibility versions table">
+          <nav class="Compatibility">
             
           </nav>
          
@@ -456,13 +456,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/injecting-custom-dependencies-to-changesets/index.html">
-        Injecting custom dependencies to changesets
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
       </a>
     
   </h7>
 
-          <nav class="Injecting custom dependencies to changesets">
+          <nav class="Custom injections">
             
           </nav>
          
@@ -470,13 +470,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring-profiles/index.html">
-        Spring profiles
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
       </a>
     
   </h7>
 
-          <nav class="Spring profiles">
+          <nav class="Spring features">
             
           </nav>
          
@@ -484,13 +484,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/further-configuration/index.html">
-        Further configuration
+      <a class="menu-item "  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
       </a>
     
   </h7>
 
-          <nav class="Further configuration">
+          <nav class="Advanced configuration">
             
           </nav>
          
@@ -512,20 +512,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/validations/index.html">
-        Validations
-      </a>
-    
-  </h7>
-
-          <nav class="Validations">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/reactive/index.html">
         Reactive
       </a>
@@ -540,20 +526,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/recovery/index.html">
-        Recovery
-      </a>
-    
-  </h7>
-
-          <nav class="Recovery">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/events/index.html">
         Events
       </a>
@@ -561,20 +533,6 @@ function changeVersion() {
   </h7>
 
           <nav class="Events">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
-      <a class="menu-item "  href="/v4/undo/index.html">
-        Undo
-      </a>
-    
-  </h7>
-
-          <nav class="Undo">
             
           </nav>
          
@@ -620,18 +578,15 @@ function changeVersion() {
 <li>Annotate your changeSet methods by <strong>@ChangeSet</strong></li>
 <li>Tell Mongock where your changeLog classes are by providing the changeLog scan package(you can specify more than one)</li>
 </ol>
-<div class="success">
-When using Spring, you must use **MongockTemplate,** instead of Spring MongoTemplate. MongockTemplate is just a decorator/wrapper providing exactly the same API than MongoTemplate, but ensuring your changes are correctly synchronised. 
-</div>
-<div class="success">
-Please take a look the [Best practices]() section for design decisions.  
+<div class="tip">
+When using Spring, you must use <b>MongockTemplate</b>, instead of Spring MongoTemplate. MongockTemplate is just a decorator/wrapper providing exactly the same API than MongoTemplate, but ensuring your changes are correctly synchronised. 
 </div>
 <h2 id="%40changelog"><a class="header-anchor" href="#%40changelog">#</a> @ChangeLog</h2>
-<p>Class with change sets must be annotated by <strong>@ChangeLog.</strong> As <strong>t</strong>here can be more than one changeLog , Mongock will use the <strong>order</strong> argument to decide how to sort them:</p>
+<p>Class with change sets must be annotated by <strong>@ChangeLog.</strong> As there can be more than one changeLog, Mongock will use the <strong>order</strong> argument to decide how to sort them:</p>
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeLog</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"001"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DatabaseChangelog</span> <span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">//...</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
 <h2 id="%40changeset"><a class="header-anchor" href="#%40changeset">#</a> @ChangeSet</h2>
 <p>Method annotated by <strong>@ChangeSet</strong> is taken and applied to the database. History of applied change sets is stored in a collection in your MongoDB.<br>
-This collection is called <strong>mongockChangeLog</strong> by default. You can instruct Mongock to use another name by configuration. Please refer to <a href="spring.md">Driver</a> page for more information.</p>
+This collection is called <strong>mongockChangeLog</strong> by default. You can instruct Mongock to use another name by configuration. Please refer to <a href="/v4/driver">Driver</a> page for more information.</p>
 <p>The <strong>@ChangeSet</strong> parameters are:</p>
 <table>
 <thead>
@@ -671,7 +626,7 @@ This collection is called <strong>mongockChangeLog</strong> by default. You can 
 <td style="text-align:left">systemVersion</td>
 <td style="text-align:left">String</td>
 <td style="text-align:center">&quot;0&quot;</td>
-<td style="text-align:left">Defines which SystemVersion the changeSet is linked to.  See <a href="">System Version</a> for more information.</td>
+<td style="text-align:left">Defines which SystemVersion the changeSet is linked to.</td>
 </tr>
 <tr>
 <td style="text-align:left">failFast</td>
@@ -688,7 +643,9 @@ This collection is called <strong>mongockChangeLog</strong> by default. You can 
 <p>The clients may be using different versions of the software at the same time. So when he installs the product in a customer, the changeSets need to be applied depending on the product version. With this solution, he can tag every changeSet with his product version and will tell Mongock which version range to apply.</p>
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"001"</span><span class="token punctuation">,</span>  systemVersion <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeToVersion1"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange1</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"002"</span><span class="token punctuation">,</span> systemVersion <span class="token operator">=</span> <span class="token string">"1.1"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeToVersion1.1"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange2</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"003"</span><span class="token punctuation">,</span> systemVersion <span class="token operator">=</span> <span class="token string">"2.5.1"</span> id <span class="token operator">=</span> <span class="token string">"changeToVersion2.5.1"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange3</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"004"</span><span class="token punctuation">,</span> systemVersion <span class="token operator">=</span> <span class="token string">"2.5.5"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeToVersion2.5.5"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange5</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"005"</span><span class="token punctuation">,</span> systemVersion <span class="token operator">=</span> <span class="token string">"2.6"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"changeToVersion2.6"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"mongock"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange6</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
 <p>When specifying versions you are able to upgrade to specific versions:</p>
+<p>Via Properties:</p>
 <pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">start-system-version</span><span class="token punctuation">:</span> <span class="token number">1</span></div><div class="highlight-line">  <span class="token key atrule">end-system-version</span><span class="token punctuation">:</span> 2.5.1</div></code></pre>
+<p>Or via Builder:</p>
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//When using Builder</span></div><div class="highlight-line">  mongockBuilder</div><div class="highlight-line">      <span class="token comment">//...</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setStartSystemVersion</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setEndSystemVersion</span><span class="token punctuation">(</span><span class="token string">"2.5.1"</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token comment">//... </span></div></code></pre>
 <p>This example will execute changeSet methods 1, 2 and 3, because the specified systemVersion in the changeSet should be greater equals the <strong>startSystemVersion</strong> and lower equals the <strong>endSystemVersion</strong>. In other words, both startSystemVersion and endSystemVersion are inclusive.</p>
 

@@ -400,13 +400,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring/index.html">
-        Spring
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
       </a>
     
   </h7>
 
-          <nav class="Spring">
+          <nav class="Driver">
             
           </nav>
          
@@ -414,13 +414,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/standalone/index.html">
-        Standalone
+      <a class="menu-item "  href="/v4/runner/index.html">
+        Runner
       </a>
     
   </h7>
 
-          <nav class="Standalone">
+          <nav class="Runner">
             
           </nav>
          
@@ -428,13 +428,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/compatibility-versions-table/index.html">
-        Compatibility versions table
+      <a class="menu-item "  href="/v4/compatibility/index.html">
+        Compatibility
       </a>
     
   </h7>
 
-          <nav class="Compatibility versions table">
+          <nav class="Compatibility">
             
           </nav>
          
@@ -456,13 +456,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/injecting-custom-dependencies-to-changesets/index.html">
-        Injecting custom dependencies to changesets
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
       </a>
     
   </h7>
 
-          <nav class="Injecting custom dependencies to changesets">
+          <nav class="Custom injections">
             
           </nav>
          
@@ -470,13 +470,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring-profiles/index.html">
-        Spring profiles
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
       </a>
     
   </h7>
 
-          <nav class="Spring profiles">
+          <nav class="Spring features">
             
           </nav>
          
@@ -484,13 +484,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/further-configuration/index.html">
-        Further configuration
+      <a class="menu-item "  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
       </a>
     
   </h7>
 
-          <nav class="Further configuration">
+          <nav class="Advanced configuration">
             
           </nav>
          
@@ -512,20 +512,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/validations/index.html">
-        Validations
-      </a>
-    
-  </h7>
-
-          <nav class="Validations">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/reactive/index.html">
         Reactive
       </a>
@@ -540,20 +526,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/recovery/index.html">
-        Recovery
-      </a>
-    
-  </h7>
-
-          <nav class="Recovery">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/events/index.html">
         Events
       </a>
@@ -561,20 +533,6 @@ function changeVersion() {
   </h7>
 
           <nav class="Events">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
-      <a class="menu-item "  href="/v4/undo/index.html">
-        Undo
-      </a>
-    
-  </h7>
-
-          <nav class="Undo">
             
           </nav>
          
@@ -619,29 +577,31 @@ function changeVersion() {
 <h2 id="transactions-levels"><a class="header-anchor" href="#transactions-levels">#</a> Transactions levels</h2>
 <p>In Mongock we see 3 transaction levels; per migration(entire-migration), per changeSet(annotated method) and per changeLog(annotated class).</p>
 <p>Currently Mongock only provides support for entire-migration transactions, but we are working to provide the other two levels.</p>
-<h4 id="migration-transaction(entire-migration)"><a class="header-anchor" href="#migration-transaction(entire-migration)">#</a> Migration transaction(entire-migration)</h4>
+<h3 id="migration-transaction(entire-migration)"><a class="header-anchor" href="#migration-transaction(entire-migration)">#</a> Migration transaction(entire-migration)</h3>
 <p>With this migration level Mongock will encapsulate all the unexecuted changes and will run them inside the same transaction. If there is any failure, the entire migration rollbacks and therefore Mongock's execution fails.</p>
 <p>This migration level is useful because you ensure you don't get any inconsistent data state, but you don't have any control, Mongock just pick everything and wrap it in a transaction, doesn't matter how big the entire migration is.</p>
 <p>You should also take into account MongoDB's limitations such as the maximum documents per transactions.</p>
 <p>We recommend <strong>migration transactions</strong> for small migrations, for which you are confident they can be executed in a single transaction without problem.</p>
-<h4 id="changeset-transaction"><a class="header-anchor" href="#changeset-transaction">#</a> ChangeSet transaction</h4>
-<div style="warning">
+<h3 id="changeset-transaction"><a class="header-anchor" href="#changeset-transaction">#</a> ChangeSet transaction</h3>
+<div class="warning">
 This feature is under development. Not available yet
 </div>
-<p>Opposite to <strong>migration transactions</strong>, there is also changeSet transactions, the smallest level of Mongock transactions. This level will make Mongock to create a new transaction per changeSet. If a changeSet/transaction fails and assuming  it's <a href="further-configuration.md#fail-fast">fail-fast</a>, the committed transactions will stay but Mongock will rollback the failed transaction and won't execute the following ones. In case of a failed transactions is not fail-fast, Mongock will rollback it, but will carry on with the execution.</p>
+<br><br>
+<p>Opposite to <strong>migration transactions</strong>, there is also changeSet transactions, the smallest level of Mongock transactions. This level will make Mongock to create a new transaction per changeSet. If a changeSet/transaction fails and assuming  it's <a href="/v4/advanced-configuration.md#fail-fast">fail-fast</a>, the committed transactions will stay but Mongock will rollback the failed transaction and won't execute the following ones. In case of a failed transactions is not fail-fast, Mongock will rollback it, but will carry on with the execution.</p>
 <p>ChangeSet migrations are good because of their granularity. You ensure a changeSet is not half-committed while you can progress over executions when unexpected failures happens.</p>
 <p>Also it solves  the issue with <strong>migration transactions,</strong> allowing you to commit small &quot;chunks of migration&quot;.</p>
 <p>However, the cons of this approach is that you will probably want to be flexible when committing your changes and not be restricted to changeSet.</p>
 <p>We recommend this level whenever you are confident that all your &quot;migration steps&quot; fit in methods.</p>
-<h4 id="changelog-transaction"><a class="header-anchor" href="#changelog-transaction">#</a> ChangeLog transaction</h4>
-<div style="warning">
+<h3 id="changelog-transaction"><a class="header-anchor" href="#changelog-transaction">#</a> ChangeLog transaction</h3>
+<div class="warning">
 This feature is under development. Not available yet
 </div>
+<br><br>
 <p>This level of transaction is a solution between <strong>migration transaction</strong> and <strong>changeSet transaction</strong>, providing a good trade-off that normally fits the majority of the projects needs.</p>
 <p>With this transaction level Mongock takes every unexecuted changeLog and packages it in a transaction. In case of failure, it behaves exactly the same as <strong>changeSet transactions</strong>.</p>
 <p>This is the recommended transaction level for several reasons:</p>
 <ul>
-<li>Fits the recommended design approach for migrations. More information <a href="best-practices.md#migration-design">here</a></li>
+<li>Fits the recommended design approach for migrations.</li>
 <li>More flexible, allowing you to create the logical transactional groups the way you want, without being forced to adapt it to changeSets or all-or-nothing</li>
 <li>If for any reason the entire migration cannot be executed at once, it can be done in smaller steps, which are committed in every execution, allowing the migration to progress in every iteration.</li>
 <li>Prevent to commit very small transactional units(changeSets) in such a way that while the changeSet is committed(and consistent), the actual logical migration is half-committed.</li>
@@ -649,10 +609,10 @@ This feature is under development. Not available yet
 <h2 id="how-to-use-transactions"><a class="header-anchor" href="#how-to-use-transactions">#</a> How to use transactions</h2>
 <p>You don't really need to much to benefit from transactions, however you will need to do some configuration work which will depend on which Mongock driver family you are using, Spring Data or Java MongoDB driver.</p>
 <h3 id="spring-data"><a class="header-anchor" href="#spring-data">#</a> Spring Data</h3>
-<p>For <a href="spring.md">Mongock Spring Data drivers</a>, the only requirement is to provide MongoTransactionManager. If you are using the MongockEnable annotation approach, by adding the MongoTransactionManager to the Spring context is enough, Mongock will pick it up.</p>
+<p>For <a href="/v4/spring">Mongock Spring Data drivers</a>, the only requirement is to provide MongoTransactionManager. If you are using the MongockEnable annotation approach, by adding the MongoTransactionManager to the Spring context is enough, Mongock will pick it up.</p>
 <p>On the other hand, if you are using the traditional builder approach, you need to provide the MongoTransactionManager to the Mongock driver by using the method <code>enableTransactionWithTxManager</code></p>
 <h3 id="mongodb-driver"><a class="header-anchor" href="#mongodb-driver">#</a> MongoDB Driver</h3>
-<p>When using the <a href="spring.md">Mongock driver for Java MongoDB driver</a> you are forced to use the traditional builder approach, but you don't need to do anything else to work with transaction rather than just build your driver providing the MongoClient and database name.</p>
+<p>When using the <a href="/v4/spring">Mongock driver for Java MongoDB driver</a> you are forced to use the traditional builder approach, but you don't need to do anything else to work with transaction rather than just build your driver providing the MongoClient and database name.</p>
 <h2 id="disabling-transactions"><a class="header-anchor" href="#disabling-transactions">#</a> Disabling transactions</h2>
 <p>As you can see, as soon as Mongock sees any possibility of using transactions it will, but sometimes it's not the right decision. For example, you provide the MongoTransactionManager to the Spring context, but don't really want Mongock to use transactions. Or by just constructing the Mongock driver for MongoDB Java driver, it will try to work with transactions, but your MongoDb architecture may not be ready for it.</p>
 <p>In those cases, you can disable transactions either via properties(when EnableMongock annotation approach is used), with <code>transaction-enable=false</code> or by builder, with driver's method <code>disableTransaction()</code></p>

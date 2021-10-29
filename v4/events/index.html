@@ -400,13 +400,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring/index.html">
-        Spring
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
       </a>
     
   </h7>
 
-          <nav class="Spring">
+          <nav class="Driver">
             
           </nav>
          
@@ -414,13 +414,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/standalone/index.html">
-        Standalone
+      <a class="menu-item "  href="/v4/runner/index.html">
+        Runner
       </a>
     
   </h7>
 
-          <nav class="Standalone">
+          <nav class="Runner">
             
           </nav>
          
@@ -428,13 +428,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/compatibility-versions-table/index.html">
-        Compatibility versions table
+      <a class="menu-item "  href="/v4/compatibility/index.html">
+        Compatibility
       </a>
     
   </h7>
 
-          <nav class="Compatibility versions table">
+          <nav class="Compatibility">
             
           </nav>
          
@@ -456,13 +456,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/injecting-custom-dependencies-to-changesets/index.html">
-        Injecting custom dependencies to changesets
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
       </a>
     
   </h7>
 
-          <nav class="Injecting custom dependencies to changesets">
+          <nav class="Custom injections">
             
           </nav>
          
@@ -470,13 +470,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring-profiles/index.html">
-        Spring profiles
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
       </a>
     
   </h7>
 
-          <nav class="Spring profiles">
+          <nav class="Spring features">
             
           </nav>
          
@@ -484,13 +484,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/further-configuration/index.html">
-        Further configuration
+      <a class="menu-item "  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
       </a>
     
   </h7>
 
-          <nav class="Further configuration">
+          <nav class="Advanced configuration">
             
           </nav>
          
@@ -512,20 +512,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/validations/index.html">
-        Validations
-      </a>
-    
-  </h7>
-
-          <nav class="Validations">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/reactive/index.html">
         Reactive
       </a>
@@ -540,20 +526,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/recovery/index.html">
-        Recovery
-      </a>
-    
-  </h7>
-
-          <nav class="Recovery">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item current-page"  href="/v4/events/index.html">
         Events
       </a>
@@ -561,20 +533,6 @@ function changeVersion() {
   </h7>
 
           <nav class="Events">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
-      <a class="menu-item "  href="/v4/undo/index.html">
-        Undo
-      </a>
-    
-  </h7>
-
-          <nav class="Undo">
             
           </nav>
          
@@ -613,22 +571,42 @@ function changeVersion() {
 
       <article>
         <h1 id="events"><a class="header-anchor" href="#events">#</a> Events</h1>
+<p><br><br></p>
 <div class="success">
 Feature in beta version and documentation in construction
 </div>
-<h4 id="since-version-4.2.1.beta"><a class="header-anchor" href="#since-version-4.2.1.beta">#</a> <strong>Since version 4.2.1.BETA</strong></h4>
+<br><br>
+<h1 id="since-version-4.2.1.beta"><a class="header-anchor" href="#since-version-4.2.1.beta">#</a> <strong>Since version 4.2.1.BETA</strong></h1>
 <p>The goal of Mongock events is to notify when the migration process has finished successfully or with errors, which would probably means the transaction was interrupted or not even started.</p>
 <p>Depending on the type of Mongock runner you are using(standalone or Spring) you will configure it differently.</p>
-<h2 id="type-of-events"><a class="header-anchor" href="#type-of-events">#</a> Type of Events</h2>
-<p>Regardless the result, Mongock will notify when the process has ended. For this there are two events, one for success and the other for failure.</p>
-<h3 id="dbmigrationsuccessevent"><a class="header-anchor" href="#dbmigrationsuccessevent">#</a> DbMigrationSuccessEvent</h3>
-<p>This events is thrown when the migration has finished successfully.</p>
-<h2 id="how-to-use-it"><a class="header-anchor" href="#how-to-use-it">#</a> How to use it</h2>
-<h3 id="with-spring-runner"><a class="header-anchor" href="#with-spring-runner">#</a> With spring runner</h3>
-<p>With Spring Mongock uses the buildup events framework provides by Spring. So there are two requirements for events to work with Mongock: Provide the Spring ApplicationEventPublisher and register the listener for the events you want to manage.</p>
-<h3 id="with-standalone"><a class="header-anchor" href="#with-standalone">#</a> With standalone</h3>
-<p>In this case you don't have a framework around you to provide the events ecosystem, so you need to provide two handles for both events, success and fail migration events...</p>
-<p>****</p>
+<h1 id="type-of-events"><a class="header-anchor" href="#type-of-events">#</a> Type of Events</h1>
+<p>Mongock provides three types of events:</p>
+<ul>
+<li><strong>Start event:</strong> This event takes place just before starting the migration, after the validation.</li>
+<li><strong>Success event:</strong> Is raised after the migration runs, if successful. This means, that no exception occurred, they were handled or the failed changeLogs were marked with failFast to false.</li>
+<li><strong>Failure event:</strong> In contrast, if any of the changeLogs fails and it's not handled, as explained in the previous point, this event will be raised.</li>
+</ul>
+<p>Please notice that there is no scenario in which both events, success and failure, are raised together.</p>
+<h2 id="working-with-spring-runners"><a class="header-anchor" href="#working-with-spring-runners">#</a> Working with Spring runners</h2>
+<p>Spring Mongock uses the events framework provided by Spring. This means there are two requirements for events to work with Mongock:</p>
+<ol>
+<li>Provide the Spring ApplicationEventPublisher to the builder(<em>Only needed in case of traditional builder approach. Ignore this if you are using the annotation approach</em>)</li>
+<li>Register the ApplicationListeners for the events you wish to subscribe.</li>
+</ol>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Started Event</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>cloudyrock<span class="token punctuation">.</span>spring<span class="token punctuation">.</span>util<span class="token punctuation">.</span>events<span class="token punctuation">.</span></span><span class="token class-name">SpringMigrationStartedEvent</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span></span><span class="token class-name">ApplicationListener</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span></span><span class="token class-name">Component</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token annotation punctuation">@Component</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MongockStartedEventListener</span> </div><div class="highlight-line"><span class="token keyword">implements</span> <span class="token class-name">ApplicationListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SpringMigrationStartedEvent</span><span class="token punctuation">></span></span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token annotation punctuation">@Override</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onApplicationEvent</span><span class="token punctuation">(</span><span class="token class-name">SpringMigrationStartedEvent</span> event<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token comment">//TODO implment your business logic</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Success Event</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>cloudyrock<span class="token punctuation">.</span>spring<span class="token punctuation">.</span>util<span class="token punctuation">.</span>events<span class="token punctuation">.</span></span><span class="token class-name">SpringMigrationSuccessEvent</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span></span><span class="token class-name">ApplicationListener</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span></span><span class="token class-name">Component</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token annotation punctuation">@Component</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MongockSuccessEventListener</span></div><div class="highlight-line"><span class="token keyword">implements</span> <span class="token class-name">ApplicationListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SpringMigrationSuccessEvent</span><span class="token punctuation">></span></span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token annotation punctuation">@Override</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onApplicationEvent</span><span class="token punctuation">(</span><span class="token class-name">SpringMigrationSuccessEvent</span> event<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token comment">//TODO implment your business logic</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Failure Event</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>cloudyrock<span class="token punctuation">.</span>spring<span class="token punctuation">.</span>util<span class="token punctuation">.</span>events<span class="token punctuation">.</span></span><span class="token class-name">SpringMigrationFailureEvent</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span></span><span class="token class-name">ApplicationListener</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span></span><span class="token class-name">Component</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token annotation punctuation">@Component</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MongockFailEventListener</span> </div><div class="highlight-line"><span class="token keyword">implements</span> <span class="token class-name">ApplicationListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SpringMigrationFailureEvent</span><span class="token punctuation">></span></span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token annotation punctuation">@Override</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onApplicationEvent</span><span class="token punctuation">(</span><span class="token class-name">SpringMigrationFailureEvent</span> event<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token comment">//TODO implment your business logic</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<h2 id="working-with-standalone-runners"><a class="header-anchor" href="#working-with-standalone-runners">#</a> Working with Standalone runners</h2>
+<p>As explained, if you are using the standalone runner, you need to provide explicit handlers for each event at building time.
+However, the handler are slightly different depending on which type of event you are subscribing to.</p>
+<ul>
+<li><strong>Start event:</strong> It requires a Runnable, which is invoked just before the migration and after the Mongock's validation.</li>
+<li><strong>Success event:</strong> To handle this event, you need to provide to the Mongock builder a Consumer for StandaloneMigrationSuccessEvent.</li>
+<li><strong>Failure event:</strong> To handle this event, you need to provide to the Mongock builder a Consumer for StandaloneMigrationFailureEvent.</li>
+</ul>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Started Event</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>cloudyrock<span class="token punctuation">.</span>standalone</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span>builder</div><div class="highlight-line"><span class="token comment">//...</span></div><div class="highlight-line"><span class="token punctuation">.</span><span class="token function">setMigrationStartedListener</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span> <span class="token punctuation">{</span><span class="token comment">/** TODO your business logic  **/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></div></code></pre>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Success Event</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>cloudyrock<span class="token punctuation">.</span>standalone</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>cloudyrock<span class="token punctuation">.</span>standalone<span class="token punctuation">.</span>event<span class="token punctuation">.</span></span><span class="token class-name">StandaloneMigrationSuccessEvent</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span>builder</div><div class="highlight-line"><span class="token comment">//...</span></div><div class="highlight-line"><span class="token punctuation">.</span><span class="token function">setMigrationSuccessListener</span><span class="token punctuation">(</span>successEvent<span class="token operator">-></span> <span class="token punctuation">{</span><span class="token comment">/** TODO your business logic  **/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></div></code></pre>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">//Failure Event</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>cloudyrock<span class="token punctuation">.</span>standalone</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>cloudyrock<span class="token punctuation">.</span>standalone<span class="token punctuation">.</span>event<span class="token punctuation">.</span></span><span class="token class-name">StandaloneMigrationFailureEvent</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span>builder</div><div class="highlight-line"><span class="token comment">//...</span></div><div class="highlight-line"><span class="token punctuation">.</span><span class="token function">setMigrationFailureListener</span><span class="token punctuation">(</span>failureEvent<span class="token operator">-></span> <span class="token punctuation">{</span><span class="token comment">/** TODO your business logic  **/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></div></code></pre>
 
       </article>
     </main>

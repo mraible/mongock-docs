@@ -400,13 +400,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring/index.html">
-        Spring
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
       </a>
     
   </h7>
 
-          <nav class="Spring">
+          <nav class="Driver">
             
           </nav>
          
@@ -414,13 +414,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/standalone/index.html">
-        Standalone
+      <a class="menu-item "  href="/v4/runner/index.html">
+        Runner
       </a>
     
   </h7>
 
-          <nav class="Standalone">
+          <nav class="Runner">
             
           </nav>
          
@@ -428,13 +428,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/compatibility-versions-table/index.html">
-        Compatibility versions table
+      <a class="menu-item "  href="/v4/compatibility/index.html">
+        Compatibility
       </a>
     
   </h7>
 
-          <nav class="Compatibility versions table">
+          <nav class="Compatibility">
             
           </nav>
          
@@ -456,13 +456,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/injecting-custom-dependencies-to-changesets/index.html">
-        Injecting custom dependencies to changesets
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
       </a>
     
   </h7>
 
-          <nav class="Injecting custom dependencies to changesets">
+          <nav class="Custom injections">
             
           </nav>
          
@@ -470,13 +470,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring-profiles/index.html">
-        Spring profiles
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
       </a>
     
   </h7>
 
-          <nav class="Spring profiles">
+          <nav class="Spring features">
             
           </nav>
          
@@ -484,13 +484,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/further-configuration/index.html">
-        Further configuration
+      <a class="menu-item "  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
       </a>
     
   </h7>
 
-          <nav class="Further configuration">
+          <nav class="Advanced configuration">
             
           </nav>
          
@@ -512,20 +512,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/validations/index.html">
-        Validations
-      </a>
-    
-  </h7>
-
-          <nav class="Validations">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/reactive/index.html">
         Reactive
       </a>
@@ -540,20 +526,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/recovery/index.html">
-        Recovery
-      </a>
-    
-  </h7>
-
-          <nav class="Recovery">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/events/index.html">
         Events
       </a>
@@ -561,20 +533,6 @@ function changeVersion() {
   </h7>
 
           <nav class="Events">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
-      <a class="menu-item "  href="/v4/undo/index.html">
-        Undo
-      </a>
-    
-  </h7>
-
-          <nav class="Undo">
             
           </nav>
          
@@ -614,20 +572,17 @@ function changeVersion() {
       <article>
         <h1 id="quick-start"><a class="header-anchor" href="#quick-start">#</a> Quick start</h1>
 <p>Mongock is set up in a few steps, which will be explained briefly in this section and more detailed in the rest of the documentation:</p>
-<ol>
-<li><strong>Importing artifact dependencies(maven, gradle, etc.)</strong>
+<p><strong>1- Importing artifact dependencies(maven, gradle, etc.):</strong></p>
 <ol>
 <li><em>Mongock's bom</em></li>
 <li><em>Mongock's runner</em></li>
 <li><em>Mongock's driver</em></li>
-<li><em>MongoDB driver or specific underlying  library</em></li>
+<li><em>MongoDB driver or specific underlying library</em></li>
 </ol>
-</li>
-<li><strong>Configure and run Mongock: Annotation approach or traditional builder approach</strong></li>
-</ol>
+<p><strong>2- Configure and run Mongock: Annotation approach or traditional builder approach.</strong></p>
 <p>All the steps in group 1(importing artifact dependencies)  are common independently of the approach you use(annotation or builder).</p>
-<div style="success">
-These are the unique steps you need to run Mongock. The rest of the documentation is about explaining them and how to extend  the "configuration step" to use/tune the different features.
+<div class="success">
+These are the only steps you need to run Mongock. The rest of the documentation is explains its usage and how to extend  the "configuration step" to make use of the different features.
 </div>
 <h2 id="checking-the-last-version"><a class="header-anchor" href="#checking-the-last-version">#</a> Checking the last version</h2>
 <p>The easiest and most trustable way to check the last Mongock's version is to visit the <a href="https://oss.sonatype.org/#nexus-search;quick~mongock-bom">artifact repository</a></p>
@@ -635,12 +590,12 @@ These are the unique steps you need to run Mongock. The rest of the documentatio
 <p>Both approaches share the first 4 steps. All of them related to your pom file.</p>
 <p>1- <strong>Import the last version of Mongock's bom to your pom file</strong></p>
 <pre class="language-markup"><code class="language-markup"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencyManagement</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span></div><div class="highlight-line">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.cloudyrock.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-bom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>LAST_RELEASE_VERSION_4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span></div><div class="highlight-line">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">></span></span></div></code></pre>
-<p>2- <strong>Import runner dependency.</strong> For more information, check the <a href="standalone.md#runners-types-and-compatibility-table">runner compatibility table</a>.</p>
+<p>2- <strong>Import runner dependency.</strong> For more information, check the <a href="/v4/runner#runners-types-and-compatibility-table">runner compatibility table</a>.</p>
 <p><em><strong>Spring 5</strong></em></p>
 <pre class="language-markup"><code class="language-markup"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.cloudyrock.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-spring-v5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
 <p><em><strong>Mongock Standalone</strong></em></p>
 <pre class="language-markup"><code class="language-markup"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.cloudyrock.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-standalone<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
-<p>3- <strong>Import driver dependency.</strong> For more information, check the <a href="spring.md#driver-types-and-compatibility-table">driver compatibility table</a>.</p>
+<p>3- <strong>Import driver dependency.</strong> For more information, check the <a href="/v4/driver#driver-types-and-compatibility-table">driver compatibility table</a>.</p>
 <p><em><strong>Spring data 3</strong></em></p>
 <pre class="language-markup"><code class="language-markup"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.cloudyrock.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongodb-springdata-v3-driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
 <p><em><strong>Spring data 2</strong></em></p>
@@ -649,7 +604,7 @@ These are the unique steps you need to run Mongock. The rest of the documentatio
 <pre class="language-markup"><code class="language-markup"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.cloudyrock.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongodb-sync-v4-driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
 <p><em><strong>MongoDB driver 3</strong></em></p>
 <pre class="language-markup"><code class="language-markup"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.cloudyrock.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongodb-v3-driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
-<p>4-  <strong>Import your MongoDB and Spring Data dependencies</strong>. In order to avoid transitive dependency issues, Mongock doesn't import any MongoDB or Spring Data library. So you need to provide them. For more information, check the <a href="spring.md#driver-types-and-compatibility-table">driver compatibility table</a>.</p>
+<p>4-  <strong>Import your MongoDB and Spring Data dependencies</strong>. In order to avoid transitive dependency issues, Mongock doesn't import any MongoDB or Spring Data library. So you need to provide them. For more information, check the <a href="/v4/driver#driver-types-and-compatibility-table">driver compatibility table</a>.</p>
 <p><em><strong>Spring data 3</strong></em></p>
 <pre class="language-markup"><code class="language-markup"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.mongodb<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongodb-driver-sync<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${mongodb.driver-sync.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.data<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-data-mongodb<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${mongodb.spring-data.v3.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
 <p><em><strong>Spring data 2</strong></em></p>
@@ -659,11 +614,11 @@ These are the unique steps you need to run Mongock. The rest of the documentatio
 <p><em><strong>MongoDB driver 3</strong></em></p>
 <pre class="language-markup"><code class="language-markup"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.mongodb<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongo-java-driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${mongodb.java-driver}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
 <h2 id="building-and-running-mongock%3A-annotation-vs-builder"><a class="header-anchor" href="#building-and-running-mongock%3A-annotation-vs-builder">#</a> Building and running Mongock: Annotation vs Builder</h2>
-<p>Once you have successfully imported the necessary dependencies, as we briefly explained in <a href="main-concepts.md#builder">Main concepts</a>, there are two ways you can build and run Mongock. In most cases, when using Spring framework, the most easy and convenient way is the annotation approach. However, sometimes you are not using Spring or you need more control over your Mongock bean. In that case you should opt for the traditional builder approach.</p>
+<p>Once you have successfully imported the necessary dependencies, as we briefly explained in <a href="/v4/main-concepts#builder">Main concepts</a>, there are two ways you can build and run Mongock. In most cases, when using Spring framework, the most easy and convenient way is the annotation approach. However, sometimes you are not using Spring or you need more control over your Mongock bean. In that case you should opt for the traditional builder approach.</p>
 <h3 id="annotation-approach"><a class="header-anchor" href="#annotation-approach">#</a> Annotation approach</h3>
 <p>When opting for annotation approach, all your configuration will be set in your properties file. However, for minimal configuration you only need to  specify a changeLog package,  the rest of the configuration will use default values.</p>
 <p>Then, you only need to tell Spring to use Mongock by annotating your Spring boot application with  <strong>@EnableMongock</strong> annotation</p>
-<p>1- <strong>Add your changeLog package path to your property file</strong>. Minimal configuration requires at least one changeLog package(it's an array, so you can add more than one), but anything you can configure manually with the builder, you can do it as well with properties. However note that Mongock provides default values. Worthy noticing the lock, which is now enabled by default, unlike older versions where you need to explicitly enable it, due to backward compatibility.</p>
+<p>1- <strong>Add your changeLog package path to your property file</strong>: Minimal configuration requires at least one changeLog package(it's an array, so you can add more than one), but anything you can configure manually with the builder, you can do it as well with properties. However note that Mongock provides default values. Worthy noticing the lock, which is now enabled by default, unlike older versions where you need to explicitly enable it, due to backward compatibility.</p>
 <pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">change-logs-scan-package</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token punctuation">-</span> com.github.cloudyrock.mongock.integrationtests.spring5.springdata3.changelogs.client.initializer</div></code></pre>
 <ol start="2">
 <li><strong>Annotate your SpringBootApplication with</strong> <em><strong>@EnableMongock</strong></em></li>
@@ -678,8 +633,8 @@ These are the unique steps you need to run Mongock. The rest of the documentatio
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token keyword">public</span> <span class="token class-name">MongockInitializingBeanRunner</span> <span class="token function">mongockInitializingBeanRunner</span><span class="token punctuation">(</span></div><div class="highlight-line">        <span class="token class-name">ApplicationContext</span> springContext<span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token class-name">MongoTemplate</span> mongoTemplate<span class="token punctuation">)</span><span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token keyword">return</span> <span class="token class-name">MongockSpring5</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span><span class="token class-name">SpringDataMongo3Driver</span><span class="token punctuation">.</span><span class="token function">withDefaultLock</span><span class="token punctuation">(</span>mongoTemplate<span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"your_changeLog_package_path"</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setSpringContext</span><span class="token punctuation">(</span>springContext<span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">buildInitializingBeanRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line"></div></code></pre>
 <p><em><strong>Standalone</strong></em></p>
 <pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">MongoClient</span> mongoClient <span class="token operator">=</span> <span class="token class-name">MongoClients</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"MongoDB connection string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setDriver</span><span class="token punctuation">(</span><span class="token class-name">MongoSync4Driver</span><span class="token punctuation">.</span><span class="token function">withDefaultLock</span><span class="token punctuation">(</span>mongoCient<span class="token punctuation">.</span><span class="token function">getDatabase</span><span class="token punctuation">(</span><span class="token string">"db"</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">addChangeLogsScanPackage</span><span class="token punctuation">(</span><span class="token string">"your_changeLog_package_path"</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">buildRunner</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token comment">// when using standalone runner, you need to run it manually</span></div><div class="highlight-line">runner<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
-<div style="info">
-Note that for standalone example we have used MongoSync4Driver as it's a more common scenario. Please take a look to our driver [version compatibility table](spring.md#driver-types-and-compatibility-table).
+<div class="tip">
+Note that for standalone example we have used MongoSync4Driver as it's a more common scenario. Please take a look to our driver <a href="/v4/driver#driver-types-and-compatibility-table">version compatibility table</a>.
 </div>
 
       </article>

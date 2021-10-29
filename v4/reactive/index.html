@@ -400,13 +400,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring/index.html">
-        Spring
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
       </a>
     
   </h7>
 
-          <nav class="Spring">
+          <nav class="Driver">
             
           </nav>
          
@@ -414,13 +414,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/standalone/index.html">
-        Standalone
+      <a class="menu-item "  href="/v4/runner/index.html">
+        Runner
       </a>
     
   </h7>
 
-          <nav class="Standalone">
+          <nav class="Runner">
             
           </nav>
          
@@ -428,13 +428,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/compatibility-versions-table/index.html">
-        Compatibility versions table
+      <a class="menu-item "  href="/v4/compatibility/index.html">
+        Compatibility
       </a>
     
   </h7>
 
-          <nav class="Compatibility versions table">
+          <nav class="Compatibility">
             
           </nav>
          
@@ -456,13 +456,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/injecting-custom-dependencies-to-changesets/index.html">
-        Injecting custom dependencies to changesets
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
       </a>
     
   </h7>
 
-          <nav class="Injecting custom dependencies to changesets">
+          <nav class="Custom injections">
             
           </nav>
          
@@ -470,13 +470,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/spring-profiles/index.html">
-        Spring profiles
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
       </a>
     
   </h7>
 
-          <nav class="Spring profiles">
+          <nav class="Spring features">
             
           </nav>
          
@@ -484,13 +484,13 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/further-configuration/index.html">
-        Further configuration
+      <a class="menu-item "  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
       </a>
     
   </h7>
 
-          <nav class="Further configuration">
+          <nav class="Advanced configuration">
             
           </nav>
          
@@ -512,20 +512,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/validations/index.html">
-        Validations
-      </a>
-    
-  </h7>
-
-          <nav class="Validations">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item current-page"  href="/v4/reactive/index.html">
         Reactive
       </a>
@@ -540,20 +526,6 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v4/recovery/index.html">
-        Recovery
-      </a>
-    
-  </h7>
-
-          <nav class="Recovery">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
       <a class="menu-item "  href="/v4/events/index.html">
         Events
       </a>
@@ -561,20 +533,6 @@ function changeVersion() {
   </h7>
 
           <nav class="Events">
-            
-          </nav>
-         
-          
-  
-  <h7 class="menu-item">
-    
-      <a class="menu-item "  href="/v4/undo/index.html">
-        Undo
-      </a>
-    
-  </h7>
-
-          <nav class="Undo">
             
           </nav>
          
@@ -614,19 +572,19 @@ function changeVersion() {
       <article>
         <h1 id="reactive"><a class="header-anchor" href="#reactive">#</a> Reactive</h1>
 <p>Although support to reactive streams and repositories is in the roadmap and will e supported by Mongock, it's not yet. Anyway, of course that doesn't mean you cannot use Mongock in a project where you are using reactive streams to connect to MongoDB.  We will explain in the next section what really means and the few implications.</p>
-<div style="info">
+<div class="tip">
 You can use Mongock in a project where you are connecting to MongoDB via reactive streams or repositories. Keep reading to understand how 😉 
 </div>
-<h3 id="then%2C-what-does-it-really-mean%3F"><a class="header-anchor" href="#then%2C-what-does-it-really-mean%3F">#</a> Then, what does it really mean?</h3>
+<h2 id="then%2C-what-does-it-really-mean%3F"><a class="header-anchor" href="#then%2C-what-does-it-really-mean%3F">#</a> Then, what does it really mean?</h2>
 <ol>
 <li>You need to import the non-reactive MongoDB library in addition to the reactive one.</li>
 <li>In  case you are using <code>@EnabledMongock</code> approach, a MongoTemplate bean needs to be injected to the Spring context.</li>
-<li>You should NOT use reactive repositories or streams in your changeLogs. Technically you could use them as explained in section <a href="injecting-custom-dependencies-to-changesets.md">Using custom beans in changeSet methods</a>, but you can get unexpected results.</li>
+<li>You should NOT use reactive repositories or streams in your changeLogs. Technically you could use them as explained in section <a href="/v4/injecting-custom-dependencies-to-changesets">Using custom beans in changeSet methods</a>, but you can get unexpected results.</li>
 </ol>
-<h3 id="libraries-you-need-to-import"><a class="header-anchor" href="#libraries-you-need-to-import">#</a> Libraries you need to import</h3>
-<h4 id="mongodb-driver"><a class="header-anchor" href="#mongodb-driver">#</a> MongoDb driver</h4>
+<h2 id="libraries-you-need-to-import"><a class="header-anchor" href="#libraries-you-need-to-import">#</a> Libraries you need to import</h2>
+<h3 id="mongodb-driver"><a class="header-anchor" href="#mongodb-driver">#</a> MongoDb driver</h3>
 <p>If you are using MongoDB driver directly, you would be probably importing <code>mongodb-driver-reactivestreams</code> , in that case you would need to import <code>mongodb-driver-sync</code> as well.</p>
-<h4 id="spring-data"><a class="header-anchor" href="#spring-data">#</a> Spring data</h4>
+<h3 id="spring-data"><a class="header-anchor" href="#spring-data">#</a> Spring data</h3>
 <p>On the other hand, if you are using Spring data in your project, you are probably importing <code>spring-boot-starter-data-mongodb-reactive</code>, in this case you need to import <code>spring-boot-starter-data-mongodb</code> as well.</p>
 
       </article>
