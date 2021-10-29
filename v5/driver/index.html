@@ -572,7 +572,7 @@ function changeVersion() {
       <article>
         <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#configuration"> Configuration</a></li><li><a href="#how-it-works"> How it works</a></li><li><a href="#disabling-the-index-creation"> Disabling the index creation</a></li></ul></div></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>To understand the concept of the driver within the Mongock architecture, visit the <a href="/technical-overview#main/components">technical overview page</a>. There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.</p>
+<p>To understand the concept of the driver within the Mongock architecture, visit the <a href="/v5/technical-overview#main/components">technical overview page</a>. There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.</p>
 <p>The two main responsabilities of the driver are:</p>
 <ul>
 <li>Persisting the change history.</li>
@@ -581,11 +581,11 @@ function changeVersion() {
 <!---------------------------------------------
 ## Driver options
 Currently, we only 
-- [MongoDB](/driver/mongodb)
-- [Elasticsearch](/driver/elasticsearch)
-- [SQL](/driver/sql)
-- [CosmosDB](/driver/cosmosdb)
-- [DocumentDB](/driver/documentdb)-->
+- [MongoDB](/v5/driver/mongodb)
+- [Elasticsearch](/v5/driver/elasticsearch)
+- [SQL](/v5/driver/sql)
+- [CosmosDB](/v5/driver/cosmosdb)
+- [DocumentDB](/v5/driver/documentdb)-->
 <hr>
 <h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
 <p>Although each family of driver may provide some additional configuration that you can see in the specific driver page(for example in MongoDB, you can configure the writeConcern, readConcern, etc.), all of drivers share the following properties:</p>
@@ -601,7 +601,7 @@ Currently, we only
 <tbody>
 <tr>
 <td><strong>migrationRepositoryName</strong></td>
-<td>Repository name where the change entries are persisted in database. It replaces the deprecated property <strong>changeLogRepositoryName</strong>.<br /> If you need to migrate from another changeLogCollection or from another legacy migration framework, visit the <a href="/features/legacy-migration">legacy migration page</a> for more information.</td>
+<td>Repository name where the change entries are persisted in database. It replaces the deprecated property <strong>changeLogRepositoryName</strong>.<br /> If you need to migrate from another changeLogCollection or from another legacy migration framework, visit the <a href="/v5/features/legacy-migration">legacy migration page</a> for more information.</td>
 <td>String</td>
 <td><code>mongockChangeLog</code></td>
 </tr>

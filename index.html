@@ -606,13 +606,13 @@ function changeVersion() {
 <p>We have a microservice called <strong>client-service</strong>, which uses the table/collection <code>clients</code></p>
 <p>As part of the development, we have a new User Story which requires your application to get some clients data from a third party system and persist them into database, in the <code>clients</code> table/collection. This is only required once and must be performed as part of the release.</p>
 <p>In addition, the <strong>client-service</strong> is deployed in a distributed environment running with more than one node and with horizontal scaling.</p>
-<h3 id="2.-your-migration-changes-(changeunit)"><a class="header-anchor" href="#2.-your-migration-changes-(changeunit)">#</a> 2. Your migration changes (<a href="/migration/">ChangeUnit</a>)</h3>
+<h3 id="2.-your-migration-changes-(link)"><a class="header-anchor" href="#2.-your-migration-changes-(link)">#</a> 2. Your migration changes (<a href="/v5/migration/">link</a>)</h3>
 <p>We first need to implement the migration to retrieve the data from the third party system and persist it in the database. For this we use the ChangeUnit, which is Mongock's unit of Migration. This will be where we write the code.</p>
 <div class="successAlt">
 <b>Note:</b> From version 5, ChangeLog annotation is deprecated (though remains for backwards compatibility). It's been replaced by <b>@ChangeUnit</b>.
 </div>
 <p>Please, visit the <a href="/migration/">ChangeUnit section</a> for more information.</p>
-<h3 id="3.-the-persistent-layer-(driver)"><a class="header-anchor" href="#3.-the-persistent-layer-(driver)">#</a> 3. The persistent layer (<a href="/driver/">Driver</a>)</h3>
+<h3 id="3.-the-persistent-layer-(link)"><a class="header-anchor" href="#3.-the-persistent-layer-(link)">#</a> 3. The persistent layer (<a href="/v5/driver/">link</a>)</h3>
 <p>We need to access the database for multiple reasons:</p>
 <ul>
 <li>To persist the client data we just retrieved.</li>
@@ -624,20 +624,20 @@ function changeVersion() {
 </li>
 </ul>
 <p>For allowing Mongock to access the database and persist state changes, we will use the <strong>Mongock Driver</strong>. The driver contains all the information and mechanisms to access to the database. Mongock provides multiple drivers for different databases. The developers can choose the most suitable and configure the driver by providing some information like the the target schema, etc.</p>
-<p>Please, visit the <a href="/driver/">Driver section</a> for more information.</p>
+<p>Please, visit the <a href="/v5/driver/">Driver section</a> for more information.</p>
 <h3 id="4.-run-the-migration"><a class="header-anchor" href="#4.-run-the-migration">#</a> 4. Run the migration</h3>
 <p>Once we have implemented our migration in our changelog and configured the persistent layer using a Mongock driver, we need to run the migration. For this, we will use the <strong>Mongock Runner</strong>.</p>
 <p>The Mongock Runner orchestrates the configurations, environment/framework settings, the driver and the ChangeUnits and runs all migrations in an orderly manner. The most common use case is that the  application won't start until the migration has been succesfully finalized (although this  behaviour can be altered). This means that if the list of migrations fail, the application will stop its startup process and exit. This will be retried again in the next startup and Mongock will continue the migration where it left.</p>
 <p>Great, we have the migration done, tested, deployed and working nicely. Awesome 🎉</p>
-<p>Mongock provides multiple runners for framework compatibility: for standalone applications, Springboot and many others coming soon. Please, visit the <a href="/runner/">Runner section</a> for more information.</p>
-<p>For a more in-depth description of Mongock, please visit the <a href="/technical-overview">Technical Overview</a> section</p>
+<p>Mongock provides multiple runners for framework compatibility: for standalone applications, Springboot and many others coming soon. Please, visit the <a href="/v5/runner/">Runner section</a> for more information.</p>
+<p>For a more in-depth description of Mongock, please visit the <a href="/v5/technical-overview">Technical Overview</a> section</p>
 <h3 id="...-cool%2C-but-we-got-a-new-user-story!-%F0%9F%98%B1"><a class="header-anchor" href="#...-cool%2C-but-we-got-a-new-user-story!-%F0%9F%98%B1">#</a> ... Cool, but we got a new user story! 😱</h3>
 <p>But now a new User Story has arrived where it requires us to add a new field. Well, we already have Mongock setup, all it requires is to create another ChangeUnit to address this change in the same way we did previously. Don't worry, Mongock will take care of running only the ChangeUnits that haven't been executed yet.</p>
 <p class="noteAlt"> Note that a <b>ChangeUnit</b> represents a unit of migration, which means that each ChangeUnit is wrapped in a <b>transaction</b>. As soon as it's finished, it's commited.</p>
 <h3 id="...-other-ways-of-running-mongock"><a class="header-anchor" href="#...-other-ways-of-running-mongock">#</a> ... other ways of running Mongock</h3>
 <p>The explained way of running Mongock is the common and traditional use case. However, Mongock can be used in wider use cases and offers more operations to support these.</p>
 <p>You can use the <strong>Mongock CLI</strong> to run the same migration, but also other operations like undo, list and more supported operations. The purpose is to provide a flexible manner of executing migrations.</p>
-<p>Please, visit the <a href="/cli/">CLI section</a> for more information.</p>
+<p>Please, visit the <a href="/v5/cli/">CLI section</a> for more information.</p>
 
       </article>
     </main>

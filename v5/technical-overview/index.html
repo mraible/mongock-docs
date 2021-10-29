@@ -570,19 +570,12 @@ function changeVersion() {
 </aside>
 
       <article>
-        <!--1. [Main components](#main-components)
-    1.1. [Migration](#migration)
-    1.2. [Driver](#driver)
-    1.3. [Runner](#runner)
-2. [Mongock process](#mongock-process)
-    2.1. [Process steps](#process-steps)
-    2.2. [Architecture](#architecture)-->
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#main-components"> Main components</a><ul><li><a href="#migration"> Migration</a></li><li><a href="#driver"> Driver</a></li><li><a href="#runner"> Runner</a></li></ul></li><li><a href="#mongock-process"> Mongock process</a><ul><li><a href="#process-steps"> Process steps</a></li><li><a href="#architecture"> Architecture</a></li></ul></li></ul></div></p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#main-components"> Main components</a><ul><li><a href="#migration"> Migration</a></li><li><a href="#driver"> Driver</a></li><li><a href="#runner"> Runner</a></li></ul></li><li><a href="#mongock-process"> Mongock process</a><ul><li><a href="#process-steps"> Process steps</a></li><li><a href="#architecture"> Architecture</a></li></ul></li></ul></div></p>
 <h2 id="main-components"><a class="header-anchor" href="#main-components">#</a> Main components</h2>
 <h3 id="migration"><a class="header-anchor" href="#migration">#</a> Migration</h3>
 <p>A migration covers transactional changes and operations you want to track in your database. Mongock uses the concept of <strong>ChangeUnit</strong>, which is a single migration file. A migration can execute multiple ChangeUnits during start up.</p>
 <p>As Mongock promotes a code-first approach for migrations, a ChangeUnit is materialized as a Java class. Using the <code>@ChangeUnit</code> annotation you will be able to implement your unit of migration that will be stored in the Mongock state records.</p>
-<p><em>For more information, visit the <a href="/migration/">Migration page</a></em></p>
+<p><em>For more information, visit the <a href="/v5/migration/">Migration page</a></em></p>
 <p class="tip">Note that the <b>@ChangeLog</b> and <b>@ChangeSet</b>  annotations have been deprecated in Version 5 and replaced by the new annotation <b>@ChangeUnit</b></p>
 <h3 id="driver"><a class="header-anchor" href="#driver">#</a> Driver</h3>
 <p>It represents the persistence layer. Everything that needs to be persisted is passed to the driver. It's basically used by the runner to persist and check the migration history and work with the distributed lock.</p>
@@ -595,11 +588,11 @@ function changeVersion() {
 <li>org.springframework.data » spring-data-mongodb(v2.x)</li>
 </ul>
 <p>The Mongock architecture is designed in such a way that allows you to combine any driver with any runner. For example, you may want to use a Mongock driver for springdata with the standalone runner(no framework).</p>
-<p><em>For more information, visit the <a href="/driver/">Driver page</a></em></p>
+<p><em>For more information, visit the <a href="/v5/driver/">Driver page</a></em></p>
 <h3 id="runner"><a class="header-anchor" href="#runner">#</a> Runner</h3>
 <p>The runner is the orchestator component dealing with the process logic, configuration, dependencies, framework and any environmental aspect. It’s the glue that puts together all the components as well as the decision maker. It takes the migration, driver and framework, and run the process.</p>
 <p>Mongock provides different runner for multiple frameworks(standalone, Springboot, Micronaut...) and it can be combined with any driver</p>
-<p><em>For more information, visit the <a href="/runner/">Runner page</a></em></p>
+<p><em>For more information, visit the <a href="/v5/runner/">Runner page</a></em></p>
 <hr>
 <h2 id="mongock-process"><a class="header-anchor" href="#mongock-process">#</a> Mongock process</h2>
 <p>In a nutshell, the mongock migration process takes all the pending migration changes and executes them in order.</p>
@@ -615,7 +608,7 @@ function changeVersion() {
 <li>Takes the next ChangeUnit and executes it.
 <ul>
 <li>If the ChangeUnit is successfully executed, Mongock persists an entry in the Mongock change history with the state SUCCESS and start the step 5 again.</li>
-<li>If the ChangeUnit fails, the runner rolls back the change(natively in a transactional environments or manually with the method <a href="/migration#implementation">@RollbackExecution</a> in non-transactional environments), persists the ChangeUnit as processed with state FAILED and aborts the migration.</li>
+<li>If the ChangeUnit fails, the runner rolls back the change(natively in a transactional environments or manually with the method <a href="/v5/migration#implementation">@RollbackExecution</a> in non-transactional environments), persists the ChangeUnit as processed with state FAILED and aborts the migration.</li>
 </ul>
 </li>
 <li>If the runner acomplished to execute the entire migration with no failures, it's considered successful. It releases the lock and finishes the migration.</li>

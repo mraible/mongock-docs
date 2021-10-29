@@ -570,12 +570,9 @@ function changeVersion() {
 </aside>
 
       <article>
-        <!--1. [Introduction](#introduction)
-2. [Configuration](#configuration)
-3. [How it works](#how-it-works)-->
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#configuration"> Configuration</a></li><li><a href="#how-it-works"> How it works</a></li><li><a href="#best-practices"> Best practices</a></li></ul></div></p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#configuration"> Configuration</a></li><li><a href="#how-it-works"> How it works</a></li><li><a href="#best-practices"> Best practices</a></li></ul></div></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p>We already discussed the <a href="/technical-overview#mongock-process">Mongock process</a> and the <a href="/migration">migration component</a> in previous sections where the transactions are already mentioned.</p>
+<p>We already discussed the <a href="/v5/technical-overview#mongock-process">Mongock process</a> and the <a href="/v5/migration">migration component</a> in previous sections where the transactions are already mentioned.</p>
 <p>As its name suggests, a changeUnit represents the unit of a migration. By default each changeUnit is wrapped in a independent transaction. This can be change by configuration, but it's not recommended.</p>
 <div class="tip">
 <p>In this section we mention <b>native transactions</b>. By this we mean the transaction mechanism provided by the database.</p>
@@ -584,14 +581,14 @@ function changeVersion() {
 <h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
 <p>There are two points where the transactions are configured to be enforced or disabled, the property <code>mongock.transactionEnabled</code>(setTransactionEnabled method in the builder) and the <strong>driver</strong>.</p>
 <p>In every driver's page, you will find enough information about how to enable the native transactions. Sometimes they are enabled by default and other times, like in the Springboot ecosystems, the transactions manager needs to be injected in the context.</p>
-<p>As explained in the <a href="/runner#Configuration">runner properties table</a>, the Mongock native transactionability follows the next logic:</p>
+<p>As explained in the <a href="/v5/runner#Configuration">runner properties table</a>, the Mongock native transactionability follows the next logic:</p>
 <div class="success">
 <p >When <b>mongock.transactionEnabled</b> is true, it enforces native transactions, throwing an exception is the driver is not capable of it.</p>
 <p >When <b>mongock.transactionEnabled</b> is false, it disables the transactions and ignores the transactionability of the driver.</p>
 <p >When <b>mongock.transactionEnabled</b> is null, it totally delegates on the driver the transactionability of the migration.</p>
 </div>
 <h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
-<p>The easiest way to understand how Mongock handles the transactions is by looking at <a href="/technical-overview#process-steps">this section</a>.</p>
+<p>The easiest way to understand how Mongock handles the transactions is by looking at <a href="/v5/technical-overview#process-steps">this section</a>.</p>
 <h2 id="best-practices"><a class="header-anchor" href="#best-practices">#</a> Best practices</h2>
 <ul>
 <li>Always set explicitly the <code>mongock.transactionEnabled</code> property to true/false.</li>
