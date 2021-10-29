@@ -23,6 +23,7 @@ EXCLUDE_FROM_MENU.add("roadmap");
 const versions = [];
 versions.push({name: "version 5", value: "v5", default: true, index: "/index.html"});
 versions.push({name: "version 4", value: "v4", index: "/v4/index.html"});
+versions.push({name: "version 3", value: "v3", index: "/v3/index.html"});
 
 const headerSlugify = (input) => {
 
