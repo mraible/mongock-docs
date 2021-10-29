@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Mongock Documentation">
+
+    <title>Mongock Documentation</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link href="/styles/base-styles.css" rel="stylesheet" />
+    <link href="/styles/content.css" rel="stylesheet" />
+    <link href="/styles/layout.css" rel="stylesheet" />
+    <link href="/styles/side-menu.css" rel="stylesheet" />
+    <link href="/styles/util.css" rel="stylesheet" />
+    <link href="/styles/prism-base16-ateliersulphurpool.light.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Roboto" rel="stylesheet" />
+  </head>
+
+  <body>
+
+    <!-- Header navigation -->
+    <header>
+  <div class="page-max-width d-flex flex-space-between flex-content-center">
+    <div class="d-flex flex-items-center ml-0 mr-auto">
+      <a class="logo d-inline-flex flex-items-center" href="https://www.mongock.io">
+        <span class="mr-12">Mongock</span>
+        <p class="text-left">
+          <img src="/images/logo.png" width="15%" alt="Mongock">
+        </p>  
+       </a>
+    </div>
+
+    <nav class="d-flex flex-items-center ml-auto mr-0">
+      <a class="mr-24" href="/">
+        Home
+      </a>
+      <a href="https://github.com/mongock/mongock" target="_blank" rel="nofolllow">
+        <!-- Source: <https://github.com/encharm/Font-Awesome-SVG-PNG/blob/master/black/svg/github.svg> -->
+<svg focusable="false" viewBox="0 0 1792 1792"><title>GitHub</title><path d="M896 128q209 0 385.5 103t279.5 279.5 103 385.5q0 251-146.5 451.5t-378.5 277.5q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-119-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-85-13.5q-45 113-8 204-79 87-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-39 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5t-146.5-451.5q0-209 103-385.5t279.5-279.5 385.5-103zm-477 1103q3-7-7-12-10-3-13 2-3 7 7 12 9 6 13-2zm31 34q7-5-2-16-10-9-16-3-7 5 2 16 10 10 16 3zm30 45q9-7 0-19-8-13-17-6-9 5 0 18t17 7zm42 42q8-8-4-19-12-12-20-3-9 8 4 19 12 12 20 3zm57 25q3-11-13-16-15-4-19 7t13 15q15 6 19-6zm63 5q0-13-17-11-16 0-16 11 0 13 17 11 16 0 16-11zm58-10q-2-11-18-9-16 3-14 15t18 8 14-14z"></path></svg>
+
+        <span class="ml-8">GitHub</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+
+    <!-- Main page content -->
+    <main class="page-max-width">
+      
+
+
+
+
+<script>
+const versions = [];
+
+ 
+versions.push({value: "v5", index: "/index.html" });
+  
+let defaultVersion = "v5";
+  
+
+ 
+versions.push({value: "v4", index: "/v4/index.html" });
+  
+
+ 
+versions.push({value: "v3", index: "/v3/index.html" });
+  
+
+
+const selectedVersions = defaultVersion;
+window.onload = function() {
+  const urlVersion = window.location.pathname.split("/")[1];
+  let validVersion = "";
+  versions.forEach(version => {
+    if(urlVersion == version.value) {
+      validVersion = urlVersion;
+    }
+  })
+  pickVersion(validVersion);
+};
+
+function pickVersion(urlVersion) {
+  const pickedVersion = urlVersion || defaultVersion;
+  document.getElementById("versionSelect").value = pickedVersion;
+  versions.forEach(version => {
+    const htmlElement = document.getElementById(version.value);
+    if(htmlElement) {
+      if(pickedVersion == version.value) {
+        htmlElement.style.display = "inline";
+      } else {
+        htmlElement.style.display = "none";
+      }
+    }
+    
+  });
+}
+
+function changeVersion() {
+  var newVersion = document.getElementById("versionSelect").value;
+  for(let i = 0 ; i < versions.length ; i++) {
+    const version = versions[i];
+    if(version.value == newVersion) {
+      window.location.href = window.location.origin + version.index;
+
+    } else {
+      console.log("version " + newVersion + " not found. Not redirecting.")
+    }
+  }
+}
+
+</script>
+
+
+
+
+
+
+<aside class="side-menu">
+  
+  <select style="width: 100%" name="version" id="versionSelect" onchange="changeVersion()">
+    
+      <option value="v5">version 5</option>
+    
+      <option value="v4">version 4</option>
+    
+      <option value="v3">version 3</option>
+    
+  </select>
+  <br /><br />
+
+
+
+  <nav class="menu-root">
+    
+      <div id="v5" style="display: none;">
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/index.html">
+        What is mongock
+      </a>
+    
+  </h7>
+
+          <nav class="What is mongock">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/technical-overview/index.html">
+        Technical overview
+      </a>
+    
+  </h7>
+
+          <nav class="Technical overview">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/get-started/index.html">
+        Get started
+      </a>
+    
+  </h7>
+
+          <nav class="Get started">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/migration/index.html">
+        Migration
+      </a>
+    
+  </h7>
+
+          <nav class="Migration">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/runner/index.html">
+        Runner
+      </a>
+    
+  </h7>
+
+          <nav class="Runner">
+            
+              
+  
+  <a class="menu-item "  href="/v5/runner/standalone/index.html">
+    Runner: standalone
+  </a>
+
+            
+              
+  
+  <a class="menu-item "  href="/v5/runner/springboot/index.html">
+    Runner: springboot
+  </a>
+
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/driver/index.html">
+        Driver
+      </a>
+    
+  </h7>
+
+          <nav class="Driver">
+            
+              
+  
+  <a class="menu-item "  href="/v5/driver/mongodb/index.html">
+    Driver: mongodb
+  </a>
+
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      Features
+    
+  </h7>
+
+          <nav class="Features">
+            
+              
+  
+  <a class="menu-item "  href="/v5/features/transactions/index.html">
+    Transactions
+  </a>
+
+            
+              
+  
+  <a class="menu-item "  href="/v5/features/events/index.html">
+    Events
+  </a>
+
+            
+              
+  
+  <a class="menu-item "  href="/v5/features/legacy-migration/index.html">
+    Legacy migration
+  </a>
+
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/cli/index.html">
+        Cli
+      </a>
+    
+  </h7>
+
+          <nav class="Cli">
+            
+              
+  
+  <a class="menu-item "  href="/v5/cli/operations/index.html">
+    Operations
+  </a>
+
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/resources/index.html">
+        Resources
+      </a>
+    
+  </h7>
+
+          <nav class="Resources">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/faq/index.html">
+        Faq
+      </a>
+    
+  </h7>
+
+          <nav class="Faq">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/from-version-4-to-5/index.html">
+        From version 4 to 5
+      </a>
+    
+  </h7>
+
+          <nav class="From version 4 to 5">
+            
+          </nav>
+        
+      </div>  
+    
+      <div id="v4" style="display: none;">
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/index.html">
+        What is mongock?
+      </a>
+    
+  </h7>
+
+          <nav class="What is mongock?">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/main-concepts/index.html">
+        Main concepts
+      </a>
+    
+  </h7>
+
+          <nav class="Main concepts">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/quick-start/index.html">
+        Quick start
+      </a>
+    
+  </h7>
+
+          <nav class="Quick start">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/changelogs/index.html">
+        Changelogs
+      </a>
+    
+  </h7>
+
+          <nav class="Changelogs">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/driver/index.html">
+        Driver
+      </a>
+    
+  </h7>
+
+          <nav class="Driver">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/runner/index.html">
+        Runner
+      </a>
+    
+  </h7>
+
+          <nav class="Runner">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/compatibility/index.html">
+        Compatibility
+      </a>
+    
+  </h7>
+
+          <nav class="Compatibility">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/lock/index.html">
+        Lock
+      </a>
+    
+  </h7>
+
+          <nav class="Lock">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/custom-injections/index.html">
+        Custom injections
+      </a>
+    
+  </h7>
+
+          <nav class="Custom injections">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/spring-features/index.html">
+        Spring features
+      </a>
+    
+  </h7>
+
+          <nav class="Spring features">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/advanced-configuration/index.html">
+        Advanced configuration
+      </a>
+    
+  </h7>
+
+          <nav class="Advanced configuration">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/transactions/index.html">
+        Transactions
+      </a>
+    
+  </h7>
+
+          <nav class="Transactions">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/reactive/index.html">
+        Reactive
+      </a>
+    
+  </h7>
+
+          <nav class="Reactive">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/events/index.html">
+        Events
+      </a>
+    
+  </h7>
+
+          <nav class="Events">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/legacy-migration/index.html">
+        Legacy migration
+      </a>
+    
+  </h7>
+
+          <nav class="Legacy migration">
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v4/releases/index.html">
+        Releases
+      </a>
+    
+  </h7>
+
+          <nav class="Releases">
+            
+          </nav>
+        
+      </div>  
+    
+      <div id="v3" style="display: none;">
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item current-page"  href="/v3/index.html">
+        Version3
+      </a>
+    
+  </h7>
+
+          <nav class="Version3">
+            
+          </nav>
+        
+      </div>  
+    
+  </nav>
+</aside>
+
+      <article>
+        <h1 id="mongock-old-documentation-for-version-3"><a class="header-anchor" href="#mongock-old-documentation-for-version-3">#</a> Mongock old documentation for version 3</h1>
+<h2 id="table-of-contents"><a class="header-anchor" href="#table-of-contents">#</a> Table of contents</h2>
+<ul>
+<li><a href="#why-mongock">Why Mongock</a></li>
+<li><a href="#add-a-dependency">Add a dependency</a>
+<ul>
+<li><a href="#with-maven">With Maven</a></li>
+<li><a href="#with-gradle">With Gradle</a></li>
+</ul>
+</li>
+<li><a href="#key-concepts">Key concepts</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#creating-change-logs">Creating change logs</a>
+<ul>
+<li><a href="#changelog">@ChangeLog</a></li>
+<li><a href="#changeset">@ChangeSet</a>
+<ul>
+<li><a href="#annotation-parameters">Annotation parameters:</a></li>
+<li><a href="#defining-changeset-methods">Defining ChangeSet methods</a></li>
+<li><a href="#defining-changeset-methods-with-versions">Defining ChangeSet methods with versions()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#when-use-each-module">When use...</a>
+<ul>
+<li><a href="#when-use-mongock-standalone">When use Mongock standalone</a></li>
+<li><a href="#when-use-springmongock">When use SpringMongock</a></li>
+<li><a href="#when-use-springbootmongock">When use SpringBootMongock</a></li>
+</ul>
+</li>
+<li><a href="#build-parameters">Build parameters</a>
+<ul>
+<li><a href="#common-build-parameters">Common build parameters</a></li>
+<li><a href="#springMongock-build-parameters">SpringMongock build parameters</a></li>
+<li><a href="#springBootMongock-build-parameters">SpringBootMongock build parameters</a></li>
+</ul>
+</li>
+<li><a href="#build-and-run">Build and run</a>
+<ul>
+<li><a href="#build-and-run-standalone">Build and run standalone</a></li>
+<li><a href="#build-and-run-springmongock">Build and run SpringMongock</a></li>
+<li><a href="#build-and-run-springbootmongock">Build and run SpringBootMongock</a></li>
+</ul>
+</li>
+<li><a href="#spring-specific-features">Spring specific features</a>
+<ul>
+<li><a href="#injecting-custom-dependencies-with-spring-boot">Injecting custom dependencies with Spring Boot</a></li>
+<li><a href="#using-spring-profiles">Using Spring profiles</a>
+<ul>
+<li><a href="#annotating-changelogs-and-changesets-with-profile">Annotating ChangeLogs and ChangeSets with Profile</a></li>
+<li><a href="#enabling-profile-annotation-on-mongock">Enabling Profile annotation on Mongock</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#adding-metadata">Adding metadata</a></li>
+<li><a href="#configuring-lock">Configuring Lock</a></li>
+<li><a href="#known-issues">Known issues</a>
+<ul>
+<li><a href="#mongo-transaction-limitations">Mongo transaction limitations</a></li>
+</ul>
+</li>
+<li><a href="#code-of-conduct">Code of conduct</a></li>
+<li><a href="#license">LICENSE</a></li>
+</ul>
+<h2 id="add-a-dependency"><a class="header-anchor" href="#add-a-dependency">#</a> Add a dependency</h2>
+<p>Mongock can be used standalone or with [Spring][spring]/[Spring boot][springboot]. When Using <code>mongock-spring</code> you don't need to import <code>mongock-core</code>,
+as it's already imported out of the box.</p>
+<h4 id="with-maven"><a class="header-anchor" href="#with-maven">#</a> With Maven</h4>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line"><span class="token comment">&lt;!-- To use standalone --></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>{LATEST_VERSION}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token comment">&lt;!-- To use with Spring --></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-spring<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>{LATEST_VERSION}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line"></div><div class="highlight-line"></div></code></pre>
+<h4 id="with-gradle"><a class="header-anchor" href="#with-gradle">#</a> With Gradle</h4>
+<pre class="language-groovy"><code class="language-groovy"><div class="highlight-line">compile <span class="token string">'org.javassist:javassist:3.18.2-GA'</span>          <span class="token comment">// workround for ${javassist.version} placeholder issue*</span></div><div class="highlight-line">compile <span class="token string">'com.github.cloudyrock.mongock:mongock-core:{LATEST_VERSION}'</span>    <span class="token comment">// standalone</span></div><div class="highlight-line">compile <span class="token string">'com.github.cloudyrock.mongock:mongock-spring:{LATEST_VERSION}'</span>  <span class="token comment">// with Spring (in addition to mongock-core)</span></div></code></pre>
+<h2 id="key-concepts"><a class="header-anchor" href="#key-concepts">#</a> Key concepts</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Mongock Module</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@ChangeLog</code></td>
+<td>Common</td>
+<td>Annotation</td>
+<td>Annotation used to annotate a class that contains changeSet methods</td>
+</tr>
+<tr>
+<td><code>@ChangeSet</code></td>
+<td>Common</td>
+<td>Annotation</td>
+<td>Annotation used to annotate a a method inside a class annotated with <code>@ChangeLog</code> and contains the code for a specific change</td>
+</tr>
+<tr>
+<td><code>Mongock</code></td>
+<td>Standalone</td>
+<td>Class</td>
+<td>It's the class in charge of running the migration as standalone, independently from any framework</td>
+</tr>
+<tr>
+<td><code>MongockBuiler</code></td>
+<td>Standalone</td>
+<td>Class</td>
+<td>It's the class used to build a Mongock instance</td>
+</tr>
+<tr>
+<td><code>SpringMongock</code></td>
+<td>Spring</td>
+<td>Class</td>
+<td>A Mongock extension for [Spring framework][spring], allowing what a normal Mongock runner does, plus the use of MongoTemplate, SpringData and Spring Profiles</td>
+</tr>
+<tr>
+<td><code>SpringMongockBuiler</code></td>
+<td>Spring</td>
+<td>Class</td>
+<td>It's the class used to build a SpringMongock instance</td>
+</tr>
+<tr>
+<td><code>SpringBootMongock</code></td>
+<td>Spring boot</td>
+<td>Class</td>
+<td>A SpringMongock extension for [Spring boot][springboot] framework, allowing what a SpringMongock runner does, plus Spring ApplicationContext for custom injection in your ChangeSet methods</td>
+</tr>
+<tr>
+<td><code>SpringBootMongockBuiler</code></td>
+<td>Spring boot</td>
+<td>Class</td>
+<td>It's the class used to build a SpringBootMongock instance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
+<p>How Mongock works is very  simple. The migration consists in three main elements: Your changes(based on ChangeLog classes that contains one or more ChangeSet methods), Mongock builder and Mongock runner. To understand these terms, please refer to
+section <a href="#key-concepts">Key concepts</a>.</p>
+<p>Basic steps for you to understand the process are:</p>
+<ol>
+<li>Create your ChangeLog class with ChangeSet methods in a package, which we'll call it &quot;changes_package&quot;</li>
+<li>Build the Mongock runner with Mongock Builder. Among other parameters, you will need to provide your &quot;changes_package&quot;</li>
+<li>Run Mongock object built in the previous step. You will see that this step will be automatically performed when used in frameworks like [Spring][spring], [JHipster][JHipster], etc.</li>
+</ol>
+<h2 id="creating-change-logs"><a class="header-anchor" href="#creating-change-logs">#</a> Creating change logs</h2>
+<p><code>ChangeLog</code> contains a bunch of <code>ChangeSet</code>s. <code>ChangeSet</code> is a single task (set of instructions made on a database). In
+other words <code>ChangeLog</code> is a class annotated with <code>@ChangeLog</code> and containing methods annotated with <code>@ChangeSet</code>.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>yourapp<span class="token punctuation">.</span>changelogs</span><span class="token punctuation">;</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeLog</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DatabaseChangelog</span> <span class="token punctuation">{</span></div><div class="highlight-line">  </div><div class="highlight-line">  <span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"001"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeId"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">importantWorkToDo</span><span class="token punctuation">(</span><span class="token class-name">DB</span> db<span class="token punctuation">)</span><span class="token punctuation">{</span></div><div class="highlight-line">     <span class="token comment">// task implementation</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<h3 id="%40changelog"><a class="header-anchor" href="#%40changelog">#</a> @ChangeLog</h3>
+<p>Class with change sets must be annotated by <code>@ChangeLog</code>. There can be more than one change log class but in that
+case <code>order</code> argument should be provided:</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeLog</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"001"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DatabaseChangelog</span> <span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">//...</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<p>ChangeLogs are sorted alphabetically by <code>order</code> argument and changesets are applied due to this order.</p>
+<h3 id="%40changeset"><a class="header-anchor" href="#%40changeset">#</a> @ChangeSet</h3>
+<p>Method annotated by @ChangeSet is taken and applied to the database. History of applied change sets is stored in a
+collection called <code>dbchangelog</code> (by default) in your MongoDB</p>
+<h4 id="annotation-parameters%3A"><a class="header-anchor" href="#annotation-parameters%3A">#</a> Annotation parameters:</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Considerations</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>String</td>
+<td>YES</td>
+<td>Must be Unique</td>
+<td>Name of a change set, <strong>must be unique</strong> for all change logs in a database</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>String</td>
+<td>YES</td>
+<td>N/A</td>
+<td>Author of a change set</td>
+</tr>
+<tr>
+<td><code>order</code></td>
+<td>String</td>
+<td>Optional</td>
+<td>Alphabetic order</td>
+<td>String for sorting change sets in one changelog. Sorting in alphabetical order, ascending. It can be a number, a date etc.</td>
+</tr>
+<tr>
+<td><code>runAlways</code></td>
+<td>Boolean</td>
+<td>Optional</td>
+<td>default: false</td>
+<td>ChangeSet will always be executed but only first execution event will be stored in dbchangelog collection</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>String</td>
+<td>Optional</td>
+<td>default: &quot;0&quot;</td>
+<td>efines a version on which this changeset is relate to. E.g. &quot;0.1&quot; means, this changeset should be applied to schema version 0.1 of your MongoDB. See <a href="#defining-changeset-methods-with-versions">Defining ChangeSet methods with versions</a> for more information.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="defining-changeset-methods"><a class="header-anchor" href="#defining-changeset-methods">#</a> Defining ChangeSet methods</h4>
+<p>Method annotated by <code>@ChangeSet</code> can have one of the following definition:</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"001"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeWithoutArgs"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">   <span class="token comment">// method without arguments can do some non-db changes</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"002"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeWithMongoDatabase"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange2</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">// type: com.mongodb.client.MongoDatabase : original MongoDB driver v. 3.x, operations allowed by driver are possible</span></div><div class="highlight-line">  <span class="token comment">// example: </span></div><div class="highlight-line">  <span class="token class-name">MongoCollection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Document</span><span class="token punctuation">></span></span> mycollection <span class="token operator">=</span> db<span class="token punctuation">.</span><span class="token function">getCollection</span><span class="token punctuation">(</span><span class="token string">"mycollection"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token class-name">Document</span> doc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Document</span><span class="token punctuation">(</span><span class="token string">"testName"</span><span class="token punctuation">,</span> <span class="token string">"example"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  mycollection<span class="token punctuation">.</span><span class="token function">insertOne</span><span class="token punctuation">(</span>doc<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"005"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeWithSpringDataTemplate"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange5</span><span class="token punctuation">(</span><span class="token class-name">MongoTemplate</span> mongoTemplate<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">// type: org.springframework.data.mongodb.core.MongoTemplate</span></div><div class="highlight-line">  <span class="token comment">// Spring Data integration allows using MongoTemplate in the ChangeSet</span></div><div class="highlight-line">  <span class="token comment">// example:</span></div><div class="highlight-line">  mongoTemplate<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>myEntity<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"006"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeWithSpringDataTemplate"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange6</span><span class="token punctuation">(</span><span class="token class-name">MongoTemplate</span> mongoTemplate<span class="token punctuation">,</span> <span class="token class-name">Environment</span> environment<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">// type: org.springframework.data.mongodb.core.MongoTemplate</span></div><div class="highlight-line">  <span class="token comment">// type: org.springframework.core.env.Environment</span></div><div class="highlight-line">  <span class="token comment">// Spring Data integration allows using MongoTemplate and Environment in the ChangeSet</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<h4 id="defining-changeset-methods-with-versions"><a class="header-anchor" href="#defining-changeset-methods-with-versions">#</a> Defining ChangeSet methods with versions</h4>
+<p>Method annotated by <code>@ChangeSet</code> have also the possibility to contain a version.
+This is a useful feature from a consultancy point of view. The more descriptive scenario is where a software provider has
+several customers  who he provides his software to. The clients may be using different versions of the software at the same time.
+So when he install the product in a customer, the changeSets need to be applied depending on the product version.
+With this solution, he can tag every changeSet with his product version and will tell mongock which version range to apply.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"001"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeToVersionOne"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">,</span> version <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange1</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"002"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeToVersionOneDotOne"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">,</span> version <span class="token operator">=</span> <span class="token string">"1.1"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange2</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"003"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeToVersionTwoDotFiveDotOne"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">,</span> systemVersion <span class="token operator">=</span> <span class="token string">"2.5.1"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange3</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"004"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeToVersionTwoDotFiveDotFive"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">,</span> systemVersion <span class="token operator">=</span> <span class="token string">"2.5.5"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange5</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"005"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"someChangeToVersionTwoDotSix"</span><span class="token punctuation">,</span> author <span class="token operator">=</span> <span class="token string">"testAuthor"</span><span class="token punctuation">,</span> systemVersion <span class="token operator">=</span> <span class="token string">"2.6"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">someChange6</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<p>With specifying versions you are able to upgrade to specific versions:</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"></div><div class="highlight-line">  <span class="token class-name">MongoClient</span> mongoclient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoClient</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MongoClientURI</span><span class="token punctuation">(</span><span class="token string">"yourDbName"</span><span class="token punctuation">,</span> yourMongoClientBuilder<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token class-name">Mongock</span> runner<span class="token operator">=</span>  <span class="token keyword">new</span> <span class="token class-name">MongockBuilder</span><span class="token punctuation">(</span>mongoclient<span class="token punctuation">,</span> <span class="token string">"yourDbName"</span><span class="token punctuation">,</span> <span class="token string">"com.package.to.be.scanned.for.changesets"</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setLockQuickConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setStartSystemVersion</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setEndSystemVersion</span><span class="token punctuation">(</span><span class="token string">"2.5.5"</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  runner<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">//  ------> starts migration changesets from systemVersion 1 to 2.5.5</span></div></code></pre>
+<p>This example will execute <code>ChangeSet</code> 1, 2 and 3,
+because the specified systemVersion in the changeset should be greater equals the <code>startSystemVersion</code> and lower than <code>endSystemVersion</code>.</p>
+<h2 id="when-use-each-module"><a class="header-anchor" href="#when-use-each-module">#</a> When use each module</h2>
+<h3 id="when-use-mongock-standalone"><a class="header-anchor" href="#when-use-mongock-standalone">#</a> When use Mongock standalone</h3>
+<p>Mongock standalone(<code>mongock-core</code>) is the original Mongock implementation. It provides the main features and while it still very easy to run, it does not rely on any framework to be
+executed, so that responsibility belongs to you.</p>
+<p>As mentioned, it's recommended when you are running an standalone java application without any framework or, even using a framework, you want to have the control of when Mongock is executed and you don't need any extra feature provided by Spring, such as
+bean injection, profiles, converters, etc.</p>
+<h3 id="when-use-springmongock"><a class="header-anchor" href="#when-use-springmongock">#</a> When use SpringMongock</h3>
+<p>This is a specialization of Mongock for [Spring][spring] users. SpringMongock runner implements the interface [InitializingBean][InitializingBean] provided by [Spring][spring].
+So by instantiating the Mongock runner as singleton bean in the spring context, the framework will take care of the dependencies and will execute at startup.</p>
+<p>By using SpringMongock you can also take advantage of the Spring Profile's benefits and, if using MongoTemplate, all the SpringData features are implicitly provided.</p>
+<blockquote>
+<p><strong>Note:</strong> We really recommend using [MongoTemplate][MongoTemplate] for building SpringMongock runner. It provides a better integration with [Spring][spring] and it's the only way
+of taking advantage of SpringData, so you can use features like Mongo [CustomConversions][customConversions], etc.</p>
+</blockquote>
+<h3 id="when-use-springbootmongock"><a class="header-anchor" href="#when-use-springbootmongock">#</a> When use SpringBootMongock</h3>
+<p>The main benefit of using SpringBoot integration is that it provides a totally flexible way to inject dependencies,
+so you can inject any object to your changeSets by using [Spring boot][springboot] [ApplicationContext][ApplicationContext].</p>
+<p>In order to use this feature you need to instantiate the SpringBootMongock runner and provide the required configuration.
+Mongock will run as an [ApplicationRunner][ApplicationRunner] within [Spring boot][springboot].
+In terms of execution, it will be very similar to the standard Spring implementation, the key difference is that ApplicationRunner beans run <em>after</em> (as opposed to during) the context is fully initialized.</p>
+<blockquote>
+<p><strong>Note:</strong> We really recommend using [MongoTemplate][MongoTemplate] for building SpringBootMongock runner. It provides a better integration with Spring boot and it's the only way
+of taking advantage of SpringData, so you can use features like Mongo [CustomConversions][customConversions], etc.</p>
+</blockquote>
+<blockquote>
+<p><strong>Note:</strong> Using this implementation means you need all the dependencies in your changeLogs(parameters in methods annotated with <code>@ChangeSet</code>) declared as Spring beans.</p>
+</blockquote>
+<blockquote>
+<p><strong>Note:</strong> In order to have your beans injected into your changeSet methods, you need to provide the [SpringBoot][springBoot] [ApplicationContext][ApplicationContext] at building time.</p>
+</blockquote>
+<blockquote>
+<p><strong>Important note:</strong> Currently(we are working on it, please take a look to our <a href="#roadmap">Roadmap</a>) the dependencies injected by the ApplicationContext (other than [MongoTemplate][MongoTemplate] and [MongoDatabase][MongoDatabase]) won't be covered by the lock. This means
+that if you are accessing to Mongo through a different mechanism to the ones mentioned, the lock synchronization is not guaranteed as Mongock only ensures synchronization when Mongo is accessed via either [MongoTemplate][MongoTemplate], [MongoDatabase][MongoDatabase] or [DB][DB].
+For more information, please consult the <a href="#configuring-lock">lock section</a></p>
+</blockquote>
+<h2 id="build-parameters"><a class="header-anchor" href="#build-parameters">#</a> Build parameters</h2>
+<h3 id="common-build-parameters"><a class="header-anchor" href="#common-build-parameters">#</a> Common build parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Injection type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mongoClient</code></td>
+<td>constructor</td>
+<td>N/A</td>
+<td>New database connection client API. Recommended for standalone use over <code>legacyMongoClient</code></td>
+</tr>
+<tr>
+<td><code>legacyMongoClient</code></td>
+<td>constructor</td>
+<td>N/A</td>
+<td>Old database connection client API. Deprecated</td>
+</tr>
+<tr>
+<td><code>databaseName</code></td>
+<td>constructor</td>
+<td>Mandatory</td>
+<td>Database name</td>
+</tr>
+<tr>
+<td><code>changeLogScanPackage</code></td>
+<td>constructor</td>
+<td>Mandatory</td>
+<td>Package path where the changeLogs are located</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td>setter</td>
+<td><code>true</code></td>
+<td>Migration process will run only if this option is set to true</td>
+</tr>
+<tr>
+<td><code>changeLogCollectionName</code></td>
+<td>setter</td>
+<td><code>mongockChangeLog</code></td>
+<td>ChangeLog collection name</td>
+</tr>
+<tr>
+<td><code>lockCollectionName</code></td>
+<td>setter</td>
+<td><code>mongockLock</code></td>
+<td>Lock collection name</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td>setter</td>
+<td>empty Map</td>
+<td>Map for custom data you want to attach to your migration</td>
+</tr>
+<tr>
+<td><code>throwExceptionIfCannotObtainLock</code></td>
+<td>String</td>
+<td><code>false</code></td>
+<td>Mongock will throw MongockException if lock can not be obtained</td>
+</tr>
+<tr>
+<td><code>lockAcquiredForMinutes</code></td>
+<td>setter</td>
+<td>24 * 60(1 day)</td>
+<td>Indicates how long the lock will be hold once acquired in minutes</td>
+</tr>
+<tr>
+<td><code>maxWaitingForLockMinutes</code></td>
+<td>setter</td>
+<td>3</td>
+<td>Indicates max time in minutes to wait for the lock in each try</td>
+</tr>
+<tr>
+<td><code>maxTries</code></td>
+<td>setter</td>
+<td>1</td>
+<td>Number of times Mongock will try to acquire the lock</td>
+</tr>
+<tr>
+<td><code>startSystemVersion</code></td>
+<td>setter</td>
+<td><code>&quot;0&quot;</code></td>
+<td>System version to start with (see <a href="#defining-changeset-methods-with-versions">Defining ChangeSet methods with versions()</a>)</td>
+</tr>
+<tr>
+<td><code>endSystemVersion</code></td>
+<td>setter</td>
+<td>Integer.MAX_VALUE</td>
+<td>System version to end with (see <a href="#defining-changeset-methods-with-versions">Defining ChangeSet methods with versions()</a>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="springmongock-build-parameters"><a class="header-anchor" href="#springmongock-build-parameters">#</a> SpringMongock build parameters</h3>
+<p>Provides all the commons parameters plus:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Injection type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mongoTemplate</code></td>
+<td>constructor</td>
+<td>N/A</td>
+<td>Spring MongoTemplate. Recommended for Spring and Spring boot use. Without this, specific Spring feature related to Mongo, like Spring converters, repositories and so on, won't work</td>
+</tr>
+<tr>
+<td><code>springEnvironment</code></td>
+<td>setter</td>
+<td>null</td>
+<td>Spring Environment. Recommended for Spring. Without this Spring Profiles won't work. Not needed in Spring boot if ApplicationContext is provided</td>
+</tr>
+</tbody>
+</table>
+<h3 id="springbootmongock-build-parameters"><a class="header-anchor" href="#springbootmongock-build-parameters">#</a> SpringBootMongock build parameters</h3>
+<p>Provides all the commons and Spring parameters plus:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Injection type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>springContext</code></td>
+<td>setter</td>
+<td>null</td>
+<td>Spring Application context. Recommended. Required for bean injections into ChangeSet methods. If this is provided, Spring Environment is not needed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="build-and-run"><a class="header-anchor" href="#build-and-run">#</a> Build and run</h2>
+<p>Once we have seen how to create our migration classes in <a href="#creating-change-logs">Creating change logs</a>, we need to build and run Mongock. As mentioned, we have three modes: standalone, Spring and Spring boot</p>
+<blockquote>
+<p><strong>Note:</strong> For backward compatibility, the lock is configured by default with too long values(24 hours). This is really basic strategy which can produce unexpected behaviour like
+not been able to execute Mongock in the next 24hours if there is any error and the lock is not released. For this reason we RECOMMEND to activate it by either setting the values manually
+with <code>setLockConfig</code> or with the default values for a proper lock mechanism with <code>setLockQuickConfig</code></p>
+</blockquote>
+<p>by default the lock is configured with values(24 hours) that in practice is like . This means that the lock is there but the time is taken is so
+long that it's like you have no lock, or even worse, if anything happens and the lock is not released, the next execution won't be able to run before 24 hours.</p>
+<h3 id="build-and-run-standalone"><a class="header-anchor" href="#build-and-run-standalone">#</a> Build and run standalone</h3>
+<p>For more attributes, please see <a href="#build-parameters">Build parameters</a></p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line">  <span class="token class-name">Mongock</span> runner<span class="token operator">=</span>  <span class="token keyword">new</span> <span class="token class-name">MongockBuilder</span><span class="token punctuation">(</span>mongoclient<span class="token punctuation">,</span> <span class="token string">"databaseName"</span><span class="token punctuation">,</span> <span class="token string">"changeLogScanPackage"</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setLockQuickConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span> OR <span class="token punctuation">.</span><span class="token function">setLockConfig</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span> </div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>other setters</div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  runner<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">//  ------> starts migration changeSets straight away</span></div></code></pre>
+<h3 id="build-and-run-springmongock"><a class="header-anchor" href="#build-and-run-springmongock">#</a> Build and run SpringMongock</h3>
+<p>If you use Spring, mongock can be instantiated as a singleton bean in the Spring context.
+In this case the migration process will be executed automatically on startup.
+You can use MongoClient, like with standalone, but we recommend using MongoTemplate.</p>
+<p>For more attributes, please see <a href="#build-parameters">Build parameters</a></p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@Bean</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token class-name">SpringMongock</span> <span class="token function">springMongock</span><span class="token punctuation">(</span><span class="token class-name">MongoTemplate</span> mongoTemplate<span class="token punctuation">,</span> <span class="token class-name">Environment</span> springEnvironment<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">SpringMongockBuilder</span><span class="token punctuation">(</span>mongoTemplate<span class="token punctuation">,</span> <span class="token string">"changeLogScanPackage"</span><span class="token punctuation">)</span></div><div class="highlight-line">        <span class="token punctuation">.</span><span class="token function">setSpringEnvironment</span><span class="token punctuation">(</span>springEnvironment<span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setLockQuickConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span> OR <span class="token punctuation">.</span><span class="token function">setLockConfig</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span> </div><div class="highlight-line">       <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>other setters</div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<h3 id="build-and-run-springbootmongock"><a class="header-anchor" href="#build-and-run-springbootmongock">#</a> Build and run SpringBootMongock</h3>
+<p>You  can see the benefits of using SpringBootMongock in <a href="#when-use-springbootmongock">this section</a>
+By injecting the Spring ApplicationRunner, you are implicitly injecting the Spring Environment, so you don't need to do it manually.</p>
+<p>As mentioned in previous sections, with SpringBootMongock now you can use your beans in your changeSets, please see <a href="#Injecting-custom-dependencies-to-change-logs">this section</a>
+to discover how</p>
+<p>For more attributes, please see <a href="#build-parameters">Build parameters</a></p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@Bean</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token class-name">SpringBootMongock</span> <span class="token function">mongock</span><span class="token punctuation">(</span><span class="token class-name">MongoTemplate</span> mongoTemplate<span class="token punctuation">,</span> <span class="token class-name">ApplicationContext</span> springContext<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">SpringBootMongockBuilder</span><span class="token punctuation">(</span>mongoTemplate<span class="token punctuation">,</span> <span class="token string">"changeLogScanPackage"</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setApplicationContext</span><span class="token punctuation">(</span>springContext<span class="token punctuation">)</span> </div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setLockQuickConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span> OR <span class="token punctuation">.</span><span class="token function">setLockConfig</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span> </div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<h2 id="spring-specific-features"><a class="header-anchor" href="#spring-specific-features">#</a> Spring specific features</h2>
+<h3 id="injecting-custom-dependencies-with-spring-boot"><a class="header-anchor" href="#injecting-custom-dependencies-with-spring-boot">#</a> Injecting custom dependencies with Spring Boot</h3>
+<p>Right now this is only possible by using SpringBootMongock(no SpringMongock) and injecting Spring Application Context to your builder as shown below.
+As explained in section <a href="#build-and-run-springbootmongock">Build and run SpringBootMongock</a>, once you have injected the Spring ApplicationContext, you can use your beans in Mongock changeSet methods via method parameter. Don't use @autowired annotation.</p>
+<p>For example having a springdata repository  'PersonRepository' in your project, that you wish to use in your changeSet, you can use it like follow</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeLog</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@Profile</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ChangelogForTestEnv</span><span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>author <span class="token operator">=</span> <span class="token string">"testuser"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"myTestChangest"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token string">"01"</span><span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testingEnvOnly</span><span class="token punctuation">(</span><span class="token class-name">MongoTemplate</span> template<span class="token punctuation">,</span> <span class="token class-name">PersonRepository</span> repository<span class="token punctuation">)</span><span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Person</span><span class="token punctuation">></span></span> allPersons <span class="token operator">=</span> repository<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token punctuation">}</span> </div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<blockquote>
+<p><strong>Note:</strong>  You shouldn't use the repository to write to Mongo, as it won't be covered by the lock.(this feature which allows you to use your own repositories freely in your
+changeSet methods will be available in future releases)</p>
+</blockquote>
+<h3 id="using-spring-profiles"><a class="header-anchor" href="#using-spring-profiles">#</a> Using Spring profiles</h3>
+<p>This feature available for both Springs builders, SpringMongock and SpringBootMongock</p>
+<p><strong>mongock</strong> accepts Spring's <code>org.springframework.context.annotation.Profile</code> annotation. If a change log or change set
+class is annotated  with <code>@Profile</code>, then it is activated for current application profiles.</p>
+<blockquote>
+<p>Mongock will soon support the new Profile expression approach from Spring 5 in</p>
+</blockquote>
+<h4 id="annotating-changelogs-and-changesets-with-profile"><a class="header-anchor" href="#annotating-changelogs-and-changesets-with-profile">#</a> Annotating ChangeLogs and ChangeSets with Profile</h4>
+<p><em>Example 1</em>: annotated change set will be invoked for a <code>dev</code> profile</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@Profile</span><span class="token punctuation">(</span><span class="token string">"dev"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>author <span class="token operator">=</span> <span class="token string">"testuser"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"myDevChangest"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token string">"01"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">devEnvOnly</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span><span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">// ...</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<p><em>Example 2</em>: all change sets in a changelog will be invoked for a <code>test</code> profile</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@ChangeLog</span><span class="token punctuation">(</span>order <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@Profile</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ChangelogForTestEnv</span><span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token annotation punctuation">@ChangeSet</span><span class="token punctuation">(</span>author <span class="token operator">=</span> <span class="token string">"testuser"</span><span class="token punctuation">,</span> id <span class="token operator">=</span> <span class="token string">"myTestChangest"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token string">"01"</span><span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testingEnvOnly</span><span class="token punctuation">(</span><span class="token class-name">MongoDatabase</span> db<span class="token punctuation">)</span><span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token comment">// ...</span></div><div class="highlight-line">  <span class="token punctuation">}</span> </div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<h4 id="enabling-profile-annotation-on-mongock"><a class="header-anchor" href="#enabling-profile-annotation-on-mongock">#</a> Enabling Profile annotation on Mongock</h4>
+<p>This feature available for both Springs builders, SpringMongock and SpringBootMongock</p>
+<p>To enable the <code>@Profile</code> integration, please inject <code>org.springframework.core.env.Environment</code> to your runner.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@Bean</span> </div><div class="highlight-line"><span class="token annotation punctuation">@Autowired</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token class-name">SpringMongock</span> <span class="token function">mongock</span><span class="token punctuation">(</span><span class="token class-name">Environment</span> environment<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token class-name">SpringMongock</span> runner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SpringMongockBuilder</span><span class="token punctuation">(</span>mongoclient<span class="token punctuation">,</span> <span class="token string">"yourDbName"</span><span class="token punctuation">,</span> <span class="token string">"com.package.to.be.scanned.for.changesets"</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setSpringEnvironment</span><span class="token punctuation">(</span>environment<span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">setLockQuickConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">      <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token comment">//... etc</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<h2 id="adding-metadata"><a class="header-anchor" href="#adding-metadata">#</a> Adding metadata</h2>
+<p>Sometimes there is the need of adding some extra information to the mongockChangeLog documents at execution time. This
+is address by Mongock allowing to set a Map object to the MongockBuilder(core, Spring and Springboot) with the metadata which will be added later
+to each mongockChangeLog document inserted in the Mongock 'transaction'.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span> metadata <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">metadata<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"string_key"</span><span class="token punctuation">,</span> <span class="token string">"string_value"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token class-name">Mongock</span> runner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongockBuilder</span><span class="token punctuation">(</span>mongoclient<span class="token punctuation">,</span> <span class="token string">"yourDbName"</span><span class="token punctuation">,</span> <span class="token string">"com.package.to.be.scanned.for.changesets"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setLockQuickConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">withMetadata</span><span class="token punctuation">(</span>metadata<span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token comment">//... etc</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<h2 id="configuring-lock"><a class="header-anchor" href="#configuring-lock">#</a> Configuring Lock</h2>
+<p>In order to execute the changelogs, mongock needs to manage the lock to ensure only one instance executes a changelog at a time.
+By default the lock is reserved 24 hours and, in case the lock is held by another mongock instance, will ignore the execution
+and no exception will be sent, unless the parameter throwExceptionIfCannotObtainLock is set to true.</p>
+<p>There are 3 parameters to configure:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lockAcquiredForMinutes</code></td>
+<td>Number of minutes mongock will acquire the lock for. It will refresh the lock when is close to be expired anyway.</td>
+</tr>
+<tr>
+<td><code>maxTries</code></td>
+<td>Max tries when the lock is held by another mongock instance.</td>
+</tr>
+<tr>
+<td><code>maxWaitingForLockMinutes</code></td>
+<td>Max minutes mongock will wait for the lock in every try.</td>
+</tr>
+</tbody>
+</table>
+<p>To configure these parameters there are two methods: setLockConfig and <code>setLockConfig</code> and <code>setLockQuickConfig</code>. Both
+will set the parameter throwExceptionIfCannotObtainLock to true.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@Bean</span> <span class="token annotation punctuation">@Autowired</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token class-name">Mongock</span> <span class="token function">mongock</span><span class="token punctuation">(</span><span class="token class-name">Environment</span> environment<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token class-name">Mongock</span> runner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">mongock</span><span class="token punctuation">(</span>uri<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  runner<span class="token punctuation">.</span><span class="token function">setLockConfig</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<p>or quick config with 3 minutes for lockAcquiredFor, 3 max tries and 4 minutes for maxWaitingForLock</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"> <span class="token annotation punctuation">@Bean</span> <span class="token annotation punctuation">@Autowired</span></div><div class="highlight-line"> <span class="token keyword">public</span> <span class="token class-name">Mongock</span> <span class="token function">mongock</span><span class="token punctuation">(</span><span class="token class-name">Environment</span> environment<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">   <span class="token class-name">Mongock</span> runner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">mongock</span><span class="token punctuation">(</span>uri<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">   runner<span class="token punctuation">.</span><span class="token function">setLockQuickConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"> <span class="token punctuation">}</span></div></code></pre>
+<h2 id="known-issues"><a class="header-anchor" href="#known-issues">#</a> Known issues</h2>
+<h3 id="mongo-transaction-limitations"><a class="header-anchor" href="#mongo-transaction-limitations">#</a> Mongo transaction limitations</h3>
+<blockquote>
+<p><strong>Note:</strong>  We are working on providing transaction support and UNDO operations. However until then, this will still be relevant
+and even with that, will remain relevant for older MongoDB versions without transaction support.
+Please checkout our <a href="#roadmap">roadmap</a></p>
+</blockquote>
+<p>Due to Mongo limitations, there is no way to provide atomicity at ChangelogSet level. So a Changelog could need
+more than one execution to be finished, as any interruption could happen, leaving the changelog in a inconsistent state.
+If that happens, the next time mongock is executed it will try to finish the changelog execution, but it could already be
+half executed.</p>
+<p>For this reason, the developer in charge of the changelog's design, should make sure that:</p>
+<ul>
+<li><strong>Changelog is idempotent</strong>: As changelog can be interrupted at any time, it will need to be executed again.</li>
+<li><strong>Changelog is Backward compatible (If high availability is required)</strong>: While the migration process is taking place,
+the old version of the software is still running. During this time could happen(and probably will) that the old version
+of the software is dealing with the new version of the data. Could even happen that the data is a mix between old and
+new version. This means the software must still work regardless of the status of the database. In case the developer is aware of
+this and still decides to provide a non-backward-compatible changeSet, he should know it's a detriment to high
+availability.</li>
+<li><strong>Changelog reduces its execution time in every iteration</strong>: This is harder to explain. As said, a changelog can be
+interrupted at any time. This means an specific changelog needs to be re-run. In the undesired scenario where the
+changelog's execution time is grater than the interruption time(could be Kubernetes initial delay), that changelog won't
+be ever finished. So the changelog needs to be developed in such a way that every iteration reduces its execution time,
+so eventually, after some iterations, the changelog finished.</li>
+<li><strong>Changelog's execution time is shorter than interruption time</strong>: In case the previous condition cannot be ensured,
+could be enough if the changelog's execution time is shorter than the interruption time. This is not ideal as the
+execution time depends on the machine, but in most case could be enough.</li>
+</ul>
+
+      </article>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+  <nav class="page-max-width d-flex flex-space-evenly flex-items-center">
+    <a class="d-inline-flex flex-center flex-items-center" href="https://www.mongock.io">Mongock</a>
+    <div class="d-flex flex-center flex-items-center">
+      <a class="d-inline-flex flex-items-center mr-16" href="https://github.com/mongock/mongock" target="_blank" rel="nofollow">
+        <!-- Source: <https://github.com/encharm/Font-Awesome-SVG-PNG/blob/master/black/svg/github.svg> -->
+<svg focusable="false" viewBox="0 0 1792 1792"><title>GitHub</title><path d="M896 128q209 0 385.5 103t279.5 279.5 103 385.5q0 251-146.5 451.5t-378.5 277.5q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-119-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-85-13.5q-45 113-8 204-79 87-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-39 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5t-146.5-451.5q0-209 103-385.5t279.5-279.5 385.5-103zm-477 1103q3-7-7-12-10-3-13 2-3 7 7 12 9 6 13-2zm31 34q7-5-2-16-10-9-16-3-7 5 2 16 10 10 16 3zm30 45q9-7 0-19-8-13-17-6-9 5 0 18t17 7zm42 42q8-8-4-19-12-12-20-3-9 8 4 19 12 12 20 3zm57 25q3-11-13-16-15-4-19 7t13 15q15 6 19-6zm63 5q0-13-17-11-16 0-16 11 0 13 17 11 16 0 16-11zm58-10q-2-11-18-9-16 3-14 15t18 8 14-14z"></path></svg>
+
+      </a>
+      <a class="d-inline-flex flex-items-center" href="https://twitter.com/mongock" target="_blank" rel="nofollow">
+        <!-- Source: <https://github.com/encharm/Font-Awesome-SVG-PNG/blob/master/black/svg/twitter.svg> -->
+<svg focusable="false" viewBox="0 0 1792 1792"><title>Twitter</title><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"></path></svg>
+
+      </a>
+    </div>
+    <a class="d-inline-flex flex-center flex-items-center" href="https://github.com/mongock/mongock/issues" target="_blank" rel="nofollow">
+      <!-- Source: <https://octicons.github.com/icon/issue-opened/> -->
+<svg viewBox="0 0 14 16" version="1.1" width="112" aria-hidden="true"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg>
+
+      <span class="ml-8">Issues</span>
+    </a>
+  </nav>
+</footer>
+
+
+  </body>
+</html>

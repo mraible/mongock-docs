@@ -69,6 +69,10 @@ let defaultVersion = "v5";
 versions.push({value: "v4", index: "/v4/index.html" });
   
 
+ 
+versions.push({value: "v3", index: "/v3/index.html" });
+  
+
 
 const selectedVersions = defaultVersion;
 window.onload = function() {
@@ -125,6 +129,8 @@ function changeVersion() {
       <option value="v5">version 5</option>
     
       <option value="v4">version 4</option>
+    
+      <option value="v3">version 3</option>
     
   </select>
   <br /><br />
@@ -561,6 +567,24 @@ function changeVersion() {
   </h7>
 
           <nav class="Releases">
+            
+          </nav>
+        
+      </div>  
+    
+      <div id="v3" style="display: none;">
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v3/index.html">
+        Version3
+      </a>
+    
+  </h7>
+
+          <nav class="Version3">
             
           </nav>
         
