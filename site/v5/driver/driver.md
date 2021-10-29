@@ -11,7 +11,7 @@ eleventyNavigation:
 [[TOC]]
 ## Introduction
 
-To understand the concept of the driver within the Mongock architecture, visit the [technical overview page](/technical-overview#main/components). There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.
+To understand the concept of the driver within the Mongock architecture, visit the [technical overview page](/v5/technical-overview#main/components). There you can see the driver is one of the 3 main components in the Mongock architecture, understand its role as well as how the drivers are organized in families of drivers to provide support for different database technologies.
 
 The two main responsabilities of the driver are:
 - Persisting the change history.
@@ -20,11 +20,11 @@ The two main responsabilities of the driver are:
 <!---------------------------------------------
 ## Driver options
 Currently, we only 
-- [MongoDB](/driver/mongodb)
-- [Elasticsearch](/driver/elasticsearch)
-- [SQL](/driver/sql)
-- [CosmosDB](/driver/cosmosdb)
-- [DocumentDB](/driver/documentdb)-->
+- [MongoDB](/v5/driver/mongodb)
+- [Elasticsearch](/v5/driver/elasticsearch)
+- [SQL](/v5/driver/sql)
+- [CosmosDB](/v5/driver/cosmosdb)
+- [DocumentDB](/v5/driver/documentdb)-->
 
 -------------------------------------------
 
@@ -34,7 +34,7 @@ Although each family of driver may provide some additional configuration that yo
 
 | Property                            | Description                                                                                  | Type                | Default value |
 | ------------------------------------|----------------------------------------------------------------------------------------------|---------------------|---------------|
-| **migrationRepositoryName**         | Repository name where the change entries are persisted in database. It replaces the deprecated property **changeLogRepositoryName**.<br /> If you need to migrate from another changeLogCollection or from another legacy migration framework, visit the [legacy migration page](/features/legacy-migration) for more information. | String | `mongockChangeLog`|
+| **migrationRepositoryName**         | Repository name where the change entries are persisted in database. It replaces the deprecated property **changeLogRepositoryName**.<br /> If you need to migrate from another changeLogCollection or from another legacy migration framework, visit the [legacy migration page](/v5/features/legacy-migration) for more information. | String | `mongockChangeLog`|
 | **lockRepositoryName**              | Repository name where the lock is persisted in database. It's important that all the Mongock executions that need to be synchronised(different services or instances using the same MongoDB database) use the same lockCollection. | String | `mongockLock`| 
 | **lockAcquiredForMillis**           | The period the lock will be reserved once acquired. If the migration finishes before, the lock will be released. If the process takes longer thant this period, it will automatically extended. When using the builder approach, this is applied in the driver. Minimum value is 3 seconds.| long | 1 minute|
 | **lockQuitTryingAfterMillis**       | The time after what Mongock will quit trying to acquire the lock, in case it's acquired by another process. When using the builder approach, this is applied in the driver. Minimum value is 0, which means won't wait whatsoever. | long |  3 minutes|

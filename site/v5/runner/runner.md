@@ -10,11 +10,6 @@ eleventyNavigation:
   order: 40
 ---
 
-<!--1. [Introduction](#introduction)
-2. [Runner options](#runner-options)
-3. [Build](#build)
-3. [Configuration](#configuration)
-4. [Execution](#execution)-->
 
 
 [[TOC]]
@@ -36,8 +31,8 @@ ______________________________________
 There are specific runners for certain environments, like frameworks, etc.
 
 Currently Mongock provides: 
-- [Mongock standalone runner](/runner/standalone/) 
-- [Mongock springboot runner](/runner/springboot/) 
+- [Mongock standalone runner](/v5/runner/standalone/) 
+- [Mongock springboot runner](/v5/runner/springboot/) 
 <!--- [Mongock micronaut runner](/runner/micronaut/) -->
 ______________________________________
 
@@ -66,7 +61,7 @@ ______________________________________
 | **serviceIdentifier**     | property | Application/service instance's indentifier. | String | null|
 | **defaultMigrationAuthor**| property | Author field is not mandatory in ChangeUnit. The field `author` in this annotation is optional. However for backward compatibility it's still required. If it's provided in the ChangeUnit annotation, this value is taken. If not, Mongock will look at this property. If not provided, the default value is provided. | String | `default_author` |
 | **throwExceptionIfCannotObtainLock**| property | Mongock will throw MongockException if lock can not be obtained. Builder method `dontFailIfCannotAcquireLock` to turn it to false. | boolean | long | `true` |  
-| **transactionEnabled**              | property | Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is `true` or not provided. If it's `false`, transactions are disabled and will throw an exception if this field is `true` and the driver is not transactionable. To understand what _transactionable_ means in the context of the driver and how to make a driver transactionable, visit the section [driver](/driver/).      | boolean | null |  
+| **transactionEnabled**              | property | Indicates the whether transaction is enabled. For backward compatibility, this property is not mandatory but it will in coming versions. It works together with the driver under the following agreement: Transactions are enabled only if the driver is transactionable and this field is `true` or not provided. If it's `false`, transactions are disabled and will throw an exception if this field is `true` and the driver is not transactionable. To understand what _transactionable_ means in the context of the driver and how to make a driver transactionable, visit the section [driver](/v5/driver/).      | boolean | null |  
 | **transactionStrategy**   | property | Dictates the transaction strategy. `CHANGE_UNIT` means each changeUnit(applied to deprecated changeLog as well) is wrapped in an independent transaction.`EXECUTION` strategy means that Mongock will wrap all the changeUnits in a single transaction. Note that Mongock highly recommend the default value, `CHANGE_UNIT`, as the `EXECUTION` strategy is unnatural and, unless it's really designed for it, it can cause some troubles along the way. | String | `CHANGE_UNIT` |  
 ______________________________________
 

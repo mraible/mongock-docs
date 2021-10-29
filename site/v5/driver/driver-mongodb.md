@@ -12,7 +12,7 @@ eleventyNavigation:
 ---
 [[TOC]]
 ## Introduction
-The concept of driver and how it works is already explained in the [technical-overview](/technical-overview) and [driver](/driver) pages.
+The concept of driver and how it works is already explained in the [technical-overview](/v5/technical-overview) and [driver](/v5/driver) pages.
 
 Here we explain how to use a driver with MongoDB and the different drivers Mongock provides.
 
@@ -59,7 +59,7 @@ Mongock offers two  drivers for MongoDB springdata. The latest, version 3.x, and
 - SpringDataMongoV2Driver
 
 ### Get started 
-Following the [get started section](/get-started#steps-to-run-mongock), this covers steps 3 and 5 and 6.
+Following the [get started section](/v5/get-started#steps-to-run-mongock), this covers steps 3 and 5 and 6.
 #### Add maven dependency for the driver (step 2)
 ```xml
 <dependency>
@@ -105,7 +105,7 @@ Mongock offers two  drivers for MongoDB native drivers. The latest, version Sync
 - MongoCore3Driver
 
 ### Get started 
-Following the [get started section](/get-started#steps-to-run-mongock), this covers steps 3 and 5 and 6.
+Following the [get started section](/v5/get-started#steps-to-run-mongock), this covers steps 3 and 5 and 6.
 
 #### Add maven dependency for the driver (step 2)
 

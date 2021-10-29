@@ -20,7 +20,7 @@ So far we have explained how to run Mongock as part of your application, normall
 1. Download the latest version of the **mongock-cli-LATEST_VERSION.zip** from [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.mongock/mongock-cli/badge.png)](https://repo.maven.apache.org/maven2/io/mongock/mongock-cli/).
 2. Unzip it.
 3. Open a terminal and locate it inside the unzipped folder.
-4. Run the one of the operations available in [opreations page](/cli/operations).
+4. Run the one of the operations available in [opreations page](/v5/cli/operations).
 
 
 ## 2. Prepare your application
@@ -82,6 +82,6 @@ The application uber jar (`--appJar` or `-aj`) is one of the mandatory parameter
 #### Mongock version in your application 
 Mongock CLI requires the application to be upgraded to Mongock version 5.
 
-#### Professional operations
+<!-- #### Professional operations
 
-There are some  operations labeled with <span class="professional">PRO</span>. This means it's a professional operation that requires the jar application to use the professional Mongock. Visit [this section](/professional) to use Mongock professional in your application.
+There are some  operations labeled with <span class="professional">PRO</span>. This means it's a professional operation that requires the jar application to use the professional Mongock. Visit [this section](/v5/professional) to use Mongock professional in your application. -->

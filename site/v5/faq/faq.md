@@ -17,13 +17,13 @@ However, the Mongock team has identified that the old changelog structure starts
 
 This is the reason we have added the `@ChangeUnit`. A more practical version of the `@ChangeLog`, which can be see as a changeLog, wich a unique and mandatory changeSet(`@Execution`) that also requires a complementary method `@RollbackExecution`.
 
-More information in the [migration section](/migration).
+More information in the [migration section](/v5/migration).
 
 
 ## I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?
 No. Your old changeLogs should remain untouched. Although deprecated, they will remain in the code for backward compatibility. 
 
-For more information about the recommended approach, please visit [this section](/migration).
+For more information about the recommended approach, please visit [this section](/v5/migration).
 
 ## What happens if a changeUnit fails
 Mongock always try to rollback the failed changes. In a transactional environment, Mongock relies on the database transactional mechanism to rollback the migration changes(`@Execution` method) as well as the mongock metadata associated to the change. In summary it would be like that change was never started. In a non-transactional environment, Mongock manually tries to rollback the migration change by executing the `@RollbackExecution` method and marks the change entry as `ROLLED_BACK` in the database. Please notice that although Mongock will try its best to achieve this, it's not guaranteed.
@@ -42,7 +42,7 @@ Yes. Actually the main use of Mongock is as part of the application start up, sh
 ## Does the CLI change something in my application?
 No. The CLI just takes from your application what is needed to run the migration.
 
-With Mongock standalone, it takes the `MongockBuilderProvider` implementations and retrieves the builder. For Springboot, by default it loads the entire Springboot context, but you can filter which configuration class to load by annotating the main class with `@MongockCliConfiguration`. For more information please visit the [cli page](/cli).
+With Mongock standalone, it takes the `MongockBuilderProvider` implementations and retrieves the builder. For Springboot, by default it loads the entire Springboot context, but you can filter which configuration class to load by annotating the main class with `@MongockCliConfiguration`. For more information please visit the [cli page](/v5/cli).
 
 ## Until which Spring data version is MongockTemplate compatible with?
 4.2.3. But you can use more recent version of Spring Data. MongockTemplate won't reflect the new API, but it won't complain.

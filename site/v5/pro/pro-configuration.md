@@ -24,7 +24,7 @@ The Mongock professional version offers additional features to the existing Comm
   <groupId>io.mongock.professional</groupId>
   <artifactId>mongock-springboot</artifactId>
 ```
-2. You can get a License Key from [here](registration.html).
+2. You can get a License Key from [here](/v5/registration.html).
 
 
 # Questions? 

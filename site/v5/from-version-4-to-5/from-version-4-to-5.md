@@ -74,7 +74,7 @@ From Mongock version 5, `@ChangeLog` and `@ChangeSet` annotations are **deprecat
 
 Please visit the [ChangeLog - version 4](https://www.mongock.io/changelogs) section to access the ChangeLog documentation for Version 4. 
 
-For more information about the reason we have adopted this change, please visit our [FAQ section](/faq#changelog-deprecation).
+For more information about the reason we have adopted this change, please visit our [FAQ section](/v5/faq#changelog-deprecation).
 
 
 

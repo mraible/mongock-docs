@@ -22,7 +22,7 @@ Currently it only supports the builder approach, with the setter methods. Howeve
 ______________________________________
 
 ## Get started
-Following the [get started section](/get-started#steps-to-run-mongock), this covers steps 2 and 7.
+Following the [get started section](/v5/get-started#steps-to-run-mongock), this covers steps 2 and 7.
 
 ### Add the maven dependency for the runner (step 2)
 ```xml
@@ -63,7 +63,7 @@ ______________________________________
 The [example section](#example) shows how to use it in the builder.
 
 ### Events
-As explained in the [events page](/features/events), Mongock provides three Events: StartedEvent, SuccessEvent and FailureEvent. In the standalone context are represented by:
+As explained in the [events page](/v5/features/events), Mongock provides three Events: StartedEvent, SuccessEvent and FailureEvent. In the standalone context are represented by:
 - MigrationStartedEvent
 - MigrationSuccessEvent
 - MigrationFailureEvent
@@ -95,7 +95,7 @@ public class MongockEventListener {
 }
 ```
 
-The [example section](/runner/standalone#example) shows how to use it in the builder.
+The [example section](/v5/runner/standalone#example) shows how to use it in the builder.
 ______________________________________
 
 ## Example

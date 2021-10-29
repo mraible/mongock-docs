@@ -11,11 +11,6 @@ eleventyNavigation:
   title: 'Legacy migration'
 ---
 
-<!--1. [Introduction](#introduction)
-2. [Get started](#get-started)
-3. [Legacy migration properties table](#legacy-migration-properties-table)
-4. [Mongobee scenario](#mongobee-scenario)-->
-
 [[TOC]]
 
 ## Introduction

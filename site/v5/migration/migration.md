@@ -65,8 +65,8 @@ Multiple attributes can be passed to ChangeUnits to configure these. The followi
 | id           | Returns the ChangeUnit's id that will be stored in the ChangeUnit history table/collection and will the way to identify a ChangeUnit. The combination of this field and the author must be unique among the changeunits.|YES|       n/a     |
 | order        | Returns the ChangeUnit's execution order. | YES | n/a |
 | author       | Returns the ChangeUnit's author. The combination of this and the author must be unique among the changeunits.|     NO     | `default-author` |
-| runAlways      | Returns whether the ChangeUnit is runAlways or not. For more information, visit the [runner configuration section](/runner/common-configuration/).  | NO | `false` |
-| systemVersion| Returns the ChangeUnit's system version. For more information, visit the [runner configuration section](/runner/common-configuration/).| NO | `0` |
+| runAlways      | Returns whether the ChangeUnit is runAlways or not. For more information, visit the [runner configuration section](/v5/runner/common-configuration/).  | NO | `false` |
+| systemVersion| Returns the ChangeUnit's system version. For more information, visit the [runner configuration section](/v5/runner/common-configuration/).| NO | `0` |
 
 ------------------------------------------------------
 
@@ -156,4 +156,4 @@ From Mongock version 5, `@ChangeLog` and `@ChangeSet` annotations are **deprecat
 
 Please visit the [ChangeLog - version 4](https://www.mongock.io/changelogs) section to access the ChangeLog documentation for Version 4. 
 
-For more information about the reason we have adopted this change, please visit our [FAQ section](/faq#changelog-deprecation).
+For more information about the reason we have adopted this change, please visit our [FAQ section](/v5/faq#changelog-deprecation).

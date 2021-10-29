@@ -24,7 +24,7 @@ ______________________________________
 
 
 ## Get started
-Following the [get started section](/get-started#steps-to-run-mongock), this covers steps 2 and 7.
+Following the [get started section](/v5/get-started#steps-to-run-mongock), this covers steps 2 and 7.
 
 ### Add the maven dependency for the runner (step 2)
 ```xml
@@ -39,7 +39,7 @@ Like the rest of the runners, the springboot runner is built from a builder. Eac
 
 Springboot adds an extra mandatory field to the driver and scan class/package(mandatory in all the runners), the **Spring ApplicationContext**, from which all the dependencies injected to your migration classes are taken.
 
-When using the builder approach, you need to provide the driver and ApplicationContext manually to the builder. On the other hand, when using the autoconfiguration approach, Mongock will take the ApplicationContext from Springboot directly and will build the driver, which probably requires you to inject to the context the required parameters. For example the database, MongoTemplate, etc. This depends on the type of Driver you are using. Find more information in the [driver section](/driver).
+When using the builder approach, you need to provide the driver and ApplicationContext manually to the builder. On the other hand, when using the autoconfiguration approach, Mongock will take the ApplicationContext from Springboot directly and will build the driver, which probably requires you to inject to the context the required parameters. For example the database, MongoTemplate, etc. This depends on the type of Driver you are using. Find more information in the [driver section](/v5/driver).
 
 ```java
 MongockSpringboot.builder()
@@ -58,7 +58,7 @@ ______________________________________
 |  MongockSpringboot | Springboot | 2.X.X                 |
 
 ## Configuration
-Visit the [configuration section](/runner#configuration) in the runner page to see the list of the basic runner's properties.
+Visit the [configuration section](/v5/runner#configuration) in the runner page to see the list of the basic runner's properties.
 
 <br />
 
@@ -110,7 +110,7 @@ Mongock supports the Spring `@Profile` annoation.
 When a changeUnit is annotated with `@Profile`, it will only executed if any of the profiles present in the annotation is contained in the Spring activeProfiles array.
 
 ### Events
-As explained in the [events page](/events), Mongock provides three Events: StartedEvent, SuccessEvent and FailureEvent. In the Springboot world, these are represented by:
+As explained in the [events page](/v5/events), Mongock provides three Events: StartedEvent, SuccessEvent and FailureEvent. In the Springboot world, these are represented by:
 - SpringMigrationStartedEvent
 - SpringMigrationSuccessEvent
 - SpringMigrationFailureEvent
@@ -134,7 +134,7 @@ public class MongockSuccessEventListener implements ApplicationListener<SpringMi
 }
 ```
 
-The [example section](/runner/springboot#examples) shows how to use it in the builder.
+The [example section](/v5/runner/springboot#examples) shows how to use it in the builder.
 
 <br />
 

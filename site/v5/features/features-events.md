@@ -11,11 +11,6 @@ eleventyNavigation:
   title: 'Events'
 ---
 
-
-<!--1. [Introduction](#introduction)
-2. [Type of events](#type-of-events)
-2. [Get started](#get-started)-->
-
 [[TOC]]
 ## Introduction
 Mongock uses events as a way to notify the main application in which state is the Mongock process and eventually the result of the execution.
