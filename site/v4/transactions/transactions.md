@@ -22,11 +22,7 @@ In Mongock we see 3 transaction levels; per migration\(entire-migration\), per c
 
 Currently Mongock only provides support for entire-migration transactions, but we are working to provide the other two levels.
 
-<<<<<<< HEAD
 ### Migration transaction\(entire-migration\)
-=======
-#### Migration transaction\(entire-migration\)
->>>>>>> origin/master
 
 With this migration level Mongock will encapsulate all the unexecuted changes and will run them inside the same transaction. If there is any failure, the entire migration rollbacks and therefore Mongock's execution fails.
 
@@ -36,7 +32,6 @@ You should also take into account MongoDB's limitations such as the maximum docu
 
 We recommend **migration transactions** for small migrations, for which you are confident they can be executed in a single transaction without problem.
 
-<<<<<<< HEAD
 ### ChangeSet transaction
 
 <div class="warning">
@@ -45,15 +40,6 @@ This feature is under development. Not available yet
 <br><br>
 
 Opposite to **migration transactions**, there is also changeSet transactions, the smallest level of Mongock transactions. This level will make Mongock to create a new transaction per changeSet. If a changeSet/transaction fails and assuming  it's [fail-fast](/v4/advanced-configuration.md#fail-fast), the committed transactions will stay but Mongock will rollback the failed transaction and won't execute the following ones. In case of a failed transactions is not fail-fast, Mongock will rollback it, but will carry on with the execution.
-=======
-#### ChangeSet transaction
-
-<div style="warning">
-This feature is under development. Not available yet
-</div>
-
-Opposite to **migration transactions**, there is also changeSet transactions, the smallest level of Mongock transactions. This level will make Mongock to create a new transaction per changeSet. If a changeSet/transaction fails and assuming  it's [fail-fast](further-configuration.md#fail-fast), the committed transactions will stay but Mongock will rollback the failed transaction and won't execute the following ones. In case of a failed transactions is not fail-fast, Mongock will rollback it, but will carry on with the execution.
->>>>>>> origin/master
 
 ChangeSet migrations are good because of their granularity. You ensure a changeSet is not half-committed while you can progress over executions when unexpected failures happens.
 

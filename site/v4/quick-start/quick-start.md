@@ -14,10 +14,10 @@ Mongock is set up in a few steps, which will be explained briefly in this sectio
 
 **1- Importing artifact dependencies\(maven, gradle, etc.\):**
     
-    1. _Mongock's bom_
-    2. _Mongock's runner_
-    3. _Mongock's driver_
-    4. _MongoDB driver or specific underlying library_
+1. _Mongock's bom_
+2. _Mongock's runner_
+3. _Mongock's driver_
+4. _MongoDB driver or specific underlying library_
 
 **2- Configure and run Mongock: Annotation approach or traditional builder approach.**
 

@@ -25,10 +25,11 @@ Technically drivers are simple implementations of the same interface which provi
 The idea is to provide a specific driver for every Java MongoDB driver, library or need. Open source users will be able to add drivers, following the driver specification.
 
 Mongock drivers use two MongoDB collections. The **changeLogCollection**(called mongockChangeLog by default), where the changeLog history will be stored, and the **lockCollection**(called mongockLock by default), used for pessimistic synchronisation between Mongock executions.
-
+<br><br>
 <div class="tip">
 It's important that <b>all the Mongock executions</b> that need to be synchronised(different services or instances using the same MongoDB database) <b>use the same lockCollection</b>. This is the only way they can be synchronised
 </div>
+<br><br>
 
 <div class="tip">
 Also <b>ensure that the right changeLogCollection</b> is used in order <b>to prevent</b> Mongock from <b>re-running migrations undesirably</b>. If you need to migrate from another changeLogCollection or from another legacy migration framework, please refer to [Legacy migration](v4/legacy-migration) for more information.
