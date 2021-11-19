@@ -1,5 +1,5 @@
 ---
-title: 'Driver: MongoDB' 
+title: 'MongoDB' 
 date: 2014-04-18 11:30:00 
 permalink: /v5/driver/mongodb/index.html
 toc: true
@@ -130,7 +130,7 @@ MongoSync4Driver driver = MongoSync4Driver.withDefaultLock(mongoClient, database
 #### Driver extra configuration (step 6)
 
 ##### Transactions
-Due to the MongoDB driver design, to work with transactions the [ClientSession](https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html) object is required in every operation and then managed the transaction.
+Due to the MongoDB API design, to work with transactions the [ClientSession](https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html) object is required in every operation and then managed the transaction.
 Mongock make this very simple. The developer only needs to specify a `ClientSession` parameter in the contructor or method of the `@ChangeUnit` and use in the MongoDB operations. **Mongock takes care of everything else.**
 <br /><br />
 The following code shows how to save documents inside the transaction using the `ClientSession` object.
