@@ -74,7 +74,7 @@ const sortMenu = (a, b) => {
 
 
 function makeTittle(title) {
-  let newTitle = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
+  let newTitle = title.charAt(0).toUpperCase() + title.slice(1);
   let formattedTitle = newTitle.replace(/-/g, ' ')
   return formattedTitle;
 }

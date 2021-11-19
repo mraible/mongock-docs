@@ -13,13 +13,13 @@ eleventyNavigation:
 </p>
 
 <div class="success">
-<b>Mongock 5 released!!</b> Please visit the <a href="from-version-4-to-5">upgrade page</a> to follow easy process. 
+<b>Mongock 5 released!!</b> Please visit the <a href="/v5/from-version-4-to-5">upgrade page</a> to follow easy process. 
 </div>
 
 ## Introduction
-Mongock is a Java based migration tool as part of your application code. It allows developers to have ownership and control over data migrations during the deployment process, allowing safer migrations in distributed systems as code and data changes are shipped together. 
+Mongock is a Java based migration tool as part of your application code for Distributed environments. It allows developers to execute safer migrations by having ownership and control over data migrations during the Application deployment process as code and data changes are shipped together. 
 
-It was originally designed for MongoDB data migrations and the product is evolving to provide a wider suite of database compatibility and cover other features for transactional execution use cases that require state management in distributed systems. 
+It was originally designed for MongoDB data migrations and the product is evolving to provide a wider suite of database compatibility whilst providing transactional execution features for use cases that require state management in distributed systems. 
 
 ------------------------------------------------
 
@@ -29,7 +29,7 @@ Our mission is to enable developers to deploy and manage stateful data migration
 In a nutshell:
 - Mongock is a Java-based tool that you can import in your application.
 - Mongock promotes a code-first approach for migrations, allowing developers to write migration scripts in Java which ship with the application code. This enables code and database changes to ship together.
-- Mongock persists in your database the changes made. This allows developers to gain more control over the management of changes via migrations, rollbacks + other amazing features.
+- Mongock persists in your database the history of changes applied. This allows developers to gain more control over the management of changes via migrations, rollbacks + other amazing features.
 - It is the most reliable production-grade solution for MongoDB migrations currently in the market, compatible with Mongo Atlas and different MongoDB versions.
 - Mongock is used in distributed systems as the solution implements a solid locking mechanism.
 - Our team offers great support and is very responsive.
@@ -39,7 +39,7 @@ In a nutshell:
 - Adopted by well-known frameworks such as JHipster as part of the scaffolding.
 - Can be used together with most, if not all, frameworks.
 - Can run in standalone projects without depending on frameworks.
-- Great support with the Spring Framework overall, with native implementations in SpringBoot.
+- Great support with the Spring Framework overall, providing native implementations in SpringBoot.
 
 Get more information about our support model at [support@mongock.io​](mailto:support@mongock.io​) and we can help you walking you to production. 
 

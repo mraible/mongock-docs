@@ -1,7 +1,7 @@
 ---
 title: FAQ
 date: 2014-04-18 11:30:00 
-permalink: /v5/faq/index.html
+permalink: /v5/FAQ/index.html
 eleventyNavigation:
   version: v5
   root: true
