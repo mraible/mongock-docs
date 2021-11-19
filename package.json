@@ -14,12 +14,12 @@
     "type": "git",
     "url": "git+https://github.com/monogock/mongock-docs.git"
   },
-  "author": "Mongock tema <dev@mongock.io> (https://www.mongock.io/)",
+  "author": "Mongock tema <development@mongock.io> (https://www.mongock.io/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/monogock/mongock-docs/issues"
+    "url": "https://github.com/monogock/mongock/issues"
   },
-  "homepage": "https://github.com/monogock/mongock-docs",
+  "homepage": "https://www.mongock.io",
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-navigation": "^0.3.2",
