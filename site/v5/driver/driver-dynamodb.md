@@ -55,7 +55,7 @@ Following the [get started section](/v5/get-started#steps-to-run-mongock), this 
   <groupId>io.mongock</groupId>
   <artifactId>dynamodb-driver</artifactId>
 </dependency>
-<!--If Sprinboot is required-->
+<!--If springboot is required-->
 <dependency>
   <groupId>io.mongock</groupId>
   <artifactId>dynamodb-springboot-driver</artifactId>
