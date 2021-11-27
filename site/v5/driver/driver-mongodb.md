@@ -150,9 +150,11 @@ The following code shows how to save documents inside the transaction using the 
 -------------------------------------------
 
 ## Examples 
+<p class="successAlt">Please visit out example projects in [this repo](https://github.com/mongock/mongock-examples/tree/master/mongodb) for more information</p>
 
-#### Example autoconfiguration approach with properties file
-<p class="successAlt">This approach is only possible with Springdata drivers and assumes the MongoTemplate is injected in the Spring context.</p>
+
+
+#### Example autoconfiguration with Springboot
 
 ```yaml
 mongock:
@@ -163,6 +165,30 @@ mongock:
       journal: true
     read-concern: majority
     read-preference: primary
+```
+
+```java
+@EnableMongock
+@SpringBootApplication
+public class QuickStartApp {
+
+    /**
+     * Be wared MongoTemplate needs to be injected
+     */
+    public static void main(String[] args) {
+        SpringApplicationBuilder().sources(QuickStartApp.class)().run(args);
+    }
+
+    /**
+     * Transaction Manager.
+     * Needed to allow execution of changeSets in transaction scope.
+     */
+    @Bean
+    public MongoTransactionManager transactionManager(MongoTemplate mongoTemplate) {
+        return new MongoTransactionManager(mongoTemplate.getMongoDbFactory());
+    }
+
+}
 ```
 
 

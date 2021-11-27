@@ -22,7 +22,7 @@ This section explains the Mongock Driver for DynamoDB and how to use it.
 
 Mongock provides the `DynamoDBDriver`, which is compatible with the library `com.amazonaws:aws-java-sdk-dynamodb` 1.x.x.
 
-You can also use the Mongock spring extension to get advantage from the autconfigure approach.
+You can also use the Mongock spring extension to get advantage from the autconfigure approach with Springboot.
 
 <br />
 
@@ -42,7 +42,7 @@ You can also use the Mongock spring extension to get advantage from the autconfi
 
 <br />
 
-------------------------------------------- -->
+------------------------------------------- 
 
 
 ## Get started 
@@ -50,12 +50,18 @@ Following the [get started section](/v5/get-started#steps-to-run-mongock), this 
 
 ### Add maven dependency for the driver (step 2)
 
+#### Standalone 
 ```xml
+<!--Standalone use-->
 <dependency>
   <groupId>io.mongock</groupId>
   <artifactId>dynamodb-driver</artifactId>
 </dependency>
-<!--If springboot is required-->
+
+```
+
+#### With Springboot 
+```xml
 <dependency>
   <groupId>io.mongock</groupId>
   <artifactId>dynamodb-springboot-driver</artifactId>
@@ -64,7 +70,7 @@ Following the [get started section](/v5/get-started#steps-to-run-mongock), this 
 
 ### Build the driver (setps 5)
 
-<p class="successAlt"><b>This step is only required for builder approach.</b> Mongock handles it for autoconfiguration.</p>
+<p class="successAlt"><b>This step is only required for builder approach.</b> Mongock handles it when autoconfiguration is enabled.</p>
 These classes provide the same two static initializers
 
 - **withDefaultLock**(AmazonDynamoDBClient dynamoDBClient)
@@ -77,7 +83,7 @@ DynamoDBDriver driver = DynamoDBDriver.withDefaultLock(dynamoDBClient);
 ### Driver extra configuration (step 6)
 
 #### Transactions
-Due to the DynamoDB API design, in order to work with transactions, the DynamoDB client needs to work with `TransactWriteItemsRequest`. To abstract the user from this and provide the most convenient experience to the user, a ChangeUnit needs to inject the Mongock class `DynamoDBTransactionItems`, to add the items that will take part of the transaction
+Due to the DynamoDB API design, in order to work with transactions, the DynamoDB client needs to use `TransactWriteItemsRequest`. To abstract the user from this and provide the most convenient experience, a ChangeUnit needs to inject the class `DynamoDBTransactionItems` provided by Mongock, to add the items that will take part of the transaction
 
 Also take into account that DynamoDB [only allows 25 elements in a single transaction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html) and one of those items must be the Mongock's ChangeEntry, so the user can add up to 24 items to the transaction.
 
@@ -96,12 +102,16 @@ The following code shows how to use transactions with DynamoDB driver.
 
 -------------------------------------------
 
-## Examples 
 
-### Example autoconfiguration approach with properties file
-<p class="successAlt">This approach is only possible with Springboot drivers and assumes the AmazonDynamoDBClient is injected in the Spring context.</p>
+## Examples 
+<p class="successAlt">Please visit out example projects in [this repo](https://github.com/mongock/mongock-examples/tree/master/dynamodb) for more information</p>
+
+
+
+#### Example autoconfiguration with Springboot
 
 ```yaml
+mongock:
 mongock:
   dynamo-db:
     provisionedThroughput:
@@ -109,10 +119,47 @@ mongock:
       writeCapacityUnits: 100
 ```
 
+```java
+@EnableMongock
+@SpringBootApplication
+public class QuickStartApp {
 
-### Example with builder
 
+    public static void main(String[] args) {
+        SpringApplicationBuilder().sources(QuickStartApp.class)().run(args);
+    }
+    
+    @Bean
+    public AmazonDynamoDBClient amazonDynamoDBClient() {
+        return (AmazonDynamoDBClient) AmazonDynamoDBClientBuilder.standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(SERVICE_ENDPOINT, REGION))
+                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)))
+                .build();
+    }
+
+}
+```
+
+### Example: DynamoDB standalone
 ```java
 DynamoDBDriver driver = DynamoDBDriver.withDefaultLock(dynamoDBClient);
 driver.setProvisionedThroughput(new ProvisionedThroughput(100L, 100L));
+```
+
+
+### Example: DynamoDB Springboot
+```java
+@EnableMongock
+@SpringBootApplication
+public class QuickStartApp {
+
+    //AmazonDynamoDBClient beans needs to be injected, so the Mongock context can build the driver
+    @Bean
+    public AmazonDynamoDBClient amazonDynamoDBClient() {
+        return (AmazonDynamoDBClient) AmazonDynamoDBClientBuilder.standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(SERVICE_ENDPOINT, REGION))
+                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)))
+                .build();
+    }
+}
 ```
