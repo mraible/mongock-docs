@@ -47,7 +47,7 @@ Carryng on with our **client-service** example in [what is Mongock?](/v5/what-is
   <artifactId>mongodb-springdata-v3-driver</artifactId>
 </dependency>
 ```
-Mongock is not intrusive, rely the driver library's version on the developer. These libraries are injected with **scope provided**.
+Mongock is not intrusive, relies the driver library's version on the developer. These libraries are injected with **scope provided**.
 
 
 ### 4- Create your migration script/class
