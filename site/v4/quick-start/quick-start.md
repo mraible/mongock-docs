@@ -192,7 +192,7 @@ public MongockApplicationRunner mongockApplicationRunner(
         ApplicationContext springContext,
         MongoTemplate mongoTemplate) {
     return MongockSpring5.builder()
-        .setDriver(SpringDataMongo3Driver.withDefaultLock(mongoTemplate))
+        .setDriver(SpringDataMongoV3Driver.withDefaultLock(mongoTemplate))
         .addChangeLogsScanPackage("your_changeLog_package_path")
         .setSpringContext(springContext)
         .buildApplicationRunner();
@@ -204,7 +204,7 @@ public MongockInitializingBeanRunner mongockInitializingBeanRunner(
         ApplicationContext springContext,
         MongoTemplate mongoTemplate){
     return MongockSpring5.builder()
-        .setDriver(SpringDataMongo3Driver.withDefaultLock(mongoTemplate))
+        .setDriver(SpringDataMongoV3Driver.withDefaultLock(mongoTemplate))
         .addChangeLogsScanPackage("your_changeLog_package_path")
         .setSpringContext(springContext)
         .buildInitializingBeanRunner();
