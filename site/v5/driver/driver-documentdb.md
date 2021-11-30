@@ -25,9 +25,7 @@ As AWS DocumentDB relies on the MongoDB driver/api, **you can use Mongock to man
 
 ## Resources
 
-As mentioned, AWS uses the MongoDBB driver to perate with the database, using the same classes to connect as well. However, AWS Document is mainly intended to be used inside the trusted network, which means that to connect out of the VPN to the database is linked to requires some woek with certificates.
-
-Here we provides some resources we expect can help you.
+As mentioned, AWS uses the MongoDB driver to operate with the database. However, AWS DocumentDB is mainly intended to be used inside the trusted network, which means that in order to connect from outside of the VPN in which the database resides,some extra work related to security is required. The next resources can be helpful to address some of the common issues.
 
 - [AWS: Connecting Programmatically to Amazon DocumentDB](https://docs.aws.amazon.com/documentdb/latest/developerguide/connect_programmatically.html)
 - [Stackoverflow: DocumentDB with Springoot](https://stackoverflow.com/questions/54230901/attaching-aws-documentdb-to-spring-boot-application)
