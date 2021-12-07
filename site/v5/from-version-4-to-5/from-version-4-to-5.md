@@ -5,7 +5,7 @@ permalink: /v5/from-version-4-to-5/index.html
 eleventyNavigation:
   version: v5
   root: true
-  order: 100
+  order: 110
 ---
 
 [[TOC]]
