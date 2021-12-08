@@ -159,7 +159,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v5/technical-overview/index.html">
+      <a class="menu-item "  href="/v5/technical-overview/index.html">
         Technical overview
       </a>
     
@@ -332,7 +332,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v5/contributing/index.html">
+      <a class="menu-item current-page"  href="/v5/contributing/index.html">
         Contributing
       </a>
     
@@ -622,54 +622,63 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#main-components"> Main components</a><ul><li><a href="#migration"> Migration</a></li><li><a href="#driver"> Driver</a></li><li><a href="#runner"> Runner</a></li></ul></li><li><a href="#mongock-process"> Mongock process</a><ul><li><a href="#process-steps"> Process steps</a></li><li><a href="#architecture"> Architecture</a></li></ul></li></ul></div></p>
-<h2 id="main-components"><a class="header-anchor" href="#main-components">#</a> Main components</h2>
-<h3 id="migration"><a class="header-anchor" href="#migration">#</a> Migration</h3>
-<p>A migration covers transactional changes and operations you want to track in your database. Mongock uses the concept of <strong>ChangeUnit</strong>, which is a single migration file. A migration can execute multiple ChangeUnits during start up.</p>
-<p>As Mongock promotes a code-first approach for migrations, a ChangeUnit is materialized as a Java class. Using the <code>@ChangeUnit</code> annotation you will be able to implement your unit of migration that will be stored in the Mongock state records.</p>
-<p><em>For more information, visit the <a href="/v5/migration/">Migration page</a></em></p>
-<p class="tip">Note that the <b>@ChangeLog</b> and <b>@ChangeSet</b>  annotations have been deprecated in Version 5 and replaced by the new annotation <b>@ChangeUnit</b></p>
-<h3 id="driver"><a class="header-anchor" href="#driver">#</a> Driver</h3>
-<p>It represents the persistence layer. Everything that needs to be persisted is passed to the driver. It's basically used by the runner to persist and check the migration history and work with the distributed lock.</p>
-<p>Mongock splits the drivers in <em>driver families</em>, grouped by databases. Then, within a <em>driver family</em>, it may provide multiple drivers for different connection library and versions.</p>
-<p>For example, in the case of MongoDB, Mongock provides 4 drivers for:</p>
-<ul>
-<li>org.mongodb » mongodb-driver-sync</li>
-<li>org.mongodb » mongo-java-driver</li>
-<li>org.springframework.data » spring-data-mongodb(v3.x)</li>
-<li>org.springframework.data » spring-data-mongodb(v2.x)</li>
-</ul>
-<p>The Mongock architecture is designed in such a way that allows you to combine any driver with any runner. For example, you may want to use a Mongock driver for springdata with the standalone runner(no framework).</p>
-<p><em>For more information, visit the <a href="/v5/driver/">Driver page</a></em></p>
-<h3 id="runner"><a class="header-anchor" href="#runner">#</a> Runner</h3>
-<p>The runner is the orchestator component dealing with the process logic, configuration, dependencies, framework and any environmental aspect. It’s the glue that puts together all the components as well as the decision maker. It takes the migration, driver and framework, and run the process.</p>
-<p>Mongock provides different runner for multiple frameworks(standalone, Springboot, Micronaut...) and it can be combined with any driver</p>
-<p><em>For more information, visit the <a href="/v5/runner/">Runner page</a></em></p>
-<hr>
-<h2 id="mongock-process"><a class="header-anchor" href="#mongock-process">#</a> Mongock process</h2>
-<p>In a nutshell, the mongock migration process takes all the pending migration changes and executes them in order.</p>
-<p>Mongock is designed to run successfully the entire migration or fail. And the next time is executed, it will continue from where the migration was left(the failed ChangeUnit).</p>
-<p>Normaly the Mongock process is placed in the application startup, so it ensures the application is deployed only once the migration has been successfully finished in order to gurantee the consistency between the code and the data.</p>
-<h3 id="process-steps"><a class="header-anchor" href="#process-steps">#</a> Process steps</h3>
-<p>Mongock process follows the next steps:</p>
+        <h1 id="contributing-to-mongock-project"><a class="header-anchor" href="#contributing-to-mongock-project">#</a> Contributing to Mongock project</h1>
+<p>🎉  First off, thanks for taking the time to contribute! 🎉</p>
+<p>In this section we'll explain the type of contributions available, how to do it and the rewards plan!</p>
+<h2 id="getting-started-%F0%9F%9A%80"><a class="header-anchor" href="#getting-started-%F0%9F%9A%80">#</a> Getting started 🚀</h2>
+<p class="successAlt">💥  Visit our page of <a href="https://github.com/mongock/mongock/labels/contribution-requested">requested contributions</a> to find out issues and which of them are rewarded!!</p>
+<p>Contributions are made to this repo via <strong>issues</strong>, <strong>discussions</strong> and <strong>code contributions</strong>.</p>
+<h2 id="issues-%F0%9F%90%9B"><a class="header-anchor" href="#issues-%F0%9F%90%9B">#</a> Issues 🐛</h2>
+<p>For raising a new issue, please visit this <a href="https://github.com/mongock/mongock/issues/new?assignees=&amp;labels=&amp;template=bug_report.md&amp;title=">link</a>, fill the template and submit it. You will hear from us shortly!!
+<br /><br />
+Contributor raising a valid issue(or solving it) will get listed in our <a href="https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md">contributor list</a></p>
+<h2 id="discussions-%F0%9F%94%8A"><a class="header-anchor" href="#discussions-%F0%9F%94%8A">#</a> Discussions  🔊</h2>
+<p>For general <strong>Q&amp;A</strong>s, <strong>ideas</strong>, comment on any <strong>release</strong> or anything you want to raise, but it's not an issue, please visit the <a href="https://github.com/mongock/mongock/discussions">discussion page</a>.
+<br /><br />
+Contributor starting a valid discussion(or participates in it) will get listed in our <a href="https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md">contributor list</a>.</p>
+<h2 id="code-contribution-%F0%9F%92%A5"><a class="header-anchor" href="#code-contribution-%F0%9F%92%A5">#</a> Code contribution 💥</h2>
+<p>This type of contribution consists in actually getting involved in the Mongock's development. It's performed by raising a pull request for a given issue.</p>
+<h3 id="pull-requests"><a class="header-anchor" href="#pull-requests">#</a> Pull requests</h3>
+<p>To perform a pull request, please follow these steps:</p>
 <ol>
-<li>The runner loads the migration files(changeUnits).</li>
-<li>The runner checks if there is pending change to execute.</li>
-<li>The runner acquires the distributed lock through the driver.</li>
-<li>The runner loops over the migration files(changeUnits) in order.</li>
-<li>Takes the next ChangeUnit and executes it.
-<ul>
-<li>If the ChangeUnit is successfully executed, Mongock persists an entry in the Mongock change history with the state SUCCESS and start the step 5 again.</li>
-<li>If the ChangeUnit fails, the runner rolls back the change(natively in a transactional environments or manually with the method <a href="/v5/migration#implementation">@RollbackExecution</a> in non-transactional environments), persists the ChangeUnit as processed with state FAILED and aborts the migration.</li>
-</ul>
-</li>
-<li>If the runner acomplished to execute the entire migration with no failures, it's considered successful. It releases the lock and finishes the migration.</li>
-<li>On the other hand, if any ChangeUnit fails, the runner stops the migration at that point and throws an exception. When Mongock is executed again, it will continue from the failure ChangeUnit(included).</li>
+<li>Create an issue spotting the bug or change your PR will address</li>
+<li>Fork the <code>develop</code> branch</li>
+<li>Perform the pertinent change</li>
+<li>Add the required unit/integration tests</li>
+<li>Update the documentation accordingly in <a href="https://github.com/mongock/mongock-docs">this project</a></li>
+<li>Raise a pull request for the documentation</li>
+<li>Raise a pull request for the actual change in the Mongock project, filling up the form you will find and providing the documentation pull request.</li>
+<li>We'll review both of them shortly and will let you know if any further change or explanation is required or we have everything we need to merge into <code>develop</code> branch</li>
 </ol>
-<h3 id="architecture"><a class="header-anchor" href="#architecture">#</a> Architecture</h3>
-<p class="text-center">
-    <img src="/images/technical-overview-diagram-User HLD.jpg" alt="Architecturei">
-</p>
+<p>Contributor raising successful pul request will get listed with special mention in our <a href="https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md">contributor list</a>.</p>
+<h3 id="implementing-a-new-driver"><a class="header-anchor" href="#implementing-a-new-driver">#</a> Implementing a new driver</h3>
+<p>Providing a new driver is considered the highest level of external contribution. On top of being in our <a href="https://www.mongock.io/v5/contribution/contributors">contributor page</a>, these kind of contributions are often <strong>compensated with bounties</strong>.</p>
+<p>If you want to implement a driver not listed in our <a href="https://github.com/mongock/mongock/labels/driver-requested">suggested drivers</a>, feel free to contact us <a href="mailto:support@mongock.io">here</a> to make a suggestion.</p>
+<p>To submit a new driver, please follow these steps:</p>
+<ol>
+<li>Clone this <a href="https://github.com/mongock/mongock/tree/develop/driver-template">template repository</a> in a independent folder.</li>
+<li>Follow the instructions in the README.md inside the repo.</li>
+<li>Once you are happy with your changes, raise a pull request as explained in the <a href="#pull-requests">pull requests section</a></li>
+</ol>
+<p>Contributor providing a new valid driver will be rewarded and listed with special mention in our <a href="https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md">contributor list</a></p>
+<h2 id="rewards-%F0%9F%92%B0%F0%9F%92%B0"><a class="header-anchor" href="#rewards-%F0%9F%92%B0%F0%9F%92%B0">#</a> Rewards 💰💰</h2>
+<p>We really value those open-source enthusiasts that want to contribute to the software community, and specially those that help Mongock to get better. That's why we have set
+a rewarding plan to try to compensate the effort and obviously motivate them to be part of the Mongock's community.</p>
+<h3 id="issue-rewarding"><a class="header-anchor" href="#issue-rewarding">#</a> Issue rewarding</h3>
+<p>Submitting good issues  that represent real problems(or enhancements) is very important in an open-source project, and requires time and effort. This is why contributors that raise a valid issue will be recognised and listed in our <a href="https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md">contributor list</a>.</p>
+<h3 id="discussion-rewarding"><a class="header-anchor" href="#discussion-rewarding">#</a> Discussion rewarding</h3>
+<p>Similarly to issues, discussions are really helpful to improve the Mongock project. This area focuses less in fixing, but really helps us in getting new ideas or approaches. In the same way as issues, any contributor who starts(or participates in) a discussion will be recognised and listed in our <a href="https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md">contributor list</a>.</p>
+<h3 id="code-contribution-rewarding"><a class="header-anchor" href="#code-contribution-rewarding">#</a> Code contribution rewarding</h3>
+<p>In this case the contributor not only gets listed into our <a href="https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md">contributor list</a>, also obtains a special mention. For requested features we often provide bounties to motivate our community. Visit our list <a href="https://github.com/mongock/mongock/labels/contribution-requested">requested contributions</a> and see if there is any with a bounty label, indicating the amount 😜</p>
+<h3 id="new-driver-rewarding"><a class="header-anchor" href="#new-driver-rewarding">#</a> New driver rewarding</h3>
+<p>This is a special case within the <code>code contribution</code>. You can check our <a href="https://github.com/mongock/mongock/labels/driver-requested">suggested list of drivers</a>, or suggest a different by contacting us <a href="mailto:development@mongock.io">here</a></p>
+<h2 id="bounty-rewarding"><a class="header-anchor" href="#bounty-rewarding">#</a> Bounty rewarding</h2>
+<p>Steps to work on a bounty-rewarded contribution</p>
+<ol>
+<li>Visit our list <a href="https://github.com/mongock/mongock/labels/contribution-requested">requested contributions</a></li>
+<li>Search for any issue with a bounty label (If you have thought in a feature that you believe it deserves a bounty, please contact the <a href="mailto:development@mongock.io">mongock team</a>) If you are thinking in <strong>providing a new driver, it's very likely we'll provide a bounty for it.</strong></li>
+<li>Once you have decided in which issue you want to work on(and making sure it's ont already assigned to any other contributor), make a comment in the ticket itself claiming you will be working on it and make yourself an assignee</li>
+</ol>
 
       </article>
     </main>
