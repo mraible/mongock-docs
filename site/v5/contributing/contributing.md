@@ -17,7 +17,7 @@ In this section we'll explain the type of contributions available, how to do it 
 
 ## Getting started 🚀
 
-<p class="successAlt">💥  Visit our page of <a href="https://github.com/mongock/mongock/labels/contribution-requested">requested contributions</a> to find out the best candidates and which of them are rewarded!!</p>
+<p class="successAlt">💥  Visit our page of <a href="https://github.com/mongock/mongock/labels/contribution-requested">requested contributions</a> to find out issues and which of them are rewarded!!</p>
 
 Contributions are made to this repo via **issues**, **discussions** and **code contributions**.
 
