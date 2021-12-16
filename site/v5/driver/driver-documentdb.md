@@ -12,7 +12,7 @@ eleventyNavigation:
 ---
 [[TOC]]
 
-<p class="success">You can use the Mongock drivers for MongoDB to manage your <b>DocumentDB</b> migrations</p>
+<p class="success">You can manage your <b>DocumentDB</b> migrations by using the Mongock drivers for MongoDB</p>
 
 
 ## Compatibility
