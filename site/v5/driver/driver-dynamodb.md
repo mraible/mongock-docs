@@ -5,7 +5,7 @@ permalink: /v5/driver/dynamodb/index.html
 toc: true
 eleventyNavigation:
   version: v5
-  order: 90 
+  order: 100 
   parent: driver
   key: driver dynamodb 
   title: 'Dynamdb'
