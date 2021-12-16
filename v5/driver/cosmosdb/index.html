@@ -246,7 +246,7 @@ function changeVersion() {
             
               
   
-  <a class="menu-item "  href="/v5/driver/cosmosdb/index.html">
+  <a class="menu-item current-page"  href="/v5/driver/cosmosdb/index.html">
     CosmosDB
   </a>
 
@@ -483,7 +483,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v4/lock/index.html">
+      <a class="menu-item "  href="/v4/lock/index.html">
         Lock
       </a>
     
@@ -629,41 +629,30 @@ function changeVersion() {
 </aside>
 
       <article>
-        <h1 id="lock"><a class="header-anchor" href="#lock">#</a> Lock</h1>
-<p>Mongock uses a pessimistic lock to synchronise multiple Mongock instances accessing to the same database.</p>
-<h2 id="overview"><a class="header-anchor" href="#overview">#</a> Overview</h2>
-<p>Although this is completely configurable, the default, expected and recommended behaviour is Mongock acquiring the lock before starting the migration, trying up to certain number of times(if it's already taken or there is any connection issue). Once taken, it will &quot;reserve&quot; it initially for some time(<strong>lockAcquiredForMinutes</strong>). Then  Mongock will ensure the lock is acquired in every access to the database. When the time for which the lock was acquired is near to expire, Mongock will extend it using the same amount of minutes(<strong>lockAcquiredForMinutes</strong>). This process will be repeatedly performed until the migration is finished in order to ensure the lock is acquired until the end of the migration.</p>
-<h3 id="what-happens-if-the-lock-is-acquired-for-a-shorter-period-than-the-migration-and-cannot-be-re-acquired%3F"><a class="header-anchor" href="#what-happens-if-the-lock-is-acquired-for-a-shorter-period-than-the-migration-and-cannot-be-re-acquired%3F">#</a> What happens if the lock is acquired for a shorter period than the migration and cannot be re-acquired?</h3>
-<p>This is very unlike as the only instance allowed to update the lock collection is the one in possession of the lock, but it's technically possible to experiment connection issues when refreshing the lock. When this happens, the lock is implicitly released(or about to) because it is expired, so  the current migration is aborted and any other Mongock instance can acquire it. The result of the migration will depend on wether the migration is <a href="/v4/transactions">transactionable</a> or provides recovery process.</p>
-<h3 id="how-is-the-lock-ensured-in-every-database-access%3F"><a class="header-anchor" href="#how-is-the-lock-ensured-in-every-database-access%3F">#</a> How is the lock ensured in every database access?</h3>
-<p>Mongock uses two mechanisms for this. Static and dynamic lock guardian.</p>
+        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#getting-started"> Getting started</a></li><li><a href="#important-notes"> Important notes</a><ul><li><a href="#sharding-the-mongock-changelog-collection"> Sharding the Mongock ChangeLog collection</a></li><li><a href="#transactions"> Transactions</a></li></ul></li><li><a href="#resources"> Resources</a></li></ul></div></p>
+<p class="success">You can manage your <b>CosmosDB</b> migrations by using the Mongock drivers for MongoDB</p>
+<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
+<p><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/introduction">Azure Cosmos DB</a> provides multiple APIs to connect to it. One of them it's the API for MongoDB, which makes it easy to use Cosmos DB as if it were a MongoDB database.</p>
+<p>You can leverage your MongoDB experience and continue to use your favorite MongoDB drivers, SDKs, and tools by pointing your application to the API for MongoDB account's connection string.</p>
+<h2 id="getting-started"><a class="header-anchor" href="#getting-started">#</a> Getting started</h2>
+<p><strong>You can use Mongock to manage your Cosmos DB migrations in the same way you would do with MongoDB</strong>, using one of the drivers Mongock provides for MongoDB. You can see how to use it in our <a href="/v5/driver/mongodb">MongoDB driver section</a></p>
+<h2 id="important-notes"><a class="header-anchor" href="#important-notes">#</a> Important notes</h2>
+<h3 id="sharding-the-mongock-changelog-collection"><a class="header-anchor" href="#sharding-the-mongock-changelog-collection">#</a> Sharding the Mongock ChangeLog collection</h3>
+<p>If you want to shard the Mongock changeLog collection, you need to use the key <code>executionId</code> as shard key. This is due to the fact that the <code>executionId</code> is the prefix of the Mongock's compound index and the MongoDB official documentation states:</p>
+<p><code>...The index can be an index on the shard key or a compound index where the shard key is a prefix of the index.</code></p>
+<p>You can find more information about <a href="https://docs.mongodb.com/manual/core/sharding-shard-key/#shard-key-indexes">shard keys</a> and <a href="https://docs.mongodb.com/manual/core/index-compound/#prefixes">prefixes</a></p>
+<h3 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h3>
+<p>Although MongoDB does support Multi-document transactions(in a single or multiple, and sharded collections), they are not supported across collections or in sharded collections in version 4.0.</p>
+<h2 id="resources"><a class="header-anchor" href="#resources">#</a> Resources</h2>
+<p>You can find more information about Cosmos DB with MongoDB API and Java, here:</p>
 <ul>
-<li><strong>static lock guardian</strong>: This is mainly used for driver and  database components, known in advance, such as MongoDatabase, MongoCollection, MongoTemplate(MongockTemplate), etc. This mechanism is based on the decorator pattern, so it is just a wrap wrap to ensure the lock is acquisition.<br></br></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/mongodb-introduction">Azure Cosmos DB API for MongoDB</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/create-mongodb-java">Quickstart: Create a console app with Java and the MongoDB API in Azure Cosmos DB</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/use-multi-document-transactions">Use Multi-document transactions in Azure Cosmos DB API for MongoDB</a></li>
+<li><a href="https://docs.mongodb.com/v5.0/core/transactions/">MongoDB transactions</a></li>
+<li><a href="https://docs.mongodb.com/manual/core/sharding-shard-key/#shard-key-indexes">MongoDB shard keys</a></li>
+<li><a href="https://docs.mongodb.com/manual/core/index-compound/#prefixes">MongoDB compound indexes</a></li>
 </ul>
-<div class="success">
-<b>MongockTemplate</b> must be used instead of MongoTemplate.
-</div>
-<br></br>
-<ul>
-<li><strong>dynamic lock guardian</strong>: This used for the <strong>custom objects</strong> used in changeSet methods, like repositories, etc. This implementation uses the JDK dynamic proxy instrumentation. While it has its pros and cons, it provides a fair balance between performance and framework intrusion. Unfortunately, one of the well known  limitations is that only interfaces can be proxied, so for this reason Mongock only allows interface for custom beans in changeSet methods. Please consult <a href="/v4/injecting-custom-dependencies-to-changesets">Injecting custom beans</a> for more information.<br></br></li>
-</ul>
-<div class="tip">
-<b>Custom beans</b> in changeSet methods <b>must be interfaces</b>.
-</div>
-<br></br>
-<h2 id="configuration"><a class="header-anchor" href="#configuration">#</a> Configuration</h2>
-<p>There are just 4 parameters to tune the lock.You can configure them by using properties or builder. Please see the <a href="/v4/standalone#configuration">runner configuration</a> section for more information.</p>
-<ul>
-<li><strong>lockAcquiredForMinutes</strong>: Indicates how long the lock will be hold in minutes once acquired. You can configure it with method setLockConfig in builder.</li>
-<li><strong>maxWaitingForLockMinutes</strong>: Indicates max time in minutes to wait for the lock in each try.You can configure it with method setLockConfig in builder.</li>
-<li><strong>maxTries</strong>: Number of times Mongock will try to acquire the lock. You can configure it with method setLockConfig in builder.</li>
-<li><strong>throwExceptionIfCannotObtainLock</strong>: Mongock will throw MongockException if lock can not be obtained. You can configure it with method setLockConfig in builder.</li>
-</ul>
-<br>
-<div class="tip">
-When using the builder method <b>setLockConfig</b>, which takes lockAcquiredForMinutes, maxWaitingForLockMinutes and maxTries as parameters, <b>will implicitly set throwExceptionIfCannotObtainLock to true.</b> 
-<p>However, in common scenarios it doesn't makes much sense, but you can set it to false afterwards with method throwExceptionIfCannotObtainLock though.</p>
-</div>
 
       </article>
     </main>
