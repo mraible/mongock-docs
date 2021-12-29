@@ -24,12 +24,12 @@ Contributions are made to this repo via **issues**, **discussions** and **code c
 ## Issues 🐛
 For raising a new issue, please visit this [link](https://github.com/mongock/mongock/issues/new?assignees=&labels=&template=bug_report.md&title=), fill the template and submit it. You will hear from us shortly!!
 <br /><br />
-Contributor raising a valid issue(or solving it) will get listed in our [contributor list](https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md)
+Contributor raising a valid issue(or solving it) will get listed in our [contributor list](https://github.com/mongock/mongock/graphs/contributors)
 
 ## Discussions  🔊
 For general **Q&A**s, **ideas**, comment on any **release** or anything you want to raise, but it's not an issue, please visit the [discussion page](https://github.com/mongock/mongock/discussions).
 <br /><br />
-Contributor starting a valid discussion(or participates in it) will get listed in our [contributor list](https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md).
+Contributor starting a valid discussion(or participates in it) will get listed in our [contributor list](https://github.com/mongock/mongock/graphs/contributors).
 
 
 ## Code contribution 💥
@@ -48,22 +48,22 @@ To perform a pull request, please follow these steps:
 7. Raise a pull request for the actual change in the Mongock project, filling up the form you will find and providing the documentation pull request.
 8. We'll review both of them shortly and will let you know if any further change or explanation is required or we have everything we need to merge into `develop` branch
 
-Contributor raising successful pul request will get listed with special mention in our [contributor list](https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md).
+Contributor raising successful pul request will get listed with special mention in our [contributor list](https://github.com/mongock/mongock/graphs/contributors).
 
 
 ### Implementing a new driver
 
-Providing a new driver is considered the highest level of external contribution. On top of being in our [contributor page](https://www.mongock.io/v5/contribution/contributors), these kind of contributions are often **compensated with bounties**.
+Providing a new driver is considered the highest level of external contribution. On top of being in our [contributor page](https://github.com/mongock/mongock/graphs/contributors), these kind of contributions are often **compensated with bounties**.
 
 If you want to implement a driver not listed in our [suggested drivers](https://github.com/mongock/mongock/labels/driver-requested), feel free to contact us [here](mailto:support@mongock.io) to make a suggestion.
 
 To submit a new driver, please follow these steps:
 
-1. Clone this [template repository](https://github.com/mongock/mongock/tree/develop/driver-template) in a independent folder.
+1. Clone this [template repository](https://github.com/mongock/mongock-driver-simpsonsdb) in a independent folder.
 2. Follow the instructions in the README.md inside the repo.
 3. Once you are happy with your changes, raise a pull request as explained in the [pull requests section](#pull-requests)
 
-Contributor providing a new valid driver will be rewarded and listed with special mention in our [contributor list](https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md)
+Contributor providing a new valid driver will be rewarded and listed with special mention in our [contributor list](https://github.com/mongock/mongock/graphs/contributors)
 
 ## Rewards 💰💰
 
@@ -71,13 +71,13 @@ We really value those open-source enthusiasts that want to contribute to the sof
 a rewarding plan to try to compensate the effort and obviously motivate them to be part of the Mongock's community.
 
 ### Issue rewarding
- Submitting good issues  that represent real problems(or enhancements) is very important in an open-source project, and requires time and effort. This is why contributors that raise a valid issue will be recognised and listed in our [contributor list](https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md).
+ Submitting good issues  that represent real problems(or enhancements) is very important in an open-source project, and requires time and effort. This is why contributors that raise a valid issue will be recognised and listed in our [contributor list](https://github.com/mongock/mongock/graphs/contributors).
 
 ### Discussion rewarding
- Similarly to issues, discussions are really helpful to improve the Mongock project. This area focuses less in fixing, but really helps us in getting new ideas or approaches. In the same way as issues, any contributor who starts(or participates in) a discussion will be recognised and listed in our [contributor list](https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md).
+ Similarly to issues, discussions are really helpful to improve the Mongock project. This area focuses less in fixing, but really helps us in getting new ideas or approaches. In the same way as issues, any contributor who starts(or participates in) a discussion will be recognised and listed in our [contributor list](https://github.com/mongock/mongock/graphs/contributors).
 
 ### Code contribution rewarding
- In this case the contributor not only gets listed into our [contributor list](https://github.com/mongock/mongock/blob/master/CONTRIBUTORS.md), also obtains a special mention. For requested features we often provide bounties to motivate our community. Visit our list [requested contributions](https://github.com/mongock/mongock/labels/contribution-requested) and see if there is any with a bounty label, indicating the amount 😜
+ In this case the contributor not only gets listed into our [contributor list](https://github.com/mongock/mongock/graphs/contributors), also obtains a special mention. For requested features we often provide bounties to motivate our community. Visit our list [requested contributions](https://github.com/mongock/mongock/labels/contribution-requested) and see if there is any with a bounty label, indicating the amount 😜
 
 ### New driver rewarding 
 This is a special case within the `code contribution`. You can check our [suggested list of drivers](https://github.com/mongock/mongock/labels/driver-requested), or suggest a different by contacting us [here](mailto:development@mongock.io)
