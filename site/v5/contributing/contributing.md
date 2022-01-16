@@ -36,6 +36,22 @@ Contributor starting a valid discussion(or participates in it) will get listed i
 
 This type of contribution consists in actually getting involved in the Mongock's development. It's performed by raising a pull request for a given issue.
 
+
+### Implementing a new driver
+
+Providing a new driver is considered the highest level of external contribution. On top of being in our [contributor page](https://github.com/mongock/mongock/graphs/contributors), this kind of contributions are often **compensated with bounties**.
+
+<br />
+
+If you are developing new driver, you either took an issue from our [suggested drivers](https://github.com/mongock/mongock/labels/driver-requested) or you need one and decided to create it yourself. In any case, this needs to be notified to the Mongock team, so we ensure there are no conflicts with other contributors and the required repository and any other resources are created. For this, if there is already an issue created , please write a comment claim it and we'll answer asap. Otherwise, please email us to [development@mongock.io](mailto:development@mongock.io) and will answer asap facilitating everything required for you start contributing.
+
+<br />
+
+To understand what is involved in a driver creation, please take a look to our [driver example](https://github.com/mongock/mongock-driver-simpsonsdb). The readme explains all the steps involved
+<div class="note">
+Contributor providing a new valid driver will be rewarded and listed with special mention in our <a href="https://github.com/mongock/mongock/graphs/contributors">contributor list</a>
+</div>
+
 ### Pull requests 
 
 To perform a pull request, please follow these steps:
@@ -49,21 +65,6 @@ To perform a pull request, please follow these steps:
 8. We'll review both of them shortly and will let you know if any further change or explanation is required or we have everything we need to merge into `develop` branch
 
 Contributor raising successful pul request will get listed with special mention in our [contributor list](https://github.com/mongock/mongock/graphs/contributors).
-
-
-### Implementing a new driver
-
-Providing a new driver is considered the highest level of external contribution. On top of being in our [contributor page](https://github.com/mongock/mongock/graphs/contributors), these kind of contributions are often **compensated with bounties**.
-
-If you want to implement a driver not listed in our [suggested drivers](https://github.com/mongock/mongock/labels/driver-requested), feel free to contact us [here](mailto:support@mongock.io) to make a suggestion.
-
-To submit a new driver, please follow these steps:
-
-1. Clone this [template repository](https://github.com/mongock/mongock-driver-simpsonsdb) in a independent folder.
-2. Follow the instructions in the README.md inside the repo.
-3. Once you are happy with your changes, raise a pull request as explained in the [pull requests section](#pull-requests)
-
-Contributor providing a new valid driver will be rewarded and listed with special mention in our [contributor list](https://github.com/mongock/mongock/graphs/contributors)
 
 ## Rewards 💰💰
 
