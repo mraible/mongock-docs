@@ -36,4 +36,4 @@ jobs:
       with:
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         publish_dir: ./_site
-        cname: docs.mongock.io
+        cname: mongock.io
