@@ -1,7 +1,7 @@
 {
   "name": "mongock-documentation",
   "version": "1.0.0",
-  "description": "Monogck documentation",
+  "description": "Mongock documentation",
   "scripts": {
     "clean": "rm -rf ./_site",
     "start": "eleventy --serve",
@@ -14,12 +14,12 @@
     "type": "git",
     "url": "git+https://github.com/monogock/mongock-docs.git"
   },
-  "author": "Mongock tema <development@mongock.io> (https://www.mongock.io/)",
+  "author": "Mongock team <development@mongock.io> (https://www.mongock.io/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/monogock/mongock/issues"
   },
-  "homepage": "https://www.mongock.io",
+  "homepage": "https://docs.mongock.io",
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-navigation": "^0.3.2",

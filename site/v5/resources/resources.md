@@ -13,7 +13,7 @@ eleventyNavigation:
 
 ## Code Examples
 
-In our  [example repository](https://github.com/cloudyrock/mongock-examples) you can find other examples.
+In our  [example repository](https://github.com/mongock/mongock-examples) you can find other examples.
 
 ### MongoDB
 
