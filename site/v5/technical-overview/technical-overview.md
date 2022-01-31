@@ -65,7 +65,7 @@ Mongock process follows the next steps:
 4. The runner loops over the migration files(changeUnits) in order.
 5. Takes the next ChangeUnit and executes it.
     - If the ChangeUnit is successfully executed, Mongock persists an entry in the Mongock change history with the state SUCCESS and start the step 5 again.
-    - If the ChangeUnit fails, the runner rolls back the change(natively in a transactional environments or manually with the method [@RollbackExecution](/v5/migration#implementation) in non-transactional environments), persists the ChangeUnit as processed with state FAILED and aborts the migration.
+    - If the ChangeUnit fails, the runner rolls back the change. If the driver supports transactions and transactions are enabled, the rollback is done natively. When the driver does not support transactions or transactions are disabled, the method [@RollbackExecution](/v5/migration#implementation) is executed. In both cases the ChangeUnit failed, whereas in the latter option, and entry is added in the changelog that a change has been rolled back.
 6. If the runner acomplished to execute the entire migration with no failures, it's considered successful. It releases the lock and finishes the migration.
 7. On the other hand, if any ChangeUnit fails, the runner stops the migration at that point and throws an exception. When Mongock is executed again, it will continue from the failure ChangeUnit(included).
 
