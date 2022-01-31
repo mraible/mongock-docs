@@ -667,7 +667,7 @@ function changeVersion() {
 <li>Takes the next ChangeUnit and executes it.
 <ul>
 <li>If the ChangeUnit is successfully executed, Mongock persists an entry in the Mongock change history with the state SUCCESS and start the step 5 again.</li>
-<li>If the ChangeUnit fails, the runner rolls back the change(natively in a transactional environments or manually with the method <a href="/v5/migration#implementation">@RollbackExecution</a> in non-transactional environments), persists the ChangeUnit as processed with state FAILED and aborts the migration.</li>
+<li>If the ChangeUnit fails, the runner rolls back the change. If the driver supports transactions and transactions are enabled, the rollback is done natively. When the driver does not support transactions or transactions are disabled, the method <a href="/v5/migration#implementation">@RollbackExecution</a> is executed. In both cases the ChangeUnit failed, whereas in the latter option, and entry is added in the changelog that a change has been rolled back.</li>
 </ul>
 </li>
 <li>If the runner acomplished to execute the entire migration with no failures, it's considered successful. It releases the lock and finishes the migration.</li>
