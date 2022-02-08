@@ -21,7 +21,7 @@ As its name suggests, a changeUnit represents the unit of a migration. By defaul
 
 <div class="tip">
 <p>In this section we mention <b>native transactions</b>. By this we mean the transaction mechanism provided by the database.</p>
-<p>Mongock always try to provide a transactional environment as much as possible. When native transactions are not possible, it tries to rollback the changes manually with the <a href="/migration#implementation">@RollbackExecution</a> method.</p>
+<p>Mongock always try to provide a transactional environment as much as possible. When native transactions are not possible, it tries to rollback the changes manually with the <a href="/v5/migration#changeunit-methods">@RollbackExecution</a> method.</p>
 </div>
 
 ## Configuration

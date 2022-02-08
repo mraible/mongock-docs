@@ -88,15 +88,18 @@ function processPage(versionFolderFilter, menuItems, menuIndexes, item) {
         if(!folder) {
           folder = item.data.page.fileSlug;
         }
+        
+        
 
         if(EXCLUDE_FROM_MENU.has(folder) || versionFolder != versionFolderFilter) {
           return;
+          
         }
         if(!( typeof menuIndexes[folder] == 'number')) {
           const index = menuItems.length;
           menuIndexes[folder] = index;
           menuItems.push({
-            title: makeTittle(folder),
+            title: makeTittle(item.data.upperCase ? folder.toUpperCase() : folder),
             pages: []
           });
         }

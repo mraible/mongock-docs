@@ -1,7 +1,7 @@
 ---
 title: Operations  
 date: 2014-04-18 11:30:00 
-permalink: /v5/CLI/operations/index.html
+permalink: /v5/cli/operations/index.html
 eleventyNavigation:
   version: v5
   order: 1

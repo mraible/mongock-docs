@@ -1,7 +1,8 @@
 ---
 title: CLI  
 date: 2014-04-18 11:30:00 
-permalink: /v5/CLI/index.html
+upperCase: true
+permalink: /v5/cli/index.html
 eleventyNavigation:
   version: v5
   root: true
