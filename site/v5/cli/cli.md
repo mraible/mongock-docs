@@ -1,8 +1,8 @@
 ---
 title: CLI  
 date: 2014-04-18 11:30:00 
-upperCase: true
 permalink: /v5/cli/index.html
+upperCase: true
 eleventyNavigation:
   version: v5
   root: true

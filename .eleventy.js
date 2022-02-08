@@ -99,7 +99,7 @@ function processPage(versionFolderFilter, menuItems, menuIndexes, item) {
           const index = menuItems.length;
           menuIndexes[folder] = index;
           menuItems.push({
-            title: makeTittle(item.data.upperCase ? folder.toUpperCase() : folder),
+            title: makeTittle(item.data.upperCase ? folder.toUpperCase(): folder),
             pages: []
           });
         }
