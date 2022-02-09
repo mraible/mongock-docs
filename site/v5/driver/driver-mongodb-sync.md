@@ -12,18 +12,17 @@ eleventyNavigation:
 ---
 [[TOC]]
 ## Introduction
-This sections covers ow 
+This sections covers the Mongock implementation for MongoDB java Driver 3.x and 4.x 
 
 <br />
 
 -------------------------------------------
 
 ## MongoDB driver options and compatibility
-**There are 4 drivers in the MongoDB family driver:**
 
 |     Mongock driver      |                  Driver library              | Version compatibility |
 |-------------------------|----------------------------------------------|-----------------------|
-|   mongo-sync-v4-driver  |        org.mongodb:mongodb-driver-sync       | 4.X.X                 |
+|  mongodb-sync-v4-driver |        org.mongodb:mongodb-driver-sync       | 4.X.X                 |
 |   mongodb-v3-driver     |         org.mongodb:mongo-java-driver        | 3.X.X                 |
 
 <br />
@@ -48,40 +47,41 @@ All the MongoDB drivers share the same configuration.
 
 -------------------------------------------
 
-## MongoDB native drivers
-Mongock offers two  drivers for MongoDB native drivers. The latest, version Sync 4.x, and the previous major version 3.x, just for those who haven't upgraded yet.
-
-- MongoSync4Driver
-- MongoCore3Driver
-
 ### Get started 
 Following the [get started section](/v5/get-started#steps-to-run-mongock), this covers steps 3 and 5 and 6.
 
-#### Add maven dependency for the driver (step 2)
+#### - Add maven dependency for the driver (step 2)
 
 ```xml
 <dependency>
   <groupId>io.mongock</groupId>
-  <artifactId>mongodb-driver-sync</artifactId>
+  <artifactId>mongodb-sync-v4-driver</artifactId>
   <!--<artifactId>mongodb-v3-driver</artifactId> for MongoDB driver v3-->
 </dependency>
 ```
 
-#### Build the driver (setps 5)
+#### - Build the driver (setps 5)
 These classes provide the same two static initializers
 
-- **withDefaultLock**(MongoClient mongoClient, String databaseName)
-- **withLockStrategy**(MongoClient mongoClient, String databaseName, long lockAcquiredForMillis, long lockQuitTryingAfterMillis,long lockTryFrequencyMillis)
+- **withDefaultLock**(mongoClient, databaseName)
+- **withLockStrategy**(mongoClient, databaseName, lockAcquiredForMillis, lockQuitTryingAfterMillis, lockTryFrequencyMillis)
 
 ```java
+// For mongodb-sync-v4-driver
 MongoSync4Driver driver = MongoSync4Driver.withDefaultLock(mongoClient, databaseName);
+// For mongodb-v3-driver
+//MongoCore3Driver driver = MongoCore3Driver.withDefaultLock(mongoClient, databaseName);
+driver.setWriteConcern(WriteConcern.MAJORITY.withJournal(true).withWTimeout(1000, TimeUnit.MILLISECONDS));
+driver.setReadConcern(ReadConcern.MAJORITY);
+driver.setReadPreference(ReadPreference.primary());
 ```
 
-#### Driver extra configuration (step 6)
+#### - Driver extra configuration (step 6)
 
 ##### Transactions
-Due to the MongoDB API design, to work with transactions the [ClientSession](https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html) object is required in every operation and then managed the transaction.
-Mongock make this very simple. The developer only needs to specify a `ClientSession` parameter in the contructor or method of the `@ChangeUnit` and use in the MongoDB operations. **Mongock takes care of everything else.**
+Due to the MongoDB API design, to work with transactions the [ClientSession](https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html) object is required in every MongoDB driver operation.
+<br /><br />
+Mongock makes this very simple. The developer only needs to specify a `ClientSession` parameter in the contructor or method of the `@ChangeUnit` and use it in the MongoDB operations. **Mongock takes care of everything else.**
 <br /><br />
 The following code shows how to save documents inside the transaction using the `ClientSession` object.
 ```java
@@ -100,54 +100,7 @@ The following code shows how to save documents inside the transaction using the 
 -------------------------------------------
 
 ## Examples 
-<p class="successAlt">Please visit out example projects in [this repo](https://github.com/mongock/mongock-examples/tree/master/mongodb) for more information</p>
+<p class="successAlt">Please visit our <a href="https://github.com/mongock/mongock-examples/tree/master/mongodb">example github repository</a> for more information</p>
 
 
 
-#### Example autoconfiguration with Springboot
-
-```yaml
-mongock:
-  mongo-db:
-    write-concern:
-      w: majority
-      wTimeoutMs: 1000
-      journal: true
-    read-concern: majority
-    read-preference: primary
-```
-
-```java
-@EnableMongock
-@SpringBootApplication
-public class QuickStartApp {
-
-    /**
-     * Be wared MongoTemplate needs to be injected
-     */
-    public static void main(String[] args) {
-        SpringApplicationBuilder().sources(QuickStartApp.class)().run(args);
-    }
-
-    /**
-     * Transaction Manager.
-     * Needed to allow execution of changeSets in transaction scope.
-     */
-    @Bean
-    public MongoTransactionManager transactionManager(MongoTemplate mongoTemplate) {
-        return new MongoTransactionManager(mongoTemplate.getMongoDbFactory());
-    }
-
-}
-```
-
-
-#### Example with builder
-
-```java
-//this could be the SpringDataMongoV2Driver passing the same paremeter or MongoSync4Driver/MongoCore3Driver passing the MongoClient and databaseName
-SpringDataMongoV3Driver driver = SpringDataMongoV3Driver.withDefaultLock(mongoTemplate);
-driver.setWriteConcern(WriteConcern.MAJORITY.withJournal(true).withWTimeout(1000, TimeUnit.MILLISECONDS));
-driver.setReadConcern(ReadConcern.MAJORITY);
-driver.setReadPreference(ReadPreference.primary());
-```

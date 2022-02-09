@@ -17,17 +17,16 @@ The two main responsabilities of the driver are:
 - Persisting the distributed lock.
 
 
-## Driver options
-Currently, we only 
+## Drivers available
 - [MongoDB Java (3.x and 4.x)](/v5/driver/mongodb-sync)
 - [MongoDB Spring data (2.x and 3.x)](/v5/driver/mongodb-springdata)
 - [MongoDB Java Reactive Streams](/v5/driver/mongodb-reactive)
 - [DynamoDB](/v5/driver/dynamodb)
 - [CosmosDB](/v5/driver/cosmosdb)
 - [DocumentDB](/v5/driver/documentdb)
-
-<!-- - [Elasticsearch](/v5/driver/elasticsearch)
-- [SQL](/v5/driver/sql) -->
+- **Elasticsearch** (coming soon)
+- **Cassandra** (coming soon)
+- **SQL** (coming soon)
 
 -------------------------------------------
 
