@@ -54,6 +54,9 @@ No, even if you use a more updated version of Spring Data. You just use Spring M
 ## What's the difference between undo and rollback?
 **Rollback** is the act of reverting a change after failing at execution time. On the other hand **undo** is the act of reverting a change some time after being successfully executed.
 
+## Why does Mongock provide the mongodb-reactive-driver, if it is synchronous by definition?
+Before this driver, when Mongock was used in a reactive project, developers were forced to import the synchronous MongoDB java driver(or Spring Data driver) just to be used in Mongock migration. While this is not bad, some teams prefer to avoid it. With this reactive driver, this is not the case anymore. 
+
 
 
 <!--## My migrations take long and it impacts my startup time... what should I do?

@@ -12,23 +12,42 @@ eleventyNavigation:
 ---
 [[TOC]]
 ## Introduction
-The concept of driver and how it works is already explained in the [technical-overview](/v5/technical-overview) and [driver](/v5/driver) pages.
+This sections covers the Mongock implementation for MongoDB Java Reactive Streams driver.
 
-Here we explain how to use a driver with MongoDB and the different drivers Mongock provides.
+<br />
+
+If you are curious about why mongock provides the `mongodb-reactive-driver`, if it's synchronous by definition, please take a look to [this faq entry](/v5/faq#why-does-mongock-provide-the-mongodb-reactive-driver%2C-if-it-is-synchronous-by-definition%3F)
+
+
+## Important note
+
+Despite this deriver, the Mnogock's nature is still synchronous: A migration consists in a list of changes, which are executed in order, one after the other. If one of them fails, the migration aborts and Mongock will take it from that point in the next execution.
+
+<br />
+For this reason...
+<br />
+<p class="warningAlt">Developers must block all the database calls inside a changeUnit</p>
+<br />
+
+This is a bit cumbersome, as it requires creating a blocking subscriber that allows the developer to block the call. 
+
+<p class="successAlt">Luckily, Mongock provides such a util class: <b>MongoSubscriberSync</b>. You can see an example <a href="/v5/driver/mongodb-reactive#code-example">here</a></p>
+<br />
+Although Mongock provides this driver for those who, working in a reactive project, don't want to import the MongoDB java sync driver, we highly recommend the use of the synchronous drivers, when possible.
+<br /><br />
+
+
+
 
 <br />
 
 -------------------------------------------
 
 ## MongoDB driver options and compatibility
-**There are 4 drivers in the MongoDB family driver:**
 
 |     Mongock driver      |                  Driver library              | Version compatibility |
 |-------------------------|----------------------------------------------|-----------------------|
-| SpringDataMongoV3Driver | org.springframework.data:spring-data-mongodb | 3.X.X                 |
-| SpringDataMongoV2Driver | org.springframework.data:spring-data-mongodb | 2.X.X                 |
-|    MongoSync4Driver     |        org.mongodb:mongodb-driver-sync       | 4.X.X                 |
-|    MongoSync3Driver     |         org.mongodb:mongo-java-driver        | 3.X.X                 |
+| mongodb-reactive-driver |  org.mongodb:mongodb-driver-reactivestreams  | 4.X.X                 |
 
 <br />
 
@@ -52,51 +71,56 @@ All the MongoDB drivers share the same configuration.
 
 -------------------------------------------
 
-## MongoDB native drivers
-Mongock offers two  drivers for MongoDB native drivers. The latest, version Sync 4.x, and the previous major version 3.x, just for those who haven't upgraded yet.
-
-- MongoSync4Driver
-- MongoCore3Driver
-
 ### Get started 
 Following the [get started section](/v5/get-started#steps-to-run-mongock), this covers steps 3 and 5 and 6.
 
-#### Add maven dependency for the driver (step 2)
+#### - Add maven dependency for the driver (step 2)
 
 ```xml
 <dependency>
   <groupId>io.mongock</groupId>
-  <artifactId>mongodb-driver-sync</artifactId>
-  <!--<artifactId>mongodb-v3-driver</artifactId> for MongoDB driver v3-->
+  <artifactId>mongodb-reactive-driver</artifactId>
 </dependency>
 ```
 
-#### Build the driver (setps 5)
+#### - Build the driver (setps 5)
 These classes provide the same two static initializers
 
-- **withDefaultLock**(MongoClient mongoClient, String databaseName)
-- **withLockStrategy**(MongoClient mongoClient, String databaseName, long lockAcquiredForMillis, long lockQuitTryingAfterMillis,long lockTryFrequencyMillis)
+- **withDefaultLock**(mongoClient, databaseName)
+- **withLockStrategy**(mongoClient, databaseName, lockAcquiredForMillis, lockQuitTryingAfterMillis, lockTryFrequencyMillis)
 
 ```java
-MongoSync4Driver driver = MongoSync4Driver.withDefaultLock(mongoClient, databaseName);
+// For mongodb-sync-v4-driver
+MongoReactiveDriver driver = MongoReactiveDriver.withDefaultLock(mongoClient, databaseName);
+// For mongodb-v3-driver
+//MongoCore3Driver driver = MongoCore3Driver.withDefaultLock(mongoClient, databaseName);
+driver.setWriteConcern(WriteConcern.MAJORITY.withJournal(true).withWTimeout(1000, TimeUnit.MILLISECONDS));
+driver.setReadConcern(ReadConcern.MAJORITY);
+driver.setReadPreference(ReadPreference.primary());
 ```
 
-#### Driver extra configuration (step 6)
+#### - Driver extra configuration (step 6)
 
 ##### Transactions
-Due to the MongoDB API design, to work with transactions the [ClientSession](https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html) object is required in every operation and then managed the transaction.
-Mongock make this very simple. The developer only needs to specify a `ClientSession` parameter in the contructor or method of the `@ChangeUnit` and use in the MongoDB operations. **Mongock takes care of everything else.**
+Due to the MongoDB API design, to work with transactions the [ClientSession](https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html) object is required in every MongoDB driver operation.
+<br /><br />
+Mongock makes this very simple. The developer only needs to specify a `ClientSession` parameter in the contructor or method of the `@ChangeUnit` and use it in the MongoDB operations. **Mongock takes care of everything else.**
 <br /><br />
 The following code shows how to save documents inside the transaction using the `ClientSession` object.
+<div id="code-example"><div>
+
 ```java
-  @Execution
-  public void execution(ClientSession clientSession, MongoDatabase mongoDatabase) {
-  
-    mongoDatabase.getCollection(CLIENTS_COLLECTION_NAME, Client.class)
-            .insertMany(clientSession, IntStream.range(0, INITIAL_CLIENTS)
-                    .mapToObj(ClientInitializerChangeLog::getClient)
-                    .collect(Collectors.toList()));
-  }
+    @Execution
+    public void execution(ClientSession clientSession, MongoDatabase mongoDatabase) {
+        SubscriberSync<InsertManyResult> subscriber = new MongoSubscriberSync<>();
+        mongoDatabase.getCollection(CLIENTS_COLLECTION_NAME, Client.class)
+                .insertMany(clientSession, IntStream.range(0, INITIAL_CLIENTS)
+                        .mapToObj(ClientInitializerChange::getClient)
+                        .collect(Collectors.toList()))
+                .subscribe(subscriber);
+
+        InsertManyResult result = subscriber.getFirst();
+    }
 ```
 
 <br />
@@ -104,54 +128,7 @@ The following code shows how to save documents inside the transaction using the 
 -------------------------------------------
 
 ## Examples 
-<p class="successAlt">Please visit out example projects in [this repo](https://github.com/mongock/mongock-examples/tree/master/mongodb) for more information</p>
+<p class="successAlt">Please visit our <a href="https://github.com/mongock/mongock-examples/tree/master/mongodb">example github repository</a> for more information</p>
 
 
 
-#### Example autoconfiguration with Springboot
-
-```yaml
-mongock:
-  mongo-db:
-    write-concern:
-      w: majority
-      wTimeoutMs: 1000
-      journal: true
-    read-concern: majority
-    read-preference: primary
-```
-
-```java
-@EnableMongock
-@SpringBootApplication
-public class QuickStartApp {
-
-    /**
-     * Be wared MongoTemplate needs to be injected
-     */
-    public static void main(String[] args) {
-        SpringApplicationBuilder().sources(QuickStartApp.class)().run(args);
-    }
-
-    /**
-     * Transaction Manager.
-     * Needed to allow execution of changeSets in transaction scope.
-     */
-    @Bean
-    public MongoTransactionManager transactionManager(MongoTemplate mongoTemplate) {
-        return new MongoTransactionManager(mongoTemplate.getMongoDbFactory());
-    }
-
-}
-```
-
-
-#### Example with builder
-
-```java
-//this could be the SpringDataMongoV2Driver passing the same paremeter or MongoSync4Driver/MongoCore3Driver passing the MongoClient and databaseName
-SpringDataMongoV3Driver driver = SpringDataMongoV3Driver.withDefaultLock(mongoTemplate);
-driver.setWriteConcern(WriteConcern.MAJORITY.withJournal(true).withWTimeout(1000, TimeUnit.MILLISECONDS));
-driver.setReadConcern(ReadConcern.MAJORITY);
-driver.setReadPreference(ReadPreference.primary());
-```

@@ -20,7 +20,7 @@ This sections covers the Mongock implementation for Spring Data MongoDB 2.x and 
 
 ## MongoDB driver options and compatibility
 
-|     Mongock driver      |                  Driver library              | Version compatibility |
+|     Mongock driver           |                  Driver library              | Version compatibility |
 |------------------------------|----------------------------------------------|-----------------------|
 | mongodb-springdata-v3-driver | org.springframework.data:spring-data-mongodb | 3.X.X                 |
 | mongodb-springdata-v2-driver | org.springframework.data:spring-data-mongodb | 2.X.X                 |
@@ -76,11 +76,21 @@ SpringDataMongoV3Driver driver = SpringDataMongoV3Driver.withDefaultLock(mongoTe
 driver.setWriteConcern(WriteConcern.MAJORITY.withJournal(true).withWTimeout(1000, TimeUnit.MILLISECONDS));
 driver.setReadConcern(ReadConcern.MAJORITY);
 driver.setReadPreference(ReadPreference.primary());
+driver.enableTransaction();
 ```
 #### - Driver extra configuration (step 6)
 
 ##### Transactions
-In order to use native transactions, Mongock only needs the flag `mongock.transaction-enabled` not false(it accepts null, if the transactionManager is injected, but it's highly recommended to explicitly set a value).
+In order to use MongoDB transactions, we need to enable transactions in Mongock(this won't be required in next versions as transactions will be enabled by default).
+
+With builder
+```java
+driver.enableTransaction();
+```
+Properties
+```yaml
+mongock.transaction-enabled=true
+```
 
 _Keep in mind that your MongoDB database must allow multi-document ACID transactions_
 
