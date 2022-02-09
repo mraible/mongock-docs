@@ -57,6 +57,9 @@ No, even if you use a more updated version of Spring Data. You just use Spring M
 ## Why does Mongock provide the mongodb-reactive-driver, if it is synchronous by definition?
 Before this driver, when Mongock was used in a reactive project, developers were forced to import the synchronous MongoDB java driver(or Spring Data driver) just to be used in Mongock migration. While this is not bad, some teams prefer to avoid it. With this reactive driver, this is not the case anymore. 
 
+## Can I use the mongodb-reactive-driver with a Spring Data project?
+Yes, you can! However, Mongock doesn't provide a specific driver for reactive Spring Data, so developers are forced to use the MongoDB Java Reactive Streams driver in their changUnits. You can see an example [here](https://github.com/mongock/mongock-examples/tree/master/mongodb/springboot-reactive)
+
 
 
 <!--## My migrations take long and it impacts my startup time... what should I do?

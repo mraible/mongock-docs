@@ -36,9 +36,6 @@ This is a bit cumbersome, as it requires creating a blocking subscriber that all
 Although Mongock provides this driver for those who, working in a reactive project, don't want to import the MongoDB java sync driver, we highly recommend the use of the synchronous drivers, when possible.
 <br /><br />
 
-
-
-
 <br />
 
 -------------------------------------------
@@ -124,6 +121,11 @@ The following code shows how to save documents inside the transaction using the 
 ```
 
 <br />
+
+
+## Reactive with Spring Data
+
+Please, take a look to [this FAQ entry](/v5/faq#can-i-use-the-mongodb-reactive-driver-with-a-spring-data-project%3F) 
 
 -------------------------------------------
 
