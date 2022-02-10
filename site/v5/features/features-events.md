@@ -10,6 +10,8 @@ eleventyNavigation:
   key: features events
   title: 'Events'
 ---
+<h1 class="title">Events</h1>
+
 
 [[TOC]]
 ## Introduction

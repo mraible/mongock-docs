@@ -6,6 +6,8 @@ eleventyNavigation:
   version: v5
   order: 1
 ---
+<h1 class="title">Professional - Registration</h1>
+
 
 <script>
 

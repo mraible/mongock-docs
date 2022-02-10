@@ -26,6 +26,11 @@
 	vertical-align: top;
 }
 
+h1.title {
+	text-align: center;
+	color: #06c7aa;
+}
+
 p
 {
 	margin-bottom: 8px;

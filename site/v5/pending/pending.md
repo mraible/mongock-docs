@@ -7,8 +7,9 @@ eleventyNavigation:
   root: true
   order: 13200
 ---
+<h1 class="title">Pending in this tutorial and ideas</h1>
 
-## Pending in this tutorial and ideas
+ 
 - Add link to examples
 - CLI
 - commands in the CLI toe get the latest new, releases, etc.

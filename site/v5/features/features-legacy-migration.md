@@ -10,6 +10,8 @@ eleventyNavigation:
   key: features legacy migration
   title: 'Legacy migration'
 ---
+<h1 class="title">Legacy Migration</h1>
+
 
 [[TOC]]
 

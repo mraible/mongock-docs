@@ -8,6 +8,8 @@ eleventyNavigation:
   root: true
   order: 100
 ---
+<h1 class="title">FAQ</h1>
+
 
 [[TOC]]
 

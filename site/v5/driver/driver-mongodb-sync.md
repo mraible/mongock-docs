@@ -10,6 +10,8 @@ eleventyNavigation:
   key: driver mongodb 
   title: 'MongoDB Sync'
 ---
+<h1 class="title">MongoDB Sync Driver</h1>
+
 [[TOC]]
 ## Introduction
 This sections covers the Mongock implementation for MongoDB java Driver 3.x and 4.x 

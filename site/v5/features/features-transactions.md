@@ -10,6 +10,8 @@ eleventyNavigation:
   key: features transactions 
   title: Transactions
 ---
+<h1 class="title">Transactions</h1>
+
 
 
 [[TOC]]
