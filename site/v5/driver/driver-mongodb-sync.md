@@ -60,7 +60,7 @@ Following the [get started section](/v5/get-started#steps-to-run-mongock), this 
 </dependency>
 ```
 
-#### - Build the driver (setps 5)
+#### - Build the driver (step 5)
 These classes provide the same two static initializers
 
 - **withDefaultLock**(mongoClient, databaseName)

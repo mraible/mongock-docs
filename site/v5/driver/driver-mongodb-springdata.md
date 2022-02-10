@@ -58,7 +58,7 @@ Following the [get started section](/v5/get-started#steps-to-run-mongock), this 
 </dependency>
 ```
 
-#### - Build the driver (setp 5)
+#### - Build the driver (step 5)
 
 <p class="successAlt"><b>This step is only required for builder approach.</b> Mongock handles it for autoconfiguration.</p>
 
@@ -116,7 +116,7 @@ mongock:
 public class QuickStartApp {
 
     /**
-     * Be wared MongoTemplate needs to be injected
+     * Be warned MongoTemplate needs to be injected
      */
     public static void main(String[] args) {
         SpringApplicationBuilder().sources(QuickStartApp.class)().run(args);

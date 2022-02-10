@@ -21,7 +21,7 @@ If you are curious about why mongock provides the `mongodb-reactive-driver`, if 
 
 ## Important note
 
-Despite this deriver, the Mnogock's nature is still synchronous: A migration consists in a list of changes, which are executed in order, one after the other. If one of them fails, the migration aborts and Mongock will take it from that point in the next execution.
+Despite this deriver, the Mongock's nature is still synchronous: A migration consists in a list of changes, which are executed in order, one after the other. If one of them fails, the migration aborts and Mongock will take it from that point in the next execution.
 
 <br />
 For this reason...
@@ -80,7 +80,7 @@ Following the [get started section](/v5/get-started#steps-to-run-mongock), this 
 </dependency>
 ```
 
-#### - Build the driver (setps 5)
+#### - Build the driver (step 5)
 These classes provide the same two static initializers
 
 - **withDefaultLock**(mongoClient, databaseName)
