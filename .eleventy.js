@@ -123,7 +123,6 @@ function processPage(versionFolderFilter, menuItems, menuIndexes, item) {
           )
         }
       }
-
    }
 
 module.exports = function (eleventyConfig) {

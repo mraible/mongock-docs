@@ -7,6 +7,8 @@ eleventyNavigation:
   root: true
   order: 80
 ---
+<h1 class="title">Resources</h1>
+
 
 [[TOC]]
 

@@ -7,6 +7,8 @@ eleventyNavigation:
   root: true
   order: 20
 ---
+<h1 class="title">Get Started</h1>
+
 
 [[TOC]]
 

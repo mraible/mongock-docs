@@ -8,6 +8,7 @@ eleventyNavigation:
   root: true
   order: 70
 ---
+<h1 class="title">Command Line Interface (CLI)</h1>
 
 [[TOC]]
 

@@ -7,6 +7,8 @@ eleventyNavigation:
   order: 1
 ---
 
+<h1 class="title">CLI - Operations</h1>
+
 [[TOC]]
 
 

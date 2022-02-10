@@ -10,6 +10,8 @@ eleventyNavigation:
   key: driver mongodb 
   title: 'MongoDB reactive'
 ---
+<h1 class="title">MongoDB Reactive driver</h1>
+
 [[TOC]]
 ## Introduction
 This sections covers the Mongock implementation for MongoDB Java Reactive Streams driver.

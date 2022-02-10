@@ -8,7 +8,8 @@ eleventyNavigation:
   order: 100
 ---
 
-# Contributing to Mongock project
+<h1 class="title">Contributing to Mongock project</h1>
+
 
 🎉  First off, thanks for taking the time to contribute! 🎉 
 
