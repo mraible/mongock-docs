@@ -260,7 +260,7 @@ function changeVersion() {
             
               
   
-  <a class="menu-item current-page"  href="/v5/driver/cosmosdb/index.html">
+  <a class="menu-item "  href="/v5/driver/cosmosdb/index.html">
     CosmosDB
   </a>
 
@@ -367,7 +367,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v5/faq/index.html">
+      <a class="menu-item current-page"  href="/v5/faq/index.html">
         FAQ
       </a>
     
@@ -643,32 +643,41 @@ function changeVersion() {
 </aside>
 
       <article>
-        <h1 class="title">CosmosDB Driver</h1>
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#getting-started"> Getting started</a></li><li><a href="#important-notes"> Important notes</a><ul><li><a href="#sharding-the-mongock-changelog-collection"> Sharding the Mongock ChangeLog collection</a></li><li><a href="#transactions"> Transactions</a></li></ul></li><li><a href="#resources"> Resources</a></li></ul></div></p>
-<p class="success">You can manage your <b>CosmosDB</b> migrations by using the Mongock drivers for MongoDB</p>
-<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/introduction">Azure Cosmos DB</a> provides multiple APIs to connect to it. One of them it's the API for MongoDB, which makes it easy to use Cosmos DB as if it were a MongoDB database.</p>
-<p>You can leverage your MongoDB experience and continue to use your favorite MongoDB drivers, SDKs, and tools by pointing your application to the API for MongoDB account's connection string.</p>
-<h2 id="getting-started"><a class="header-anchor" href="#getting-started">#</a> Getting started</h2>
-<p><strong>You can use Mongock to manage your Cosmos DB migrations in the same way you would do with MongoDB</strong>, using one of the drivers Mongock provides for MongoDB. You can see how to use it in our <a href="/v5/driver/mongodb">MongoDB driver section</a></p>
-<h2 id="important-notes"><a class="header-anchor" href="#important-notes">#</a> Important notes</h2>
-<h3 id="sharding-the-mongock-changelog-collection"><a class="header-anchor" href="#sharding-the-mongock-changelog-collection">#</a> Sharding the Mongock ChangeLog collection</h3>
-<p>If you want to shard the Mongock changeLog collection, you need to use the key <code>executionId</code> as shard key. This is due to the fact that the <code>executionId</code> is the prefix of the Mongock's compound index and the MongoDB official documentation states:</p>
-<p><code>...The index can be an index on the shard key or a compound index where the shard key is a prefix of the index.</code></p>
-<p>You can find more information about <a href="https://docs.mongodb.com/manual/core/sharding-shard-key/#shard-key-indexes">shard keys</a> and <a href="https://docs.mongodb.com/manual/core/index-compound/#prefixes">prefixes</a></p>
-<h3 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h3>
-<p>Although MongoDB does support Multi-document transactions(in a single or multiple, and sharded collections), they are not supported across collections or in sharded collections in version 4.0.</p>
-<h2 id="resources"><a class="header-anchor" href="#resources">#</a> Resources</h2>
-<p>You can find more information about Cosmos DB with MongoDB API and Java, here:</p>
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/mongodb-introduction">Azure Cosmos DB API for MongoDB</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/create-mongodb-java">Quickstart: Create a console app with Java and the MongoDB API in Azure Cosmos DB</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/use-multi-document-transactions">Use Multi-document transactions in Azure Cosmos DB API for MongoDB</a></li>
-<li><a href="https://docs.mongodb.com/v5.0/core/transactions/">MongoDB transactions</a></li>
-<li><a href="https://docs.mongodb.com/manual/core/sharding-shard-key/#shard-key-indexes">MongoDB shard keys</a></li>
-<li><a href="https://docs.mongodb.com/manual/core/index-compound/#prefixes">MongoDB compound indexes</a></li>
-</ul>
+        <h1 class="title">FAQ</h1>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog"> Why we have added the ChangeUnit annotation and deprecated ChangeLog</a></li><li><a href="#i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F"> I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?</a></li><li><a href="#what-happens-if-a-changeunit-fails"> What happens if a changeUnit fails</a></li><li><a href="#should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F"> Should I implement the @RollbackExecution method in transactional environments?</a></li><li><a href="#can-mongock-be-used-in-applications-deployed-in-kubernetes%3F"> Can Mongock be used in applications deployed in Kubernetes?</a></li><li><a href="#does-the-cli-change-something-in-my-application%3F"> Does the CLI change something in my application?</a></li><li><a href="#until-which-spring-data-version-is-mongocktemplate-compatible-with%3F"> Until which Spring data version is MongockTemplate compatible with?</a></li><li><a href="#i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F"> I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?</a></li><li><a href="#what's-the-difference-between-undo-and-rollback%3F"> What's the difference between undo and rollback?</a></li><li><a href="#why-does-mongock-provide-the-mongodb-reactive-driver%2C-if-it-is-synchronous-by-definition%3F"> Why does Mongock provide the mongodb-reactive-driver, if it is synchronous by definition?</a></li><li><a href="#can-i-use-the-mongodb-reactive-driver-with-a-spring-data-project%3F"> Can I use the mongodb-reactive-driver with a Spring Data project?</a></li></ul></div></p>
+<h2 id="why-we-have-added-the-changeunit-annotation-and-deprecated-changelog"><a class="header-anchor" href="#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog">#</a> Why we have added the ChangeUnit annotation and deprecated ChangeLog</h2>
+<p>Mongock team is aware of the implications of this change, that's why is totally backward compatible. All the old code related to <code>@ChangeLog</code> and <code>@ChangeSet</code> will remain compatible.</p>
+<p>However, the Mongock team has identified that the old changelog structure starts to struggle handling new features. The configuration was cumbersome and a bit more complex that needed.</p>
+<p>This is the reason we have added the <code>@ChangeUnit</code>. A more practical version of the <code>@ChangeLog</code>, which can be see as a changeLog, wich a unique and mandatory changeSet(<code>@Execution</code>) that also requires a complementary method <code>@RollbackExecution</code>.</p>
+<p>More information in the <a href="/v5/migration">migration section</a>.</p>
+<h2 id="i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F"><a class="header-anchor" href="#i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F">#</a> I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?</h2>
+<p>No. Your old changeLogs should remain untouched. Although deprecated, they will remain in the code for backward compatibility.</p>
+<p>For more information about the recommended approach, please visit <a href="/v5/migration">this section</a>.</p>
+<h2 id="what-happens-if-a-changeunit-fails"><a class="header-anchor" href="#what-happens-if-a-changeunit-fails">#</a> What happens if a changeUnit fails</h2>
+<p>Mongock always try to rollback the failed changes. In a transactional environment, Mongock relies on the database transactional mechanism to rollback the migration changes(<code>@Execution</code> method) as well as the mongock metadata associated to the change. In summary it would be like that change was never started. In a non-transactional environment, Mongock manually tries to rollback the migration change by executing the <code>@RollbackExecution</code> method and marks the change entry as <code>ROLLED_BACK</code> in the database. Please notice that although Mongock will try its best to achieve this, it's not guaranteed.</p>
+<p>Once the rollback operation is performed, Mongock will abort the migration and throw an exception. The next time Mongock is executed will carry on from the failed changeUnit. You need to understand that if the changeUnit keep failing, Mongock will keep aborting. In an self-deployed infrastructure like Kubernetes this potentially means get into an infinite loop.</p>
+<h2 id="should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F"><a class="header-anchor" href="#should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F">#</a> Should I implement the @RollbackExecution method in transactional environments?</h2>
+<p>Yes, we highly recommend to implement the <code>@RollbackExecution</code> method.</p>
+<p>The main reason for this is that some other operations like undo, rely on this method to work. However it's a very good practice as it provides a robust system that is less affected when moving to non-transactional environments.</p>
+<h2 id="can-mongock-be-used-in-applications-deployed-in-kubernetes%3F"><a class="header-anchor" href="#can-mongock-be-used-in-applications-deployed-in-kubernetes%3F">#</a> Can Mongock be used in applications deployed in Kubernetes?</h2>
+<p>Yes. Actually the main use of Mongock is as part of the application start up, shipping together code and data changes, providing safer migrations in distributed systems.</p>
+<h2 id="does-the-cli-change-something-in-my-application%3F"><a class="header-anchor" href="#does-the-cli-change-something-in-my-application%3F">#</a> Does the CLI change something in my application?</h2>
+<p>No. The CLI just takes from your application what is needed to run the migration.</p>
+<p>With Mongock standalone, it takes the <code>MongockBuilderProvider</code> implementations and retrieves the builder. For Springboot, by default it loads the entire Springboot context, but you can filter which configuration class to load by annotating the main class with <code>@MongockCliConfiguration</code>. For more information please visit the <a href="/v5/cli">cli page</a>.</p>
+<h2 id="until-which-spring-data-version-is-mongocktemplate-compatible-with%3F"><a class="header-anchor" href="#until-which-spring-data-version-is-mongocktemplate-compatible-with%3F">#</a> Until which Spring data version is MongockTemplate compatible with?</h2>
+<p>4.2.3. But you can use more recent version of Spring Data. MongockTemplate won't reflect the new API, but it won't complain.</p>
+<h2 id="i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F"><a class="header-anchor" href="#i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F">#</a> I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?</h2>
+<p>No, even if you use a more updated version of Spring Data. You just use Spring MongoTemplate for now on.</p>
+<h2 id="what's-the-difference-between-undo-and-rollback%3F"><a class="header-anchor" href="#what's-the-difference-between-undo-and-rollback%3F">#</a> What's the difference between undo and rollback?</h2>
+<p><strong>Rollback</strong> is the act of reverting a change after failing at execution time. On the other hand <strong>undo</strong> is the act of reverting a change some time after being successfully executed.</p>
+<h2 id="why-does-mongock-provide-the-mongodb-reactive-driver%2C-if-it-is-synchronous-by-definition%3F"><a class="header-anchor" href="#why-does-mongock-provide-the-mongodb-reactive-driver%2C-if-it-is-synchronous-by-definition%3F">#</a> Why does Mongock provide the mongodb-reactive-driver, if it is synchronous by definition?</h2>
+<p>Before this driver, when Mongock was used in a reactive project, developers were forced to import the synchronous MongoDB java driver(or Spring Data driver) just to be used in Mongock migration. While this is not bad, some teams prefer to avoid it. With this reactive driver, this is not the case anymore.</p>
+<h2 id="can-i-use-the-mongodb-reactive-driver-with-a-spring-data-project%3F"><a class="header-anchor" href="#can-i-use-the-mongodb-reactive-driver-with-a-spring-data-project%3F">#</a> Can I use the mongodb-reactive-driver with a Spring Data project?</h2>
+<p>Yes, you can! However, Mongock doesn't provide a specific driver for reactive Spring Data, so developers are forced to use the MongoDB Java Reactive Streams driver in their changUnits. You can see an example <a href="https://github.com/mongock/mongock-examples/tree/master/mongodb/springboot-reactive">here</a></p>
+<!--## My migrations take long and it impacts my startup time... what should I do?
 
+## What if we have an environmment with the latest changes and others out of synch?
+## How manage HA in changes-> two step changes-->
       </article>
     </main>
 

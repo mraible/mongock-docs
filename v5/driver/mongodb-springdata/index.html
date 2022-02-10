@@ -239,8 +239,22 @@ function changeVersion() {
             
               
   
-  <a class="menu-item "  href="/v5/driver/mongodb/index.html">
-    MongoDB
+  <a class="menu-item "  href="/v5/driver/mongodb-sync/index.html">
+    MongoDB Sync
+  </a>
+
+            
+              
+  
+  <a class="menu-item current-page"  href="/v5/driver/mongodb-springdata/index.html">
+    MongoDB Spring data
+  </a>
+
+            
+              
+  
+  <a class="menu-item "  href="/v5/driver/mongodb-reactive/index.html">
+    MongoDB reactive
   </a>
 
             
@@ -304,7 +318,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v5/CLI/index.html">
+      <a class="menu-item "  href="/v5/cli/index.html">
         CLI
       </a>
     
@@ -314,7 +328,7 @@ function changeVersion() {
             
               
   
-  <a class="menu-item "  href="/v5/CLI/operations/index.html">
+  <a class="menu-item "  href="/v5/cli/operations/index.html">
     Operations
   </a>
 
@@ -353,7 +367,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v5/FAQ/index.html">
+      <a class="menu-item "  href="/v5/faq/index.html">
         FAQ
       </a>
     
@@ -629,36 +643,101 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog"> Why we have added the ChangeUnit annotation and deprecated ChangeLog</a></li><li><a href="#i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F"> I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?</a></li><li><a href="#what-happens-if-a-changeunit-fails"> What happens if a changeUnit fails</a></li><li><a href="#should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F"> Should I implement the @RollbackExecution method in transactional environments?</a></li><li><a href="#can-mongock-be-used-in-applications-deployed-in-kubernetes%3F"> Can Mongock be used in applications deployed in Kubernetes?</a></li><li><a href="#does-the-cli-change-something-in-my-application%3F"> Does the CLI change something in my application?</a></li><li><a href="#until-which-spring-data-version-is-mongocktemplate-compatible-with%3F"> Until which Spring data version is MongockTemplate compatible with?</a></li><li><a href="#i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F"> I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?</a></li><li><a href="#what's-the-difference-between-undo-and-rollback%3F"> What's the difference between undo and rollback?</a></li></ul></div></p>
-<h2 id="why-we-have-added-the-changeunit-annotation-and-deprecated-changelog"><a class="header-anchor" href="#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog">#</a> Why we have added the ChangeUnit annotation and deprecated ChangeLog</h2>
-<p>Mongock team is aware of the implications of this change, that's why is totally backward compatible. All the old code related to <code>@ChangeLog</code> and <code>@ChangeSet</code> will remain compatible.</p>
-<p>However, the Mongock team has identified that the old changelog structure starts to struggle handling new features. The configuration was cumbersome and a bit more complex that needed.</p>
-<p>This is the reason we have added the <code>@ChangeUnit</code>. A more practical version of the <code>@ChangeLog</code>, which can be see as a changeLog, wich a unique and mandatory changeSet(<code>@Execution</code>) that also requires a complementary method <code>@RollbackExecution</code>.</p>
-<p>More information in the <a href="/v5/migration">migration section</a>.</p>
-<h2 id="i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F"><a class="header-anchor" href="#i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F">#</a> I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?</h2>
-<p>No. Your old changeLogs should remain untouched. Although deprecated, they will remain in the code for backward compatibility.</p>
-<p>For more information about the recommended approach, please visit <a href="/v5/migration">this section</a>.</p>
-<h2 id="what-happens-if-a-changeunit-fails"><a class="header-anchor" href="#what-happens-if-a-changeunit-fails">#</a> What happens if a changeUnit fails</h2>
-<p>Mongock always try to rollback the failed changes. In a transactional environment, Mongock relies on the database transactional mechanism to rollback the migration changes(<code>@Execution</code> method) as well as the mongock metadata associated to the change. In summary it would be like that change was never started. In a non-transactional environment, Mongock manually tries to rollback the migration change by executing the <code>@RollbackExecution</code> method and marks the change entry as <code>ROLLED_BACK</code> in the database. Please notice that although Mongock will try its best to achieve this, it's not guaranteed.</p>
-<p>Once the rollback operation is performed, Mongock will abort the migration and throw an exception. The next time Mongock is executed will carry on from the failed changeUnit. You need to understand that if the changeUnit keep failing, Mongock will keep aborting. In an self-deployed infrastructure like Kubernetes this potentially means get into an infinite loop.</p>
-<h2 id="should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F"><a class="header-anchor" href="#should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F">#</a> Should I implement the @RollbackExecution method in transactional environments?</h2>
-<p>Yes, we highly recommend to implement the <code>@RollbackExecution</code> method.</p>
-<p>The main reason for this is that some other operations like undo, rely on this method to work. However it's a very good practice as it provides a robust system that is less affected when moving to non-transactional environments.</p>
-<h2 id="can-mongock-be-used-in-applications-deployed-in-kubernetes%3F"><a class="header-anchor" href="#can-mongock-be-used-in-applications-deployed-in-kubernetes%3F">#</a> Can Mongock be used in applications deployed in Kubernetes?</h2>
-<p>Yes. Actually the main use of Mongock is as part of the application start up, shipping together code and data changes, providing safer migrations in distributed systems.</p>
-<h2 id="does-the-cli-change-something-in-my-application%3F"><a class="header-anchor" href="#does-the-cli-change-something-in-my-application%3F">#</a> Does the CLI change something in my application?</h2>
-<p>No. The CLI just takes from your application what is needed to run the migration.</p>
-<p>With Mongock standalone, it takes the <code>MongockBuilderProvider</code> implementations and retrieves the builder. For Springboot, by default it loads the entire Springboot context, but you can filter which configuration class to load by annotating the main class with <code>@MongockCliConfiguration</code>. For more information please visit the <a href="/v5/cli">cli page</a>.</p>
-<h2 id="until-which-spring-data-version-is-mongocktemplate-compatible-with%3F"><a class="header-anchor" href="#until-which-spring-data-version-is-mongocktemplate-compatible-with%3F">#</a> Until which Spring data version is MongockTemplate compatible with?</h2>
-<p>4.2.3. But you can use more recent version of Spring Data. MongockTemplate won't reflect the new API, but it won't complain.</p>
-<h2 id="i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F"><a class="header-anchor" href="#i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F">#</a> I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?</h2>
-<p>No, even if you use a more updated version of Spring Data. You just use Spring MongoTemplate for now on.</p>
-<h2 id="what's-the-difference-between-undo-and-rollback%3F"><a class="header-anchor" href="#what's-the-difference-between-undo-and-rollback%3F">#</a> What's the difference between undo and rollback?</h2>
-<p><strong>Rollback</strong> is the act of reverting a change after failing at execution time. On the other hand <strong>undo</strong> is the act of reverting a change some time after being successfully executed.</p>
-<!--## My migrations take long and it impacts my startup time... what should I do?
+        <h1 class="title">MOngoDB Spring Data Driver</h1>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#mongodb-driver-options-and-compatibility"> MongoDB driver options and compatibility</a></li><li><a href="#mongodb-common-configuration"> MongoDB common configuration</a><ul><li><a href="#properties"> Properties</a></li><li><a href="#get-started"> Get started</a></li></ul></li><li><a href="#examples"> Examples</a></li></ul></div></p>
+<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
+<p>This sections covers the Mongock implementation for Spring Data MongoDB 2.x and 3.x</p>
+<br />
+<hr>
+<h2 id="mongodb-driver-options-and-compatibility"><a class="header-anchor" href="#mongodb-driver-options-and-compatibility">#</a> MongoDB driver options and compatibility</h2>
+<table>
+<thead>
+<tr>
+<th>Mongock driver</th>
+<th>Driver library</th>
+<th>Version compatibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mongodb-springdata-v3-driver</td>
+<td>org.springframework.data:spring-data-mongodb</td>
+<td>3.X.X</td>
+</tr>
+<tr>
+<td>mongodb-springdata-v2-driver</td>
+<td>org.springframework.data:spring-data-mongodb</td>
+<td>2.X.X</td>
+</tr>
+</tbody>
+</table>
+<br />
+<hr>
+<h2 id="mongodb-common-configuration"><a class="header-anchor" href="#mongodb-common-configuration">#</a> MongoDB common configuration</h2>
+<p>All the MongoDB drivers share the same configuration.</p>
+<p class="tipAlt">When setting configuration via properties file, it must be prefixed by <b>mongock.mongo-db</b></p>
+<h3 id="properties"><a class="header-anchor" href="#properties">#</a> Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>writeConcern</strong></td>
+<td>Exactly the same MongoDB parameter <strong>write concern</strong>. For more information, visit the official MongoDB documentation for <a href="https://docs.mongodb.com/manual/reference/write-concern/">write concern</a>.</td>
+<td>Object</td>
+<td>{w:<code>majority</code>,<br />wTimeoutMs: null,<br />j:true}</td>
+</tr>
+<tr>
+<td><strong>readConcern</strong></td>
+<td>Exactly the same MongoDB parameter <strong>read concern</strong>. For more information, visit the official MongoDB documentation for <a href="https://docs.mongodb.com/manual/reference/read-concern/">read concern</a>.</td>
+<td>String</td>
+<td><code>majority</code></td>
+</tr>
+<tr>
+<td><strong>readPreference</strong></td>
+<td>Exactly the same MongoDB parameter <strong>read preference</strong>. For more information, visit the official MongoDB documentation for <a href="https://docs.mongodb.com/manual/reference/read-preference/">read preference</a>.</td>
+<td>String</td>
+<td><code>primary</code></td>
+</tr>
+</tbody>
+</table>
+<br />
+<hr>
+<h3 id="get-started"><a class="header-anchor" href="#get-started">#</a> Get started</h3>
+<p>Following the <a href="/v5/get-started#steps-to-run-mongock">get started section</a>, this covers steps 3 and 5 and 6.</p>
+<h4 id="--add-maven-dependency-for-the-driver-(step-2)"><a class="header-anchor" href="#--add-maven-dependency-for-the-driver-(step-2)">#</a> - Add maven dependency for the driver (step 2)</h4>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongodb-springdata-v3-driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token comment">&lt;!--&lt;artifactId>mongodb-springdata-v2-driver&lt;/artifactId> for MongoDB spring data v2--></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<h4 id="--build-the-driver-(step-5)"><a class="header-anchor" href="#--build-the-driver-(step-5)">#</a> - Build the driver (step 5)</h4>
+<p class="successAlt"><b>This step is only required for builder approach.</b> Mongock handles it for autoconfiguration.</p>
+<p>These classes provide the same two static initializers:</p>
+<ul>
+<li><strong>withDefaultLock</strong>(mongoTemplate)</li>
+<li><strong>withLockStrategy</strong>(mongoTemplate, lockAcquiredForMillis, lockQuitTryingAfterMillis, lockTryFrequencyMillis)</li>
+</ul>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">// For mongodb-springdata-v3-driver</span></div><div class="highlight-line"><span class="token class-name">SpringDataMongoV3Driver</span> driver <span class="token operator">=</span> <span class="token class-name">SpringDataMongoV3Driver</span><span class="token punctuation">.</span><span class="token function">withDefaultLock</span><span class="token punctuation">(</span>mongoTemplate<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token comment">// For mongodb-springdata-v2-driver</span></div><div class="highlight-line"><span class="token comment">//SpringDataMongoV2Driver driver = SpringDataMongoV2Driver.withDefaultLock(mongoTemplate);</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setWriteConcern</span><span class="token punctuation">(</span><span class="token class-name">WriteConcern</span><span class="token punctuation">.</span>MAJORITY<span class="token punctuation">.</span><span class="token function">withJournal</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withWTimeout</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setReadConcern</span><span class="token punctuation">(</span><span class="token class-name">ReadConcern</span><span class="token punctuation">.</span>MAJORITY<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setReadPreference</span><span class="token punctuation">(</span><span class="token class-name">ReadPreference</span><span class="token punctuation">.</span><span class="token function">primary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">enableTransaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<h4 id="--driver-extra-configuration-(step-6)"><a class="header-anchor" href="#--driver-extra-configuration-(step-6)">#</a> - Driver extra configuration (step 6)</h4>
+<h5 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h5>
+<p>In order to use MongoDB transactions, we need to enable transactions in Mongock(this won't be required in next versions as transactions will be enabled by default).</p>
+<p>With builder</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">enableTransaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<p>Properties</p>
+<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line">mongock.transaction<span class="token punctuation">-</span>enabled=true</div></code></pre>
+<p><em>Keep in mind that your MongoDB database must allow multi-document ACID transactions</em></p>
+<br />
+<h4 id="example-autoconfiguration-with-springboot"><a class="header-anchor" href="#example-autoconfiguration-with-springboot">#</a> Example autoconfiguration with Springboot</h4>
+<pre class="language-yaml"><code class="language-yaml"><div class="highlight-line"><span class="token key atrule">mongock</span><span class="token punctuation">:</span></div><div class="highlight-line">  <span class="token key atrule">mongo-db</span><span class="token punctuation">:</span></div><div class="highlight-line">    <span class="token key atrule">write-concern</span><span class="token punctuation">:</span></div><div class="highlight-line">      <span class="token key atrule">w</span><span class="token punctuation">:</span> majority</div><div class="highlight-line">      <span class="token key atrule">wTimeoutMs</span><span class="token punctuation">:</span> <span class="token number">1000</span></div><div class="highlight-line">      <span class="token key atrule">journal</span><span class="token punctuation">:</span> <span class="token boolean important">true</span></div><div class="highlight-line">    <span class="token key atrule">read-concern</span><span class="token punctuation">:</span> majority</div><div class="highlight-line">    <span class="token key atrule">read-preference</span><span class="token punctuation">:</span> primary</div></code></pre>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@EnableMongock</span></div><div class="highlight-line"><span class="token annotation punctuation">@SpringBootApplication</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">QuickStartApp</span> <span class="token punctuation">{</span></div><div class="highlight-line"></div><div class="highlight-line">    <span class="token comment">/**</div><div class="highlight-line">     * Be warned MongoTemplate needs to be injected</div><div class="highlight-line">     */</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token class-name">SpringApplicationBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sources</span><span class="token punctuation">(</span><span class="token class-name">QuickStartApp</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line"></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<br />
+<hr>
+<h2 id="examples"><a class="header-anchor" href="#examples">#</a> Examples</h2>
+<p class="successAlt">Please visit our <a href="https://github.com/mongock/mongock-examples/tree/master/mongodb">example github repository</a> for more information</p>
 
-## What if we have an environmment with the latest changes and others out of synch?
-## How manage HA in changes-> two step changes-->
       </article>
     </main>
 

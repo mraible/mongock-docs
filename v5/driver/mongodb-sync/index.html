@@ -239,8 +239,22 @@ function changeVersion() {
             
               
   
-  <a class="menu-item "  href="/v5/driver/mongodb/index.html">
-    MongoDB
+  <a class="menu-item current-page"  href="/v5/driver/mongodb-sync/index.html">
+    MongoDB Sync
+  </a>
+
+            
+              
+  
+  <a class="menu-item "  href="/v5/driver/mongodb-springdata/index.html">
+    MongoDB Spring data
+  </a>
+
+            
+              
+  
+  <a class="menu-item "  href="/v5/driver/mongodb-reactive/index.html">
+    MongoDB reactive
   </a>
 
             
@@ -304,7 +318,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item current-page"  href="/v5/CLI/index.html">
+      <a class="menu-item "  href="/v5/cli/index.html">
         CLI
       </a>
     
@@ -314,7 +328,7 @@ function changeVersion() {
             
               
   
-  <a class="menu-item "  href="/v5/CLI/operations/index.html">
+  <a class="menu-item "  href="/v5/cli/operations/index.html">
     Operations
   </a>
 
@@ -353,7 +367,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v5/FAQ/index.html">
+      <a class="menu-item "  href="/v5/faq/index.html">
         FAQ
       </a>
     
@@ -629,40 +643,95 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#steps"> Steps</a><ul><li><a href="#1.-install-cli"> 1. Install CLI</a></li><li><a href="#2.-prepare-your-application"> 2. Prepare your application</a><ul><li><a href="#with-springboot"> With Springboot</a></li><li><a href="#with-standalone"> With standalone</a></li></ul></li></ul></li><li><a href="#considerations"> Considerations</a></li></ul></div></p>
-<h1 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h1>
-<p>So far we have explained how to run Mongock as part of your application, normally at the application's startup stage. This section explains how to run those migrations, and other operations, independently from the CLI.</p>
-<h1 id="steps"><a class="header-anchor" href="#steps">#</a> Steps</h1>
-<h2 id="1.-install-cli"><a class="header-anchor" href="#1.-install-cli">#</a> 1. Install CLI</h2>
-<ol>
-<li>Download the latest version of the <strong>mongock-cli-LATEST_VERSION.zip</strong> from <a href="https://repo.maven.apache.org/maven2/io/mongock/mongock-cli/"><img src="https://maven-badges.herokuapp.com/maven-central/io.mongock/mongock-cli/badge.png" alt="Maven Central"></a>.</li>
-<li>Unzip it.</li>
-<li>Open a terminal and locate it inside the unzipped folder.</li>
-<li>Run the one of the operations available in <a href="/v5/cli/operations">opreations page</a>.</li>
-</ol>
-<h2 id="2.-prepare-your-application"><a class="header-anchor" href="#2.-prepare-your-application">#</a> 2. Prepare your application</h2>
-<h3 id="with-springboot"><a class="header-anchor" href="#with-springboot">#</a> With Springboot</h3>
-<p>If using Springboot in the application, there is not much to be done. Springboot creates already an uber jar with all the dependencies in it.</p>
-<p>By default the Mongock CLI loads the entire application context. If you want the CLI only to load specific configuration classes that are enough to run the migrations, you can do this annotating your main class with <code>@MongockCliConfiguration</code>.</p>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"> </div><div class="highlight-line"><span class="token comment">//The Mongock CLI will load the configuration from the classes </span></div><div class="highlight-line"><span class="token comment">//io.your.package.ConfigurationClass1 </span></div><div class="highlight-line"><span class="token comment">//and io.your.package.ConfigurationClass2.</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token comment">//Theses classes must contain all the beans and </span></div><div class="highlight-line"><span class="token comment">//configuration needed to run the migration.</span></div><div class="highlight-line"><span class="token annotation punctuation">@EnableMongock</span></div><div class="highlight-line"><span class="token annotation punctuation">@MongockCliConfiguration</span><span class="token punctuation">(</span>sources <span class="token operator">=</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>your<span class="token punctuation">.</span>package<span class="token punctuation">.</span></span>ConfigurationClass1</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>your<span class="token punctuation">.</span>package<span class="token punctuation">.</span></span>ConfigurationClass2</span><span class="token punctuation">.</span><span class="token keyword">class</span></div><div class="highlight-line"><span class="token punctuation">}</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@SpringBootApplication</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpringBootSpringDataAnnotationBasicApp</span><span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">//...</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
-<div class="success">When using the builder approach(no <b>@EnableMongock</b>), the RunnerBuilder must be injected as a bean in the application context.</div>
-<h3 id="with-standalone"><a class="header-anchor" href="#with-standalone">#</a> With standalone</h3>
-<p>When the application uses the Mongock standalone runner, it needs the following to be able to work with the CLI:</p>
-<ul>
-<li>Implement the interface <code>MongockBuilderProvider</code> returning the runner builder used in the application. Notice that should provide an empty constructor that will be used by the CLI.</li>
-<li>Annotate the main class with <code>@MongockCliConfiguration</code> providing the <code>MongockBuilderProvider</code> implementation class.</li>
-<li>Generate an uber jar from the application, which will be passed to the Mongock CLI in the param <code>--appJar</code> Mor information about generating an uber jar with <a href="https://maven.apache.org/plugins/maven-shade-plugin/">maven</a> and <a href="https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow">gradle</a>.</li>
-</ul>
-<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@MongockCliConfiguration</span><span class="token punctuation">(</span>sources <span class="token operator">=</span> <span class="token class-name">Application<span class="token punctuation">.</span>MongockBuilderProviderImpl</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Application</span> <span class="token punctuation">{</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token comment">//TODO your logic is not executed in the Mongock CLI</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">MongockBuilderProviderImpl</span> <span class="token keyword">implements</span> <span class="token class-name">MongockBuilderProvider</span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token class-name">RunnerStandaloneBuilder</span> <span class="token function">getBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">      <span class="token comment">//...calling setter methods</span></div><div class="highlight-line">      <span class="token keyword">return</span> <span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+        <h1 class="title">MongoDB Sync Driver</h1>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#mongodb-driver-options-and-compatibility"> MongoDB driver options and compatibility</a></li><li><a href="#mongodb-common-configuration"> MongoDB common configuration</a><ul><li><a href="#properties"> Properties</a></li><li><a href="#get-started"> Get started</a></li></ul></li><li><a href="#examples"> Examples</a></li></ul></div></p>
+<h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
+<p>This sections covers the Mongock implementation for MongoDB java Driver 3.x and 4.x</p>
+<br />
 <hr>
-<h1 id="considerations"><a class="header-anchor" href="#considerations">#</a> Considerations</h1>
-<h4 id="appjar-parameter"><a class="header-anchor" href="#appjar-parameter">#</a> appJar parameter</h4>
-<p>The application uber jar (<code>--appJar</code> or <code>-aj</code>) is one of the mandatory parameters in all the operations(at least those operations interacting with the migration classes, <code>@ChangeUnit</code> and <code>@ChangeLog</code>). The Mongock CLI takes the migration classes, the dependencies and the runner builder from it.</p>
-<h4 id="mongock-version-in-your-application"><a class="header-anchor" href="#mongock-version-in-your-application">#</a> Mongock version in your application</h4>
-<p>Mongock CLI requires the application to be upgraded to Mongock version 5.</p>
-<!-- #### Professional operations
-
-There are some  operations labeled with <span class="professional">PRO</span>. This means it's a professional operation that requires the jar application to use the professional Mongock. Visit [this section](/v5/professional) to use Mongock professional in your application. -->
+<h2 id="mongodb-driver-options-and-compatibility"><a class="header-anchor" href="#mongodb-driver-options-and-compatibility">#</a> MongoDB driver options and compatibility</h2>
+<table>
+<thead>
+<tr>
+<th>Mongock driver</th>
+<th>Driver library</th>
+<th>Version compatibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mongodb-sync-v4-driver</td>
+<td>org.mongodb:mongodb-driver-sync</td>
+<td>4.X.X</td>
+</tr>
+<tr>
+<td>mongodb-v3-driver</td>
+<td>org.mongodb:mongo-java-driver</td>
+<td>3.X.X</td>
+</tr>
+</tbody>
+</table>
+<br />
+<hr>
+<h2 id="mongodb-common-configuration"><a class="header-anchor" href="#mongodb-common-configuration">#</a> MongoDB common configuration</h2>
+<p>All the MongoDB drivers share the same configuration.</p>
+<p class="tipAlt">When setting configuration via properties file, it must be prefixed by <b>mongock.mongo-db</b></p>
+<h3 id="properties"><a class="header-anchor" href="#properties">#</a> Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>writeConcern</strong></td>
+<td>Exactly the same MongoDB parameter <strong>write concern</strong>. For more information, visit the official MongoDB documentation for <a href="https://docs.mongodb.com/manual/reference/write-concern/">write concern</a>.</td>
+<td>Object</td>
+<td>{w:<code>majority</code>,<br />wTimeoutMs: null,<br />j:true}</td>
+</tr>
+<tr>
+<td><strong>readConcern</strong></td>
+<td>Exactly the same MongoDB parameter <strong>read concern</strong>. For more information, visit the official MongoDB documentation for <a href="https://docs.mongodb.com/manual/reference/read-concern/">read concern</a>.</td>
+<td>String</td>
+<td><code>majority</code></td>
+</tr>
+<tr>
+<td><strong>readPreference</strong></td>
+<td>Exactly the same MongoDB parameter <strong>read preference</strong>. For more information, visit the official MongoDB documentation for <a href="https://docs.mongodb.com/manual/reference/read-preference/">read preference</a>.</td>
+<td>String</td>
+<td><code>primary</code></td>
+</tr>
+</tbody>
+</table>
+<br />
+<hr>
+<h3 id="get-started"><a class="header-anchor" href="#get-started">#</a> Get started</h3>
+<p>Following the <a href="/v5/get-started#steps-to-run-mongock">get started section</a>, this covers steps 3 and 5 and 6.</p>
+<h4 id="--add-maven-dependency-for-the-driver-(step-2)"><a class="header-anchor" href="#--add-maven-dependency-for-the-driver-(step-2)">#</a> - Add maven dependency for the driver (step 2)</h4>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongodb-sync-v4-driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token comment">&lt;!--&lt;artifactId>mongodb-v3-driver&lt;/artifactId> for MongoDB driver v3--></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<h4 id="--build-the-driver-(step-5)"><a class="header-anchor" href="#--build-the-driver-(step-5)">#</a> - Build the driver (step 5)</h4>
+<p>These classes provide the same two static initializers</p>
+<ul>
+<li><strong>withDefaultLock</strong>(mongoClient, databaseName)</li>
+<li><strong>withLockStrategy</strong>(mongoClient, databaseName, lockAcquiredForMillis, lockQuitTryingAfterMillis, lockTryFrequencyMillis)</li>
+</ul>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">// For mongodb-sync-v4-driver</span></div><div class="highlight-line"><span class="token class-name">MongoSync4Driver</span> driver <span class="token operator">=</span> <span class="token class-name">MongoSync4Driver</span><span class="token punctuation">.</span><span class="token function">withDefaultLock</span><span class="token punctuation">(</span>mongoClient<span class="token punctuation">,</span> databaseName<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token comment">// For mongodb-v3-driver</span></div><div class="highlight-line"><span class="token comment">//MongoCore3Driver driver = MongoCore3Driver.withDefaultLock(mongoClient, databaseName);</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setWriteConcern</span><span class="token punctuation">(</span><span class="token class-name">WriteConcern</span><span class="token punctuation">.</span>MAJORITY<span class="token punctuation">.</span><span class="token function">withJournal</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withWTimeout</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setReadConcern</span><span class="token punctuation">(</span><span class="token class-name">ReadConcern</span><span class="token punctuation">.</span>MAJORITY<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setReadPreference</span><span class="token punctuation">(</span><span class="token class-name">ReadPreference</span><span class="token punctuation">.</span><span class="token function">primary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<h4 id="--driver-extra-configuration-(step-6)"><a class="header-anchor" href="#--driver-extra-configuration-(step-6)">#</a> - Driver extra configuration (step 6)</h4>
+<h5 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h5>
+<p>Due to the MongoDB API design, to work with transactions the <a href="https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html">ClientSession</a> object is required in every MongoDB driver operation.
+<br /><br />
+Mongock makes this very simple. The developer only needs to specify a <code>ClientSession</code> parameter in the contructor or method of the <code>@ChangeUnit</code> and use it in the MongoDB operations. <strong>Mongock takes care of everything else.</strong>
+<br /><br />
+The following code shows how to save documents inside the transaction using the <code>ClientSession</code> object.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line">  <span class="token annotation punctuation">@Execution</span></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">execution</span><span class="token punctuation">(</span><span class="token class-name">ClientSession</span> clientSession<span class="token punctuation">,</span> <span class="token class-name">MongoDatabase</span> mongoDatabase<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">  </div><div class="highlight-line">    mongoDatabase<span class="token punctuation">.</span><span class="token function">getCollection</span><span class="token punctuation">(</span>CLIENTS_COLLECTION_NAME<span class="token punctuation">,</span> <span class="token class-name">Client</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span></div><div class="highlight-line">            <span class="token punctuation">.</span><span class="token function">insertMany</span><span class="token punctuation">(</span>clientSession<span class="token punctuation">,</span> <span class="token class-name">IntStream</span><span class="token punctuation">.</span><span class="token function">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> INITIAL_CLIENTS<span class="token punctuation">)</span></div><div class="highlight-line">                    <span class="token punctuation">.</span><span class="token function">mapToObj</span><span class="token punctuation">(</span><span class="token class-name">ClientInitializerChangeLog</span><span class="token operator">::</span><span class="token function">getClient</span><span class="token punctuation">)</span></div><div class="highlight-line">                    <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div></code></pre>
+<br />
+<hr>
+<h2 id="examples"><a class="header-anchor" href="#examples">#</a> Examples</h2>
+<p class="successAlt">Please visit our <a href="https://github.com/mongock/mongock-examples/tree/master/mongodb">example github repository</a> for more information</p>
 
       </article>
     </main>

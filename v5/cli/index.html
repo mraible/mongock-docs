@@ -239,8 +239,22 @@ function changeVersion() {
             
               
   
-  <a class="menu-item "  href="/v5/driver/mongodb/index.html">
-    MongoDB
+  <a class="menu-item "  href="/v5/driver/mongodb-sync/index.html">
+    MongoDB Sync
+  </a>
+
+            
+              
+  
+  <a class="menu-item "  href="/v5/driver/mongodb-springdata/index.html">
+    MongoDB Spring data
+  </a>
+
+            
+              
+  
+  <a class="menu-item "  href="/v5/driver/mongodb-reactive/index.html">
+    MongoDB reactive
   </a>
 
             
@@ -304,7 +318,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v5/CLI/index.html">
+      <a class="menu-item current-page"  href="/v5/cli/index.html">
         CLI
       </a>
     
@@ -314,7 +328,7 @@ function changeVersion() {
             
               
   
-  <a class="menu-item current-page"  href="/v5/CLI/operations/index.html">
+  <a class="menu-item "  href="/v5/cli/operations/index.html">
     Operations
   </a>
 
@@ -353,7 +367,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v5/FAQ/index.html">
+      <a class="menu-item "  href="/v5/faq/index.html">
         FAQ
       </a>
     
@@ -629,173 +643,42 @@ function changeVersion() {
 </aside>
 
       <article>
-        <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#migrate-all"> migrate all</a></li><li><a href="#undo-up-to-change-pro"> undo up-to-change  PRO</a></li><li><a href="#state-db-pro"> state db  PRO</a></li><li><a href="#state-code-base-pro"> state code-base  PRO</a></li><li><a href="#state-compare-pro"> state compare  PRO</a></li></ul></div></p>
-<h1 id="migrate-all"><a class="header-anchor" href="#migrate-all">#</a> migrate all</h1>
-<p>Execute all the pending changeUnits, as the standard Mongock migration process.</p>
-<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock migrate all -aj <span class="token operator">&lt;</span>APP_JAR<span class="token operator">></span></div></code></pre>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>CLI Parameter</th>
-<th>Type</th>
-<th>Description</th>
-<th>Mandatory</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>APP_JAR</td>
-<td><strong>-aj</strong></td>
-<td>String</td>
-<td>It's the path to your executable uber JAR.</td>
-<td>YES</td>
-</tr>
-</tbody>
-</table>
-<p class="text-center">
-    <img src="/images/cli-migrate-all.png" alt="migrate all output" style="max-width: 1280px">
-</p>
-<!--# migrate up-to-change
+        <h1 class="title">Command Line Interface (CLI)</h1>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#steps"> Steps</a><ul><li><a href="#1.-install-cli"> 1. Install CLI</a></li><li><a href="#2.-prepare-your-application"> 2. Prepare your application</a><ul><li><a href="#with-springboot"> With Springboot</a></li><li><a href="#with-standalone"> With standalone</a></li></ul></li></ul></li><li><a href="#considerations"> Considerations</a></li></ul></div></p>
+<h1 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h1>
+<p>So far we have explained how to run Mongock as part of your application, normally at the application's startup stage. This section explains how to run those migrations, and other operations, independently from the CLI.</p>
+<h1 id="steps"><a class="header-anchor" href="#steps">#</a> Steps</h1>
+<h2 id="1.-install-cli"><a class="header-anchor" href="#1.-install-cli">#</a> 1. Install CLI</h2>
+<ol>
+<li>Download the latest version of the <strong>mongock-cli-LATEST_VERSION.zip</strong> from <a href="https://repo.maven.apache.org/maven2/io/mongock/mongock-cli/"><img src="https://maven-badges.herokuapp.com/maven-central/io.mongock/mongock-cli/badge.png" alt="Maven Central"></a>.</li>
+<li>Unzip it.</li>
+<li>Open a terminal and locate it inside the unzipped folder.</li>
+<li>Run the one of the operations available in <a href="/v5/cli/operations">opreations page</a>.</li>
+</ol>
+<h2 id="2.-prepare-your-application"><a class="header-anchor" href="#2.-prepare-your-application">#</a> 2. Prepare your application</h2>
+<h3 id="with-springboot"><a class="header-anchor" href="#with-springboot">#</a> With Springboot</h3>
+<p>If using Springboot in the application, there is not much to be done. Springboot creates already an uber jar with all the dependencies in it.</p>
+<p>By default the Mongock CLI loads the entire application context. If you want the CLI only to load specific configuration classes that are enough to run the migrations, you can do this annotating your main class with <code>@MongockCliConfiguration</code>.</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"> </div><div class="highlight-line"><span class="token comment">//The Mongock CLI will load the configuration from the classes </span></div><div class="highlight-line"><span class="token comment">//io.your.package.ConfigurationClass1 </span></div><div class="highlight-line"><span class="token comment">//and io.your.package.ConfigurationClass2.</span></div><div class="highlight-line"></div><div class="highlight-line"><span class="token comment">//Theses classes must contain all the beans and </span></div><div class="highlight-line"><span class="token comment">//configuration needed to run the migration.</span></div><div class="highlight-line"><span class="token annotation punctuation">@EnableMongock</span></div><div class="highlight-line"><span class="token annotation punctuation">@MongockCliConfiguration</span><span class="token punctuation">(</span>sources <span class="token operator">=</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>your<span class="token punctuation">.</span>package<span class="token punctuation">.</span></span>ConfigurationClass1</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span></div><div class="highlight-line">        <span class="token class-name"><span class="token namespace">io<span class="token punctuation">.</span>your<span class="token punctuation">.</span>package<span class="token punctuation">.</span></span>ConfigurationClass2</span><span class="token punctuation">.</span><span class="token keyword">class</span></div><div class="highlight-line"><span class="token punctuation">}</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token annotation punctuation">@SpringBootApplication</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpringBootSpringDataAnnotationBasicApp</span><span class="token punctuation">{</span></div><div class="highlight-line">  <span class="token comment">//...</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<div class="success">When using the builder approach(no <b>@EnableMongock</b>), the RunnerBuilder must be injected as a bean in the application context.</div>
+<h3 id="with-standalone"><a class="header-anchor" href="#with-standalone">#</a> With standalone</h3>
+<p>When the application uses the Mongock standalone runner, it needs the following to be able to work with the CLI:</p>
+<ul>
+<li>Implement the interface <code>MongockBuilderProvider</code> returning the runner builder used in the application. Notice that should provide an empty constructor that will be used by the CLI.</li>
+<li>Annotate the main class with <code>@MongockCliConfiguration</code> providing the <code>MongockBuilderProvider</code> implementation class.</li>
+<li>Generate an uber jar from the application, which will be passed to the Mongock CLI in the param <code>--appJar</code> Mor information about generating an uber jar with <a href="https://maven.apache.org/plugins/maven-shade-plugin/">maven</a> and <a href="https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow">gradle</a>.</li>
+</ul>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@MongockCliConfiguration</span><span class="token punctuation">(</span>sources <span class="token operator">=</span> <span class="token class-name">Application<span class="token punctuation">.</span>MongockBuilderProviderImpl</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Application</span> <span class="token punctuation">{</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token comment">//TODO your logic is not executed in the Mongock CLI</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">MongockBuilderProviderImpl</span> <span class="token keyword">implements</span> <span class="token class-name">MongockBuilderProvider</span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token class-name">RunnerStandaloneBuilder</span> <span class="token function">getBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">      <span class="token comment">//...calling setter methods</span></div><div class="highlight-line">      <span class="token keyword">return</span> <span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<hr>
+<h1 id="considerations"><a class="header-anchor" href="#considerations">#</a> Considerations</h1>
+<h4 id="appjar-parameter"><a class="header-anchor" href="#appjar-parameter">#</a> appJar parameter</h4>
+<p>The application uber jar (<code>--appJar</code> or <code>-aj</code>) is one of the mandatory parameters in all the operations(at least those operations interacting with the migration classes, <code>@ChangeUnit</code> and <code>@ChangeLog</code>). The Mongock CLI takes the migration classes, the dependencies and the runner builder from it.</p>
+<h4 id="mongock-version-in-your-application"><a class="header-anchor" href="#mongock-version-in-your-application">#</a> Mongock version in your application</h4>
+<p>Mongock CLI requires the application to be upgraded to Mongock version 5.</p>
+<!-- #### Professional operations
 
-Execute the pending changeUnits until the specified `CHANGE_UNIT_ID` (included), as the standard Mongock migration process.
+There are some  operations labeled with <span class="professional">PRO</span>. This means it's a professional operation that requires the jar application to use the professional Mongock. Visit [this section](/v5/professional) to use Mongock professional in your application. -->
 
-```bash
-$ ./mongock migrate up-to-change <CHANGE_UNIT_ID> -aj <APP_JAR>
-```
-
-|   Name    | CLI Parameter |  Type   | Description                                                      | Mandatory |
-|-----------|---------------|---------|------------------------------------------------------------------|----------|
-| CHANGE_UNIT_ID |        N/A    |  String | It's the change identifier used in your `@ChangeUnit` annotation |   YES     |
-| APP_JAR   |      **-aj**  |  String | It's the path to you executable uber JAR.                        |   YES     |
--->
-<!--UNTIL PROFESSIONAL LIB IS OFFICIAL PUBLISHED-->
-<!--# undo all  <span class="professional"><a href="/pro/index.html">PRO</a></span>
-
-Reverts all the changeUnits.
-
-This operation uses the methods annotated with `@RollbackExecution` and `@RollbackBeforeExecution` in the changeUnits.  
-
-```bash
-$ ./mongock undo all -aj <APP_JAR>
-```
-
-|   Name   | CLI Parameter |  Type   | Description                               | Mandatory |
-| ---------|-------------|---------|-------------------------------------------|-----------|
-| APP_JAR  | **-aj**  |  String | It's the path to your executable uber JAR. |   YES     |  
--->
-<h1 id="undo-up-to-change-pro"><a class="header-anchor" href="#undo-up-to-change-pro">#</a> undo up-to-change  <span class="professional"><a href="/pro/index.html">PRO</a></span></h1>
-<p>Reverts all the changeUnits until the specified <code>CHANGE_UNIT_ID</code> (included).</p>
-<p>This operation uses the methods annotated with <code>@RollbackExecution</code> and <code>@RollbackBeforeExecution</code> in the changeUnits.</p>
-<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock undo up-to-change <span class="token operator">&lt;</span>CHANGE_UNIT_ID<span class="token operator">></span> -aj <span class="token operator">&lt;</span>APP_JAR<span class="token operator">></span></div></code></pre>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>CLI Parameter</th>
-<th>Type</th>
-<th>Description</th>
-<th>Mandatory</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CHANGE_UNIT_ID</td>
-<td>N/A</td>
-<td>String</td>
-<td>It's the change identifier used in your <code>@ChangeUnit</code> annotation</td>
-<td>YES</td>
-</tr>
-<tr>
-<td>APP_JAR</td>
-<td><strong>-aj</strong></td>
-<td>String</td>
-<td>It's the path to you executable uber JAR.</td>
-<td>YES</td>
-</tr>
-</tbody>
-</table>
-<p class="text-center">
-    <img src="/images/cli-undo-up-to-change.png" alt="migrate all output" style="max-width: 1280px">
-</p>
-<h1 id="state-db-pro"><a class="header-anchor" href="#state-db-pro">#</a> state db  <span class="professional"><a href="/pro/index.html">PRO</a></span></h1>
-<p>Show the current state of changes.</p>
-<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock state db -aj <span class="token operator">&lt;</span>APP_JAR<span class="token operator">></span></div></code></pre>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>CLI Parameter</th>
-<th>Type</th>
-<th>Description</th>
-<th>Mandatory</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>APP_JAR</td>
-<td><strong>-aj</strong></td>
-<td>String</td>
-<td>It's the path to your executable uber JAR.</td>
-<td>YES</td>
-</tr>
-</tbody>
-</table>
-<p class="text-center">
-    <img src="/images/cli-state-db.png" alt="migrate all output" style="max-width: 1280px">
-</p>
-<h1 id="state-code-base-pro"><a class="header-anchor" href="#state-code-base-pro">#</a> state code-base  <span class="professional"><a href="/pro/index.html">PRO</a></span></h1>
-<p>List the existing code changeUnits and their current state.</p>
-<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock state code-base -aj <span class="token operator">&lt;</span>APP_JAR<span class="token operator">></span></div></code></pre>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>CLI Parameter</th>
-<th>Type</th>
-<th>Description</th>
-<th>Mandatory</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>APP_JAR</td>
-<td><strong>-aj</strong></td>
-<td>String</td>
-<td>It's the path to your executable uber JAR.</td>
-<td>YES</td>
-</tr>
-</tbody>
-</table>
-<p class="text-center">
-    <img src="/images/cli-state-code-base.png" alt="migrate all output" style="max-width: 1280px">
-</p>
-<h1 id="state-compare-pro"><a class="header-anchor" href="#state-compare-pro">#</a> state compare  <span class="professional"><a href="/pro/index.html">PRO</a></span></h1>
-<p>Compare the existing code changeUnits with the current state of changes.</p>
-<pre class="language-bash"><code class="language-bash"><div class="highlight-line">$ ./mongock state compare -aj <span class="token operator">&lt;</span>APP_JAR<span class="token operator">></span></div></code></pre>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>CLI Parameter</th>
-<th>Type</th>
-<th>Description</th>
-<th>Mandatory</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>APP_JAR</td>
-<td><strong>-aj</strong></td>
-<td>String</td>
-<td>It's the path to your executable uber JAR.</td>
-<td>YES</td>
-</tr>
-</tbody>
-</table>
-<p class="text-center">
-    <img src="/images/cli-state-compare.png" alt="migrate all output" style="max-width: 1280px">
-</p>
       </article>
     </main>
 

@@ -253,14 +253,14 @@ function changeVersion() {
             
               
   
-  <a class="menu-item "  href="/v5/driver/mongodb-reactive/index.html">
+  <a class="menu-item current-page"  href="/v5/driver/mongodb-reactive/index.html">
     MongoDB reactive
   </a>
 
             
               
   
-  <a class="menu-item current-page"  href="/v5/driver/cosmosdb/index.html">
+  <a class="menu-item "  href="/v5/driver/cosmosdb/index.html">
     CosmosDB
   </a>
 
@@ -643,31 +643,107 @@ function changeVersion() {
 </aside>
 
       <article>
-        <h1 class="title">CosmosDB Driver</h1>
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#getting-started"> Getting started</a></li><li><a href="#important-notes"> Important notes</a><ul><li><a href="#sharding-the-mongock-changelog-collection"> Sharding the Mongock ChangeLog collection</a></li><li><a href="#transactions"> Transactions</a></li></ul></li><li><a href="#resources"> Resources</a></li></ul></div></p>
-<p class="success">You can manage your <b>CosmosDB</b> migrations by using the Mongock drivers for MongoDB</p>
+        <h1 class="title">MongoDB Reactive driver</h1>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#important-note"> Important note</a></li><li><a href="#mongodb-driver-options-and-compatibility"> MongoDB driver options and compatibility</a></li><li><a href="#mongodb-common-configuration"> MongoDB common configuration</a><ul><li><a href="#properties"> Properties</a></li><li><a href="#get-started"> Get started</a></li></ul></li><li><a href="#reactive-with-spring-data"> Reactive with Spring Data</a></li><li><a href="#examples"> Examples</a></li></ul></div></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/introduction">Azure Cosmos DB</a> provides multiple APIs to connect to it. One of them it's the API for MongoDB, which makes it easy to use Cosmos DB as if it were a MongoDB database.</p>
-<p>You can leverage your MongoDB experience and continue to use your favorite MongoDB drivers, SDKs, and tools by pointing your application to the API for MongoDB account's connection string.</p>
-<h2 id="getting-started"><a class="header-anchor" href="#getting-started">#</a> Getting started</h2>
-<p><strong>You can use Mongock to manage your Cosmos DB migrations in the same way you would do with MongoDB</strong>, using one of the drivers Mongock provides for MongoDB. You can see how to use it in our <a href="/v5/driver/mongodb">MongoDB driver section</a></p>
-<h2 id="important-notes"><a class="header-anchor" href="#important-notes">#</a> Important notes</h2>
-<h3 id="sharding-the-mongock-changelog-collection"><a class="header-anchor" href="#sharding-the-mongock-changelog-collection">#</a> Sharding the Mongock ChangeLog collection</h3>
-<p>If you want to shard the Mongock changeLog collection, you need to use the key <code>executionId</code> as shard key. This is due to the fact that the <code>executionId</code> is the prefix of the Mongock's compound index and the MongoDB official documentation states:</p>
-<p><code>...The index can be an index on the shard key or a compound index where the shard key is a prefix of the index.</code></p>
-<p>You can find more information about <a href="https://docs.mongodb.com/manual/core/sharding-shard-key/#shard-key-indexes">shard keys</a> and <a href="https://docs.mongodb.com/manual/core/index-compound/#prefixes">prefixes</a></p>
-<h3 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h3>
-<p>Although MongoDB does support Multi-document transactions(in a single or multiple, and sharded collections), they are not supported across collections or in sharded collections in version 4.0.</p>
-<h2 id="resources"><a class="header-anchor" href="#resources">#</a> Resources</h2>
-<p>You can find more information about Cosmos DB with MongoDB API and Java, here:</p>
+<p>This sections covers the Mongock implementation for MongoDB Java Reactive Streams driver.</p>
+<br />
+<p>If you are curious about why mongock provides the <code>mongodb-reactive-driver</code>, if it's synchronous by definition, please take a look to <a href="/v5/faq#why-does-mongock-provide-the-mongodb-reactive-driver%2C-if-it-is-synchronous-by-definition%3F">this faq entry</a></p>
+<h2 id="important-note"><a class="header-anchor" href="#important-note">#</a> Important note</h2>
+<p>Despite this deriver, the Mongock's nature is still synchronous: A migration consists in a list of changes, which are executed in order, one after the other. If one of them fails, the migration aborts and Mongock will take it from that point in the next execution.</p>
+<br />
+For this reason...
+<br />
+<p class="warningAlt">Developers must block all the database calls inside a changeUnit</p>
+<br />
+<p>This is a bit cumbersome, as it requires creating a blocking subscriber that allows the developer to block the call.</p>
+<p class="successAlt">Luckily, Mongock provides such a util class: <b>MongoSubscriberSync</b>. You can see an example <a href="/v5/driver/mongodb-reactive#code-example">here</a></p>
+<br />
+Although Mongock provides this driver for those who, working in a reactive project, don't want to import the MongoDB java sync driver, we highly recommend the use of the synchronous drivers, when possible.
+<br /><br />
+<br />
+<hr>
+<h2 id="mongodb-driver-options-and-compatibility"><a class="header-anchor" href="#mongodb-driver-options-and-compatibility">#</a> MongoDB driver options and compatibility</h2>
+<table>
+<thead>
+<tr>
+<th>Mongock driver</th>
+<th>Driver library</th>
+<th>Version compatibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mongodb-reactive-driver</td>
+<td>org.mongodb:mongodb-driver-reactivestreams</td>
+<td>4.X.X</td>
+</tr>
+</tbody>
+</table>
+<br />
+<hr>
+<h2 id="mongodb-common-configuration"><a class="header-anchor" href="#mongodb-common-configuration">#</a> MongoDB common configuration</h2>
+<p>All the MongoDB drivers share the same configuration.</p>
+<p class="tipAlt">When setting configuration via properties file, it must be prefixed by <b>mongock.mongo-db</b></p>
+<h3 id="properties"><a class="header-anchor" href="#properties">#</a> Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>writeConcern</strong></td>
+<td>Exactly the same MongoDB parameter <strong>write concern</strong>. For more information, visit the official MongoDB documentation for <a href="https://docs.mongodb.com/manual/reference/write-concern/">write concern</a>.</td>
+<td>Object</td>
+<td>{w:<code>majority</code>,<br />wTimeoutMs: null,<br />j:true}</td>
+</tr>
+<tr>
+<td><strong>readConcern</strong></td>
+<td>Exactly the same MongoDB parameter <strong>read concern</strong>. For more information, visit the official MongoDB documentation for <a href="https://docs.mongodb.com/manual/reference/read-concern/">read concern</a>.</td>
+<td>String</td>
+<td><code>majority</code></td>
+</tr>
+<tr>
+<td><strong>readPreference</strong></td>
+<td>Exactly the same MongoDB parameter <strong>read preference</strong>. For more information, visit the official MongoDB documentation for <a href="https://docs.mongodb.com/manual/reference/read-preference/">read preference</a>.</td>
+<td>String</td>
+<td><code>primary</code></td>
+</tr>
+</tbody>
+</table>
+<br />
+<hr>
+<h3 id="get-started"><a class="header-anchor" href="#get-started">#</a> Get started</h3>
+<p>Following the <a href="/v5/get-started#steps-to-run-mongock">get started section</a>, this covers steps 3 and 5 and 6.</p>
+<h4 id="--add-maven-dependency-for-the-driver-(step-2)"><a class="header-anchor" href="#--add-maven-dependency-for-the-driver-(step-2)">#</a> - Add maven dependency for the driver (step 2)</h4>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongodb-reactive-driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<h4 id="--build-the-driver-(step-5)"><a class="header-anchor" href="#--build-the-driver-(step-5)">#</a> - Build the driver (step 5)</h4>
+<p>These classes provide the same two static initializers</p>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/mongodb-introduction">Azure Cosmos DB API for MongoDB</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/create-mongodb-java">Quickstart: Create a console app with Java and the MongoDB API in Azure Cosmos DB</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/use-multi-document-transactions">Use Multi-document transactions in Azure Cosmos DB API for MongoDB</a></li>
-<li><a href="https://docs.mongodb.com/v5.0/core/transactions/">MongoDB transactions</a></li>
-<li><a href="https://docs.mongodb.com/manual/core/sharding-shard-key/#shard-key-indexes">MongoDB shard keys</a></li>
-<li><a href="https://docs.mongodb.com/manual/core/index-compound/#prefixes">MongoDB compound indexes</a></li>
+<li><strong>withDefaultLock</strong>(mongoClient, databaseName)</li>
+<li><strong>withLockStrategy</strong>(mongoClient, databaseName, lockAcquiredForMillis, lockQuitTryingAfterMillis, lockTryFrequencyMillis)</li>
 </ul>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token comment">// For mongodb-sync-v4-driver</span></div><div class="highlight-line"><span class="token class-name">MongoReactiveDriver</span> driver <span class="token operator">=</span> <span class="token class-name">MongoReactiveDriver</span><span class="token punctuation">.</span><span class="token function">withDefaultLock</span><span class="token punctuation">(</span>mongoClient<span class="token punctuation">,</span> databaseName<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"><span class="token comment">// For mongodb-v3-driver</span></div><div class="highlight-line"><span class="token comment">//MongoCore3Driver driver = MongoCore3Driver.withDefaultLock(mongoClient, databaseName);</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setWriteConcern</span><span class="token punctuation">(</span><span class="token class-name">WriteConcern</span><span class="token punctuation">.</span>MAJORITY<span class="token punctuation">.</span><span class="token function">withJournal</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withWTimeout</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setReadConcern</span><span class="token punctuation">(</span><span class="token class-name">ReadConcern</span><span class="token punctuation">.</span>MAJORITY<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">driver<span class="token punctuation">.</span><span class="token function">setReadPreference</span><span class="token punctuation">(</span><span class="token class-name">ReadPreference</span><span class="token punctuation">.</span><span class="token function">primary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></code></pre>
+<h4 id="--driver-extra-configuration-(step-6)"><a class="header-anchor" href="#--driver-extra-configuration-(step-6)">#</a> - Driver extra configuration (step 6)</h4>
+<h5 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h5>
+<p>Due to the MongoDB API design, to work with transactions the <a href="https://mongodb.github.io/mongo-java-driver/4.3/apidocs/mongodb-driver-sync/com/mongodb/client/ClientSession.html">ClientSession</a> object is required in every MongoDB driver operation.
+<br /><br />
+Mongock makes this very simple. The developer only needs to specify a <code>ClientSession</code> parameter in the contructor or method of the <code>@ChangeUnit</code> and use it in the MongoDB operations. <strong>Mongock takes care of everything else.</strong>
+<br /><br />
+The following code shows how to save documents inside the transaction using the <code>ClientSession</code> object.</p>
+<div id="code-example"><div>
+<pre class="language-java"><code class="language-java"><div class="highlight-line">    <span class="token annotation punctuation">@Execution</span></div><div class="highlight-line">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">execution</span><span class="token punctuation">(</span><span class="token class-name">ClientSession</span> clientSession<span class="token punctuation">,</span> <span class="token class-name">MongoDatabase</span> mongoDatabase<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">        <span class="token class-name">SubscriberSync</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">InsertManyResult</span><span class="token punctuation">></span></span> subscriber <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoSubscriberSync</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">        mongoDatabase<span class="token punctuation">.</span><span class="token function">getCollection</span><span class="token punctuation">(</span>CLIENTS_COLLECTION_NAME<span class="token punctuation">,</span> <span class="token class-name">Client</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span></div><div class="highlight-line">                <span class="token punctuation">.</span><span class="token function">insertMany</span><span class="token punctuation">(</span>clientSession<span class="token punctuation">,</span> <span class="token class-name">IntStream</span><span class="token punctuation">.</span><span class="token function">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> INITIAL_CLIENTS<span class="token punctuation">)</span></div><div class="highlight-line">                        <span class="token punctuation">.</span><span class="token function">mapToObj</span><span class="token punctuation">(</span><span class="token class-name">ClientInitializerChange</span><span class="token operator">::</span><span class="token function">getClient</span><span class="token punctuation">)</span></div><div class="highlight-line">                        <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></div><div class="highlight-line">                <span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>subscriber<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line"></div><div class="highlight-line">        <span class="token class-name">InsertManyResult</span> result <span class="token operator">=</span> subscriber<span class="token punctuation">.</span><span class="token function">getFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">    <span class="token punctuation">}</span></div></code></pre>
+<br />
+<h2 id="reactive-with-spring-data"><a class="header-anchor" href="#reactive-with-spring-data">#</a> Reactive with Spring Data</h2>
+<p>Please, take a look to <a href="/v5/faq#can-i-use-the-mongodb-reactive-driver-with-a-spring-data-project%3F">this FAQ entry</a></p>
+<hr>
+<h2 id="examples"><a class="header-anchor" href="#examples">#</a> Examples</h2>
+<p class="successAlt">Please visit our <a href="https://github.com/mongock/mongock-examples/tree/master/mongodb">example github repository</a> for more information</p>
 
       </article>
     </main>
