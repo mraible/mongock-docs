@@ -29,7 +29,7 @@ $ ./mongock migrate all -aj <APP_JAR>
     <img src="/images/cli-migrate-all.png" alt="migrate all output" style="max-width: 1280px">
 </p>
 
-<!--# migrate up-to-change
+# migrate up-to-change  <span class="professional"><a href="/pro/index.html">PRO</a></span>
 
 Execute the pending changeUnits until the specified `CHANGE_UNIT_ID` (included), as the standard Mongock migration process.
 
@@ -41,11 +41,12 @@ $ ./mongock migrate up-to-change <CHANGE_UNIT_ID> -aj <APP_JAR>
 |-----------|---------------|---------|------------------------------------------------------------------|----------|
 | CHANGE_UNIT_ID |        N/A    |  String | It's the change identifier used in your `@ChangeUnit` annotation |   YES     |
 | APP_JAR   |      **-aj**  |  String | It's the path to you executable uber JAR.                        |   YES     |
--->
 
-<!--UNTIL PROFESSIONAL LIB IS OFFICIAL PUBLISHED-->
+<p class="text-center">
+    <img src="/images/cli-migrate-up-to-change.png" alt="migrate all output" style="max-width: 1280px">
+</p>
 
-<!--# undo all  <span class="professional"><a href="/pro/index.html">PRO</a></span>
+# undo all  <span class="professional"><a href="/pro/index.html">PRO</a></span>
 
 Reverts all the changeUnits.
 
@@ -58,7 +59,11 @@ $ ./mongock undo all -aj <APP_JAR>
 |   Name   | CLI Parameter |  Type   | Description                               | Mandatory |
 | ---------|-------------|---------|-------------------------------------------|-----------|
 | APP_JAR  | **-aj**  |  String | It's the path to your executable uber JAR. |   YES     |  
--->
+
+<p class="text-center">
+    <img src="/images/cli-undo-all.png" alt="migrate all output" style="max-width: 1280px">
+</p>
+
 # undo up-to-change  <span class="professional"><a href="/pro/index.html">PRO</a></span>
 
 Reverts all the changeUnits until the specified `CHANGE_UNIT_ID` (included).
