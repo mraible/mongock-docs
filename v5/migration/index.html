@@ -653,7 +653,7 @@ function changeVersion() {
   <li><strike><a href="#changeLog">ChangeLog</a></strike></li>
 </ol>-->
 <p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#changeunit-methods"> ChangeUnit methods</a></li><li><a href="#changeunit-attributes"> ChangeUnit attributes</a></li><li><a href="#changeunit-example"> ChangeUnit example</a></li><li><a href="#best-practices"> Best practices</a></li></ul></div></p>
-<p class="tip">The <b>@ChangeLog</b> annotation has been <b>deprecated</b> in favour of the <b>@ChangeUnit</b>. For more information check <a href="/faq#changelog-deprecation">this section</a></p>
+<p class="tip">The <b>@ChangeLog</b> annotation has been <b>deprecated</b> in favour of the <b>@ChangeUnit</b>. For more information check <a href="/v5/faq#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog">this section</a></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
 <p>A migration is composed by multiple smaller pieces called ChangeUnits, which are processed in order by the Mongock runner.</p>
 <p>ChangeUnits are the unit of migration. These refer to the annotated classes where developers write  migration logic/scripts.</p>
@@ -725,13 +725,13 @@ function changeVersion() {
 </tr>
 <tr>
 <td>runAlways</td>
-<td style="text-align:left">Returns whether the ChangeUnit is runAlways or not. For more information, visit the <a href="/v5/runner/common-configuration/">runner configuration section</a>.</td>
+<td style="text-align:left">Returns whether the ChangeUnit is runAlways or not. For more information, visit the <a href="/v5/runner/#configuration">runner configuration section</a>.</td>
 <td style="text-align:center">NO</td>
 <td style="text-align:center"><code>false</code></td>
 </tr>
 <tr>
 <td>systemVersion</td>
-<td style="text-align:left">Returns the ChangeUnit's system version. For more information, visit the <a href="/v5/runner/common-configuration/">runner configuration section</a>.</td>
+<td style="text-align:left">Returns the ChangeUnit's system version. For more information, visit the <a href="/v5/runner/#configuration">runner configuration section</a>.</td>
 <td style="text-align:center">NO</td>
 <td style="text-align:center"><code>0</code></td>
 </tr>
