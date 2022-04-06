@@ -13,7 +13,7 @@ const PROFESSIONAL_A_LABEL = '<a href="/professional">';
  * FOLDERS TO REMOVE FROM SIDE MENU
  */
 const EXCLUDE_FROM_MENU = new Set();
-EXCLUDE_FROM_MENU.add("pro");
+//EXCLUDE_FROM_MENU.add("pro");
 EXCLUDE_FROM_MENU.add("pending");
 EXCLUDE_FROM_MENU.add("roadmap");
 
