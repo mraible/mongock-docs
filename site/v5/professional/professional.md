@@ -12,28 +12,22 @@ eleventyNavigation:
 [[TOC]]
 
 # What is Mongock professional?
+Mongock professional is the extension of the Mongock open source project, providing advanced features and support. 
+
+Professional support not only guarantees that your business will get all the problems and questions solved, but also that the project is properly mantained and not only by the community, but there is also a company behind it, taking care of it.
 
 # What does the professional distribution provide?
 
+As mentioned, in summary Mongock professional provides business support(with different levels depending on the business needs) and advanced features. This features are mainly focussed in the following areas:
+
+- Management
+- Deployment
+- CLI
+- Dashboard
+- Centralised migration server
+- Other advanced features like multi-tenant, etc.
+
 # How can I use it?
 
-<!-- # Get started with Mongock Professional features <span class="professional">PRO</span> 
-
-The Mongock professional version offers additional features to the existing Community edition. Some of these features:
-- <b><a href="/cli/operations/index.html#undo-pro">Undo</a> Operation:</b> Providing greater flexibility to rollback your migrations and deploy an older version in your environment.
-- Early access to the new exciting features coming up! 
-- It requires  no code changes from the community to upgrade to the Professional Edition!
-
-# Steps for including the PRO Edition
-
-1. Update the Maven groupId to reference the professional package. The following example showcases the SpringBoot Runner:
-```xml
-  <groupId>io.mongock.professional</groupId>
-  <artifactId>mongock-springboot</artifactId>
-```
-2. You can get a License Key from [here](/v5/registration.html).
-
-
-# Questions? 
-
-Please feel free to ask us [here](mailto:support@mongock.io) if there is anything that the Mongock team can help you with.  -->
+This is very easy. In summary, you just need to get a license key(try our trial version [here](https://www.mongock.io/download)) and provide it to Mongock.
+Everything is well explained in [this section](/v5/professional/setup.html) 
