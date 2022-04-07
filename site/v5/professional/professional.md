@@ -27,7 +27,5 @@ As mentioned, in summary Mongock professional provides business support(with dif
 - Centralised migration server
 - Other advanced features like multi-tenant, etc.
 
-# How can I use it?
 
-This is very easy. In summary, you just need to get a license key(try our trial version [here](https://www.mongock.io/download)) and provide it to Mongock.
-Everything is well explained in [this section](/v5/professional/setup.html) 
+### Please visit this [link](/v5/professional/setup.html) to get started 
