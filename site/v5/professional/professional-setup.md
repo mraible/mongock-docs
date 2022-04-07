@@ -40,3 +40,17 @@ you just need to add `.professional` a the end of the groupId
 ```
 
 ### 3. Provide the license key to Mongock
+
+Currently you have two ways of providing the license key.
+
+#### Builder
+If you are using the Mongock builder, you can use the builer method `setLicenseKey` and pass the license key generated. Although the following image shows the license key literal in the code, we suggest to load it from properties or the environment, which is always a more seure way to do it.
+<p class="text-center">
+    <img width="50%" src="/images/license-key-builder.jpeg" alt="license-builder">
+</p>
+
+#### Properties
+If you are using Spring boot, there is a config property available called `licenseKey`. As mentioned in the previous point, we suggest to use a more secure approach of providing the license key, such us loading from the environment. 
+<p class="text-center">
+    <img width="50%" src="/images/license-key-properties.jpeg" alt="license-properties">
+</p>
