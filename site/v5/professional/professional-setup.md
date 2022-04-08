@@ -11,18 +11,20 @@ eleventyNavigation:
 [[TOC]]
 
 # Introduction
-This sections explains and goes through all the steps to get up and running the Mongock professional
+This sections explains and goes through all the steps to get up and running the Mongock professional.
 
 
 # Steps
 
 ### 1. Request a license key
 
-[This link](https://www.mongock.io/download) will take you to the Mongock website, where you just need to provide some basic information, such as the email, where you will receive the license key
+<!-- [This link] will take you to the Mongock website, where you just need to provide some basic information, such as the email, where you will receive the license key -->
+
+You can request a License key from the following [link](https://www.mongock.io/download). The website will display a form which will send a license key to the desired email address.
 
 ### 2. Chage the groupId in you pom
 
-If you are using Mongock community with maven, your pom should have a dependency similar to this:
+If you are using Mongock Community edition with Maven, your POM file should have a dependency with the following groupId:
 
 ```xml
         <dependency>
@@ -30,8 +32,8 @@ If you are using Mongock community with maven, your pom should have a dependency
             <artifactId>mongock-springboot</artifactId>
         </dependency>
 ```
+For using the Professional version, the change required is to reference to the professional groupId. This will not affect your implementing classes already referenced:
 
-you just need to add `.professional` a the end of the groupId
 ```xml
         <dependency>
             <groupId>io.mongock.professional</groupId>
