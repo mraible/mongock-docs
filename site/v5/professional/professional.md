@@ -18,14 +18,7 @@ Professional support not only guarantees that your business will get all the pro
 
 # What does the professional distribution provide?
 
-As mentioned, in summary Mongock professional provides business support(with different levels depending on the business needs) and advanced features. This features are mainly focussed in the following areas:
-
-- Management
-- Deployment
-- CLI
-- Dashboard
-- Centralised migration server
-- Other advanced features like multi-tenant, etc.
+As mentioned, in summary Mongock professional provides business support(with different levels depending on the business needs) and advanced features. 
 
 
 ### Please visit this [link](/v5/professional/setup.html) to get started 
