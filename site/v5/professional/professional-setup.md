@@ -18,8 +18,6 @@ This sections explains and goes through all the steps to get up and running the 
 
 ### 1. Request a license key
 
-<!-- [This link] will take you to the Mongock website, where you just need to provide some basic information, such as the email, where you will receive the license key -->
-
 You can request a License key from the following [link](https://www.mongock.io/download). The website will display a form which will send a license key to the desired email address.
 
 ### 2. Chage the groupId in you pom
@@ -43,7 +41,7 @@ For using the Professional version, the change required is to reference to the p
 
 ### 3. Provide the license key to Mongock
 
-Currently you have two ways of providing the license key.
+There are two way of providing the license key:
 
 #### Builder
 If you are using the Mongock builder, you can use the builer method `setLicenseKey` and pass the license key generated. Although the following image shows the license key literal in the code, we suggest to load it from properties or the environment, which is always a more seure way to do it.
