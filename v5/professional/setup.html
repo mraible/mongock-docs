@@ -37,6 +37,9 @@
     <nav class="d-flex flex-items-center ml-auto mr-0">
       <a class="mr-24" href="/">
         Home
+      </a> 
+      <a class="mr-24" href="/v5/professional" style="color: #05a18a;">
+        Professional
       </a>
       <a href="https://github.com/mongock/mongock" target="_blank" rel="nofolllow">
         <!-- Source: <https://github.com/encharm/Font-Awesome-SVG-PNG/blob/master/black/svg/github.svg> -->
@@ -330,6 +333,27 @@ function changeVersion() {
   
   <a class="menu-item "  href="/v5/cli/operations/index.html">
     Operations
+  </a>
+
+            
+          </nav>
+         
+          
+  
+  <h7 class="menu-item">
+    
+      <a class="menu-item "  href="/v5/professional/index.html">
+        Professional
+      </a>
+    
+  </h7>
+
+          <nav class="Professional">
+            
+              
+  
+  <a class="menu-item current-page"  href="/v5/professional/setup.html">
+    Set up
   </a>
 
             
@@ -643,26 +667,30 @@ function changeVersion() {
 </aside>
 
       <article>
-        <h1 class="title">Professional - Set Up</h1>
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#get-started-with-mongock-professional-features-pro"> Get started with Mongock Professional features PRO</a></li><li><a href="#steps-for-including-the-pro-edition"> Steps for including the PRO Edition</a></li><li><a href="#questions%3F"> Questions?</a></li></ul></div></p>
-<h1 id="get-started-with-mongock-professional-features-pro"><a class="header-anchor" href="#get-started-with-mongock-professional-features-pro">#</a> Get started with Mongock Professional features <span class="professional">PRO</span></h1>
-<p>The Mongock professional version offers additional features to the existing Community edition. Some of these features:</p>
-<ul>
-<li><b><a href="/cli/operations/index.html#undo-pro">Undo</a> Operation:</b> Providing greater flexibility to rollback your migrations and deploy an older version in your environment.</li>
-<li>Early access to the new exciting features coming up!</li>
-<li>It requires  no code changes from the community to upgrade to the Professional Edition!</li>
-</ul>
-<h1 id="steps-for-including-the-pro-edition"><a class="header-anchor" href="#steps-for-including-the-pro-edition">#</a> Steps for including the PRO Edition</h1>
-<ol>
-<li>Update the Maven groupId to reference the professional package. The following example showcases the SpringBoot Runner:</li>
-</ol>
-<pre class="language-xml"><code class="language-xml"><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock.professional<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-springboot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div></code></pre>
-<ol start="2">
-<li>You can get a License Key from <a href="/v5/registration.html">here</a>.</li>
-</ol>
-<h1 id="questions%3F"><a class="header-anchor" href="#questions%3F">#</a> Questions?</h1>
-<p>Please feel free to ask us <a href="mailto:support@mongock.io">here</a> if there is anything that the Mongock team can help you with.</p>
-
+        <h1 class="title">Professional - Set up</h1>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#steps"> Steps</a><ul><li><a href="#1.-request-a-license-key"> 1. Request a license key</a></li><li><a href="#2.-chage-the-groupid-in-you-pom"> 2. Chage the groupId in you pom</a></li><li><a href="#3.-provide-the-license-key-to-mongock"> 3. Provide the license key to Mongock</a></li></ul></li></ul></div></p>
+<h1 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h1>
+<p>This sections explains and goes through all the steps to get up and running the Mongock professional.</p>
+<h1 id="steps"><a class="header-anchor" href="#steps">#</a> Steps</h1>
+<h3 id="1.-request-a-license-key"><a class="header-anchor" href="#1.-request-a-license-key">#</a> 1. Request a license key</h3>
+<p>You can request a License key from the following <a href="https://www.mongock.io/download">link</a>. The website will display a form which will send a license key to the desired email address.</p>
+<h3 id="2.-chage-the-groupid-in-you-pom"><a class="header-anchor" href="#2.-chage-the-groupid-in-you-pom">#</a> 2. Chage the groupId in you pom</h3>
+<p>If you are using Mongock Community edition with Maven, your POM file should have a runner dependency(in this example spring boot, but could be any other, like standalone) with the following groupId:</p>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-springboot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<p>For using the Professional version, the change required is to reference to the professional groupId. This will not affect your implementing classes already referenced:</p>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock.professional<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-springboot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<h3 id="3.-provide-the-license-key-to-mongock"><a class="header-anchor" href="#3.-provide-the-license-key-to-mongock">#</a> 3. Provide the license key to Mongock</h3>
+<p>There are two ways of providing the license key:</p>
+<h4 id="builder"><a class="header-anchor" href="#builder">#</a> Builder</h4>
+<p>If you are using the Mongock builder, you can use the builer method <code>setLicenseKey</code> and pass the license key generated. Although the following image shows the license key literal in the code, we suggest to load it from properties or the environment, which is always a more secure way to do it.</p>
+<p class="text-center">
+    <img width="50%" src="/images/license-key-builder.jpeg" alt="license-builder">
+</p>
+<h4 id="properties"><a class="header-anchor" href="#properties">#</a> Properties</h4>
+<p>If you are using Spring boot, there is a config property available called <code>licenseKey</code>. As mentioned in the previous point, we suggest to use a more secure approach of providing the license key, such as loading the license key value from environment variables.</p>
+<p class="text-center">
+    <img width="50%" src="/images/license-key-properties.jpeg" alt="license-properties">
+</p>
       </article>
     </main>
 
