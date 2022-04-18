@@ -18,7 +18,7 @@ This sections explains and goes through all the steps to get up and running the 
 
 ### 1. Request a license key
 
-You can request a License key from the following [link](https://www.mongock.io/download). The website will display a form which will send a license key to the desired email address.
+You can request a License key from the following [link](https://mongock.io/professional/). The website will display a form which will send a license key to the desired email address.
 
 ### 2. Chage the groupId in you pom
 
