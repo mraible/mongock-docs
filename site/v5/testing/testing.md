@@ -40,7 +40,7 @@ Mongock provides some util classes to make this pretty easy. In summary you need
 - **AfterEach method(automatically called):** Cleans both Mongock repositories(lock and migration) 
 - **Dependency injections:** It ensures the required dependencies(Mongock builder, connectionDriver, etc.) are injected 
 - **executeMongock() method:** To perform the Mongock migration
-- **@TestPropertySource(properties = {"mongock.runner-type=NONE"}):** To prevent Mongock from injecting(and automatically executing) the Mongock runner bean. This is important as it won't allow multiple execution otherwise.
+- **@TestPropertySource(properties = {"mongock.runner-type=NONE"}):** To prevent Mongock from injecting(and automatically executing) the Mongock runner bean. This is important to allow multiple Mongock runner's executions.
 
 Please follow these steps...
 ### 1. Import the `mongock-springboot-junit5` dependency to your project
