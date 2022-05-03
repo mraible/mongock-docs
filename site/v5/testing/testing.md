@@ -38,7 +38,7 @@ To see an example, please see [our example project](https://github.com/mongock/m
 Mongock provides some util classes to make this pretty easy. In summary you need to create your test class extending `MongockSpringbootJUnit5IntegrationTestBase`, which provides the following
 - **BeforeEach method(automatically called):** Resets mongock to allow re-utilization(not recommended in production) and build the runner
 - **AfterEach method(automatically called):** Cleans both Mongock repositories(lock and migration) 
-- **Dependency onjections:** It ensures the required dependencies(Mongock builder, connectionDriver, etc.) are injected 
+- **Dependency injections:** It ensures the required dependencies(Mongock builder, connectionDriver, etc.) are injected 
 - **executeMongock() method:** To perform the Mongock migration
 - **@TestPropertySource(properties = {"mongock.runner-type=NONE"}):** To prevent Mongock from injecting(and automatically execute) the Mongock runner bean. This is important as it won't allow multiple execution otherwise.
 
