@@ -14,7 +14,7 @@ eleventyNavigation:
 # What is Mongock professional?
 Mongock professional is the extension of the Mongock open source project, providing advanced features and different levels of support. 
 
-Professional support not only guarantees that your business will get all the problems and questions solved, but also that the project is properly mantained and not only by the community, but there is also a company behind it, taking care of it.
+Professional support not only guarantees that your business will get all the problems and questions solved, but also that the project is properly maintained and not only by the community, but there is also a company behind it, taking care of it.
 
 # What does the professional distribution provide?
 
