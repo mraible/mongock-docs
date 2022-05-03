@@ -58,14 +58,14 @@ You probably need `Springboot starter test`, `JUnit5`, `Testcontainers`...
 
 ### 3. Database initialization. 
 
-Although there is multiple ways of doing this, we present a way we think it provides a good balance easy-flexible
+Although there are multiple ways of doing this, we present what we think provides a good balance easy-flexible
 <p class="text-center">
     <img src="/images/integration-test-springboot-junit5-db-initialization.png" alt="ChangeUnit unit test">
 </p>
 
 ### 4. Create the test class extending the `MongockSpringbootJUnit5IntegrationTestBase`
 
-This class, in addition to extend `MongockSpringbootJUnit5IntegrationTestBase`, it should bring the database initialization and the application environment.
+This class, in addition to extending `MongockSpringbootJUnit5IntegrationTestBase`, it should also bring the database initialization and the application environment.
 <br /><br />
 This is an example.
 <p class="text-center">
@@ -76,7 +76,7 @@ This is an example.
 
 ## Integration test with Springboot Runner WITHOUT Junit5
 
-In this case Mongock provides pretty much the same than with JUnit5, with the exception of the `before` and `after` methods, which forces you to make the calls explicitly.
+In this case Mongock provides pretty much the same than in the JUnit5 case, with the exception of the `before` and `after` methods, what forces you to make these calls explicitly.
 
 Based on the previous scenario, the relevant modifications are
 1. Import the dependency `mongock-springboot-test` instead `mongock-springboot-junit5`
@@ -90,7 +90,7 @@ The test class should look like this
 
 
 ## Integration test with Standalone Runner
-In this case it requires much less help to develop integration tests, as the Standalone runner provides more control over the the process.
+In this case it requires much less help to develop integration tests, as the Standalone runner provides more control over the process.
 
-The only things you need to ensure is that the same Mongock Runner instance is not executed multiple times and the connectionDriver is not reused. The easiest way to achieve this is by re-creating the connectionDriver and re-building(and executing) the Mongock runner again in every test execution. This can be done by injecting the Mongock builder to your test class and override the connection driver.  
+You just need to ensure that the same Mongock runner instance is not executed multiple times and the connectionDriver is not reused. The easiest way to achieve this is by re-creating the connectionDriver and re-building(and executing) the Mongock runner again in every test execution. This can be done by injecting the Mongock builder to your test class and override the connection driver.  
 
