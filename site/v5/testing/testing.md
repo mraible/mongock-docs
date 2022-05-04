@@ -93,7 +93,7 @@ The test class should look like this
 ## Integration test with Standalone Runner
 The standalone runner provides more control over the process, allowing you to implement integration tests without the need of additional support.
 
-You just need to take into account the following 
+You need to take into account the following 
 
 1. Mongock Runner cannot be execute multiple times, so you need to build a new runner instance and execute it in every test execution. 
 
