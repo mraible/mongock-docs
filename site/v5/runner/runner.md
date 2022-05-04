@@ -44,6 +44,9 @@ Mongock offers two build approaches:
 - **Builder approach:** The user manually configures and executes the runner by using the runner builder. Normally by setter methods. Regardless the type of runner, all of them provides an static method `builder()` which returns the builder.
 
 - **Autoconfiguration:** Mongock automatically configures and executes the runner by taking the configuration from properties file and taking advantage of the underlying framework. However, It still uses the builder behind the scenes, but it's transparent to the user.
+
+<p class="noteAlt">Once the runner is built, it can only run once</p>
+
 ______________________________________
 
 ## Configuration

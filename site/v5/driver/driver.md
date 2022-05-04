@@ -18,6 +18,7 @@ The two main responsabilities of the driver are:
 - Persisting the change history.
 - Persisting the distributed lock.
 
+<p class="noteAlt">Once the runner is built and executed, cannot be re-executed</p>
 
 ## Drivers available
 - [MongoDB Java (3.x and 4.x)](/v5/driver/mongodb-sync)
