@@ -15,7 +15,8 @@ eleventyNavigation:
 This sections exaplains the different levels of testing(unit and integration tests) that can(and should) be applied to a Mongock migration and the tools Mongock provides for it.
 
 # Unit testing
-This is probably the easiest and more basic level of testing, which takes a changeUnit in isolation and ensures it performs the right actions and calls to the dependend components. Although it's far from being enough, as the components are normally injected as mock/stub/spy, it's a good starting point to ensure that the correctness of the changeUnit.
+Unit tests are a good starting point to ensure the correctness of a migration. With this mechanism the ChangeUnits can be validated in isolation, covering all the changeUnit's methods: `Execution`, `RollbackExecution`, `BeforeExecution` and `RollbackBeforeExecution`
+
 
 Mongock doesn't provide any speicific tool for this, but we illustrate how to do it  [in our example project](https://github.com/mongock/mongock-examples/tree/master/mongodb/springboot-quickstart)
 
@@ -27,7 +28,7 @@ A unit test for a change unit looks like this:
 
 
 # Integration test
-At this point, once we are confident our changeUnits do what they should, we probably want to test our migration(set of changeUnits) within the application  context and, given the specific input scenarios, the result in the database is what we expect.
+Once you are confident that the ChangeUnits are tested in isolation, we can increase the testing robustness by adding integration tests. The intent with Integration tests is to test the entire migration suite with your application context and validate the expected database results.
 
 This is a more complex level of testing as it requires to simulate the application context and implies the integration of the different components within the application. But it's probably the most important level of testing to ensure the correctness of the migration.
 
@@ -35,7 +36,7 @@ To see an example, please see [our example project](https://github.com/mongock/m
 
 
 ## Integration test with Springboot Runner with Junit5
-Mongock provides some util classes to make this pretty easy. In summary you need to create your test class extending `MongockSpringbootJUnit5IntegrationTestBase`, which provides the following
+Mongock provides some useful classes making testing easier. In summary, you need to create your test class extending `MongockSpringbootJUnit5IntegrationTestBase`, which provides the following
 - **BeforeEach method(automatically called):** Resets mongock to allow re-utilization(not recommended in production) and build the runner
 - **AfterEach method(automatically called):** Cleans both Mongock repositories(lock and migration) 
 - **Dependency injections:** It ensures the required dependencies(Mongock builder, connectionDriver, etc.) are injected 
@@ -90,7 +91,16 @@ The test class should look like this
 
 
 ## Integration test with Standalone Runner
-In this case it requires much less help to develop integration tests, as the Standalone runner provides more control over the process.
+The standalone runner provides more control over the process, allowing you to implement integration tests without the need of additional support.
 
-You just need to ensure that the same Mongock runner instance is not executed multiple times and the connectionDriver is not reused. The easiest way to achieve this is by re-creating the connectionDriver and re-building(and executing) the Mongock runner again in every test execution. This can be done by injecting the Mongock builder to your test class and override the connection driver.  
+You just need to take into account the following 
+
+1. Mongock Runner cannot be execute multiple times, so you need to build a new runner instance and execute it in every test execution. 
+
+
+2. ConnectionDriver cannot be reused, meaning you need to create a new ConnectionDriver instance in every test execution and provide it to the Mongock builder
+
+3. If you are sharing the same database for multiple tests, make sure you clean the database, in case you want to start fresh each test case.
+
+
 
