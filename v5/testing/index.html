@@ -377,7 +377,7 @@ function changeVersion() {
   
   <h7 class="menu-item">
     
-      <a class="menu-item "  href="/v5/testing/index.html">
+      <a class="menu-item current-page"  href="/v5/testing/index.html">
         Testing
       </a>
     
@@ -681,14 +681,74 @@ function changeVersion() {
 </aside>
 
       <article>
-        <h1 class="title">Pending in this tutorial and ideas</h1>
+        <h1 class="title">Testing</h1>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#unit-testing"> Unit testing</a></li><li><a href="#integration-test"> Integration test</a><ul><li><a href="#integration-test-with-springboot-runner-with-junit5"> Integration test with Springboot Runner with Junit5</a><ul><li><a href="#1.-import-the-mongock-springboot-junit5-dependency-to-your-project"> 1. Import the mongock-springboot-junit5 dependency to your project</a></li><li><a href="#2.-add-the-additional-dependencies-to-your-project"> 2. Add the additional dependencies to your project</a></li><li><a href="#3.-database-initialization."> 3. Database initialization.</a></li><li><a href="#4.-create-the-test-class-extending-the-mongockspringbootjunit5integrationtestbase"> 4. Create the test class extending the MongockSpringbootJUnit5IntegrationTestBase</a></li></ul></li><li><a href="#integration-test-with-springboot-runner-without-junit5"> Integration test with Springboot Runner WITHOUT Junit5</a></li><li><a href="#integration-test-with-standalone-runner"> Integration test with Standalone Runner</a></li></ul></li></ul></div></p>
+<h1 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h1>
+<p>This sections exaplains the different levels of testing(unit and integration tests) that can(and should) be applied to a Mongock migration and the tools Mongock provides for it.</p>
+<h1 id="unit-testing"><a class="header-anchor" href="#unit-testing">#</a> Unit testing</h1>
+<p>Unit tests are a good starting point to ensure the correctness of a migration. With this mechanism the ChangeUnits can be validated in isolation, covering all the changeUnit's methods: <code>Execution</code>, <code>RollbackExecution</code>, <code>BeforeExecution</code> and <code>RollbackBeforeExecution</code></p>
+<p>Mongock doesn't provide any speicific tool for this, but we illustrate how to do it  <a href="https://github.com/mongock/mongock-examples/tree/master/mongodb/springboot-quickstart">in our example project</a></p>
+<p>A unit test for a change unit looks like this:</p>
+<p class="text-center">
+    <img src="/images/changeUnit-unit-test.png" alt="ChangeUnit unit test">
+</p>
+<h1 id="integration-test"><a class="header-anchor" href="#integration-test">#</a> Integration test</h1>
+<p>Once you are confident that the ChangeUnits are tested in isolation, we can increase the testing robustness by adding integration tests. The intent with Integration tests is to test the entire migration suite with your application context and validate the expected database results.</p>
+<p>This is a more complex level of testing as it requires to simulate the application context and implies the integration of the different components within the application. But it's probably the most important level of testing to ensure the correctness of the migration.</p>
+<p>To see an example, please see <a href="https://github.com/mongock/mongock-examples/tree/master/mongodb/springboot-quickstart">our example project</a></p>
+<h2 id="integration-test-with-springboot-runner-with-junit5"><a class="header-anchor" href="#integration-test-with-springboot-runner-with-junit5">#</a> Integration test with Springboot Runner with Junit5</h2>
+<p>Mongock provides some useful classes making testing easier. In summary, you need to create your test class extending <code>MongockSpringbootJUnit5IntegrationTestBase</code>, which provides the following</p>
 <ul>
-<li>Add link to examples</li>
-<li>CLI</li>
-<li>commands in the CLI toe get the latest new, releases, etc.</li>
-<li>Video tutorials</li>
-<li>Use Cases page</li>
+<li><strong>BeforeEach method(automatically called):</strong> Resets mongock to allow re-utilization(not recommended in production) and build the runner</li>
+<li><strong>AfterEach method(automatically called):</strong> Cleans both Mongock repositories(lock and migration)</li>
+<li><strong>Dependency injections:</strong> It ensures the required dependencies(Mongock builder, connectionDriver, etc.) are injected</li>
+<li><strong>executeMongock() method:</strong> To perform the Mongock migration</li>
+<li><strong>@TestPropertySource(properties = {&quot;mongock.runner-type=NONE&quot;}):</strong> To prevent Mongock from injecting(and automatically executing) the Mongock runner bean. This is important to allow multiple Mongock runner's executions.</li>
 </ul>
+<p>Please follow these steps...</p>
+<h3 id="1.-import-the-mongock-springboot-junit5-dependency-to-your-project"><a class="header-anchor" href="#1.-import-the-mongock-springboot-junit5-dependency-to-your-project">#</a> 1. Import the <code>mongock-springboot-junit5</code> dependency to your project</h3>
+<p>Assuming you have imported already <code>mongock-springboot</code> to you project, you only need to add</p>
+<pre class="language-xml"><code class="language-xml"><div class="highlight-line">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.mongock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mongock-springboot-junit5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span></div><div class="highlight-line">            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span></div><div class="highlight-line">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></div></code></pre>
+<h3 id="2.-add-the-additional-dependencies-to-your-project"><a class="header-anchor" href="#2.-add-the-additional-dependencies-to-your-project">#</a> 2. Add the additional dependencies to your project</h3>
+<p>You probably need <code>Springboot starter test</code>, <code>JUnit5</code>, <code>Testcontainers</code>...</p>
+<h3 id="3.-database-initialization."><a class="header-anchor" href="#3.-database-initialization.">#</a> 3. Database initialization.</h3>
+<p>Although there are multiple ways of doing this, we present what we think provides a good balance easy-flexible</p>
+<p class="text-center">
+    <img src="/images/integration-test-springboot-junit5-db-initialization.png" alt="ChangeUnit unit test">
+</p>
+<h3 id="4.-create-the-test-class-extending-the-mongockspringbootjunit5integrationtestbase"><a class="header-anchor" href="#4.-create-the-test-class-extending-the-mongockspringbootjunit5integrationtestbase">#</a> 4. Create the test class extending the <code>MongockSpringbootJUnit5IntegrationTestBase</code></h3>
+<p>This class, in addition to extending <code>MongockSpringbootJUnit5IntegrationTestBase</code>, it should also bring the database initialization and the application environment.
+<br /><br />
+This is an example.</p>
+<p class="text-center">
+    <img src="/images/integration-test-springboot-junit5-test-class.png" alt="Integration test with JUnit5">
+</p>
+<h2 id="integration-test-with-springboot-runner-without-junit5"><a class="header-anchor" href="#integration-test-with-springboot-runner-without-junit5">#</a> Integration test with Springboot Runner WITHOUT Junit5</h2>
+<p>In this case Mongock provides pretty much the same than in the JUnit5 case, with the exception of the <code>before</code> and <code>after</code> methods, what forces you to make these calls explicitly.</p>
+<p>Based on the previous scenario, the relevant modifications are</p>
+<ol>
+<li>Import the dependency <code>mongock-springboot-test</code> instead <code>mongock-springboot-junit5</code></li>
+<li>Extend from <code>MongockSpringbootIntegrationTestBase</code> instead <code>MongockSpringbootJUnit5IntegrationTestBase</code></li>
+<li>Explicitly call the methods <code>super.mongockBeforeEach()</code> and <code>super.mongockAfterEach()</code></li>
+</ol>
+<p>The test class should look like this</p>
+<p class="text-center">
+    <img src="/images/integration-test-springboot-test-class.png" alt="Integration test without JUnit5">
+</p>
+<h2 id="integration-test-with-standalone-runner"><a class="header-anchor" href="#integration-test-with-standalone-runner">#</a> Integration test with Standalone Runner</h2>
+<p>The standalone runner provides more control over the process, allowing you to implement integration tests without the need of additional support.</p>
+<p>You need to take into account the following</p>
+<ol>
+<li>
+<p>Mongock Runner cannot be execute multiple times, so you need to build a new runner instance and execute it in every test execution.</p>
+</li>
+<li>
+<p>ConnectionDriver cannot be reused, meaning you need to create a new ConnectionDriver instance in every test execution and provide it to the Mongock builder</p>
+</li>
+<li>
+<p>If you are sharing the same database for multiple tests, make sure you clean the database, in case you want to start fresh each test case.</p>
+</li>
+</ol>
 
       </article>
     </main>
