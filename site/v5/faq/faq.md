@@ -62,6 +62,13 @@ Before this driver, when Mongock was used in a reactive project, developers were
 ## Can I use the mongodb-reactive-driver with a Spring Data project?
 Yes, you can! However, Mongock doesn't provide a specific driver for reactive Spring Data, so developers are forced to use the MongoDB Java Reactive Streams driver in their changUnits. You can see an example [here](https://github.com/mongock/mongock-examples/tree/master/mongodb/springboot-reactive)
 
+## Why does Mongock use a code-first approach for its change units?
+In Mongock we find multiple benefits when using this approach. However, one of the main reasons Mongock encourages a code-first 
+approach is the fact that NoSql databases don't share a standard like SQL databases. In contrast, these NoSql databases normally provide 
+a driver for the given programming language. 
+
+However, said that, depending on the driver, Mongock may also provide other approaches if it satisfies our technical 
+requirements(performance, security, etc.)
 
 
 <!--## My migrations take long and it impacts my startup time... what should I do?
