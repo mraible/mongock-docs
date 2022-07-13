@@ -315,6 +315,13 @@ function changeVersion() {
   </a>
 
             
+              
+  
+  <a class="menu-item "  href="/v5/features/custom-injections/index.html">
+    Custom injections
+  </a>
+
+            
           </nav>
          
           
@@ -682,7 +689,7 @@ function changeVersion() {
 
       <article>
         <h1 class="title">FAQ</h1>
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog"> Why we have added the ChangeUnit annotation and deprecated ChangeLog</a></li><li><a href="#i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F"> I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?</a></li><li><a href="#what-happens-if-a-changeunit-fails"> What happens if a changeUnit fails</a></li><li><a href="#should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F"> Should I implement the @RollbackExecution method in transactional environments?</a></li><li><a href="#can-mongock-be-used-in-applications-deployed-in-kubernetes%3F"> Can Mongock be used in applications deployed in Kubernetes?</a></li><li><a href="#does-the-cli-change-something-in-my-application%3F"> Does the CLI change something in my application?</a></li><li><a href="#until-which-spring-data-version-is-mongocktemplate-compatible-with%3F"> Until which Spring data version is MongockTemplate compatible with?</a></li><li><a href="#i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F"> I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?</a></li><li><a href="#what's-the-difference-between-undo-and-rollback%3F"> What's the difference between undo and rollback?</a></li><li><a href="#why-does-mongock-provide-the-mongodb-reactive-driver%2C-if-it-is-synchronous-by-definition%3F"> Why does Mongock provide the mongodb-reactive-driver, if it is synchronous by definition?</a></li><li><a href="#can-i-use-the-mongodb-reactive-driver-with-a-spring-data-project%3F"> Can I use the mongodb-reactive-driver with a Spring Data project?</a></li></ul></div></p>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog"> Why we have added the ChangeUnit annotation and deprecated ChangeLog</a></li><li><a href="#i've-migrated-to-mongock-5-and-there-are-some-existing-%40changelog-classes-in-my-project.-should-i-remove-or-change-them%3F"> I've migrated to Mongock 5 and there are some existing @ChangeLog classes in my project. Should I remove or change them?</a></li><li><a href="#what-happens-if-a-changeunit-fails"> What happens if a changeUnit fails</a></li><li><a href="#should-i-implement-the-%40rollbackexecution-method-in-transactional-environments%3F"> Should I implement the @RollbackExecution method in transactional environments?</a></li><li><a href="#can-mongock-be-used-in-applications-deployed-in-kubernetes%3F"> Can Mongock be used in applications deployed in Kubernetes?</a></li><li><a href="#does-the-cli-change-something-in-my-application%3F"> Does the CLI change something in my application?</a></li><li><a href="#until-which-spring-data-version-is-mongocktemplate-compatible-with%3F"> Until which Spring data version is MongockTemplate compatible with?</a></li><li><a href="#i-have-some-references-to-mongocktemplate-in-my-project-and-i've-upgraded-to-version-5%2C-should-i-remove-them%3F"> I have some references to MongockTemplate in my project and I've upgraded to version 5, should I remove them?</a></li><li><a href="#what's-the-difference-between-undo-and-rollback%3F"> What's the difference between undo and rollback?</a></li><li><a href="#why-does-mongock-provide-the-mongodb-reactive-driver%2C-if-it-is-synchronous-by-definition%3F"> Why does Mongock provide the mongodb-reactive-driver, if it is synchronous by definition?</a></li><li><a href="#can-i-use-the-mongodb-reactive-driver-with-a-spring-data-project%3F"> Can I use the mongodb-reactive-driver with a Spring Data project?</a></li><li><a href="#why-does-mongock-use-a-code-first-approach-for-its-change-units%3F"> Why does Mongock use a code-first approach for its change units?</a></li></ul></div></p>
 <h2 id="why-we-have-added-the-changeunit-annotation-and-deprecated-changelog"><a class="header-anchor" href="#why-we-have-added-the-changeunit-annotation-and-deprecated-changelog">#</a> Why we have added the ChangeUnit annotation and deprecated ChangeLog</h2>
 <p>Mongock team is aware of the implications of this change, that's why is totally backward compatible. All the old code related to <code>@ChangeLog</code> and <code>@ChangeSet</code> will remain compatible.</p>
 <p>However, the Mongock team has identified that the old changelog structure starts to struggle handling new features. The configuration was cumbersome and a bit more complex that needed.</p>
@@ -712,6 +719,12 @@ function changeVersion() {
 <p>Before this driver, when Mongock was used in a reactive project, developers were forced to import the synchronous MongoDB java driver(or Spring Data driver) just to be used in Mongock migration. While this is not bad, some teams prefer to avoid it. With this reactive driver, this is not the case anymore.</p>
 <h2 id="can-i-use-the-mongodb-reactive-driver-with-a-spring-data-project%3F"><a class="header-anchor" href="#can-i-use-the-mongodb-reactive-driver-with-a-spring-data-project%3F">#</a> Can I use the mongodb-reactive-driver with a Spring Data project?</h2>
 <p>Yes, you can! However, Mongock doesn't provide a specific driver for reactive Spring Data, so developers are forced to use the MongoDB Java Reactive Streams driver in their changUnits. You can see an example <a href="https://github.com/mongock/mongock-examples/tree/master/mongodb/springboot-reactive">here</a></p>
+<h2 id="why-does-mongock-use-a-code-first-approach-for-its-change-units%3F"><a class="header-anchor" href="#why-does-mongock-use-a-code-first-approach-for-its-change-units%3F">#</a> Why does Mongock use a code-first approach for its change units?</h2>
+<p>In Mongock we find multiple benefits when using this approach. However, one of the main reasons Mongock encourages a code-first
+approach is the fact that NoSql databases don't share a standard like SQL databases. In contrast, these NoSql databases normally provide
+a driver for the given programming language.</p>
+<p>However, said that, depending on the driver, Mongock may also provide other approaches if it satisfies our technical
+requirements(performance, security, etc.)</p>
 <!--## My migrations take long and it impacts my startup time... what should I do?
 
 ## What if we have an environmment with the latest changes and others out of synch?
