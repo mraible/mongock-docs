@@ -70,6 +70,7 @@ public class ClientInitializerChange {
 
   private final MongoTemplate mongoTemplate;
   private final ThirPartyService thirdPartyService;
+
   public ClientInitializerChange(MongoTemplate mongoTemplate,
                                  ThirPartyService thirdPartyService) {
     this.mongoTemplate = mongoTemplate;
@@ -80,19 +81,20 @@ public class ClientInitializerChange {
   @Execution
   public void changeSet() {
     thirdPartyService.getData()
-      .stream()
-      .forEach(client -> mongoTemplate.save(client, CLIENTS_COLLECTION_NAME));
+            .stream()
+            .forEach(client -> mongoTemplate.save(client, CLIENTS_COLLECTION_NAME));
   }
 
   /**
-  This method is mandatory even when transactions are enabled.
-  They are used in the undo operation and any other scenario where transactions are not an option.
-  However, note that when transactions are avialble and Mongock need to rollback, this method is ignored.
-  **/
+   This method is mandatory even when transactions are enabled.
+   They are used in the undo operation and any other scenario where transactions are not an option.
+   However, note that when transactions are avialble and Mongock need to rollback, this method is ignored.
+   **/
   @RollbackExecution
   public void rollback() {
     mongoTemplate.deleteMany(new Document());
   }
+}
 ```
 ### 5- Build the driver (only requried for builder approach)
 
