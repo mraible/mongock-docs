@@ -65,7 +65,7 @@ public class ClientInitializerChange {
 }
 ```
 
-## How to define/inject your custom beans
+# How to define/inject your custom beans
 ## With Spring runner
 
 If you are using Spring Runner, you will be able to access to all the beans present in the Spring context,
