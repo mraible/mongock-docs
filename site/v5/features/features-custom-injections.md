@@ -164,7 +164,7 @@ public void execution(@NonLockGuarded(RETURN) RevampRepository revampRepository)
   //TODO
 }
 ```
-## METHOD
+### METHOD
 It's the opposite to __RETURN__, Indicates the method's bean shouldn't be lock-guarded, but still should the returned object should be a proxy.
 ```java
 @Execution
@@ -172,7 +172,7 @@ public void execution(@NonLockGuarded(METHOD) RevampRepository revampRepository)
   //TODO
 }
 ```
-## NONE
+### NONE
 Indicates the method shouldn't be lock-guarded neither the returned object should be decorated for lock guard.
 ```java
 @Execution
