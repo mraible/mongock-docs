@@ -5,7 +5,7 @@ permalink: /v5/professional/index.html
 eleventyNavigation:
   version: v5
   root: true
-  order: 80
+  order: 5
 ---
 <h1 class="title">Professional- Introduction</h1>
 
