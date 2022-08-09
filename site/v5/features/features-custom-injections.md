@@ -5,7 +5,7 @@ permalink: /v5/features/custom-injections/index.html
 toc: true
 eleventyNavigation:
   version: v5
-  order: 1135 
+  order: 1 
   parent: features
   key: features custom injections
   title: 'Custom injections'

@@ -1,30 +1,22 @@
 ---
-title: Transactions 
+title: Multitenant 
 date: 2014-04-18 11:30:00 
-permalink: /v5/features/transactions/index.html
+permalink: /v5/features/multitenant/index.html
 toc: true
 eleventyNavigation:
   version: v5
-  order: 5
+  order: 15
   parent: features
-  key: features transactions 
-  title: Transactions
+  key: features multitenant 
+  title: Multitenant
 ---
-<h1 class="title">Transactions</h1>
+<h1 class="title">Multitenant <span class="professional"><a href="/pro/index.html">PRO</a></span></h1>
 
 
 
 [[TOC]]
 ## Introduction 
-
-We already discussed the [Mongock process](/v5/technical-overview#mongock-process) and the [migration component](/v5/migration) in previous sections where the transactions are already mentioned. 
-
-As its name suggests, a changeUnit represents the unit of a migration. By default each changeUnit is wrapped in a independent transaction. This can be change by configuration, but it's not recommended.
-
-<div class="tip">
-<p>In this section we mention <b>native transactions</b>. By this we mean the transaction mechanism provided by the database.</p>
-<p>Mongock always try to provide a transactional environment as much as possible. When native transactions are not possible, it tries to rollback the changes manually with the <a href="/v5/migration#changeunit-methods">@RollbackExecution</a> method.</p>
-</div>
+There are situations when you need to setup multiple tenants in a single project. A common scenario is when a consultancy provies a SaaS product in which, instead of having a shared database for all the clients, they have their own and independent database, but sharing the same deployment and source code.
 
 ## Configuration
 

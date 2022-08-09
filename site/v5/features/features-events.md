@@ -5,7 +5,7 @@ permalink: /v5/features/events/index.html
 toc: true
 eleventyNavigation:
   version: v5
-  order: 1120 
+  order: 10 
   parent: features
   key: features events
   title: 'Events'
