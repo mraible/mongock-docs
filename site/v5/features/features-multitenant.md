@@ -45,24 +45,39 @@ Springdata hides all the complexity to connect to the database, which helps a lo
 Lets imagine the following scneario...
 <br />
 
-- We have 3 tenants and one database per each. This means we have setup a Mongock driver for each database. We also have a changeUnit(lets call it `ChangeUnit-1`) that uses the `ProductRepository`(Springdata repository), for example to initialize the table/collection with some products. Mongock(who is already aware of these three tenants) runs the migration(in this case just `ChangeUnit-1`) 3 times, one per tenant, pointing to the right database.
+- We have 3 tenants(one database per each) and and API(`GET /api/{tenant}/products`) that return the list of products per tenant. 
+
 <br />
 
-It seems fine, but there is an small issue. The `ProductRepository`, which is taken from the Springboot context, is injected to the `ChangeUnit-1`, but it's not managed by Mongock, so how does `ProductRepository` know which database to point to? The answer is simple: It doesn't. 
+```java
+@RestController
+public class ClientController  {
+  
+  private final ClientRepository clientRepository;
+
+  public ClientController(ClientRepository clientRepository) {
+    this.clientRepository = clientRepository;
+  }
+  
+  @GetMapping("/api/{tenant}/clients")
+  public List<Client> getClients(@PathVariable("tenant") String tenant) {
+    return clientRepository.findAll();
+  } 
+}
+```
+
+The code above is clearly wrong.
+- We are not using the `tenant` field to indicate the owner of the products. First thinking may be passing it in the `findAll()` method, but remember, each tenant has its own database and the table/collection doesn't have a field `tenant`.
+- If each tenant has it's own database, where is `clientRepository` pointing to?
 
 ### The solution
-Regardless of using Mongock, when interacting with a Springdata repository in a multitenant environment, it's required a mechanism to select the tenant's database you want to point to. 
+When interacting with a Springdata repository in a multitenant environment, it's required a mechanism to select the tenant's database you want to point to. 
 
 <br />
 
-This normally gets the shape of a *Tenant manager* , which is used by the internal Springdata classes to select the database is talking to, but also shared with any component that should be able to tell Springdata which tenant it wants to use at any moment.
+This normally gets the shape of a *Tenant manager or selector* , which is used by the internal Springdata classes, but also shared with any component that should be able to tell Springdata which tenant's database it wants to talk to.
 
-To visualize this, lets imagine a scenario where we have a multitenant application(each tenant points to a different database) that exposes an API like:
-
-
-`GET /api/{tenant}/clients` 
-
-And the code for this could be as simple as
+Following the previous example, the solution would look like this:
 
 ```java
 @RestController
@@ -81,10 +96,19 @@ public class ClientController  {
     tenantManager.select(tenant);
     return clientRepository.findAll();
   } 
-
 }
 ```
 <br />
-This will depend on the database, for example for SQL implementations, you need to extends the class **AbstractRoutingDataSource**, while for MongoDB, **SimpleMongoClientDatabaseFactory** is the one you need to extends.
+
+Springdata would use the `tenantManager` to know which database point to. The implemenation depends on the database. For example for SQL implementations, it requires to extend the class **AbstractRoutingDataSource**, while for MongoDB(example [here](https://github.com/mongock/mongock-examples/blob/master/mongodb/springboot-multitenant/src/main/java/io/mongock/professional/examples/config/MultiTenantMongoDBFactory.java)), **SimpleMongoClientDatabaseFactory** is the one you need to extend.
+
+
+The only bit missing is how to link all this to Mongock, as it obviously needs to use the `tenantManager` to select the tenant for which is appliying the change units. Here is where the Mongock's interface `TenantManager` comes. It can be implemented by the developer, if he wants it's own implementation, or he can use the default implemenation(`TenantManagerDefault`) provided by Mongock. 
+
+
+## Resources
+
+- [MongoDB + standalone example](https://github.com/mongock/mongock-examples/tree/master/mongodb/standalone-mongodb-multitenant)
+- [MongoDB + Springdata example](https://github.com/mongock/mongock-examples/tree/master/mongodb/springboot-multitenant)
 
 
