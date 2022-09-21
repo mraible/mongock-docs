@@ -284,7 +284,7 @@ function changeVersion() {
             
               
   
-  <a class="menu-item current-page"  href="/v5/driver/cosmosdb/index.html">
+  <a class="menu-item "  href="/v5/driver/cosmosdb/index.html">
     CosmosDB
   </a>
 
@@ -338,7 +338,7 @@ function changeVersion() {
             
               
   
-  <a class="menu-item "  href="/v5/features/multitenant/index.html">
+  <a class="menu-item current-page"  href="/v5/features/multitenant/index.html">
     Multitenant
   </a>
 
@@ -695,30 +695,52 @@ function changeVersion() {
 </aside>
 
       <article>
-        <h1 class="title">CosmosDB Driver</h1>
-<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#getting-started"> Getting started</a></li><li><a href="#important-notes"> Important notes</a><ul><li><a href="#sharding-the-mongock-changelog-collection"> Sharding the Mongock ChangeLog collection</a></li><li><a href="#transactions"> Transactions</a></li></ul></li><li><a href="#resources"> Resources</a></li></ul></div></p>
-<p class="success">You can manage your <b>CosmosDB</b> migrations by using the Mongock drivers for MongoDB</p>
+        <h1 class="title">Multitenant <span class="professional"><a href="/pro/index.html">PRO</a></span></h1>
+<p><div class="table-of-contents"><h2>Table of Contents</h2><ul><li><a href="#introduction"> Introduction</a></li><li><a href="#how-it-works"> How it works</a></li><li><a href="#with-mongock-standalone"> With Mongock Standalone</a></li><li><a href="#with-springdata"> With Springdata</a><ul><li><a href="#the-challenge"> The challenge</a></li><li><a href="#the-solution"> The solution</a></li></ul></li><li><a href="#resources"> Resources</a></li></ul></div></p>
 <h2 id="introduction"><a class="header-anchor" href="#introduction">#</a> Introduction</h2>
-<p><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/introduction">Azure Cosmos DB</a> provides multiple APIs to connect to it. One of them it's the API for MongoDB, which makes it easy to use Cosmos DB as if it were a MongoDB database.</p>
-<p>You can leverage your MongoDB experience and continue to use your favorite MongoDB drivers, SDKs, and tools by pointing your application to the API for MongoDB account's connection string.</p>
-<h2 id="getting-started"><a class="header-anchor" href="#getting-started">#</a> Getting started</h2>
-<p><strong>You can use Mongock to manage your Cosmos DB migrations in the same way you would do with MongoDB</strong>, using one of the drivers Mongock provides for MongoDB. You can see how to use it in our <a href="/v5/driver/mongodb">MongoDB driver section</a></p>
-<h2 id="important-notes"><a class="header-anchor" href="#important-notes">#</a> Important notes</h2>
-<h3 id="sharding-the-mongock-changelog-collection"><a class="header-anchor" href="#sharding-the-mongock-changelog-collection">#</a> Sharding the Mongock ChangeLog collection</h3>
-<p>If you want to shard the Mongock changeLog collection, you need to use the key <code>executionId</code> as shard key. This is due to the fact that the <code>executionId</code> is the prefix of the Mongock's compound index and the MongoDB official documentation states:</p>
-<p><code>...The index can be an index on the shard key or a compound index where the shard key is a prefix of the index.</code></p>
-<p>You can find more information about <a href="https://docs.mongodb.com/manual/core/sharding-shard-key/#shard-key-indexes">shard keys</a> and <a href="https://docs.mongodb.com/manual/core/index-compound/#prefixes">prefixes</a></p>
-<h3 id="transactions"><a class="header-anchor" href="#transactions">#</a> Transactions</h3>
-<p>Although MongoDB does support Multi-document transactions(in a single or multiple, and sharded collections), they are not supported across collections or in sharded collections in version 4.0.</p>
-<h2 id="resources"><a class="header-anchor" href="#resources">#</a> Resources</h2>
-<p>You can find more information about Cosmos DB with MongoDB API and Java, here:</p>
+<p>This feature helps in situations when it's required to setup multiple tenants in a single project. A common scenario is a SaaS product in which, instead of having a shared database for all the clients, each has its own and independent database(in the same or different server), but sharing the same source code and deployment. In this case, you would want to apply the same Mongock migration to each client's database.</p>
+<p class="text-center">
+    <img src="/images/multitenant-overview.png" alt="multitenant overview" width="75%">
+</p> 
+<h2 id="how-it-works"><a class="header-anchor" href="#how-it-works">#</a> How it works</h2>
+<p>The application is configured to work with N datasources and Mongock runs the migration for all of them(sequentially). To achieve this, the user has to configure a Mongock driver per datasource, pass them to the Mongock builder and execute the Mongock runner which will apply the migration for all the tenants.</p>
+<h2 id="with-mongock-standalone"><a class="header-anchor" href="#with-mongock-standalone">#</a> With Mongock Standalone</h2>
+<p>This is the simplest scenario as there is no ORM framework to deal with. It just requires passing a driver per tenant to the Mongock builder. This mechanism is standard and doesn't change among the different Mongock drivers/databases</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line">  <span class="token class-name">MongockStandalone</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">.</span><span class="token function">setDriverMultiTenant</span><span class="token punctuation">(</span></div><div class="highlight-line">      <span class="token class-name">MongoSync4Driver</span><span class="token punctuation">.</span><span class="token function">withDefaultLock</span><span class="token punctuation">(</span>mongoClientTenant1<span class="token punctuation">,</span> <span class="token string">"db-tenant-1"</span><span class="token punctuation">)</span><span class="token punctuation">,</span></div><div class="highlight-line">      <span class="token class-name">MongoSync4Driver</span><span class="token punctuation">.</span><span class="token function">withDefaultLock</span><span class="token punctuation">(</span>mongoClientTenant2<span class="token punctuation">,</span> <span class="token string">"db-tenant-2"</span><span class="token punctuation">)</span></div><div class="highlight-line">    <span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token comment">//...</span></div></code></pre>
+<h2 id="with-springdata"><a class="header-anchor" href="#with-springdata">#</a> With Springdata</h2>
+<p>While the core idea and how it works still remains, when using Springdata in a multitenant environment(independently of Mongock) it requires some extra work, which it's explained bellow.</p>
+<h3 id="the-challenge"><a class="header-anchor" href="#the-challenge">#</a> The challenge</h3>
+<p>Springdata hides all the complexity to connect to the database, which helps a lot, but it also means the developer needs to give some flexibility up . In this case, it's not straightforward specifying the database which we want to connect to.</p>
+<p>Lets imagine the following scneario...
+<br /></p>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/mongodb-introduction">Azure Cosmos DB API for MongoDB</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/create-mongodb-java">Quickstart: Create a console app with Java and the MongoDB API in Azure Cosmos DB</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/use-multi-document-transactions">Use Multi-document transactions in Azure Cosmos DB API for MongoDB</a></li>
-<li><a href="https://docs.mongodb.com/v5.0/core/transactions/">MongoDB transactions</a></li>
-<li><a href="https://docs.mongodb.com/manual/core/sharding-shard-key/#shard-key-indexes">MongoDB shard keys</a></li>
-<li><a href="https://docs.mongodb.com/manual/core/index-compound/#prefixes">MongoDB compound indexes</a></li>
+<li>We have 3 tenants(one database per each) and an API(<code>GET /api/{tenant}/products</code>) that returns the list of products per tenant.</li>
+</ul>
+<br />
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@RestController</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClientController</span>  <span class="token punctuation">{</span></div><div class="highlight-line">  </div><div class="highlight-line">  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">ClientRepository</span> clientRepository<span class="token punctuation">;</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token class-name">ClientController</span><span class="token punctuation">(</span><span class="token class-name">ClientRepository</span> clientRepository<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token keyword">this</span><span class="token punctuation">.</span>clientRepository <span class="token operator">=</span> clientRepository<span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line">  </div><div class="highlight-line">  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/api/{tenant}/clients"</span><span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Client</span><span class="token punctuation">></span></span> <span class="token function">getClients</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"tenant"</span><span class="token punctuation">)</span> <span class="token class-name">String</span> tenant<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token keyword">return</span> clientRepository<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token punctuation">}</span> </div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<p>The above code wouldn't work because of:</p>
+<ul>
+<li>The tenant parameter in the controller's method(<code>getClients()</code>) is supposed to be used to retrieve the list of products for a given tenant. However, the above code doesn't use it at all. First thought may be to pass it to the repository's method, like <code>clientRepository.findAll(tenant)</code>, but remember that each tenant has its own database, it's not a column in a table which cab be used as query filter.</li>
+<li>If each tenant has it's own database, which database is <code>clientRepository</code> pointing to?</li>
+</ul>
+<h3 id="the-solution"><a class="header-anchor" href="#the-solution">#</a> The solution</h3>
+<p>When interacting with a Springdata repository in a multitenant environment, a mechanism to select the tenant's database you want to point to is required.</p>
+<br />
+<p>This normally gets the shape of a <em>Tenant manager or selector</em> , which is used by the internal Springdata classes, but also shared with any component that should be able to tell Springdata which tenant's database it wants to talk to.</p>
+<p>Following the previous example, the solution would look like this:</p>
+<pre class="language-java"><code class="language-java"><div class="highlight-line"><span class="token annotation punctuation">@RestController</span></div><div class="highlight-line"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClientController</span>  <span class="token punctuation">{</span></div><div class="highlight-line">  </div><div class="highlight-line">  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">TenantManager</span> tenantManager<span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">ClientRepository</span> clientRepository<span class="token punctuation">;</span></div><div class="highlight-line"></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token class-name">ClientController</span><span class="token punctuation">(</span><span class="token class-name">TenantManager</span> tenantManager<span class="token punctuation">,</span> <span class="token class-name">ClientRepository</span> clientRepository<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">    <span class="token keyword">this</span><span class="token punctuation">.</span>tenantManager <span class="token operator">=</span> tenantManager<span class="token punctuation">;</span></div><div class="highlight-line">    <span class="token keyword">this</span><span class="token punctuation">.</span>clientRepository <span class="token operator">=</span> clientRepository<span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token punctuation">}</span></div><div class="highlight-line">  </div><div class="highlight-line">  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/api/{tenant}/clients"</span><span class="token punctuation">)</span></div><div class="highlight-line">  <span class="token keyword">public</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Client</span><span class="token punctuation">></span></span> <span class="token function">getClients</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"tenant"</span><span class="token punctuation">)</span> <span class="token class-name">String</span> tenant<span class="token punctuation">)</span> <span class="token punctuation">{</span></div><div class="highlight-line">    tenantManager<span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span>tenant<span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">    <span class="token keyword">return</span> clientRepository<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></div><div class="highlight-line">  <span class="token punctuation">}</span> </div><div class="highlight-line"><span class="token punctuation">}</span></div></code></pre>
+<br />
+<p>Springdata would use the <code>tenantManager</code> to know which database point to. The implemenation depends on the database. For example for SQL, it requires to extend the class <code>AbstractRoutingDataSource</code>, while for MongoDB(example <a href="https://github.com/mongock/mongock-examples/blob/master/mongodb/springboot-multitenant/src/main/java/io/mongock/professional/examples/config/MultiTenantMongoDBFactory.java">here</a>), <code>SimpleMongoClientDatabaseFactory</code>.</p>
+<br />
+<p>The only bit missing is how to link all this to Mongock(it needs the <code>tenantManager</code> to select the tenant when applying the change units). For this, Mongock provides the interface <code>TenantManager</code>, whose implementation needs to be injected as a bean. There are two options:</p>
+<ul>
+<li>Using the default implemenation, <code>TenantManagerDefault</code>.</li>
+<li>Implementing the interface <code>TenantManager</code>, if custom implementation is required.</li>
+</ul>
+<h2 id="resources"><a class="header-anchor" href="#resources">#</a> Resources</h2>
+<ul>
+<li><a href="https://github.com/mongock/mongock-examples/tree/master/mongodb/standalone-mongodb-multitenant">MongoDB + standalone example</a></li>
+<li><a href="https://github.com/mongock/mongock-examples/tree/master/mongodb/springboot-multitenant">MongoDB + Springdata example</a></li>
 </ul>
 
       </article>
