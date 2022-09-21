@@ -67,11 +67,11 @@ public class ClientController  {
 ```
 
 The above code wouldn't work because of:
-- We are not using the `tenant` field to indicate the owner of the products. First thinking may be passing it in the `findAll()` method, but remember, each tenant has its own database and the table/collection doesn't have a field `tenant`.
-- If each tenant has it's own database, where is `clientRepository` pointing to?
+- The tenant is supposed to be used to retrieve the list of products for a given tenant, but  the above code doesn't use it at all. First thought may be to pass it to the repository's method, like `clientRepository.findAll(tenant)`, but remember that each tenant has its own database, it's not a column in a table which cab be used as query filter. 
+- If each tenant has it's own database, where is `clientRepository` pointing to? This is not clear and depends on many factors.
 
 ### The solution
-When interacting with a Springdata repository in a multitenant environment, it's required a mechanism to select the tenant's database you want to point to. 
+When interacting with a Springdata repository in a multitenant environment, a mechanism to select the tenant's database you want to point to is required. 
 
 <br />
 
