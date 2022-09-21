@@ -5,7 +5,7 @@ permalink: /v5/features/legacy-migration/index.html
 toc: true
 eleventyNavigation:
   version: v5
-  order: 1130 
+  order: 20 
   parent: features
   key: features legacy migration
   title: 'Legacy migration'

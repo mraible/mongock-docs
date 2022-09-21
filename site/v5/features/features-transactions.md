@@ -5,7 +5,7 @@ permalink: /v5/features/transactions/index.html
 toc: true
 eleventyNavigation:
   version: v5
-  order: 1115 
+  order: 5
   parent: features
   key: features transactions 
   title: Transactions
