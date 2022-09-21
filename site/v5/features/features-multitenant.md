@@ -39,13 +39,13 @@ This is the simplest scenario as there is no ORM framework to deal with. It just
 ## With Springdata
 While the core idea and how it works still remains, when using Springdata in a multitenant environment(independently of Mongock) it requires some extra work, which it's explained bellow.
 
-### The problem
+### The challenge
 Springdata hides all the complexity to connect to the database, which helps a lot, but it also means the developer needs to give some flexibility up . In this case, he cannot easily specify which tenant is connecting to. 
 
 Lets imagine the following scneario...
 <br />
 
-- We have 3 tenants(one database per each) and and API(`GET /api/{tenant}/products`) that return the list of products per tenant. 
+- We have 3 tenants(one database per each) and an API(`GET /api/{tenant}/products`) that returns the list of products per tenant. 
 
 <br />
 
@@ -66,7 +66,7 @@ public class ClientController  {
 }
 ```
 
-The code above is clearly wrong.
+The above code wouldn't work because of:
 - We are not using the `tenant` field to indicate the owner of the products. First thinking may be passing it in the `findAll()` method, but remember, each tenant has its own database and the table/collection doesn't have a field `tenant`.
 - If each tenant has it's own database, where is `clientRepository` pointing to?
 
@@ -100,10 +100,13 @@ public class ClientController  {
 ```
 <br />
 
-Springdata would use the `tenantManager` to know which database point to. The implemenation depends on the database. For example for SQL implementations, it requires to extend the class **AbstractRoutingDataSource**, while for MongoDB(example [here](https://github.com/mongock/mongock-examples/blob/master/mongodb/springboot-multitenant/src/main/java/io/mongock/professional/examples/config/MultiTenantMongoDBFactory.java)), **SimpleMongoClientDatabaseFactory** is the one you need to extend.
+Springdata would use the `tenantManager` to know which database point to. The implemenation depends on the database. For example for SQL, it requires to extend the class **AbstractRoutingDataSource**, while for MongoDB(example [here](https://github.com/mongock/mongock-examples/blob/master/mongodb/springboot-multitenant/src/main/java/io/mongock/professional/examples/config/MultiTenantMongoDBFactory.java)), **SimpleMongoClientDatabaseFactory** is the one you need to extend.
 
 
-The only bit missing is how to link all this to Mongock, as it obviously needs to use the `tenantManager` to select the tenant for which is appliying the change units. Here is where the Mongock's interface `TenantManager` comes. It can be implemented by the developer, if he wants it's own implementation, or he can use the default implemenation(`TenantManagerDefault`) provided by Mongock. 
+The only bit missing is how to link all this to Mongock(it needs the `tenantManager` to select the tenant when applying the change units). For this, Mongock provides the interface `TenantManager`, whose implementation needs to be injected as a bean. There are two options:
+
+- Implementing the interface `TenantManager`, if custom implementation is required.
+- Using the default implemenation, `TenantManagerDefault`. 
 
 
 ## Resources
