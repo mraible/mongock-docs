@@ -40,7 +40,7 @@ This is the simplest scenario as there is no ORM framework to deal with. It just
 While the core idea and how it works still remains, when using Springdata in a multitenant environment(independently of Mongock) it requires some extra work, which it's explained bellow.
 
 ### The challenge
-Springdata hides all the complexity to connect to the database, which helps a lot, but it also means the developer needs to give some flexibility up . In this case, he cannot easily specify which tenant is connecting to. 
+Springdata hides all the complexity to connect to the database, which helps a lot, but it also means the developer needs to give some flexibility up . In this case, it's not straightforward specifying the database which we want to connect to.
 
 Lets imagine the following scneario...
 <br />
