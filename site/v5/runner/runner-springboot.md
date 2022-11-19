@@ -147,7 +147,7 @@ ______________________________________
 ### Example with properties
 ```yaml
 mongock:
-  change-logs-scan-package:
+  migration-scan-package:
     - com.your.migration.package1
     - com.your.migration.package2
   metadata:
